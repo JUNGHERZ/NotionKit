@@ -58,6 +58,12 @@ jobs:
             || { echo "::error::SKILL.md does not say v${VERSION}"; exit 1; }
           echo "OK – artifacts built for v${VERSION}"
 
+      - name: CHANGELOG has an entry for this version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          grep -q "## \[${VERSION}\]" CHANGELOG.md \
+            || { echo "::error::CHANGELOG.md has no entry for ${VERSION} – add '## [${VERSION}] – YYYY-MM-DD' before releasing"; exit 1; }
+
       - name: Size budget (≤ 60 KB raw, ≤ 10 KB gzip)
         run: |
           RAW=$(wc -c < notionkit.min.css)

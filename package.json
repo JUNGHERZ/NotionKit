@@ -23,6 +23,7 @@
     "build:meta": "node tools/build-meta.mjs",
     "build": "npm run minify && npm run build:styles-js && npm run build:pages && npm run build:skill && npm run build:meta",
     "check:coverage": "node tools/check-coverage.mjs",
+    "version": "node tools/sync-version.mjs && git add notionkit.css",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

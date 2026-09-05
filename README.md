@@ -452,6 +452,20 @@ Issues and pull requests are welcome.
 - Add new components to `tools/catalog.mjs`; docs, showcase and `SKILL.md` are generated from it, and `npm run check:coverage` insists every class is documented.
 - Code and comments in English; the pages exist in English and German.
 
+### Releasing
+
+A plain push to `main` updates the website (Verify Build + Deploy Pages) and touches nothing on npm. A release is a tag:
+
+```bash
+# 1. write the CHANGELOG entry  ## [1.1.0] – YYYY-MM-DD  (the release workflow refuses to publish without it)
+# 2. bump – this also updates the version header in notionkit.css, commits and tags
+npm version minor          # or patch / major
+# 3. push branch and tag
+git push && git push --tags
+```
+
+The tag triggers `release.yml`: it checks that tag, `package.json` and `CHANGELOG.md` agree, builds, creates the GitHub release with the artefacts and publishes to npm through trusted publishing (OIDC, provenance, no token).
+
 ---
 
 ## 📄 License

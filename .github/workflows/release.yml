@@ -55,6 +55,12 @@ jobs:
           test "${GITHUB_REF_NAME}" = "v${VERSION}" \
             || { echo "::error::tag ${GITHUB_REF_NAME} does not match package.json version ${VERSION}"; exit 1; }
 
+      - name: CHANGELOG has an entry for this version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          grep -q "## \[${VERSION}\]" CHANGELOG.md \
+            || { echo "::error::CHANGELOG.md has no entry for ${VERSION} – add '## [${VERSION}] – YYYY-MM-DD' before releasing"; exit 1; }
+
       - name: Build all artifacts
         run: npm run build
 
