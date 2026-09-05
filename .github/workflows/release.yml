@@ -75,5 +75,20 @@ jobs:
             theme-override.css
             SKILL.md
 
+      # The very first version of a package has to be published by hand before
+      # a trusted publisher can be configured. Tagging that same version later
+      # must still create the GitHub release without failing on npm.
+      - name: Already on npm?
+        id: onnpm
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "${NAME}@${VERSION}" version >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"; echo "::notice::${NAME}@${VERSION} is already on npm – skipping publish"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publish to npm (OIDC, no token)
+        if: steps.onnpm.outputs.exists == 'false'
         run: npm publish --access public
