@@ -1,0 +1,79 @@
+# ============================================================
+# NotionKit – Release Pipeline
+#
+# Trigger:  tag push matching v* (e.g. v1.0.0)
+# Steps:    1. build (minify, constructable stylesheet, pages, SKILL.md)
+#           2. create the GitHub release with the artefacts attached
+#           3. publish to npm
+#
+# Usage:    git tag v1.0.0 && git push origin v1.0.0
+# Auth:     npm Trusted Publishing (OIDC) – no NPM_TOKEN secret.
+#           On npmjs.com → package → Settings → Trusted Publisher:
+#             GitHub Actions · JUNGHERZ/NotionKit · workflow: release.yml
+#           The filename of this workflow must therefore stay release.yml.
+#           Provenance is generated automatically.
+# ============================================================
+
+name: Release & Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  id-token: write   # OIDC token for npm Trusted Publishing
+
+jobs:
+  build-and-publish:
+    name: Build, Release & Publish to npm
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      # Trusted Publishing needs npm >= 11.5.1
+      - name: Ensure npm supports trusted publishing
+        run: |
+          npm install -g npm@latest
+          npm --version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Tag matches package.json
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          test "${GITHUB_REF_NAME}" = "v${VERSION}" \
+            || { echo "::error::tag ${GITHUB_REF_NAME} does not match package.json version ${VERSION}"; exit 1; }
+
+      - name: Build all artifacts
+        run: npm run build
+
+      - name: Log file sizes
+        run: |
+          ls -lh notionkit.css notionkit.min.css notionkit-styles.js
+          echo "gzip: $(gzip -9 -c notionkit.min.css | wc -c) B"
+
+      - name: Create GitHub Release & upload assets
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }} – NotionKit
+          generate_release_notes: true
+          files: |
+            notionkit.css
+            notionkit.min.css
+            notionkit-styles.js
+            theme-override.css
+            SKILL.md
+
+      - name: Publish to npm (OIDC, no token)
+        run: npm publish --access public

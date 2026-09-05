@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NotionKit – The calm workspace look as a CSS design system</title>
+<meta name="description" content="NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces. ~100 components, light & dark mode, no build step, no dependencies.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://notionkit.jungherz.com/index.html">
+<link rel="alternate" hreflang="en" href="https://notionkit.jungherz.com/index.html">
+<link rel="alternate" hreflang="de" href="https://notionkit.jungherz.com/de/index.html">
+<link rel="alternate" hreflang="x-default" href="https://notionkit.jungherz.com/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NotionKit">
+<meta property="og:title" content="NotionKit – The calm workspace look as a CSS design system">
+<meta property="og:description" content="NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces. ~100 components, light & dark mode, no build step, no dependencies.">
+<meta property="og:url" content="https://notionkit.jungherz.com/index.html">
+<meta property="og:image" content="https://notionkit.jungherz.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NotionKit – The calm workspace look as a CSS design system">
+<meta name="twitter:description" content="NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces. ~100 components, light & dark mode, no build step, no dependencies.">
+<meta name="twitter:image" content="https://notionkit.jungherz.com/og.png">
+<meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#202020" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="notionkit.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  a { color: inherit; }
+
+  .site-nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: 14px;
+    padding: 0 clamp(16px, 4vw, 40px); height: 56px;
+    background: color-mix(in srgb, var(--nk-bg) 88%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--nk-border);
+  }
+  .site-brand { display: flex; align-items: center; gap: 9px; font-weight: 600; text-decoration: none; font-size: 15px; }
+  .site-brand .mark {
+    width: 24px; height: 24px; border-radius: 6px; font-size: 13px;
+    background: linear-gradient(135deg, var(--nk-decor-purple), var(--nk-decor-blue));
+    color: var(--nk-on-accent); display: flex; align-items: center; justify-content: center;
+  }
+  .site-nav-links { display: flex; gap: 2px; margin-left: 18px; }
+  .site-nav-links a {
+    padding: 5px 10px; border-radius: var(--nk-radius); text-decoration: none;
+    color: var(--nk-text-secondary); font-size: 13.5px;
+  }
+  .site-nav-links a:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
+  .site-nav-links a.current { color: var(--nk-text); font-weight: 500; }
+  .site-nav-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+  #paletteMenu .nk-menu-item.selected { background: var(--nk-bg-active); font-weight: 500; }
+
+  .site-wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+  .site-section { padding: clamp(48px, 8vw, 96px) 0; }
+  .site-section + .site-section { border-top: 1px solid var(--nk-border); }
+  .site-h2 { font-size: clamp(24px, 3.4vw, 32px); font-weight: 600; letter-spacing: -0.015em; margin: 0 0 10px; }
+  .site-lead { font-size: 16px; line-height: 1.65; color: var(--nk-text-secondary); max-width: 68ch; margin: 0 0 28px; }
+  .site-kicker { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--nk-text-tertiary); margin-bottom: 14px; }
+
+  .site-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .site-card { border: 1px solid var(--nk-border); border-radius: 10px; padding: 20px 22px; background: var(--nk-bg-card); }
+  .site-card h3 { font-size: 15px; font-weight: 600; margin: 10px 0 6px; }
+  .site-card p { font-size: 13.5px; line-height: 1.6; color: var(--nk-text-secondary); margin: 0; }
+  .site-card .ico { font-size: 22px; }
+
+  .site-frame {
+    border: 1px solid var(--nk-border-strong); border-radius: 10px; overflow: hidden;
+    background: var(--nk-bg); box-shadow: var(--nk-shadow-menu);
+  }
+  .site-frame-bar {
+    display: flex; align-items: center; gap: 7px; padding: 8px 12px;
+    border-bottom: 1px solid var(--nk-border); background: var(--nk-bg-sidebar);
+  }
+  .site-frame-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--nk-border-strong); }
+  .site-frame-bar span { margin-left: 6px; font-size: 11.5px; color: var(--nk-text-tertiary); }
+  .site-frame iframe { display: block; width: 100%; border: 0; background: var(--nk-bg); }
+
+  .site-viewports { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .site-viewport { flex: 1 1 420px; min-width: 0; }
+  .site-viewport.mobile { flex: 0 0 auto; }
+  .site-viewport-label { font-size: 12px; color: var(--nk-text-tertiary); margin-bottom: 8px; }
+  /* The scaler shows a real viewport width shrunk to fit, so the layout the
+     iframe computes is the one that width would really produce. */
+  .site-scaler { overflow: hidden; border-radius: 10px; border: 1px solid var(--nk-border-strong); }
+  .site-scaler iframe { display: block; border: 0; transform-origin: top left; }
+
+  .site-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .site-table th {
+    text-align: left; font-weight: 500; color: var(--nk-text-tertiary); font-size: 12px;
+    text-transform: uppercase; letter-spacing: .04em; padding: 8px 12px 8px 0;
+    border-bottom: 1px solid var(--nk-border);
+  }
+  .site-table td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--nk-border); vertical-align: top; line-height: 1.55; }
+  .site-table td:first-child { font-weight: 500; white-space: nowrap; }
+  .site-table td:last-child { color: var(--nk-text-secondary); }
+
+  .site-foot {
+    border-top: 1px solid var(--nk-border); padding: 32px 0 48px;
+    font-size: 13px; color: var(--nk-text-tertiary);
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+  }
+  .site-foot a { color: var(--nk-text-secondary); }
+
+  @media (max-width: 860px) {
+    .site-nav-links { display: none; }
+    .site-viewports { gap: 32px; }
+  }
+
+  .site-hero { padding: clamp(56px, 9vw, 110px) 0 clamp(36px, 5vw, 60px); }
+  .site-hero h1 { font-size: clamp(32px, 5.4vw, 54px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.08; margin: 0 0 18px; max-width: 18ch; }
+  .site-hero .site-lead { font-size: clamp(15px, 1.6vw, 18px); }
+  .site-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 26px; }
+  .site-cta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 34px; }
+  .site-cta .nk-btn { padding: 8px 18px; font-size: 14px; text-decoration: none; }
+  .site-install { max-width: 720px; }
+  .site-install .nk-code { margin-top: 0; white-space: pre-wrap; word-break: break-all; }
+  .site-note { font-size: 13px; color: var(--nk-text-tertiary); margin-top: 10px; line-height: 1.6; }
+  .site-status { font-size: 11px; padding: 1px 8px; border-radius: 10px; font-weight: 500; }
+  .site-status.on { background: var(--nk-tag-green-bg); color: var(--nk-tag-green-text); }
+  .site-status.soon { background: var(--nk-bg-callout); color: var(--nk-text-tertiary); }
+  .site-family h3 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .site-family .role { font-size: 12px; color: var(--nk-text-tertiary); font-weight: 400; }
+</style>
+</head>
+<body class="nk-body">
+
+<nav class="site-nav">
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit</a>
+  <div class="site-nav-links">
+    <a href="index.html" class="current">Start</a>
+    <a href="docs.html">Docs</a>
+    <a href="showcase.html">Showcase</a>
+    <a href="app.html">Demo</a>
+  </div>
+  <div class="site-nav-right">
+    <a class="nk-topbar-btn" href="de/index.html" title="Deutsche Version">DE</a>
+    <a class="nk-topbar-btn" href="https://github.com/JUNGHERZ/NotionKit" title="GitHub">↗ GitHub</a>
+    <span style="position:relative">
+      <button class="nk-topbar-btn nk-theme-toggle" id="paletteToggle" title="Palette">🎨</button>
+      <div class="nk-pop nk-menu" id="paletteMenu" hidden style="position:absolute;right:0;top:34px;width:210px;z-index:60">
+        <div class="nk-menu-label">Palette · theme-override.css</div>
+        <div class="nk-menu-item" data-palette="default"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--nk-accent);border:1px solid var(--nk-border-strong)"></span>Default</div>
+        <div class="nk-menu-item" data-palette="forest"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#2f8f5b;border:1px solid var(--nk-border-strong)"></span>Forest</div>
+        <div class="nk-menu-item" data-palette="slate"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#4b6b8a;border:1px solid var(--nk-border-strong)"></span>Slate</div>
+        <div class="nk-menu-item" data-palette="sunset"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#d9730d;border:1px solid var(--nk-border-strong)"></span>Sunset</div>
+        <div class="nk-menu-item" data-palette="high-contrast"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#1e72c6;border:1px solid var(--nk-border-strong)"></span>High contrast</div>
+      </div>
+    </span>
+    <button class="nk-topbar-btn nk-theme-toggle" id="themeToggle" title="Toggle light / dark">🌙</button>
+  </div>
+</nav>
+
+<header class="site-wrap site-hero">
+  <div class="site-kicker">CSS component library · v1.0.0</div>
+  <h1>The calm workspace look, as a design system.</h1>
+  <p class="site-lead">NotionKit gives you Notion’s quiet, document-centric surface as ready-made CSS: sidebar, page tree, callouts, database views, settings and AI threads. One stylesheet. No build step, no JavaScript, no framework lock-in.</p>
+  <div class="site-badges">
+    <span class="nk-tag blue">CSS only</span>
+    <span class="nk-tag green">~100 components</span>
+    <span class="nk-tag purple">Light &amp; Dark</span>
+    <span class="nk-tag orange">7.2 KB gzip</span>
+    <span class="nk-tag blue">MIT</span>
+  </div>
+  <div class="site-cta">
+    <a class="nk-btn primary" href="docs.html">Read the docs</a>
+    <a class="nk-btn secondary" href="showcase.html">Browse components</a>
+  </div>
+
+  <div class="site-install">
+    <h2 class="site-kicker" style="margin-bottom:8px">Drop it in</h2>
+    <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;link</span> <span class="attr">rel=</span>"stylesheet" <span class="attr">href=</span>"https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1/notionkit.min.css"<span class="tag">&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">data-theme=</span>"dark"<span class="tag">&gt;</span></div>
+    <div class="nk-code"><span class="lang">npm</span>npm install @jungherz-de/notionkit</div>
+    <p class="site-note">Set the theme with <code class="nk-inline-code">data-theme</code> on <code class="nk-inline-code">&lt;html&gt;</code>. That is the whole setup.</p>
+  </div>
+</header>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">The whole library, in one realistic screen</h2>
+    <p class="site-lead">Below is the live demo — app shell, page tree, document, database views, command palette, settings modal and AI thread. Everything you see is NotionKit markup; the interactions are ~290 lines of plain JavaScript that ship with the demo, not with the library.</p>
+  </div>
+  <div class="site-wrap" style="max-width:1320px">
+    <div class="site-frame">
+      <div class="site-frame-bar"><i></i><i></i><i></i><span>notionkit.jungherz.com/app.html</span></div>
+      <iframe src="app.html" title="NotionKit demo" loading="lazy" data-theme-sync style="height:min(760px, 82vh)"></iframe>
+    </div>
+    <p class="site-note"><a href="app.html">Open the demo full screen ↗</a></p>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">Desktop and mobile, equally</h2>
+    <p class="site-lead">NotionKit is not a mobile-first kit stretched to the desktop, nor a desktop kit squeezed onto a phone. Layouts are fluid, there is exactly one breakpoint at 860px, and the same markup carries both. Same page, two viewports:</p>
+    <div class="site-viewports">
+      <div class="site-viewport" style="flex:0 0 auto;width:640px">
+        <div class="site-viewport-label">Desktop · 1280 px</div>
+        <div class="site-scaler" style="width:640px;height:400px">
+          <iframe src="app.html" title="Desktop · 1280 px" loading="lazy" data-theme-sync
+                  style="width:1280px;height:800px;transform:scale(0.5)"></iframe>
+        </div>
+      </div>
+      <div class="site-viewport mobile" style="width:242px">
+        <div class="site-viewport-label">Mobile · 390 px</div>
+        <div class="site-scaler" style="width:242px;height:484px">
+          <iframe src="app.html" title="Mobile · 390 px" loading="lazy" data-theme-sync
+                  style="width:390px;height:780px;transform:scale(0.62)"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">Why NotionKit</h2>
+    <div class="site-grid" style="margin-top:28px">
+      <div class="site-card"><div class="ico">🎨</div><h3>Pure CSS</h3><p>One stylesheet, no JavaScript, no dependencies. Works with plain HTML, Flask, Rails, Laravel, Astro, React — anything that emits class names.</p></div>
+      <div class="site-card"><div class="ico">🌗</div><h3>Light &amp; dark, complete</h3><p>Both themes are fully specified down to tag colours and shadows. Switch with a single attribute on <code class="nk-inline-code">&lt;html&gt;</code>.</p></div>
+      <div class="site-card"><div class="ico">🎛️</div><h3>Design tokens</h3><p>Every value is a <code class="nk-inline-code">--nk-*</code> custom property. Re-branding is one declaration: <code class="nk-inline-code">--nk-accent</code>. Everything else is mixed from it.</p></div>
+      <div class="site-card"><div class="ico">📐</div><h3>Desktop and mobile equally</h3><p>No fixed viewport widths, no device mockups. Fluid layouts, one breakpoint, horizontal scrolling where tables and boards need it.</p></div>
+      <div class="site-card"><div class="ico">🧩</div><h3>Shadow DOM ready</h3><p>Ships a constructable stylesheet split into tokens and components, plus <code class="nk-inline-code">::slotted()</code> twins — so web components can adopt it without breaking branding.</p></div>
+      <div class="site-card"><div class="ico">🤖</div><h3>AI-ready</h3><p>A structured <code class="nk-inline-code">SKILL.md</code> gives coding agents the exact markup, nesting rules and six full app skeletons.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">What is in the box</h2>
+    <p class="site-lead">About 100 component classes across eleven groups. Every one of them is documented with a live preview and its mobile behaviour.</p>
+    <table class="site-table">
+      <thead><tr><th>Group</th><th>What you get</th></tr></thead>
+      <tbody>
+        <tr><td>App shell &amp; layout</td><td><code class="nk-inline-code">nk-app</code>, sidebar with workspace switcher and footer, main column, topbar with breadcrumb and actions, section labels</td></tr>
+        <tr><td>Navigation / page tree</td><td>Tree items with active state and hover actions, collapsible children, toggle arrows, keyboard hints</td></tr>
+        <tr><td>Page shell &amp; document</td><td>Scroll container, cover, page column, page icon, editable title, meta row, headings, lead paragraph</td></tr>
+        <tr><td>Content elements</td><td>Callouts, todos with strike-through, toggles, dividers, block quotes, mentions (person / page / date), inline code, code blocks</td></tr>
+        <tr><td>Database views</td><td>View tabs with counts, scrollable tables, tags in four colours, progress bars, board columns and cards</td></tr>
+        <tr><td>Forms &amp; settings</td><td>Inputs, textareas, selects with custom chevron, five button variants, switches, checkboxes and radios, sliders, field rows, model cards, danger zone, member rows</td></tr>
+        <tr><td>Settings modal</td><td>Backdrop, modal shell, settings nav with user block, content area, switchable panes</td></tr>
+        <tr><td>Overlays &amp; menus</td><td>Popover base, emoji picker, context menus with shortcuts, full command palette, toasts</td></tr>
+        <tr><td>Gallery &amp; productivity</td><td>Gallery grid, tabs, template buttons, stat cards with deltas, synced blocks, segmented control, banners, avatar groups, skeletons, empty states</td></tr>
+        <tr><td>Collaboration &amp; AI</td><td>Comment threads, comment input, AI message thread, message actions, AI input row</td></tr>
+        <tr><td>Editor adapter</td><td><code class="nk-inline-code">nk-block-host</code> plus themed overrides for TipTap/ProseMirror, BlockNote and Novel, with slash menu and bubble toolbar</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">The editor is deliberately not included</h2>
+    <p class="site-lead">A block editor — selection, paste, keyboard, undo, mobile — is its own product, and half an editor would damage the library in real apps. So NotionKit ships <code class="nk-inline-code">.nk-block-host</code>, the optical shell, plus a themed adapter layer for TipTap, BlockNote and Novel. Mount the editor you want; it comes out looking like part of the system.</p>
+    <p><a class="nk-btn secondary" href="docs.html#editor" style="text-decoration:none">See the TipTap recipe →</a></p>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">The NotionKit family</h2>
+    <p class="site-lead">NotionKit is the CSS foundation of a three-layer family. The layers share one design language and one naming stem: <code class="nk-inline-code">.nk-callout</code> becomes <code class="nk-inline-code">&lt;nk-callout&gt;</code>.</p>
+    <div class="site-grid site-family">
+      <div class="site-card">
+        <h3>NotionKit <span class="site-status on">Available now</span></h3>
+        <div class="role">CSS foundation</div>
+        <p style="margin-top:8px">This project. <code class="nk-inline-code">.nk-*</code> classes and <code class="nk-inline-code">--nk-*</code> tokens for any stack.</p>
+      </div>
+      <div class="site-card">
+        <h3>NotionKit Elements <span class="site-status soon">Planned</span></h3>
+        <div class="role">Web components</div>
+        <p style="margin-top:8px">Vanilla-JS custom elements that wrap this markup, built on the constructable stylesheet shipped here.</p>
+      </div>
+      <div class="site-card">
+        <h3>NotionKit Web <span class="site-status soon">Planned</span></h3>
+        <div class="role">Astro template</div>
+        <p style="margin-top:8px">A full website template — documentation, knowledge bases, product pages — on the same foundation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-wrap site-foot">
+  <span>MIT licensed · Built by <a href="https://www.jungherz.com">Jungherz GmbH</a></span>
+  <a href="https://github.com/JUNGHERZ/NotionKit">GitHub</a>
+  <a href="https://www.npmjs.com/package/@jungherz-de/notionkit">npm</a>
+  <a href="de/index.html">DE</a>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    function set(theme) {
+      root.setAttribute('data-theme', theme);
+      if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+      try { localStorage.setItem('nk-theme', theme); } catch (e) {}
+      document.querySelectorAll('iframe[data-theme-sync]').forEach(function (f) {
+        try { f.contentWindow.postMessage({ nkTheme: theme }, '*'); } catch (e) {}
+      });
+    }
+    var stored = null;
+    try { stored = localStorage.getItem('nk-theme'); } catch (e) {}
+    set(stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    if (btn) btn.addEventListener('click', function () {
+      set(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  })();
+  (function () {
+    var PALETTES = [{"id":"default","name":"Default","light":{},"dark":{}},{"id":"forest","name":"Forest","light":{"--nk-accent":"#2f8f5b"},"dark":{"--nk-accent":"#5cbf87"}},{"id":"slate","name":"Slate","light":{"--nk-accent":"#4b6b8a","--nk-decor-purple":"#6b7d94","--nk-decor-blue":"#4b6b8a","--nk-decor-orange":"#8a7a5b"},"dark":{"--nk-accent":"#7fa3c4"}},{"id":"sunset","name":"Sunset","light":{"--nk-accent":"#d9730d","--nk-danger":"#c93c3c","--nk-decor-purple":"#c2552a","--nk-decor-blue":"#e0a53c"},"dark":{"--nk-accent":"#ffa344"}},{"id":"high-contrast","name":"High Contrast","light":{"--nk-text-secondary":"rgba(55,53,47,0.72)","--nk-text-tertiary":"rgba(55,53,47,0.70)","--nk-accent":"#1e72c6","--nk-danger":"#c64646","--nk-tag-blue-text":"#2d7096","--nk-tag-green-text":"#3d7657","--nk-tag-orange-text":"#a05409","--nk-tag-purple-text":"#845ca2"},"dark":{"--nk-text-tertiary":"rgba(255,255,255,0.48)","--nk-on-accent":"#191919","--nk-tag-green-text":"#52aea0","--nk-tag-purple-text":"#a880de"}}];
+    var KEY = 'nk-palette';
+    function css(p) {
+      var rule = function (sel, o) { var k = Object.keys(o); return k.length ? sel + '{' + k.map(function (n) { return n + ':' + o[n]; }).join(';') + '}' : ''; };
+      return rule(':root', p.light) + rule('[data-theme="dark"]', p.dark);
+    }
+    function apply(id) {
+      var p = PALETTES.filter(function (x) { return x.id === id; })[0] || PALETTES[0];
+      var el = document.getElementById('nk-palette-style');
+      if (!el) { el = document.createElement('style'); el.id = 'nk-palette-style'; document.head.appendChild(el); }
+      el.textContent = css(p);
+      try { localStorage.setItem(KEY, p.id); } catch (e) {}
+      document.querySelectorAll('[data-palette]').forEach(function (b) { b.classList.toggle('selected', b.dataset.palette === p.id); });
+      var sel = document.getElementById('paletteSelect'); if (sel && sel.value !== p.id) sel.value = p.id;
+      document.querySelectorAll('iframe[data-theme-sync]').forEach(function (f) { try { f.contentWindow.postMessage({ nkPalette: p.id }, '*'); } catch (e) {} });
+    }
+    var stored = null; try { stored = localStorage.getItem(KEY); } catch (e) {}
+    apply(stored || 'default');
+    window.addEventListener('message', function (e) { if (e.data && e.data.nkPalette) apply(e.data.nkPalette); });
+    var sel = document.getElementById('paletteSelect'); if (sel) sel.addEventListener('change', function () { apply(sel.value); });
+    var btn = document.getElementById('paletteToggle'), menu = document.getElementById('paletteMenu');
+    if (btn && menu) {
+      btn.addEventListener('click', function (e) { e.stopPropagation(); menu.hidden = !menu.hidden; });
+      menu.addEventListener('click', function (e) { var t = e.target.closest('[data-palette]'); if (t) { apply(t.dataset.palette); menu.hidden = true; } });
+      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) menu.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menu.hidden = true; });
+    }
+    window.nkApplyPalette = apply;
+  })();</script>
+</body>
+</html>

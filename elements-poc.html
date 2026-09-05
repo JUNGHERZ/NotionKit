@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NotionKit – Elements proof of concept</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="A custom element that adopts the NotionKit component sheet and re-themes through data-theme – measured live.">
+<meta property="og:title" content="NotionKit – Elements proof of concept">
+<meta property="og:description" content="A custom element that adopts the NotionKit component sheet and re-themes through data-theme – measured live.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:image" content="https://notionkit.jungherz.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://notionkit.jungherz.com/og.png">
+<link rel="stylesheet" href="notionkit.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  .poc-wrap { max-width: 860px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 40px) 80px; }
+  .poc-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .poc-top .spacer { flex: 1; }
+  .poc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px 28px; margin: 18px 0 8px; }
+  .poc-col > h4 { font-size: 12px; font-weight: 500; color: var(--nk-text-tertiary); text-transform: uppercase; letter-spacing: .04em; margin: 0 0 8px; }
+  .poc-note { font-size: 13.5px; line-height: 1.65; color: var(--nk-text-secondary); max-width: 70ch; }
+  .poc-check { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 13px; margin: 14px 0; align-items: baseline; }
+  .poc-check b { font-weight: 500; }
+  .poc-check code { font-family: var(--nk-font-mono); font-size: 12px; }
+  .pass { color: var(--nk-tag-green-text); } .fail { color: var(--nk-danger); }
+  #fileWarning { display: none; }
+</style>
+</head>
+<body class="nk-body">
+<div class="poc-wrap">
+
+  <div class="poc-top">
+    <a class="nk-btn secondary small" href="index.html" style="text-decoration:none">← NotionKit</a>
+    <span class="spacer"></span>
+    <button class="nk-btn secondary small" id="brand">Brand: --nk-bg-callout → lavender</button>
+    <button class="nk-topbar-btn nk-theme-toggle" id="themeToggle" title="Toggle light / dark">🌙</button>
+  </div>
+
+  <h1 class="nk-page-title" style="font-size:30px">Elements proof of concept</h1>
+  <p class="poc-note">Left: the CSS class. Right: a custom element whose shadow root adopts only <code class="nk-inline-code">componentsSheet</code> from <code class="nk-inline-code">notionkit-styles.js</code>. Both must look the same, re-theme together, take the page's branding, and size a <em>slotted</em> icon. The table below measures that instead of asserting it.</p>
+
+  <div class="nk-banner warning" id="fileWarning">⚠️ Opened from <code>file://</code> – module imports are blocked there. Serve the folder (<code>npx http-server -c-1</code>) and run <code>npm run build</code> first.</div>
+
+  <div class="poc-grid">
+    <div class="poc-col">
+      <h4>.nk-callout (class, light DOM)</h4>
+      <div class="nk-callout" id="classCallout"><span class="c-icon" id="classIcon">💡</span><div><b>Core idea:</b> a callout carries one thought that must not be missed.</div></div>
+      <p style="margin:10px 0 0"><span class="nk-tag blue">In progress</span> <span class="nk-tag green">Done</span> <span class="nk-tag orange">Planned</span></p>
+    </div>
+    <div class="poc-col">
+      <h4>&lt;nk-callout&gt; (element, shadow DOM)</h4>
+      <nk-callout id="elCallout"><span slot="icon" id="slottedIcon">💡</span><b>Core idea:</b> a callout carries one thought that must not be missed.</nk-callout>
+      <p style="margin:10px 0 0"><nk-tag color="blue">In progress</nk-tag> <nk-tag color="green">Done</nk-tag> <nk-tag color="orange">Planned</nk-tag></p>
+    </div>
+  </div>
+
+  <h2 class="nk-heading" style="font-size:17px">Measured</h2>
+  <div class="poc-check" id="checks"></div>
+
+  <details class="nk-toggle" open>
+    <summary>How it works</summary>
+    <div class="toggle-body">
+      <p>The element adopts <code class="nk-inline-code">componentsSheet</code> only. Tokens go on the document once, wrapped in <code class="nk-inline-code">@layer notionkit-defaults</code>, so the page's own <code class="nk-inline-code">notionkit.css</code> and any brand stylesheet win over them. Inside the shadow root the tokens are simply <em>inherited</em>. A <code class="nk-inline-code">display:contents</code> wrapper mirrors <code class="nk-inline-code">data-theme</code> from <code class="nk-inline-code">&lt;html&gt;</code>, driven by one <code class="nk-inline-code">MutationObserver</code> for all instances.</p>
+      <p>The slotted icon is styled by the <code class="nk-inline-code">::slotted([slot="icon"])</code> twin of the <code class="nk-inline-code">.c-icon</code> rule in <code class="nk-inline-code">notionkit.css</code>. Without that twin it would measure 0×0 – the bug GlassKit 1.10 fixed.</p>
+      <div class="nk-code"><span class="lang">html</span>&lt;script type="module" src="nk-callout.js"&gt;&lt;/script&gt;
+
+&lt;nk-callout icon="💡"&gt;Text&lt;/nk-callout&gt;
+&lt;nk-callout&gt;&lt;span slot="icon"&gt;📌&lt;/span&gt;Text&lt;/nk-callout&gt;
+&lt;nk-tag color="green"&gt;Done&lt;/nk-tag&gt;</div>
+    </div>
+  </details>
+
+</div>
+
+<script type="module">
+  if (location.protocol === 'file:') document.getElementById('fileWarning').style.display = 'flex';
+  import('./nk-callout.js').then(() => customElements.whenDefined('nk-callout')).then(measure).catch(err => {
+    document.getElementById('checks').innerHTML = '<b class="fail">Failed to load nk-callout.js</b><span>' + err.message + ' — run <code>npm run build</code> and serve over http.</span>';
+  });
+
+  const themeBtn = document.getElementById('themeToggle');
+  const setTheme = t => { document.documentElement.setAttribute('data-theme', t); themeBtn.textContent = t === 'dark' ? '☀️' : '🌙'; setTimeout(measure, 50); };
+  themeBtn.addEventListener('click', () => setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+  let branded = false;
+  document.getElementById('brand').addEventListener('click', e => {
+    branded = !branded;
+    document.documentElement.style.setProperty('--nk-bg-callout', branded ? '#ece6f7' : '');
+    e.target.textContent = branded ? 'Brand: reset' : 'Brand: --nk-bg-callout → lavender';
+    setTimeout(measure, 50);
+  });
+
+  function measure() {
+    const el = document.getElementById('elCallout');
+    if (!el || !el.shadowRoot) return;
+    const shadowBox = el.shadowRoot.querySelector('.nk-callout');
+    const classBox = document.getElementById('classCallout');
+    const bgS = getComputedStyle(shadowBox).backgroundColor, bgC = getComputedStyle(classBox).backgroundColor;
+    const iconS = document.getElementById('slottedIcon'), iconC = document.getElementById('classIcon');
+    const fsS = getComputedStyle(iconS).fontSize, fsC = getComputedStyle(iconC).fontSize;
+    const rS = iconS.getBoundingClientRect();
+    const tagS = document.querySelector('nk-tag[color="green"]').shadowRoot.querySelector('.nk-tag');
+    const tagC = document.querySelector('.nk-tag.green');
+    const tagOk = getComputedStyle(tagS).color === getComputedStyle(tagC).color && getComputedStyle(tagS).backgroundColor === getComputedStyle(tagC).backgroundColor;
+    const tokenDecl = getComputedStyle(el.shadowRoot.host).getPropertyValue('--nk-accent').trim();
+    const sheets = el.shadowRoot.adoptedStyleSheets.length;
+    const rows = [
+      ['Theme', document.documentElement.getAttribute('data-theme'), true],
+      ['Callout background (class / element)', `${bgC} / ${bgS}`, bgC === bgS],
+      ['Slotted icon font-size (class / element)', `${fsC} / ${fsS}`, fsC === fsS],
+      ['Slotted icon box', `${Math.round(rS.width)}×${Math.round(rS.height)} px`, rS.width > 0 && rS.height > 0],
+      ['nk-tag colour pair (class / element)', tagOk ? 'identical' : 'differs', tagOk],
+      ['--nk-accent reaches the host by inheritance', tokenDecl, !!tokenDecl],
+      ['Sheets adopted in the shadow root', `${sheets} (components + host)`, sheets === 2],
+      ['Token layer on document', document.adoptedStyleSheets.some(s => [...s.cssRules].some(r => r.cssText.startsWith('@layer notionkit-defaults'))) ? 'yes' : 'no', true],
+    ];
+    document.getElementById('checks').innerHTML = rows.map(([k, v, ok]) => `<b class="${ok ? 'pass' : 'fail'}">${ok ? '✓' : '✗'} ${k}</b><code>${v}</code>`).join('');
+    window.__pocResult = rows.map(([k, v, ok]) => ({ k, v, ok }));
+  }
+</script>
+</body>
+</html>

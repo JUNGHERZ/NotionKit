@@ -1,0 +1,30 @@
+# NotionKit – gitignore
+
+# Build artefacts (produced by `npm run build`; the release and pages
+# workflows build them fresh)
+notionkit.min.css
+notionkit.min.css.map
+notionkit-styles.js
+node_modules/
+package-lock.json
+_site/
+
+# Local only: the untouched design reference used for the pixel comparison
+_reference.html
+
+# System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Playwright
+.playwright-cli/
+
+# Logs
+*.log

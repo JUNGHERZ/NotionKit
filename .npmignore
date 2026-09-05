@@ -1,0 +1,45 @@
+# Build and page generators (not relevant to npm consumers)
+build-styles-js.mjs
+tools/
+
+# Demo / documentation pages and their assets
+index.html
+showcase.html
+docs.html
+app.html
+elements-poc.html
+nk-callout.js
+docs-editor.js
+de/
+favicon.svg
+favicon.png
+apple-touch-icon.png
+og.png
+sitemap.xml
+robots.txt
+llms.txt
+CNAME
+_site/
+_reference.html
+
+# Git & GitHub
+.git/
+.github/
+.gitignore
+
+# Project docs that do not belong in the tarball
+PRD-NotionKit.md
+
+# System / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*.log
+.playwright-cli/
+
+# Source map is optional – drop this line to ship it
+notionkit.min.css.map

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NotionKit – Die ruhige Workspace-Optik als CSS-Design-System</title>
+<meta name="description" content="NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen. Rund 100 Komponenten, Light &amp; Dark, ohne Build-Step, ohne Abhängigkeiten.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://notionkit.jungherz.com/de/index.html">
+<link rel="alternate" hreflang="en" href="https://notionkit.jungherz.com/index.html">
+<link rel="alternate" hreflang="de" href="https://notionkit.jungherz.com/de/index.html">
+<link rel="alternate" hreflang="x-default" href="https://notionkit.jungherz.com/index.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NotionKit">
+<meta property="og:title" content="NotionKit – Die ruhige Workspace-Optik als CSS-Design-System">
+<meta property="og:description" content="NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen. Rund 100 Komponenten, Light &amp; Dark, ohne Build-Step, ohne Abhängigkeiten.">
+<meta property="og:url" content="https://notionkit.jungherz.com/de/index.html">
+<meta property="og:image" content="https://notionkit.jungherz.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NotionKit – Die ruhige Workspace-Optik als CSS-Design-System">
+<meta name="twitter:description" content="NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen. Rund 100 Komponenten, Light &amp; Dark, ohne Build-Step, ohne Abhängigkeiten.">
+<meta name="twitter:image" content="https://notionkit.jungherz.com/og.png">
+<meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#202020" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../notionkit.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  a { color: inherit; }
+
+  .site-nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: 14px;
+    padding: 0 clamp(16px, 4vw, 40px); height: 56px;
+    background: color-mix(in srgb, var(--nk-bg) 88%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--nk-border);
+  }
+  .site-brand { display: flex; align-items: center; gap: 9px; font-weight: 600; text-decoration: none; font-size: 15px; }
+  .site-brand .mark {
+    width: 24px; height: 24px; border-radius: 6px; font-size: 13px;
+    background: linear-gradient(135deg, var(--nk-decor-purple), var(--nk-decor-blue));
+    color: var(--nk-on-accent); display: flex; align-items: center; justify-content: center;
+  }
+  .site-nav-links { display: flex; gap: 2px; margin-left: 18px; }
+  .site-nav-links a {
+    padding: 5px 10px; border-radius: var(--nk-radius); text-decoration: none;
+    color: var(--nk-text-secondary); font-size: 13.5px;
+  }
+  .site-nav-links a:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
+  .site-nav-links a.current { color: var(--nk-text); font-weight: 500; }
+  .site-nav-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+  #paletteMenu .nk-menu-item.selected { background: var(--nk-bg-active); font-weight: 500; }
+
+  .site-wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+  .site-section { padding: clamp(48px, 8vw, 96px) 0; }
+  .site-section + .site-section { border-top: 1px solid var(--nk-border); }
+  .site-h2 { font-size: clamp(24px, 3.4vw, 32px); font-weight: 600; letter-spacing: -0.015em; margin: 0 0 10px; }
+  .site-lead { font-size: 16px; line-height: 1.65; color: var(--nk-text-secondary); max-width: 68ch; margin: 0 0 28px; }
+  .site-kicker { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--nk-text-tertiary); margin-bottom: 14px; }
+
+  .site-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .site-card { border: 1px solid var(--nk-border); border-radius: 10px; padding: 20px 22px; background: var(--nk-bg-card); }
+  .site-card h3 { font-size: 15px; font-weight: 600; margin: 10px 0 6px; }
+  .site-card p { font-size: 13.5px; line-height: 1.6; color: var(--nk-text-secondary); margin: 0; }
+  .site-card .ico { font-size: 22px; }
+
+  .site-frame {
+    border: 1px solid var(--nk-border-strong); border-radius: 10px; overflow: hidden;
+    background: var(--nk-bg); box-shadow: var(--nk-shadow-menu);
+  }
+  .site-frame-bar {
+    display: flex; align-items: center; gap: 7px; padding: 8px 12px;
+    border-bottom: 1px solid var(--nk-border); background: var(--nk-bg-sidebar);
+  }
+  .site-frame-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--nk-border-strong); }
+  .site-frame-bar span { margin-left: 6px; font-size: 11.5px; color: var(--nk-text-tertiary); }
+  .site-frame iframe { display: block; width: 100%; border: 0; background: var(--nk-bg); }
+
+  .site-viewports { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .site-viewport { flex: 1 1 420px; min-width: 0; }
+  .site-viewport.mobile { flex: 0 0 auto; }
+  .site-viewport-label { font-size: 12px; color: var(--nk-text-tertiary); margin-bottom: 8px; }
+  /* The scaler shows a real viewport width shrunk to fit, so the layout the
+     iframe computes is the one that width would really produce. */
+  .site-scaler { overflow: hidden; border-radius: 10px; border: 1px solid var(--nk-border-strong); }
+  .site-scaler iframe { display: block; border: 0; transform-origin: top left; }
+
+  .site-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .site-table th {
+    text-align: left; font-weight: 500; color: var(--nk-text-tertiary); font-size: 12px;
+    text-transform: uppercase; letter-spacing: .04em; padding: 8px 12px 8px 0;
+    border-bottom: 1px solid var(--nk-border);
+  }
+  .site-table td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--nk-border); vertical-align: top; line-height: 1.55; }
+  .site-table td:first-child { font-weight: 500; white-space: nowrap; }
+  .site-table td:last-child { color: var(--nk-text-secondary); }
+
+  .site-foot {
+    border-top: 1px solid var(--nk-border); padding: 32px 0 48px;
+    font-size: 13px; color: var(--nk-text-tertiary);
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+  }
+  .site-foot a { color: var(--nk-text-secondary); }
+
+  @media (max-width: 860px) {
+    .site-nav-links { display: none; }
+    .site-viewports { gap: 32px; }
+  }
+
+  .site-hero { padding: clamp(56px, 9vw, 110px) 0 clamp(36px, 5vw, 60px); }
+  .site-hero h1 { font-size: clamp(32px, 5.4vw, 54px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.08; margin: 0 0 18px; max-width: 18ch; }
+  .site-hero .site-lead { font-size: clamp(15px, 1.6vw, 18px); }
+  .site-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 26px; }
+  .site-cta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 34px; }
+  .site-cta .nk-btn { padding: 8px 18px; font-size: 14px; text-decoration: none; }
+  .site-install { max-width: 720px; }
+  .site-install .nk-code { margin-top: 0; white-space: pre-wrap; word-break: break-all; }
+  .site-note { font-size: 13px; color: var(--nk-text-tertiary); margin-top: 10px; line-height: 1.6; }
+  .site-status { font-size: 11px; padding: 1px 8px; border-radius: 10px; font-weight: 500; }
+  .site-status.on { background: var(--nk-tag-green-bg); color: var(--nk-tag-green-text); }
+  .site-status.soon { background: var(--nk-bg-callout); color: var(--nk-text-tertiary); }
+  .site-family h3 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .site-family .role { font-size: 12px; color: var(--nk-text-tertiary); font-weight: 400; }
+</style>
+</head>
+<body class="nk-body">
+
+<nav class="site-nav">
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit</a>
+  <div class="site-nav-links">
+    <a href="index.html" class="current">Start</a>
+    <a href="docs.html">Doku</a>
+    <a href="showcase.html">Showcase</a>
+    <a href="app.html">Demo</a>
+  </div>
+  <div class="site-nav-right">
+    <a class="nk-topbar-btn" href="../index.html" title="English version">EN</a>
+    <a class="nk-topbar-btn" href="https://github.com/JUNGHERZ/NotionKit" title="GitHub">↗ GitHub</a>
+    <span style="position:relative">
+      <button class="nk-topbar-btn nk-theme-toggle" id="paletteToggle" title="Farbschema">🎨</button>
+      <div class="nk-pop nk-menu" id="paletteMenu" hidden style="position:absolute;right:0;top:34px;width:210px;z-index:60">
+        <div class="nk-menu-label">Farbschema · theme-override.css</div>
+        <div class="nk-menu-item" data-palette="default"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--nk-accent);border:1px solid var(--nk-border-strong)"></span>Standard</div>
+        <div class="nk-menu-item" data-palette="forest"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#2f8f5b;border:1px solid var(--nk-border-strong)"></span>Forest</div>
+        <div class="nk-menu-item" data-palette="slate"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#4b6b8a;border:1px solid var(--nk-border-strong)"></span>Slate</div>
+        <div class="nk-menu-item" data-palette="sunset"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#d9730d;border:1px solid var(--nk-border-strong)"></span>Sunset</div>
+        <div class="nk-menu-item" data-palette="high-contrast"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#1e72c6;border:1px solid var(--nk-border-strong)"></span>Hoher Kontrast</div>
+      </div>
+    </span>
+    <button class="nk-topbar-btn nk-theme-toggle" id="themeToggle" title="Light / Dark wechseln">🌙</button>
+  </div>
+</nav>
+
+<header class="site-wrap site-hero">
+  <div class="site-kicker">CSS-Komponentenbibliothek · v1.0.0</div>
+  <h1>Die ruhige Workspace-Optik, als Design-System.</h1>
+  <p class="site-lead">NotionKit liefert Notions ruhige, dokumentzentrierte Oberfläche als fertiges CSS: Sidebar, Seitenbaum, Callouts, Datenbank-Views, Einstellungen und KI-Fäden. Ein Stylesheet. Kein Build-Step, kein JavaScript, kein Framework-Zwang.</p>
+  <div class="site-badges">
+    <span class="nk-tag blue">CSS only</span>
+    <span class="nk-tag green">~100 Komponenten</span>
+    <span class="nk-tag purple">Light &amp; Dark</span>
+    <span class="nk-tag orange">7.2 KB gzip</span>
+    <span class="nk-tag blue">MIT</span>
+  </div>
+  <div class="site-cta">
+    <a class="nk-btn primary" href="docs.html">Zur Dokumentation</a>
+    <a class="nk-btn secondary" href="showcase.html">Komponenten ansehen</a>
+  </div>
+
+  <div class="site-install">
+    <h2 class="site-kicker" style="margin-bottom:8px">Einbinden</h2>
+    <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;link</span> <span class="attr">rel=</span>"stylesheet" <span class="attr">href=</span>"https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1/notionkit.min.css"<span class="tag">&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">data-theme=</span>"dark"<span class="tag">&gt;</span></div>
+    <div class="nk-code"><span class="lang">npm</span>npm install @jungherz-de/notionkit</div>
+    <p class="site-note">Das Theme steuert <code class="nk-inline-code">data-theme</code> auf <code class="nk-inline-code">&lt;html&gt;</code>. Mehr Einrichtung gibt es nicht.</p>
+  </div>
+</header>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">Die ganze Bibliothek in einem realistischen Bild</h2>
+    <p class="site-lead">Unten läuft die Demo — App-Shell, Seitenbaum, Dokument, Datenbank-Views, Befehlspalette, Einstellungs-Modal und KI-Faden. Alles, was zu sehen ist, ist NotionKit-Markup; die Interaktionen sind rund 290 Zeilen schlichtes JavaScript, das zur Demo gehört, nicht zur Library.</p>
+  </div>
+  <div class="site-wrap" style="max-width:1320px">
+    <div class="site-frame">
+      <div class="site-frame-bar"><i></i><i></i><i></i><span>notionkit.jungherz.com/de/app.html</span></div>
+      <iframe src="app.html" title="NotionKit demo" loading="lazy" data-theme-sync style="height:min(760px, 82vh)"></iframe>
+    </div>
+    <p class="site-note"><a href="app.html">Demo im Vollbild öffnen ↗</a></p>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">Desktop und Mobile, gleichberechtigt</h2>
+    <p class="site-lead">NotionKit ist weder ein Mobile-first-Kit, das auf den Desktop gedehnt wurde, noch ein Desktop-Kit, das aufs Handy gequetscht wird. Die Layouts sind fließend, es gibt genau einen Breakpoint bei 860 px, und dasselbe Markup trägt beides. Dieselbe Seite, zwei Viewports:</p>
+    <div class="site-viewports">
+      <div class="site-viewport" style="flex:0 0 auto;width:640px">
+        <div class="site-viewport-label">Desktop · 1280 px</div>
+        <div class="site-scaler" style="width:640px;height:400px">
+          <iframe src="app.html" title="Desktop · 1280 px" loading="lazy" data-theme-sync
+                  style="width:1280px;height:800px;transform:scale(0.5)"></iframe>
+        </div>
+      </div>
+      <div class="site-viewport mobile" style="width:242px">
+        <div class="site-viewport-label">Mobil · 390 px</div>
+        <div class="site-scaler" style="width:242px;height:484px">
+          <iframe src="app.html" title="Mobil · 390 px" loading="lazy" data-theme-sync
+                  style="width:390px;height:780px;transform:scale(0.62)"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">Warum NotionKit</h2>
+    <div class="site-grid" style="margin-top:28px">
+      <div class="site-card"><div class="ico">🎨</div><h3>Reines CSS</h3><p>Ein Stylesheet, kein JavaScript, keine Abhängigkeiten. Läuft mit purem HTML, Flask, Rails, Laravel, Astro, React — mit allem, was Klassennamen ausgibt.</p></div>
+      <div class="site-card"><div class="ico">🌗</div><h3>Light &amp; Dark, vollständig</h3><p>Beide Themes sind bis hin zu Tag-Farben und Schatten durchspezifiziert. Umgeschaltet wird über ein einziges Attribut auf <code class="nk-inline-code">&lt;html&gt;</code>.</p></div>
+      <div class="site-card"><div class="ico">🎛️</div><h3>Design-Tokens</h3><p>Jeder Wert ist eine <code class="nk-inline-code">--nk-*</code>-Custom-Property. Rebranding ist eine Deklaration: <code class="nk-inline-code">--nk-accent</code>. Alles andere wird daraus gemischt.</p></div>
+      <div class="site-card"><div class="ico">📐</div><h3>Desktop und Mobile gleichberechtigt</h3><p>Keine festen Viewport-Breiten, keine Geräte-Mockups. Fließende Layouts, ein Breakpoint, horizontales Scrollen dort, wo Tabellen und Boards es brauchen.</p></div>
+      <div class="site-card"><div class="ico">🧩</div><h3>Shadow-DOM-fähig</h3><p>Liefert ein Constructable Stylesheet, getrennt in Tokens und Komponenten, samt <code class="nk-inline-code">::slotted()</code>-Zwillingen — damit Web Components es adoptieren können, ohne das Branding zu zerbrechen.</p></div>
+      <div class="site-card"><div class="ico">🤖</div><h3>KI-tauglich</h3><p>Eine strukturierte <code class="nk-inline-code">SKILL.md</code> gibt Coding-Agenten das exakte Markup, die Verschachtelungsregeln und sechs vollständige App-Skelette.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">Was drin ist</h2>
+    <p class="site-lead">Rund 100 Komponenten-Klassen in elf Gruppen. Jede ist mit Live-Vorschau und ihrem Mobile-Verhalten dokumentiert.</p>
+    <table class="site-table">
+      <thead><tr><th>Gruppe</th><th>Was du bekommst</th></tr></thead>
+      <tbody>
+        <tr><td>App-Shell &amp; Layout</td><td><code class="nk-inline-code">nk-app</code>, Sidebar mit Workspace-Umschalter und Fußzeile, Hauptspalte, Topbar mit Breadcrumb und Aktionen, Abschnitts-Label</td></tr>
+        <tr><td>Navigation / Seitenbaum</td><td>Baum-Einträge mit Aktiv-Zustand und Hover-Aktionen, einklappbare Unterbäume, Toggle-Pfeile, Tastatur-Hinweise</td></tr>
+        <tr><td>Seiten-Shell &amp; Dokument</td><td>Scroll-Container, Cover, Seitenspalte, Seiten-Icon, editierbarer Titel, Meta-Zeile, Überschriften, Lead-Absatz</td></tr>
+        <tr><td>Inhalts-Elemente</td><td>Callouts, Todos mit Durchstreichung, Toggles, Trenner, Blockzitate, Erwähnungen (Person / Seite / Datum), Inline-Code, Code-Blöcke</td></tr>
+        <tr><td>Datenbank-Views</td><td>View-Reiter mit Zählern, scrollbare Tabellen, Tags in vier Farben, Fortschrittsbalken, Board-Spalten und -Karten</td></tr>
+        <tr><td>Formulare &amp; Einstellungen</td><td>Inputs, Textareas, Selects mit eigenem Chevron, fünf Button-Varianten, Switches, Checkboxen und Radios, Slider, Feld-Zeilen, Modell-Karten, Gefahrenbereich, Mitglieder-Zeilen</td></tr>
+        <tr><td>Einstellungs-Modal</td><td>Backdrop, Modal-Hülle, Einstellungs-Navigation mit Nutzerblock, Inhaltsbereich, umschaltbare Panes</td></tr>
+        <tr><td>Overlays &amp; Menüs</td><td>Popover-Basis, Emoji-Picker, Kontextmenüs mit Kürzeln, vollständige Befehlspalette, Toasts</td></tr>
+        <tr><td>Galerie &amp; Produktivität</td><td>Galerie-Raster, Reiter, Template-Buttons, Statistik-Karten mit Deltas, Synced-Blöcke, Segment-Auswahl, Banner, Avatar-Gruppen, Skelette, Leerzustände</td></tr>
+        <tr><td>Kollaboration &amp; KI</td><td>Kommentar-Fäden, Kommentar-Eingabe, KI-Nachrichtenfaden, Nachrichten-Aktionen, KI-Eingabezeile</td></tr>
+        <tr><td>Editor-Adapter</td><td><code class="nk-inline-code">nk-block-host</code> plus gestylte Überschreibungen für TipTap/ProseMirror, BlockNote und Novel, samt Slash-Menü und Bubble-Toolbar</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">Der Editor fehlt mit Absicht</h2>
+    <p class="site-lead">Ein Block-Editor — Selektion, Paste, Tastatur, Undo, Mobile — ist ein eigenes Produkt, und ein halber Editor würde die Library in echten Apps beschädigen. NotionKit liefert deshalb <code class="nk-inline-code">.nk-block-host</code>, die optische Hülle, plus eine gestylte Adapter-Schicht für TipTap, BlockNote und Novel. Häng den Editor ein, den du willst; er sieht danach aus wie Teil des Systems.</p>
+    <p><a class="nk-btn secondary" href="docs.html#editor" style="text-decoration:none">Zum TipTap-Rezept →</a></p>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="site-wrap">
+    <h2 class="site-h2">Die NotionKit-Familie</h2>
+    <p class="site-lead">NotionKit ist die CSS-Grundlage einer dreischichtigen Familie. Die Schichten teilen eine Design-Sprache und einen Namensstamm: aus <code class="nk-inline-code">.nk-callout</code> wird <code class="nk-inline-code">&lt;nk-callout&gt;</code>.</p>
+    <div class="site-grid site-family">
+      <div class="site-card">
+        <h3>NotionKit <span class="site-status on">Jetzt verfügbar</span></h3>
+        <div class="role">CSS-Grundlage</div>
+        <p style="margin-top:8px">Dieses Projekt. <code class="nk-inline-code">.nk-*</code>-Klassen und <code class="nk-inline-code">--nk-*</code>-Tokens für jeden Stack.</p>
+      </div>
+      <div class="site-card">
+        <h3>NotionKit Elements <span class="site-status soon">Geplant</span></h3>
+        <div class="role">Web Components</div>
+        <p style="margin-top:8px">Vanilla-JS-Custom-Elements, die dieses Markup kapseln — gebaut auf dem hier ausgelieferten Constructable Stylesheet.</p>
+      </div>
+      <div class="site-card">
+        <h3>NotionKit Web <span class="site-status soon">Geplant</span></h3>
+        <div class="role">Astro-Template</div>
+        <p style="margin-top:8px">Ein komplettes Website-Template — Dokumentationen, Wissensdatenbanken, Produktseiten — auf derselben Grundlage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-wrap site-foot">
+  <span>MIT-Lizenz · Gebaut von <a href="https://www.jungherz.com">Jungherz GmbH</a></span>
+  <a href="https://github.com/JUNGHERZ/NotionKit">GitHub</a>
+  <a href="https://www.npmjs.com/package/@jungherz-de/notionkit">npm</a>
+  <a href="../index.html">EN</a>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    function set(theme) {
+      root.setAttribute('data-theme', theme);
+      if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+      try { localStorage.setItem('nk-theme', theme); } catch (e) {}
+      document.querySelectorAll('iframe[data-theme-sync]').forEach(function (f) {
+        try { f.contentWindow.postMessage({ nkTheme: theme }, '*'); } catch (e) {}
+      });
+    }
+    var stored = null;
+    try { stored = localStorage.getItem('nk-theme'); } catch (e) {}
+    set(stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    if (btn) btn.addEventListener('click', function () {
+      set(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  })();
+  (function () {
+    var PALETTES = [{"id":"default","name":"Default","light":{},"dark":{}},{"id":"forest","name":"Forest","light":{"--nk-accent":"#2f8f5b"},"dark":{"--nk-accent":"#5cbf87"}},{"id":"slate","name":"Slate","light":{"--nk-accent":"#4b6b8a","--nk-decor-purple":"#6b7d94","--nk-decor-blue":"#4b6b8a","--nk-decor-orange":"#8a7a5b"},"dark":{"--nk-accent":"#7fa3c4"}},{"id":"sunset","name":"Sunset","light":{"--nk-accent":"#d9730d","--nk-danger":"#c93c3c","--nk-decor-purple":"#c2552a","--nk-decor-blue":"#e0a53c"},"dark":{"--nk-accent":"#ffa344"}},{"id":"high-contrast","name":"High Contrast","light":{"--nk-text-secondary":"rgba(55,53,47,0.72)","--nk-text-tertiary":"rgba(55,53,47,0.70)","--nk-accent":"#1e72c6","--nk-danger":"#c64646","--nk-tag-blue-text":"#2d7096","--nk-tag-green-text":"#3d7657","--nk-tag-orange-text":"#a05409","--nk-tag-purple-text":"#845ca2"},"dark":{"--nk-text-tertiary":"rgba(255,255,255,0.48)","--nk-on-accent":"#191919","--nk-tag-green-text":"#52aea0","--nk-tag-purple-text":"#a880de"}}];
+    var KEY = 'nk-palette';
+    function css(p) {
+      var rule = function (sel, o) { var k = Object.keys(o); return k.length ? sel + '{' + k.map(function (n) { return n + ':' + o[n]; }).join(';') + '}' : ''; };
+      return rule(':root', p.light) + rule('[data-theme="dark"]', p.dark);
+    }
+    function apply(id) {
+      var p = PALETTES.filter(function (x) { return x.id === id; })[0] || PALETTES[0];
+      var el = document.getElementById('nk-palette-style');
+      if (!el) { el = document.createElement('style'); el.id = 'nk-palette-style'; document.head.appendChild(el); }
+      el.textContent = css(p);
+      try { localStorage.setItem(KEY, p.id); } catch (e) {}
+      document.querySelectorAll('[data-palette]').forEach(function (b) { b.classList.toggle('selected', b.dataset.palette === p.id); });
+      var sel = document.getElementById('paletteSelect'); if (sel && sel.value !== p.id) sel.value = p.id;
+      document.querySelectorAll('iframe[data-theme-sync]').forEach(function (f) { try { f.contentWindow.postMessage({ nkPalette: p.id }, '*'); } catch (e) {} });
+    }
+    var stored = null; try { stored = localStorage.getItem(KEY); } catch (e) {}
+    apply(stored || 'default');
+    window.addEventListener('message', function (e) { if (e.data && e.data.nkPalette) apply(e.data.nkPalette); });
+    var sel = document.getElementById('paletteSelect'); if (sel) sel.addEventListener('change', function () { apply(sel.value); });
+    var btn = document.getElementById('paletteToggle'), menu = document.getElementById('paletteMenu');
+    if (btn && menu) {
+      btn.addEventListener('click', function (e) { e.stopPropagation(); menu.hidden = !menu.hidden; });
+      menu.addEventListener('click', function (e) { var t = e.target.closest('[data-palette]'); if (t) { apply(t.dataset.palette); menu.hidden = true; } });
+      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) menu.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menu.hidden = true; });
+    }
+    window.nkApplyPalette = apply;
+  })();</script>
+</body>
+</html>

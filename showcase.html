@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NotionKit Showcase – every component, both themes</title>
+<meta name="description" content="A systematic single view of every NotionKit component, in light and dark mode.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://notionkit.jungherz.com/showcase.html">
+<link rel="alternate" hreflang="en" href="https://notionkit.jungherz.com/showcase.html">
+<link rel="alternate" hreflang="de" href="https://notionkit.jungherz.com/de/showcase.html">
+<link rel="alternate" hreflang="x-default" href="https://notionkit.jungherz.com/showcase.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NotionKit">
+<meta property="og:title" content="NotionKit Showcase – every component, both themes">
+<meta property="og:description" content="A systematic single view of every NotionKit component, in light and dark mode.">
+<meta property="og:url" content="https://notionkit.jungherz.com/showcase.html">
+<meta property="og:image" content="https://notionkit.jungherz.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NotionKit Showcase – every component, both themes">
+<meta name="twitter:description" content="A systematic single view of every NotionKit component, in light and dark mode.">
+<meta name="twitter:image" content="https://notionkit.jungherz.com/og.png">
+<meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#202020" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="notionkit.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  a { color: inherit; }
+
+  .site-nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: 14px;
+    padding: 0 clamp(16px, 4vw, 40px); height: 56px;
+    background: color-mix(in srgb, var(--nk-bg) 88%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--nk-border);
+  }
+  .site-brand { display: flex; align-items: center; gap: 9px; font-weight: 600; text-decoration: none; font-size: 15px; }
+  .site-brand .mark {
+    width: 24px; height: 24px; border-radius: 6px; font-size: 13px;
+    background: linear-gradient(135deg, var(--nk-decor-purple), var(--nk-decor-blue));
+    color: var(--nk-on-accent); display: flex; align-items: center; justify-content: center;
+  }
+  .site-nav-links { display: flex; gap: 2px; margin-left: 18px; }
+  .site-nav-links a {
+    padding: 5px 10px; border-radius: var(--nk-radius); text-decoration: none;
+    color: var(--nk-text-secondary); font-size: 13.5px;
+  }
+  .site-nav-links a:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
+  .site-nav-links a.current { color: var(--nk-text); font-weight: 500; }
+  .site-nav-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+  #paletteMenu .nk-menu-item.selected { background: var(--nk-bg-active); font-weight: 500; }
+
+  .site-wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+  .site-section { padding: clamp(48px, 8vw, 96px) 0; }
+  .site-section + .site-section { border-top: 1px solid var(--nk-border); }
+  .site-h2 { font-size: clamp(24px, 3.4vw, 32px); font-weight: 600; letter-spacing: -0.015em; margin: 0 0 10px; }
+  .site-lead { font-size: 16px; line-height: 1.65; color: var(--nk-text-secondary); max-width: 68ch; margin: 0 0 28px; }
+  .site-kicker { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--nk-text-tertiary); margin-bottom: 14px; }
+
+  .site-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .site-card { border: 1px solid var(--nk-border); border-radius: 10px; padding: 20px 22px; background: var(--nk-bg-card); }
+  .site-card h3 { font-size: 15px; font-weight: 600; margin: 10px 0 6px; }
+  .site-card p { font-size: 13.5px; line-height: 1.6; color: var(--nk-text-secondary); margin: 0; }
+  .site-card .ico { font-size: 22px; }
+
+  .site-frame {
+    border: 1px solid var(--nk-border-strong); border-radius: 10px; overflow: hidden;
+    background: var(--nk-bg); box-shadow: var(--nk-shadow-menu);
+  }
+  .site-frame-bar {
+    display: flex; align-items: center; gap: 7px; padding: 8px 12px;
+    border-bottom: 1px solid var(--nk-border); background: var(--nk-bg-sidebar);
+  }
+  .site-frame-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--nk-border-strong); }
+  .site-frame-bar span { margin-left: 6px; font-size: 11.5px; color: var(--nk-text-tertiary); }
+  .site-frame iframe { display: block; width: 100%; border: 0; background: var(--nk-bg); }
+
+  .site-viewports { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .site-viewport { flex: 1 1 420px; min-width: 0; }
+  .site-viewport.mobile { flex: 0 0 auto; }
+  .site-viewport-label { font-size: 12px; color: var(--nk-text-tertiary); margin-bottom: 8px; }
+  /* The scaler shows a real viewport width shrunk to fit, so the layout the
+     iframe computes is the one that width would really produce. */
+  .site-scaler { overflow: hidden; border-radius: 10px; border: 1px solid var(--nk-border-strong); }
+  .site-scaler iframe { display: block; border: 0; transform-origin: top left; }
+
+  .site-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .site-table th {
+    text-align: left; font-weight: 500; color: var(--nk-text-tertiary); font-size: 12px;
+    text-transform: uppercase; letter-spacing: .04em; padding: 8px 12px 8px 0;
+    border-bottom: 1px solid var(--nk-border);
+  }
+  .site-table td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--nk-border); vertical-align: top; line-height: 1.55; }
+  .site-table td:first-child { font-weight: 500; white-space: nowrap; }
+  .site-table td:last-child { color: var(--nk-text-secondary); }
+
+  .site-foot {
+    border-top: 1px solid var(--nk-border); padding: 32px 0 48px;
+    font-size: 13px; color: var(--nk-text-tertiary);
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+  }
+  .site-foot a { color: var(--nk-text-secondary); }
+
+  @media (max-width: 860px) {
+    .site-nav-links { display: none; }
+    .site-viewports { gap: 32px; }
+  }
+
+  .doc-layout { display: flex; align-items: flex-start; gap: 40px; max-width: 1180px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px) 80px; }
+  .doc-toc { position: sticky; top: 72px; width: 220px; flex-shrink: 0; max-height: calc(100vh - 92px); overflow-y: auto; padding: 24px 0; }
+  .doc-toc .nk-section-label { padding-left: 8px; }
+  .doc-toc a { display: block; padding: 3px 10px; border-radius: var(--nk-radius); color: var(--nk-text-secondary); text-decoration: none; font-size: 13px; line-height: 1.5; }
+  .doc-toc a:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
+  .doc-toc a.current { background: var(--nk-bg-active); color: var(--nk-text); font-weight: 500; }
+  .doc-main { flex: 1; min-width: 0; padding: 24px 0 0; }
+  .doc-main > header { padding-bottom: 8px; }
+  .doc-main h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; letter-spacing: -0.02em; margin: 0 0 12px; }
+
+  .doc-group { padding-top: 40px; }
+  .doc-group > h2 { font-size: 22px; font-weight: 600; margin: 0 0 4px; scroll-margin-top: 76px; }
+  .doc-group > .prd { font-size: 12px; color: var(--nk-text-tertiary); margin-bottom: 8px; }
+
+  .doc-entry { padding: 26px 0; border-top: 1px solid var(--nk-border); scroll-margin-top: 76px; }
+  .doc-entry > h3 { font-size: 17px; font-weight: 600; margin: 0 0 6px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .doc-entry > h3 code { font-size: 12.5px; font-weight: 400; color: var(--nk-text-tertiary); font-family: var(--nk-font-mono); }
+  .doc-desc { font-size: 14px; line-height: 1.65; color: var(--nk-text-secondary); margin: 0 0 14px; max-width: 72ch; }
+  .doc-desc code, .doc-note code, .doc-meta code { font-family: var(--nk-font-mono); font-size: 85%; background: var(--nk-bg-callout); border-radius: 4px; padding: 1px 5px; }
+
+  .doc-preview { border: 1px solid var(--nk-border); border-radius: 10px; padding: 24px; background: var(--nk-bg); margin: 0 0 12px; }
+  .doc-preview.is-frame { padding: 0; overflow: hidden; }
+  .doc-preview.on-sidebar { background: var(--nk-bg-sidebar); }
+
+  .doc-meta { display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; font-size: 13px; color: var(--nk-text-secondary); margin-top: 12px; line-height: 1.6; }
+  .doc-meta b { color: var(--nk-text); font-weight: 500; flex-shrink: 0; }
+  .doc-classes { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
+  .doc-classes code { font-family: var(--nk-font-mono); font-size: 11.5px; background: var(--nk-bg-callout); border-radius: 4px; padding: 1px 6px; color: var(--nk-text-secondary); }
+
+  .doc-note { font-size: 13.5px; line-height: 1.65; color: var(--nk-text-secondary); max-width: 72ch; }
+  .doc-note--preview { margin: -2px 0 12px; font-size: 12.5px; color: var(--nk-text-tertiary); }
+  .doc-note--preview a { color: var(--nk-text-secondary); }
+  .doc-section { padding: 44px 0 8px; border-top: 1px solid var(--nk-border); scroll-margin-top: 76px; }
+  .doc-section:first-of-type { border-top: 0; }
+  .doc-section > h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 10px; }
+  .doc-section > h3 { font-size: 15px; font-weight: 600; margin: 26px 0 8px; }
+
+  .doc-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 14px 0; }
+  .doc-table th { text-align: left; font-weight: 500; color: var(--nk-text-tertiary); font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--nk-border); }
+  .doc-table td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--nk-border); vertical-align: top; line-height: 1.55; }
+  .doc-table td code { font-family: var(--nk-font-mono); font-size: 11.5px; }
+  .doc-table .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--nk-border-strong); vertical-align: -2px; margin-right: 6px; }
+  .doc-table-wrap { overflow-x: auto; }
+  .pass { color: var(--nk-tag-green-text); } .warn { color: var(--nk-tag-orange-text); }
+
+  @media (max-width: 860px) {
+    .doc-toc { display: none; }
+    .doc-layout { gap: 0; }
+  }
+</style>
+</head>
+<body class="nk-body">
+
+<nav class="site-nav">
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit</a>
+  <div class="site-nav-links">
+    <a href="index.html">Start</a>
+    <a href="docs.html">Docs</a>
+    <a href="showcase.html" class="current">Showcase</a>
+    <a href="app.html">Demo</a>
+  </div>
+  <div class="site-nav-right">
+    <a class="nk-topbar-btn" href="de/showcase.html" title="Deutsche Version">DE</a>
+    <a class="nk-topbar-btn" href="https://github.com/JUNGHERZ/NotionKit" title="GitHub">↗ GitHub</a>
+    <span style="position:relative">
+      <button class="nk-topbar-btn nk-theme-toggle" id="paletteToggle" title="Palette">🎨</button>
+      <div class="nk-pop nk-menu" id="paletteMenu" hidden style="position:absolute;right:0;top:34px;width:210px;z-index:60">
+        <div class="nk-menu-label">Palette · theme-override.css</div>
+        <div class="nk-menu-item" data-palette="default"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--nk-accent);border:1px solid var(--nk-border-strong)"></span>Default</div>
+        <div class="nk-menu-item" data-palette="forest"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#2f8f5b;border:1px solid var(--nk-border-strong)"></span>Forest</div>
+        <div class="nk-menu-item" data-palette="slate"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#4b6b8a;border:1px solid var(--nk-border-strong)"></span>Slate</div>
+        <div class="nk-menu-item" data-palette="sunset"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#d9730d;border:1px solid var(--nk-border-strong)"></span>Sunset</div>
+        <div class="nk-menu-item" data-palette="high-contrast"><span class="m-icon" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#1e72c6;border:1px solid var(--nk-border-strong)"></span>High contrast</div>
+      </div>
+    </span>
+    <button class="nk-topbar-btn nk-theme-toggle" id="themeToggle" title="Toggle light / dark">🌙</button>
+  </div>
+</nav>
+<div class="doc-layout">
+  <aside class="doc-toc">
+    <div class="nk-section-label">Components</div>
+    <a href="#shell">App shell & layout</a>
+    <a href="#nav">Navigation / page tree</a>
+    <a href="#page">Page shell & document</a>
+    <a href="#content">Content elements</a>
+    <a href="#database">Database views</a>
+    <a href="#forms">Forms & settings</a>
+    <a href="#modal">Settings modal</a>
+    <a href="#overlay">Overlays & menus</a>
+    <a href="#gallery">Gallery & productivity</a>
+    <a href="#collab">Collaboration & AI</a>
+    <a href="#editor">Editor adapter</a>
+  </aside>
+  <main class="doc-main">
+    <header>
+      <h1>Showcase</h1>
+      <p class="doc-desc" style="font-size:15px">Every component in the library, one after another, with nothing else on the page. Flip the theme in the top right to check both palettes.</p>
+    </header>
+    <section class="doc-group" id="shell">
+      <h2>App shell & layout</h2>
+      <div class="prd">PRD 5.1</div>
+      <article class="doc-entry" id="s-nk-app">
+        <h3>App shell <code>.nk-app</code></h3>
+        <div class="doc-preview is-frame" style="height:340px"><div class="nk-app" style="height:100%">
+  <aside class="nk-sidebar">
+    <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
+    <div class="nk-sidebar-scroll">
+      <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Search</span></div>
+      <div class="nk-tree-item active"><span class="icon">🏠</span><span class="label">Home</span></div>
+      <div class="nk-tree-item"><span class="icon">📥</span><span class="label">Inbox</span></div>
+    </div>
+    <div class="nk-sidebar-footer">
+      <div class="nk-tree-item"><span class="icon">⚙️</span><span class="label">Settings</span></div>
+    </div>
+  </aside>
+  <main class="nk-main">
+    <header class="nk-topbar">
+      <div class="nk-breadcrumb"><span class="crumb current">📊 Project overview</span></div>
+      <div class="nk-topbar-actions"><button class="nk-topbar-btn nk-share-btn">Share</button></div>
+    </header>
+    <div class="nk-page-scroll"><div class="nk-page" style="padding-top:16px">
+      <h1 class="nk-page-title" style="font-size:28px">Product roadmap</h1>
+      <p class="lead">A short lead paragraph sets up the page in a calmer, larger type size before the body copy begins.</p>
+    </div></div>
+  </main>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-workspace">
+        <h3>Workspace switcher <code>.nk-workspace</code></h3>
+        <div class="doc-preview"><div class="nk-workspace" style="background:var(--nk-bg-sidebar);max-width:244px">
+  <div class="avatar">A</div>Acme Inc<span class="chev">⌄</span>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-topbar">
+        <h3>Topbar <code>.nk-topbar</code></h3>
+        <div class="doc-preview"><header class="nk-topbar" style="border:1px solid var(--nk-border);border-radius:var(--nk-radius)">
+  <div class="nk-breadcrumb">
+    <span class="crumb">📊 Project overview</span><span class="sep">/</span><span class="crumb current">🚀 Roadmap</span>
+  </div>
+  <div class="nk-topbar-actions">
+    <button class="nk-topbar-btn">💬</button>
+    <button class="nk-topbar-btn nk-share-btn">Share</button>
+    <button class="nk-topbar-btn">⭐</button>
+    <button class="nk-topbar-btn nk-theme-toggle">🌙</button>
+    <button class="nk-topbar-btn">⋯</button>
+  </div>
+</header></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-breadcrumb">
+        <h3>Breadcrumb <code>.nk-breadcrumb</code></h3>
+        <div class="doc-preview"><div class="nk-breadcrumb">
+  <span class="crumb">📊 Project overview</span><span class="sep">/</span>
+  <span class="crumb">📚 Knowledge base</span><span class="sep">/</span>
+  <span class="crumb current">🚀 Roadmap</span>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-section-label">
+        <h3>Section label <code>.nk-section-label</code></h3>
+        <div class="doc-preview"><div style="background:var(--nk-bg-sidebar);border-radius:var(--nk-radius);padding:4px 8px;max-width:244px">
+  <div class="nk-section-label">Favourites<span class="plus">＋</span></div>
+  <div class="nk-tree-item"><span class="icon">📊</span><span class="label">Project overview</span></div>
+</div></div>
+        
+      </article>
+    </section>
+    <section class="doc-group" id="nav">
+      <h2>Navigation / page tree</h2>
+      <div class="prd">PRD 5.2</div>
+      <article class="doc-entry" id="s-nk-tree-item">
+        <h3>Tree item <code>.nk-tree-item</code></h3>
+        <div class="doc-preview"><div style="background:var(--nk-bg-sidebar);border-radius:var(--nk-radius);padding:6px 8px;max-width:244px">
+  <div class="nk-tree-item active"><span class="icon">📊</span><span class="label">Project overview</span><span class="actions"><span>＋</span><span>⋯</span></span></div>
+  <div class="nk-tree-item"><span class="icon">📚</span><span class="label">Knowledge base</span><span class="actions"><span>＋</span><span>⋯</span></span></div>
+  <div class="nk-tree-item"><span class="icon">🎨</span><span class="label">Design system</span><span class="actions"><span>＋</span><span>⋯</span></span></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-tree-children">
+        <h3>Nested tree & toggle arrow <code>.nk-tree-children</code></h3>
+        <div class="doc-preview"><div style="background:var(--nk-bg-sidebar);border-radius:var(--nk-radius);padding:6px 8px;max-width:244px">
+  <div class="nk-tree-item"><span class="nk-toggle-arrow open">▶</span><span class="icon">📚</span><span class="label">Knowledge base</span></div>
+  <div class="nk-tree-children">
+    <div class="nk-tree-item"><span class="icon">📄</span><span class="label">Meeting notes</span></div>
+    <div class="nk-tree-item"><span class="icon">🎨</span><span class="label">Design system</span></div>
+  </div>
+  <div class="nk-tree-item"><span class="nk-toggle-arrow">▶</span><span class="icon">🗂️</span><span class="label">Pages</span></div>
+  <div class="nk-tree-children collapsed"><div class="nk-tree-item"><span class="label">—</span></div></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-kbd">
+        <h3>Keyboard hint <code>.nk-kbd</code></h3>
+        <div class="doc-preview"><div style="background:var(--nk-bg-sidebar);border-radius:var(--nk-radius);padding:6px 8px;max-width:244px">
+  <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Search</span><span class="nk-kbd-hint"><kbd class="nk-kbd">⌘</kbd><kbd class="nk-kbd">K</kbd></span></div>
+</div></div>
+        
+      </article>
+    </section>
+    <section class="doc-group" id="page">
+      <h2>Page shell & document</h2>
+      <div class="prd">PRD 5.3</div>
+      <article class="doc-entry" id="s-nk-page">
+        <h3>Page column <code>.nk-page</code></h3>
+        <div class="doc-preview is-frame" style="height:320px"><div class="nk-page-scroll" style="height:100%">
+  <div class="nk-cover" style="height:120px"></div>
+  <div class="nk-page" style="padding-bottom:24px">
+    <div class="nk-page-icon">🚀</div>
+    <h1 class="nk-page-title" contenteditable="true">Product roadmap</h1>
+    <div class="nk-page-meta"><span>👤 Ada Lovelace</span><span>📅 Created 12 May 2026</span></div>
+    <p class="lead">A short lead paragraph sets up the page in a calmer, larger type size before the body copy begins.</p>
+  </div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-cover">
+        <h3>Cover <code>.nk-cover</code></h3>
+        <div class="doc-preview"><div class="nk-cover" style="border-radius:var(--nk-radius)"></div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-heading">
+        <h3>Headings & lead <code>.nk-heading</code></h3>
+        <div class="doc-preview"><div class="nk-page" style="padding:0;max-width:none">
+  <h2 class="nk-heading">✅ How this works</h2>
+  <p class="lead">A short lead paragraph sets up the page in a calmer, larger type size before the body copy begins.</p>
+</div></div>
+        
+      </article>
+    </section>
+    <section class="doc-group" id="content">
+      <h2>Content elements</h2>
+      <div class="prd">PRD 5.4</div>
+      <article class="doc-entry" id="s-nk-callout">
+        <h3>Callout <code>.nk-callout</code></h3>
+        <div class="doc-preview"><div class="nk-callout"><span class="c-icon">💡</span><div><b>Core idea:</b> a callout carries one thought that should not be missed. Keep it to a sentence or two.</div></div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-todo">
+        <h3>To-do <code>.nk-todo</code></h3>
+        <div class="doc-preview"><div>
+  <label class="nk-todo"><input type="checkbox" checked><span>Sketch the component scope</span></label>
+  <label class="nk-todo"><input type="checkbox" checked><span>Build the preview</span></label>
+  <label class="nk-todo"><input type="checkbox"><span>Prioritise the MVP</span></label>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-toggle">
+        <h3>Toggle <code>.nk-toggle</code></h3>
+        <div class="doc-preview"><details class="nk-toggle" open>
+  <summary>What is not included?</summary>
+  <div class="toggle-body">The text editor itself. NotionKit ships the optical shell; you mount TipTap, BlockNote or Novel inside it.</div>
+</details></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-quote">
+        <h3>Quote & divider <code>.nk-quote</code></h3>
+        <div class="doc-preview"><blockquote class="nk-quote">Design is not just what it looks like. Design is how it works.<cite class="q-cite">— Steve Jobs</cite></blockquote>
+<hr class="nk-divider"></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-mention">
+        <h3>Inline mentions <code>.nk-mention</code></h3>
+        <div class="doc-preview"><p style="line-height:1.9">
+  <span class="nk-mention person"><span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>Sara Lindt</span>
+  <span class="nk-mention page">📄 Knowledge base</span>
+  <span class="nk-mention date">📅 20 May</span>
+</p></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-code">
+        <h3>Code <code>.nk-code</code></h3>
+        <div class="doc-preview"><div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-callout"<span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"c-icon"<span class="tag">&gt;</span>💡<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;/div&gt;</span></div>
+<p>Inline: <code class="nk-inline-code">--nk-accent</code></p></div>
+        
+      </article>
+    </section>
+    <section class="doc-group" id="database">
+      <h2>Database views</h2>
+      <div class="prd">PRD 5.5</div>
+      <article class="doc-entry" id="s-nk-db-tabs">
+        <h3>View tabs <code>.nk-db-tabs</code></h3>
+        <div class="doc-preview"><div class="nk-database">
+  <div class="nk-db-tabs">
+    <div class="nk-db-tab active">▦ Table<span class="badge">4</span></div>
+    <div class="nk-db-tab">▤ Board</div>
+    <div class="nk-db-tab">🖼 Gallery</div>
+  </div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-table">
+        <h3>Table view <code>.nk-table</code></h3>
+        <div class="doc-preview"><div class="nk-table-wrap"><table class="nk-table">
+  <thead><tr>
+    <th><span class="th-icon">📄</span>Name</th><th><span class="th-icon">◉</span>Status</th>
+    <th><span class="th-icon">👤</span>Owner</th><th><span class="th-icon">📅</span>Due</th>
+    <th><span class="th-icon">📊</span>Progress</th>
+  </tr></thead>
+  <tbody>
+    <tr><td><span class="row-title">🚀 Roadmap</span></td><td><span class="nk-tag green">Done</span></td>
+        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>Sara</span></td>
+        <td class="date-cell">12.05.2026</td>
+        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td></tr>
+    <tr><td><span class="row-title">🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
+        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
+        <td class="date-cell">20.05.2026</td>
+        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
+  </tbody>
+</table>
+<div class="new-row">＋ ＋ New page</div></div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-tag">
+        <h3>Tags <code>.nk-tag</code></h3>
+        <div class="doc-preview"><span class="nk-tag blue">In progress</span>
+<span class="nk-tag green">Done</span>
+<span class="nk-tag orange">Planned</span>
+<span class="nk-tag purple">Design system</span></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-progress">
+        <h3>Progress bar <code>.nk-progress</code></h3>
+        <div class="doc-preview"><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
+<span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-board">
+        <h3>Board view <code>.nk-board</code></h3>
+        <div class="doc-preview"><div class="nk-board active">
+  <div class="nk-board-col">
+    <div class="nk-board-col-header"><span class="nk-tag orange">Planned</span><span class="count">1</span></div>
+    <div class="nk-card"><div class="card-title">🖥 Board view</div><div class="card-meta"><span class="mini-avatar" style="background:var(--nk-decor-blue);width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:var(--nk-on-accent)">TW</span>28.05.</div></div>
+  </div>
+  <div class="nk-board-col">
+    <div class="nk-board-col-header"><span class="nk-tag blue">In progress</span><span class="count">1</span></div>
+    <div class="nk-card"><div class="card-title">🎨 Design system</div><div class="card-meta"><span class="nk-progress" style="width:70px"><i style="width:65%"></i></span></div></div>
+  </div>
+  <div class="nk-board-col">
+    <div class="nk-board-col-header"><span class="nk-tag green">Done</span><span class="count">1</span></div>
+    <div class="nk-card"><div class="card-title">🚀 Roadmap</div><div class="card-meta">12.05.</div></div>
+  </div>
+</div></div>
+        
+      </article>
+    </section>
+    <section class="doc-group" id="forms">
+      <h2>Forms & settings</h2>
+      <div class="prd">PRD 5.6</div>
+      <article class="doc-entry" id="s-nk-input">
+        <h3>Inputs, textarea, select <code>.nk-input</code></h3>
+        <div class="doc-preview"><div style="display:flex;flex-direction:column;gap:10px;max-width:340px">
+  <input class="nk-input wide" value="Ada Lovelace">
+  <select class="nk-select wide"><option>Light</option><option>Dark</option><option>System</option></select>
+  <textarea class="nk-textarea wide" placeholder="A few words about yourself …"></textarea>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-btn">
+        <h3>Buttons <code>.nk-btn</code></h3>
+        <div class="doc-preview"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+  <button class="nk-btn primary">Save changes</button>
+  <button class="nk-btn secondary">Discard</button>
+  <button class="nk-btn danger">Delete</button>
+  <button class="nk-btn danger-solid">Delete</button>
+  <button class="nk-btn secondary small">Remove</button>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-switch">
+        <h3>Switch <code>.nk-switch</code></h3>
+        <div class="doc-preview"><div style="max-width:420px">
+  <div class="nk-field"><div><div class="f-label">Compact view</div><div class="f-desc">Reduces spacing in the sidebar and lists.</div></div>
+    <div class="f-control"><button class="nk-switch" role="switch" aria-checked="true"></button></div></div>
+  <div class="nk-field"><div><div class="f-label">Reduce motion</div></div>
+    <div class="f-control"><button class="nk-switch" role="switch" aria-checked="false"></button></div></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-check">
+        <h3>Checkbox & radio <code>.nk-check</code></h3>
+        <div class="doc-preview"><div style="display:flex;gap:32px;flex-wrap:wrap">
+  <div>
+    <label class="nk-check"><input type="checkbox" checked>Light</label>
+    <label class="nk-check"><input type="checkbox">Dark</label>
+  </div>
+  <div>
+    <label class="nk-check"><input type="radio" name="nkdemo" checked>Light</label>
+    <label class="nk-check"><input type="radio" name="nkdemo">System</label>
+  </div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-slider">
+        <h3>Slider <code>.nk-slider</code></h3>
+        <div class="doc-preview"><div><input class="nk-slider" type="range" min="80" max="140" value="100">
+<div class="nk-slider-value">Text size: 100 %</div></div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-field">
+        <h3>Field row <code>.nk-field</code></h3>
+        <div class="doc-preview"><div style="max-width:460px">
+  <div class="nk-field"><div><div class="f-label">Display name</div><div class="f-desc">How you appear in the workspace.</div></div>
+    <div class="f-control"><input class="nk-input" value="Ada Lovelace"></div></div>
+  <div class="nk-field"><div><div class="f-label">Email</div></div>
+    <div class="f-control"><input class="nk-input" value="ada@acme.com"></div></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-profile-row">
+        <h3>Profile row <code>.nk-profile-row</code></h3>
+        <div class="doc-preview"><div class="nk-profile-row">
+  <div class="big-avatar">AL</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="nk-btn secondary small">Upload image</button>
+    <button class="nk-btn secondary small">Remove</button>
+  </div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-model-card">
+        <h3>Model card <code>.nk-model-card</code></h3>
+        <div class="doc-preview"><div style="max-width:460px">
+  <div class="nk-model-card selected"><div class="m-radio"></div><div>
+    <div class="m-name">Mona Standard<span class="nk-tag green">Recommended</span></div>
+    <div class="m-desc">A balanced model for everyday work. Fast, calm, dependable.</div></div></div>
+  <div class="nk-model-card"><div class="m-radio"></div><div>
+    <div class="m-name">Mona Deep</div><div class="m-desc">A balanced model for everyday work. Fast, calm, dependable.</div></div></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-danger-zone">
+        <h3>Danger zone <code>.nk-danger-zone</code></h3>
+        <div class="doc-preview"><div class="nk-danger-zone" style="margin-top:0;max-width:460px">
+  <div class="dz-title">⚠️ Danger zone</div>
+  <div class="nk-field" style="padding-top:0">
+    <div><div class="f-label">Delete</div><div class="f-desc">Irreversibly removes all pages, databases and members.</div></div>
+    <div class="f-control"><button class="nk-btn danger-solid small">Delete</button></div>
+  </div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-member-row">
+        <h3>Member rows <code>.nk-member-row</code></h3>
+        <div class="doc-preview"><div class="nk-member-list" style="max-width:460px">
+  <div class="nk-member-row"><span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>
+    <div><div>Ada Lovelace</div><div class="m-mail">ada@acme.com</div></div>
+    <select class="nk-select"><option>Admin</option><option>Member</option></select></div>
+  <div class="nk-member-row"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>
+    <div><div>Tom Weber</div><div class="m-mail">tom@acme.com</div></div>
+    <select class="nk-select"><option>Member</option></select></div>
+</div></div>
+        
+      </article>
+    </section>
+    <section class="doc-group" id="modal">
+      <h2>Settings modal</h2>
+      <div class="prd">PRD 5.7</div>
+      <article class="doc-entry" id="s-nk-modal">
+        <h3>Settings modal <code>.nk-modal</code></h3>
+        <div class="doc-preview is-frame" style="height:380px;position:relative"><div class="nk-modal-backdrop open" style="position:absolute;border-radius:var(--nk-radius)">
+  <div class="nk-modal" style="width:96%;height:92%">
+    <nav class="nk-settings-nav">
+      <div class="nk-settings-user"><div class="avatar">AL</div>
+        <div class="u-text"><div class="name">Ada Lovelace</div><div class="mail">ada@acme.com</div></div></div>
+      <div class="nk-section-label">Settings</div>
+      <div class="nk-tree-item active"><span class="icon">👤</span><span class="label">Display name</span></div>
+      <div class="nk-tree-item"><span class="icon">🎨</span><span class="label">Light/Dark</span></div>
+      <div class="nk-tree-item"><span class="icon">🤖</span><span class="label">Mona</span></div>
+    </nav>
+    <div class="nk-settings-content" style="padding:24px 28px">
+      <div class="nk-settings-pane active">
+        <h2>Display name</h2>
+        <div class="nk-field"><div><div class="f-label">Display name</div><div class="f-desc">How you appear in the workspace.</div></div>
+          <div class="f-control"><input class="nk-input" value="Ada Lovelace"></div></div>
+        <div class="nk-field"><div><div class="f-label">Compact view</div></div>
+          <div class="f-control"><button class="nk-switch" role="switch" aria-checked="true"></button></div></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+        
+      </article>
+    </section>
+    <section class="doc-group" id="overlay">
+      <h2>Overlays & menus</h2>
+      <div class="prd">PRD 5.8</div>
+      <article class="doc-entry" id="s-nk-pop">
+        <h3>Popover base <code>.nk-pop</code></h3>
+        <div class="doc-preview"><div class="nk-pop" style="width:240px">
+  <div class="nk-menu-label">Actions</div>
+  <div class="nk-menu-item"><span class="m-icon">✏️</span>Rename</div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-emoji-grid">
+        <h3>Emoji picker <code>.nk-emoji-grid</code></h3>
+        <div class="doc-preview"><div class="nk-pop">
+  <input class="nk-emoji-search" placeholder="Search …">
+  <div class="nk-emoji-grid">
+    <span>🚀</span><span>📊</span><span>💡</span><span>✅</span><span>🎨</span><span>📚</span><span>🗂️</span><span>🔍</span><span>📥</span><span>⚙️</span><span>🧩</span><span>🌙</span><span>☀️</span><span>📅</span><span>👤</span><span>💬</span>
+  </div>
+  <div class="nk-emoji-cats"><span class="active">🕐</span><span>😀</span><span>🐶</span><span>🍎</span><span>⚽</span><span>🚗</span><span>💡</span></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-menu">
+        <h3>Context menu <code>.nk-menu</code></h3>
+        <div class="doc-preview"><div class="nk-pop nk-menu">
+  <div class="nk-menu-label">Pages</div>
+  <div class="nk-menu-item"><span class="m-icon">✏️</span>Rename<span class="m-shortcut">⌘⇧R</span></div>
+  <div class="nk-menu-item"><span class="m-icon">📄</span>Duplicate<span class="m-shortcut">⌘D</span></div>
+  <div class="nk-menu-item"><span class="m-icon">🔗</span>Copy link<span class="m-shortcut">⌘L</span></div>
+  <div class="nk-menu-sep"></div>
+  <div class="nk-menu-item danger"><span class="m-icon">🗑</span>Move to trash</div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-cmdk">
+        <h3>Command palette <code>.nk-cmdk</code></h3>
+        <div class="doc-preview is-frame" style="height:400px;position:relative"><div class="nk-cmdk-backdrop open" style="position:absolute;padding-top:22px;border-radius:var(--nk-radius)">
+<div class="nk-cmdk" style="width:min(460px, 92%)">
+  <div class="nk-cmdk-input-row"><span>🔍</span><input placeholder="Search or type a command …"></div>
+  <div class="nk-cmdk-list">
+    <div class="nk-cmdk-group">Pages</div>
+    <div class="nk-cmdk-item selected"><span class="m-icon">📊</span>Project overview</div>
+    <div class="nk-cmdk-item"><span class="m-icon">📚</span>Knowledge base</div>
+    <div class="nk-cmdk-group">Actions</div>
+    <div class="nk-cmdk-item"><span class="m-icon">＋</span>New page<span class="m-shortcut">⌘N</span></div>
+    <div class="nk-cmdk-item"><span class="m-icon">⚙️</span>Open settings<span class="m-shortcut">⌘,</span></div>
+  </div>
+  <div class="nk-cmdk-footer">
+    <span><kbd class="nk-kbd">↑</kbd><kbd class="nk-kbd">↓</kbd> navigate</span>
+    <span><kbd class="nk-kbd">↵</kbd> open</span>
+    <span><kbd class="nk-kbd">⌘</kbd><kbd class="nk-kbd">K</kbd> toggle</span>
+  </div>
+</div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-cmdk-empty">
+        <h3>Palette: no results <code>.nk-cmdk-empty</code></h3>
+        <div class="doc-preview"><div class="nk-cmdk" style="box-shadow:none;border:1px solid var(--nk-border);width:min(460px,100%)">
+  <div class="nk-cmdk-input-row"><span>🔍</span><input value="xyzzy" placeholder="Search or type a command …"></div>
+  <div class="nk-cmdk-list"><div class="nk-cmdk-empty">No results for “xyzzy”</div></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-toast">
+        <h3>Toast <code>.nk-toast</code></h3>
+        <div class="doc-preview"><div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex">✓ <span>Settings saved</span></div></div>
+        
+      </article>
+    </section>
+    <section class="doc-group" id="gallery">
+      <h2>Gallery & productivity</h2>
+      <div class="prd">PRD 5.9</div>
+      <article class="doc-entry" id="s-nk-gallery-grid">
+        <h3>Gallery grid <code>.nk-gallery-grid</code></h3>
+        <div class="doc-preview"><div class="nk-gallery-grid">
+  <div class="nk-g-item"><h4>Active pages</h4><div class="nk-stat"><div class="s-label">this week</div><div class="s-value">128</div></div></div>
+  <div class="nk-g-item"><h4>Open tasks</h4><div class="nk-stat"><div class="s-label">this week</div><div class="s-value">17</div></div></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-tabs">
+        <h3>Tabs <code>.nk-tabs</code></h3>
+        <div class="doc-preview"><div>
+  <div class="nk-tabs"><div class="nk-tab active">📝 Notes</div><div class="nk-tab">✅ Tasks</div><div class="nk-tab">📎 Files</div></div>
+  <div class="nk-tab-panel">Panel content follows the tab strip and inherits the calm body type.</div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-template-btn">
+        <h3>Template button <code>.nk-template-btn</code></h3>
+        <div class="doc-preview"><div style="max-width:420px">
+  <button class="nk-template-btn">📅 Insert week plan</button>
+  <button class="nk-template-btn">🤝 Insert meeting minutes</button>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-stats">
+        <h3>Stat cards <code>.nk-stats</code></h3>
+        <div class="doc-preview"><div class="nk-stats">
+  <div class="nk-stat"><div class="s-label">Active pages</div><div class="s-value">128</div><div class="s-delta up">▲ 12 this week</div></div>
+  <div class="nk-stat"><div class="s-label">AI requests</div><div class="s-value">1 204</div><div class="s-delta up">▲ 8 %</div></div>
+  <div class="nk-stat"><div class="s-label">Open tasks</div><div class="s-value">17</div><div class="s-delta down">▼ 5 since yesterday</div></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-synced">
+        <h3>Synced block <code>.nk-synced</code></h3>
+        <div class="doc-preview"><div class="nk-synced" style="max-width:420px">
+  <span class="synced-badge">⟳ 3 places</span>
+  This text appears identically on three pages and is maintained in one place.
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-segmented">
+        <h3>Segmented control <code>.nk-segmented</code></h3>
+        <div class="doc-preview"><div class="nk-segmented">
+  <button class="active">Week</button><button>Month</button><button>Quarter</button>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-banner">
+        <h3>Banner <code>.nk-banner</code></h3>
+        <div class="doc-preview"><div class="nk-banner info">ℹ️ The “Project overview” database has 2 overdue entries.<span class="b-action">View</span></div>
+<div class="nk-banner success">✅ All changes have been synced.</div>
+<div class="nk-banner warning">⚠️ Your trial ends in 5 days.<span class="b-action">View</span></div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-avatar-group">
+        <h3>Avatar group <code>.nk-avatar-group</code></h3>
+        <div class="doc-preview"><div style="display:flex;align-items:center;gap:10px">
+  <div class="nk-avatar-group">
+    <span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>
+    <span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>
+    <span class="mini-avatar" style="background:var(--nk-tag-green-text)">SL</span>
+    <span class="mini-avatar more">+2</span>
+  </div>
+  <span style="font-size:13px;color:var(--nk-text-tertiary)">5 people have access</span>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-skeleton">
+        <h3>Skeleton <code>.nk-skeleton</code></h3>
+        <div class="doc-preview"><div style="max-width:420px">
+  <div class="nk-skeleton" style="height:22px;width:55%"></div>
+  <div class="nk-skeleton" style="height:13px;width:100%"></div>
+  <div class="nk-skeleton" style="height:13px;width:88%"></div>
+  <div class="nk-skeleton" style="height:13px;width:40%"></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-empty">
+        <h3>Empty state <code>.nk-empty</code></h3>
+        <div class="doc-preview"><div class="nk-empty" style="max-width:420px">
+  <div class="e-icon">🗂️</div>
+  <div class="e-title">No entries yet</div>
+  <div class="e-desc">Create the first entry or import existing data.</div>
+  <button class="nk-btn secondary small">＋ New entry</button>
+</div></div>
+        
+      </article>
+    </section>
+    <section class="doc-group" id="collab">
+      <h2>Collaboration & AI</h2>
+      <div class="prd">PRD 5.10</div>
+      <article class="doc-entry" id="s-nk-comments">
+        <h3>Comment thread <code>.nk-comments</code></h3>
+        <div class="doc-preview"><div class="nk-comments" style="max-width:420px">
+  <div class="nk-comment">
+    <span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>
+    <div><div class="c-head"><b>Sara Lindt</b> · 1 hr ago</div><div class="c-body">The board view already feels very close to the original. 👍</div></div>
+  </div>
+  <div class="nk-comment-input">
+    <input class="nk-input" placeholder="Comment …"><button class="nk-btn primary small">Send</button>
+  </div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-ai-thread">
+        <h3>AI thread <code>.nk-ai-thread</code></h3>
+        <div class="doc-preview"><div style="max-width:460px">
+  <div class="nk-ai-thread">
+    <div class="nk-ai-msg user">
+      <span class="mini-avatar">AL</span>
+      <div><div class="a-name">You</div><div class="a-body">Summarise the open tasks for this project.</div></div>
+    </div>
+    <div class="nk-ai-msg">
+      <span class="mini-avatar">🤖</span>
+      <div><div class="a-name">Mona <span>· AI</span></div>
+        <div class="a-body">Two tasks are open: the table view sits at 65 %, the board with drag and drop is planned.</div>
+        <div class="nk-ai-actions"><button>📋 Copy</button><button>↻ Rephrase</button></div></div>
+    </div>
+  </div>
+  <div class="nk-ai-input-row">
+    <input placeholder="Ask Mona something …"><button class="nk-ai-send">↑</button>
+  </div>
+</div></div>
+        
+      </article>
+    </section>
+    <section class="doc-group" id="editor">
+      <h2>Editor adapter</h2>
+      <div class="prd">PRD 5.11</div>
+      <article class="doc-entry" id="s-nk-block-host">
+        <h3>Block host <code>.nk-block-host</code></h3>
+        <div class="doc-preview"><div style="padding-left:48px;max-width:460px">
+  <div class="nk-block-host">
+    <div class="nk-block-actions show" style="top:6px;left:-46px;pointer-events:none" aria-hidden="true"><button type="button" tabindex="-1">＋</button><button type="button" class="drag" tabindex="-1">⠿</button></div>
+    <div style="padding:4px 2px;line-height:1.6">Core idea: a callout carries one thought that should not be missed. Keep it to a sentence or two.</div>
+  </div>
+  <div class="nk-block-host nk-drop-target">
+    <span class="nk-block-handle">⠿</span>
+    <div style="padding:4px 2px;color:var(--nk-text-tertiary)">Type “/” for commands …</div>
+  </div>
+</div></div>
+        <p class="doc-note doc-note--preview">This preview is the static shell only — the ＋ / ⠿ rail here does nothing. The working version, with slash menu, drag &amp; drop and block menu, is the live editor in the <a href="docs.html#editor">docs</a>.</p>
+      </article>
+      <article class="doc-entry" id="s-nk-slash-menu">
+        <h3>Slash menu & bubble toolbar <code>.nk-slash-menu</code></h3>
+        <div class="doc-preview"><div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+  <div class="nk-slash-menu" style="box-shadow:none;border:1px solid var(--nk-border)">
+    <div class="nk-slash-menu-label">Basic blocks</div>
+    <div class="nk-slash-item selected"><span class="m-icon">H1</span><div><div>Heading 1</div><div class="m-desc">Big section heading</div></div></div>
+    <div class="nk-slash-item"><span class="m-icon">☑</span><div><div>To-do list</div><div class="m-desc">Track tasks with a checkbox</div></div></div>
+    <div class="nk-slash-item"><span class="m-icon">&lt;/&gt;</span><div><div>Code block</div><div class="m-desc">Capture a snippet</div></div></div>
+  </div>
+  <div class="nk-bubble-menu" style="box-shadow:none;border:1px solid var(--nk-border)">
+    <button class="active"><b>B</b></button><button><i>I</i></button><button><s>S</s></button><button>&lt;/&gt;</button><button>🔗</button>
+  </div>
+</div></div>
+        <p class="doc-note doc-note--preview">Static markup for the look. The live, keyboard-driven version runs in the <a href="docs.html#editor">docs editor</a> — type <code>/</code> there.</p>
+      </article>
+    </section>
+  </main>
+</div>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    function set(theme) {
+      root.setAttribute('data-theme', theme);
+      if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+      try { localStorage.setItem('nk-theme', theme); } catch (e) {}
+      document.querySelectorAll('iframe[data-theme-sync]').forEach(function (f) {
+        try { f.contentWindow.postMessage({ nkTheme: theme }, '*'); } catch (e) {}
+      });
+    }
+    var stored = null;
+    try { stored = localStorage.getItem('nk-theme'); } catch (e) {}
+    set(stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    if (btn) btn.addEventListener('click', function () {
+      set(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  })();
+  (function () {
+    var PALETTES = [{"id":"default","name":"Default","light":{},"dark":{}},{"id":"forest","name":"Forest","light":{"--nk-accent":"#2f8f5b"},"dark":{"--nk-accent":"#5cbf87"}},{"id":"slate","name":"Slate","light":{"--nk-accent":"#4b6b8a","--nk-decor-purple":"#6b7d94","--nk-decor-blue":"#4b6b8a","--nk-decor-orange":"#8a7a5b"},"dark":{"--nk-accent":"#7fa3c4"}},{"id":"sunset","name":"Sunset","light":{"--nk-accent":"#d9730d","--nk-danger":"#c93c3c","--nk-decor-purple":"#c2552a","--nk-decor-blue":"#e0a53c"},"dark":{"--nk-accent":"#ffa344"}},{"id":"high-contrast","name":"High Contrast","light":{"--nk-text-secondary":"rgba(55,53,47,0.72)","--nk-text-tertiary":"rgba(55,53,47,0.70)","--nk-accent":"#1e72c6","--nk-danger":"#c64646","--nk-tag-blue-text":"#2d7096","--nk-tag-green-text":"#3d7657","--nk-tag-orange-text":"#a05409","--nk-tag-purple-text":"#845ca2"},"dark":{"--nk-text-tertiary":"rgba(255,255,255,0.48)","--nk-on-accent":"#191919","--nk-tag-green-text":"#52aea0","--nk-tag-purple-text":"#a880de"}}];
+    var KEY = 'nk-palette';
+    function css(p) {
+      var rule = function (sel, o) { var k = Object.keys(o); return k.length ? sel + '{' + k.map(function (n) { return n + ':' + o[n]; }).join(';') + '}' : ''; };
+      return rule(':root', p.light) + rule('[data-theme="dark"]', p.dark);
+    }
+    function apply(id) {
+      var p = PALETTES.filter(function (x) { return x.id === id; })[0] || PALETTES[0];
+      var el = document.getElementById('nk-palette-style');
+      if (!el) { el = document.createElement('style'); el.id = 'nk-palette-style'; document.head.appendChild(el); }
+      el.textContent = css(p);
+      try { localStorage.setItem(KEY, p.id); } catch (e) {}
+      document.querySelectorAll('[data-palette]').forEach(function (b) { b.classList.toggle('selected', b.dataset.palette === p.id); });
+      var sel = document.getElementById('paletteSelect'); if (sel && sel.value !== p.id) sel.value = p.id;
+      document.querySelectorAll('iframe[data-theme-sync]').forEach(function (f) { try { f.contentWindow.postMessage({ nkPalette: p.id }, '*'); } catch (e) {} });
+    }
+    var stored = null; try { stored = localStorage.getItem(KEY); } catch (e) {}
+    apply(stored || 'default');
+    window.addEventListener('message', function (e) { if (e.data && e.data.nkPalette) apply(e.data.nkPalette); });
+    var sel = document.getElementById('paletteSelect'); if (sel) sel.addEventListener('change', function () { apply(sel.value); });
+    var btn = document.getElementById('paletteToggle'), menu = document.getElementById('paletteMenu');
+    if (btn && menu) {
+      btn.addEventListener('click', function (e) { e.stopPropagation(); menu.hidden = !menu.hidden; });
+      menu.addEventListener('click', function (e) { var t = e.target.closest('[data-palette]'); if (t) { apply(t.dataset.palette); menu.hidden = true; } });
+      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) menu.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menu.hidden = true; });
+    }
+    window.nkApplyPalette = apply;
+  })();
+  (function () {
+    var links = [].slice.call(document.querySelectorAll('.doc-toc a'));
+    var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    function sync() {
+      var best = 0;
+      targets.forEach(function (el, i) { if (el && el.getBoundingClientRect().top < 120) best = i; });
+      links.forEach(function (a, i) { a.classList.toggle('current', i === best); });
+    }
+    addEventListener('scroll', sync, { passive: true });
+    sync();
+  })();</script>
+</body>
+</html>

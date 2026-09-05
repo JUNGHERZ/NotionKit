@@ -1,0 +1,54 @@
+{
+  "name": "@jungherz-de/notionkit",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A calm, document-centric CSS component library in the Notion idiom – sidebar, page tree, database views, settings and AI surfaces. ~100 components, light & dark mode, no dependencies.",
+  "main": "notionkit.css",
+  "style": "notionkit.css",
+  "files": [
+    "notionkit.css",
+    "notionkit.min.css",
+    "notionkit-styles.js",
+    "theme-override.css",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "SKILL.md"
+  ],
+  "scripts": {
+    "minify": "cleancss -O2 --source-map -o notionkit.min.css notionkit.css",
+    "build:styles-js": "node build-styles-js.mjs",
+    "build:pages": "node tools/build-landing.mjs && node tools/build-pages.mjs",
+    "build:skill": "node tools/build-skill.mjs",
+    "build:meta": "node tools/build-meta.mjs",
+    "build": "npm run minify && npm run build:styles-js && npm run build:pages && npm run build:skill && npm run build:meta",
+    "check:coverage": "node tools/check-coverage.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "css",
+    "notion",
+    "design-system",
+    "workspace",
+    "documents",
+    "ui",
+    "components",
+    "design-tokens",
+    "dark-mode",
+    "light-mode",
+    "no-dependencies"
+  ],
+  "author": "Jungherz GmbH <info@jungherz.com> (https://www.jungherz.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JUNGHERZ/NotionKit.git"
+  },
+  "homepage": "https://notionkit.jungherz.com",
+  "bugs": {
+    "url": "https://github.com/JUNGHERZ/NotionKit/issues"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3"
+  }
+}

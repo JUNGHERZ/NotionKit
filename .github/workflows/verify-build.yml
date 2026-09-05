@@ -1,0 +1,67 @@
+# ============================================================
+# NotionKit – Build Smoke Test
+#
+# Trigger:  push / pull request on main
+# Purpose:  notionkit.min.css and notionkit-styles.js are gitignored and
+#           only produced by the release workflow. A syntax error in
+#           notionkit.css, or a token declaration leaking into the
+#           component block, would otherwise surface at tag time. This
+#           job builds on every push and runs the split checks, the
+#           documentation coverage check and the version consistency
+#           check.
+#
+# Locally:  npm run build && npm run check:coverage
+# ============================================================
+
+name: Verify Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Build artifacts from source
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build (minify, split, pages, SKILL.md)
+        run: npm run build
+
+      - name: Documentation covers every class
+        run: npm run check:coverage
+
+      - name: Artifacts exist and carry the package version
+        run: |
+          set -e
+          test -s notionkit.min.css    || { echo "::error::notionkit.min.css missing or empty"; exit 1; }
+          test -s notionkit-styles.js  || { echo "::error::notionkit-styles.js missing or empty"; exit 1; }
+          VERSION=$(node -p "require('./package.json').version")
+          grep -q "NotionKit v${VERSION}" notionkit-styles.js \
+            || { echo "::error::notionkit-styles.js header does not say v${VERSION}"; exit 1; }
+          grep -q "v${VERSION}" notionkit.css \
+            || { echo "::error::notionkit.css header does not say v${VERSION}"; exit 1; }
+          grep -q "(v${VERSION})" SKILL.md \
+            || { echo "::error::SKILL.md does not say v${VERSION}"; exit 1; }
+          echo "OK – artifacts built for v${VERSION}"
+
+      - name: Size budget (≤ 60 KB raw, ≤ 10 KB gzip)
+        run: |
+          RAW=$(wc -c < notionkit.min.css)
+          GZ=$(gzip -9 -c notionkit.min.css | wc -c)
+          echo "minified: ${RAW} B · gzip: ${GZ} B"
+          test "$RAW" -le 61440 || { echo "::error::notionkit.min.css exceeds 60 KB"; exit 1; }
+          test "$GZ"  -le 10240 || { echo "::error::gzipped size exceeds 10 KB"; exit 1; }

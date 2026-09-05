@@ -1,0 +1,150 @@
+/* ============================================================
+   NOTIONKIT – THEME OVERRIDE TEMPLATE
+
+   Load AFTER the library:
+     <link rel="stylesheet" href="notionkit.css">
+     <link rel="stylesheet" href="theme-override.css">
+
+   Override only what differs. Everything else is inherited from
+   the library's own token blocks.
+   ============================================================ */
+
+
+/* ============================================================
+   BRAND COLOUR — one line is enough
+
+   Focus rings, checked states, the selected model card, the
+   primary button and the danger hover are all color-mix()ed from
+   --nk-accent, so a green accent gets a green focus ring, a green
+   check mark and a green tint on the selected card.
+
+   Important: declare on :root. A custom property is replaced where
+   it is declared — set on a subtree, the brand never reaches the
+   tokens inherited from :root.
+   ============================================================ */
+
+/* Forest */
+/*
+:root {
+  --nk-accent: #2f8f5b;
+}
+[data-theme="dark"] {
+  --nk-accent: #5cbf87;
+}
+*/
+
+/* Slate — cool, muted, for internal tools */
+/*
+:root {
+  --nk-accent: #4b6b8a;
+  --nk-decor-purple: #6b7d94;
+  --nk-decor-blue:   #4b6b8a;
+  --nk-decor-orange: #8a7a5b;
+}
+[data-theme="dark"] {
+  --nk-accent: #7fa3c4;
+}
+*/
+
+/* Sunset — warm accent, warm avatars */
+/*
+:root {
+  --nk-accent: #d9730d;
+  --nk-danger: #c93c3c;
+  --nk-decor-purple: #c2552a;
+  --nk-decor-blue:   #e0a53c;
+}
+[data-theme="dark"] {
+  --nk-accent: #ffa344;
+}
+*/
+
+
+/* ============================================================
+   HIGH CONTRAST — every measured pair at ≥ 4.5:1 (WCAG AA)
+
+   The default palette keeps Notion's own values. Body text passes
+   AA comfortably; secondary text, the tag pairs, white-on-accent
+   and the danger colour sit between 2.5:1 and 4.2:1 in light mode.
+   Uncomment this block to lift them. Values were found by searching
+   for the nearest colour that clears 4.5:1 against the surface each
+   pair actually sits on (tools/contrast.mjs), plus a small margin.
+
+   Light: text-secondary 0.65 → 0.72, text-tertiary 0.45 → 0.70,
+          accent #2383e2 → #1e72c6, danger #eb5757 → #c64646,
+          tag text darkened. Dark: text-tertiary 0.28 → 0.48,
+          on-accent white → near-black (5.8:1 on the unchanged
+          accent), green and purple tag text lightened.
+   ============================================================ */
+/*
+:root {
+  --nk-text-secondary: rgba(55,53,47,0.72);
+  --nk-text-tertiary:  rgba(55,53,47,0.70);
+  --nk-accent:         #1e72c6;
+  --nk-danger:         #c64646;
+  --nk-tag-blue-text:   #2d7096;
+  --nk-tag-green-text:  #3d7657;
+  --nk-tag-orange-text: #a05409;
+  --nk-tag-purple-text: #845ca2;
+}
+[data-theme="dark"] {
+  --nk-text-tertiary:   rgba(255,255,255,0.48);
+  --nk-on-accent:       #191919;
+  --nk-tag-green-text:  #52aea0;
+  --nk-tag-purple-text: #a880de;
+}
+*/
+
+
+/* ============================================================
+   EXAMPLE: bend a single derived value
+
+   Derivations are ordinary declarations and lose to a later one.
+   Set only what really has to differ.
+   ============================================================ */
+/*
+:root {
+  --nk-radius: 4px;
+  --nk-sidebar-width: 300px;
+  --nk-shadow-menu: 0 0 0 1px rgba(15,15,15,0.08), 0 8px 24px rgba(15,15,15,0.16);
+}
+*/
+
+
+/* ============================================================
+   EXAMPLE: different typography
+   ============================================================ */
+/*
+:root {
+  --nk-font: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --nk-font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+.nk-page-title { font-size: 36px; letter-spacing: -0.02em; }
+*/
+
+
+/* ============================================================
+   EXAMPLE: darker dark mode
+   ============================================================ */
+/*
+[data-theme="dark"] {
+  --nk-bg:         #0f0f0f;
+  --nk-bg-sidebar: #161616;
+  --nk-bg-callout: #1c1c1c;
+  --nk-bg-code:    #161616;
+  --nk-bg-card:    #161616;
+}
+*/
+
+
+/* ============================================================
+   YOUR THEME — uncomment and fill in
+   ============================================================ */
+/*
+:root {
+
+}
+[data-theme="dark"] {
+
+}
+*/

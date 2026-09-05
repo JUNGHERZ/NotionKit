@@ -1,0 +1,25 @@
+# NotionKit
+
+> A pure CSS component library (v1.0.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 `nk-*` classes, `--nk-*` design tokens, light & dark mode, no JavaScript, no build step. npm: `@jungherz-de/notionkit`.
+
+The theme is one attribute: `<html data-theme="dark">`. Re-branding is one declaration: `:root { --nk-accent: … }`. The library ships state classes (`active`, `open`, `collapsed`, `selected`, `show`, `aria-checked`) but no behaviour. It ships no editor: mount TipTap, BlockNote or Novel into `.nk-block-host`.
+
+## Start here
+
+- [SKILL.md](https://notionkit.jungherz.com/SKILL.md): the complete AI reference – every component with copy-paste markup, token tables for both themes, state classes, six complete app skeletons, editor and web-component contracts, common mistakes. Read this first when generating NotionKit markup.
+- [Documentation](https://notionkit.jungherz.com/docs.html): the same content with live previews and per-component mobile behaviour.
+- [notionkit.css](https://notionkit.jungherz.com/notionkit.css): the stylesheet itself – token block first, component block second, commented.
+
+## Reference
+
+- [Showcase](https://notionkit.jungherz.com/showcase.html): every component isolated, both themes.
+- [Demo app](https://notionkit.jungherz.com/app.html): a realistic workspace app with a live TipTap editor.
+- [theme-override.css](https://notionkit.jungherz.com/theme-override.css): three example palettes and a measured high-contrast block.
+- [README](https://notionkit.jungherz.com/README.md): installation (CDN, npm), quick start, component tables, browser support.
+- [Elements proof of concept](https://notionkit.jungherz.com/elements-poc.html): web components adopting the component sheet; the seed of NotionKit Elements.
+
+## Optional
+
+- [German documentation](https://notionkit.jungherz.com/de/docs.html)
+- [GitHub repository](https://github.com/JUNGHERZ/NotionKit)
+- [npm package](https://www.npmjs.com/package/@jungherz-de/notionkit)

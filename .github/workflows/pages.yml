@@ -1,0 +1,63 @@
+# ============================================================
+# NotionKit – GitHub Pages
+#
+# Trigger:  push on main (and manually)
+# Purpose:  The landing page, docs, showcase, demo and the elements
+#           proof of concept live on GitHub Pages. The PoC imports the
+#           gitignored notionkit-styles.js, so the site is *built* here
+#           rather than served from the repository as-is.
+#
+# Setup:    Repository → Settings → Pages → Source: "GitHub Actions".
+#           The CNAME file is copied along for the custom domain.
+# ============================================================
+
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run build
+      - name: Assemble site
+        run: |
+          mkdir -p _site/de
+          cp index.html app.html docs.html showcase.html elements-poc.html \
+             notionkit.css notionkit.min.css notionkit-styles.js theme-override.css \
+             nk-callout.js docs-editor.js favicon.svg favicon.png apple-touch-icon.png og.png \
+             CNAME README.md SKILL.md LICENSE sitemap.xml robots.txt llms.txt _site/
+          cp de/*.html _site/de/
+          touch _site/.nojekyll
+          ls -la _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
