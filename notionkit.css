@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.1.0
+   Jungherz GmbH – v1.1.1
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -78,6 +78,13 @@
      slot has a second twin keyed on the slot name, e.g.
      `.nk-tree-item ::slotted([slot="icon"])`, so a consumer writes
      <span slot="icon">📁</span> without repeating the internal class.
+   - Margin and padding in a twin are marked !important when the scoped
+     reset (0. above) also sets them – on buttons, headings, paragraphs.
+     The reset lives in the document tree, and for *normal* declarations
+     the outer tree beats ::slotted() from the shadow tree; for
+     !important ones the inner tree wins. Without the flag a slotted
+     <button> inside <nk-segmented> would render with the reset's
+     zero padding. Everything else in a twin stays overridable.
    ============================================================ */
 
 
@@ -313,6 +320,7 @@
   display: flex; align-items: center; gap: 5px;
 }
 .nk-breadcrumb .crumb:hover { background: var(--nk-bg-hover); }
+a.crumb { text-decoration: none; }
 .nk-breadcrumb .crumb.current,
 .nk-breadcrumb ::slotted(.crumb.current) { color: var(--nk-text); }
 .nk-breadcrumb .sep { color: var(--nk-text-tertiary); font-size: 12px; }
@@ -418,8 +426,8 @@
   color: var(--nk-text-tertiary); font-size: 13px; margin-bottom: 24px;
   display: flex; gap: 16px;
 }
-.nk-page p.lead,
-.nk-page ::slotted(p.lead) { font-size: 16px; line-height: 1.6; color: var(--nk-text-secondary); margin-bottom: 20px; }
+.nk-page p.lead { font-size: 16px; line-height: 1.6; color: var(--nk-text-secondary); margin-bottom: 20px; }
+.nk-page ::slotted(p.lead) { font-size: 16px; line-height: 1.6; color: var(--nk-text-secondary); margin-bottom: 20px !important; }
 
 .nk-heading {
   font-size: 22px; font-weight: 600; margin: 32px 0 10px;
@@ -827,8 +835,8 @@ a.nk-btn { text-decoration: none; }
 .nk-settings-pane > h3 { font-size: 13px; font-weight: 600; margin: 26px 0 10px; }
 /* Slotted headings: the child combinator above cannot cross a slot boundary,
    and slotted nodes miss the scoped reset, so the margins are spelled out. */
-.nk-settings-pane ::slotted(h2) { font-size: 16px; font-weight: 600; padding: 0; border: 0; border-bottom: 1px solid var(--nk-border); padding-bottom: 12px; margin: 0 0 20px; }
-.nk-settings-pane ::slotted(h3) { font-size: 13px; font-weight: 600; padding: 0; margin: 26px 0 10px; }
+.nk-settings-pane ::slotted(h2) { font-size: 16px; font-weight: 600; border: 0; border-bottom: 1px solid var(--nk-border); padding: 0 0 12px !important; margin: 0 0 20px !important; }
+.nk-settings-pane ::slotted(h3) { font-size: 13px; font-weight: 600; padding: 0 !important; margin: 26px 0 10px !important; }
 
 
 /* ============================================================
@@ -931,10 +939,13 @@ a.nk-btn { text-decoration: none; }
    one column as soon as the container drops below ~600px. min(280px, 100%)
    keeps the single column from overflowing containers narrower than 280px. */
 .nk-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 20px 32px; margin: 12px 0; }
-.nk-g-item > h4,
-.nk-g-item ::slotted(h4) {
+.nk-g-item > h4 {
   font-size: 12px; font-weight: 500; color: var(--nk-text-tertiary);
   text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px;
+}
+.nk-g-item ::slotted(h4) {
+  font-size: 12px; font-weight: 500; color: var(--nk-text-tertiary);
+  text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px !important;
 }
 
 .nk-tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--nk-border); font-size: 14px; }
@@ -982,10 +993,13 @@ a.nk-btn { text-decoration: none; }
 }
 
 .nk-segmented { display: inline-flex; background: var(--nk-bg-callout); border-radius: 7px; padding: 2px; }
-.nk-segmented button,
-.nk-segmented ::slotted(button) {
+.nk-segmented button {
   font-family: inherit; font-size: 13px; border: none; background: transparent;
   color: var(--nk-text-secondary); padding: 4px 12px; border-radius: 5px; cursor: pointer;
+}
+.nk-segmented ::slotted(button) {
+  font-family: inherit; font-size: 13px; border: none; background: transparent;
+  color: var(--nk-text-secondary); padding: 4px 12px !important; border-radius: 5px; cursor: pointer;
 }
 .nk-segmented button.active,
 .nk-segmented ::slotted(button.active) { background: var(--nk-bg); color: var(--nk-text); font-weight: 500; box-shadow: var(--nk-shadow-segment); }
@@ -1077,11 +1091,15 @@ a.nk-btn { text-decoration: none; }
 .nk-ai-msg ::slotted(.a-name) { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
 .nk-ai-msg .a-name span { color: var(--nk-text-tertiary); font-weight: 400; }
 .nk-ai-actions { display: flex; gap: 4px; margin-top: 6px; }
-.nk-ai-actions button,
-.nk-ai-actions ::slotted(button) {
+.nk-ai-actions button {
   font-family: inherit; font-size: 11.5px; color: var(--nk-text-tertiary);
   background: transparent; border: 1px solid var(--nk-border); border-radius: 5px;
   padding: 2px 8px; cursor: pointer;
+}
+.nk-ai-actions ::slotted(button) {
+  font-family: inherit; font-size: 11.5px; color: var(--nk-text-tertiary);
+  background: transparent; border: 1px solid var(--nk-border); border-radius: 5px;
+  padding: 2px 8px !important; cursor: pointer;
 }
 .nk-ai-actions button:hover,
 .nk-ai-actions ::slotted(button:hover) { background: var(--nk-bg-hover); color: var(--nk-text); }
@@ -1263,10 +1281,13 @@ a.nk-btn { text-decoration: none; }
   background: var(--nk-bg); border-radius: 8px; box-shadow: var(--nk-shadow-menu);
   padding: 4px;
 }
-.nk-bubble-menu button,
-.nk-bubble-menu ::slotted(button) {
+.nk-bubble-menu button {
   font-family: inherit; font-size: 13px; border: none; background: transparent;
   color: var(--nk-text-secondary); padding: 4px 8px; border-radius: 5px; cursor: pointer;
+}
+.nk-bubble-menu ::slotted(button) {
+  font-family: inherit; font-size: 13px; border: none; background: transparent;
+  color: var(--nk-text-secondary); padding: 4px 8px !important; border-radius: 5px; cursor: pointer;
 }
 .nk-bubble-menu button:hover,
 .nk-bubble-menu ::slotted(button:hover) { background: var(--nk-bg-hover); color: var(--nk-text); }

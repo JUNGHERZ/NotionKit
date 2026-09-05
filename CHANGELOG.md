@@ -4,6 +4,23 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] – 2026-09-05
+
+### Fixed
+- Slotted twins that set margin or padding on elements the scoped reset also
+  touches (`button`, `h2`–`h4`, `p`) never applied inside a web component:
+  the reset lives in the document tree, and for normal declarations the
+  outer tree beats `::slotted()` from the shadow tree. A `<button>` slotted
+  into `<nk-segmented>` therefore rendered with zero padding (33×15 px
+  instead of 57×23 px, measured). Those declarations are now `!important`
+  – for important declarations the inner tree wins – on
+  `.nk-segmented ::slotted(button)`, `.nk-ai-actions ::slotted(button)`,
+  `.nk-bubble-menu ::slotted(button)`, `.nk-page ::slotted(p.lead)`,
+  `.nk-g-item ::slotted(h4)` and `.nk-settings-pane ::slotted(h2/h3)`.
+  Everything else in a twin stays overridable from the document.
+- `a.crumb { text-decoration: none }` – a breadcrumb entry that is a link
+  no longer shows an underline.
+
 ## [1.1.0] – 2026-09-05
 
 Companion release for NotionKit Elements. Additive only: no existing value
