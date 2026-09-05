@@ -14,7 +14,10 @@ const LANDING_CSS = `
   .site-note { font-size: 13px; color: var(--nk-text-tertiary); margin-top: 10px; line-height: 1.6; }
   .site-status { font-size: 11px; padding: 1px 8px; border-radius: 10px; font-weight: 500; }
   .site-status.on { background: var(--nk-tag-green-bg); color: var(--nk-tag-green-text); }
-  .site-status.soon { background: var(--nk-bg-callout); color: var(--nk-text-tertiary); }
+  .site-status.here { background: var(--nk-bg-callout); color: var(--nk-text-secondary); }
+  .site-family .links { display: flex; gap: 12px; margin-top: 12px; font-size: 13px; }
+  .site-family .links a { color: var(--nk-accent); text-decoration: none; }
+  .site-family .links a:hover { text-decoration: underline; }
   .site-family h3 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .site-family .role { font-size: 12px; color: var(--nk-text-tertiary); font-weight: 400; }
 `;
@@ -128,10 +131,11 @@ ${nav(t, 'index')}
     <h2 class="site-h2">${t.familyTitle}</h2>
     <p class="site-lead">${t.familyLead}</p>
     <div class="site-grid site-family">
-      ${t.family.map(([name, role, desc, st]) => `<div class="site-card">
-        <h3>${name} <span class="site-status ${st === 'available' ? 'on' : 'soon'}">${st === 'available' ? t.statusAvailable : t.statusPlanned}</span></h3>
+      ${t.family.map(([name, role, desc, site, repo]) => `<div class="site-card">
+        <h3>${name} <span class="site-status ${site ? 'on' : 'here'}">${site ? t.statusAvailable : t.linkThis}</span></h3>
         <div class="role">${role}</div>
         <p style="margin-top:8px">${desc}</p>
+        <div class="links">${site ? `<a href="${site}">${t.linkSite} →</a>` : ''}<a href="${repo}">${t.linkRepo} →</a></div>
       </div>`).join('\n      ')}
     </div>
   </div>

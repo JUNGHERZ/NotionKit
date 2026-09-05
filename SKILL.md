@@ -185,7 +185,7 @@ Every snippet below is real markup from the documentation previews. A few inline
 ```
 
 - **Classes:** `.nk-app`, `.nk-sidebar`, `.nk-sidebar-scroll`, `.nk-sidebar-footer`, `.nk-main`
-- **On a small screen:** Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job (and a planned Elements component).
+- **On a small screen:** Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code"><nk-sidebar open>`.
 
 ### Workspace switcher — `.nk-workspace`
 
@@ -1661,11 +1661,11 @@ customElements.define('nk-callout', NkCallout);
 
 ---
 
-## 10. Roadmap: NotionKit Elements
+## 10. NotionKit Elements
 
-A web-component layer (`@jungherz-de/notionkit-elements`) is planned on top of this CSS. Keep generated code API-stable by following these conventions now:
+The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elements` (68 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
 
-| CSS today | Element tomorrow |
+| CSS class markup | Element markup |
 |---|---|
 | `.nk-callout` | `<nk-callout>` – same stem for every component |
 | modifier class `.nk-btn.primary` | attribute `<nk-btn variant="primary">` |
@@ -1674,7 +1674,7 @@ A web-component layer (`@jungherz-de/notionkit-elements`) is planned on top of t
 | click handler on a tree item | event `nk-select` |
 | view tab switch | event `nk-view-change` |
 | palette pick | event `nk-command` |
-| `.nk-block-host` + TipTap | `<nk-editor>` (thin TipTap wrapper) |
+| `.nk-block-host` + TipTap | `<nk-block-host>` + the same TipTap recipe (`<nk-editor>` follows as an optional import) |
 
 ---
 

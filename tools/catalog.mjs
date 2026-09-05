@@ -25,8 +25,8 @@ export const CATALOG = [
     de: '<code>nk-app</code> ist eine flex-Zeile über die volle Höhe: Sidebar links, Hauptspalte rechts. Es ist das äußerste Element einer Workspace-App und der einzige Ort, an den eine feste Höhe gehört. In der Sidebar ist <code>nk-sidebar-scroll</code> der scrollende Baumbereich und <code>nk-sidebar-footer</code> der fixierte Fuß (Einstellungen, Papierkorb).',
   },
   mobile: {
-    en: 'Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job (and a planned Elements component).',
-    de: 'Unter 860px verschwindet die Sidebar vollständig, die Hauptspalte nimmt die volle Breite. Eine Off-Canvas-Schublade ist Sache des Consumers (und eine geplante Elements-Komponente).',
+    en: 'Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>.',
+    de: 'Unter 860px verschwindet die Sidebar vollständig, die Hauptspalte nimmt die volle Breite. Eine Off-Canvas-Schublade ist Sache des Consumers – NotionKit Elements liefert sie als <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>.',
   },
   frame: 340,
   html: W => `<div class="nk-app" style="height:100%">

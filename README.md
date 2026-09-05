@@ -34,8 +34,8 @@
 
 <p align="center">
   <sub>Part of the NotionKit family:
-  <a href="#-the-notionkit-family">NotionKit Elements</a> (web components, planned) ·
-  <a href="#-the-notionkit-family">NotionKit Web</a> (Astro template, planned)</sub>
+  <a href="https://notionkit-elements.jungherz.com">NotionKit Elements</a> (web components for app UIs) ·
+  <a href="https://notionkit-web.jungherz.com">NotionKit Web</a> (Astro website template)</sub>
 </p>
 
 ---
@@ -48,7 +48,7 @@ NotionKit is a **pure CSS component library** in the idiom of Notion: the quiet,
 
 There is no established UI framework that ships the Notion look *as a system*. What exists are editors (BlockNote, Novel), generic component kits (shadcn/ui) or full clones. NotionKit fills the middle: an opinionated design system with a clear optical signature that lets you build your own product in that ecosystem – familiar feel, own application.
 
-NotionKit is the **CSS foundation** of a three-layer family. NotionKit Elements will wrap this markup in vanilla web components; NotionKit Web will be an Astro template for complete websites on the same foundation.
+NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements](https://notionkit-elements.jungherz.com) wraps this markup in 68 vanilla web components for application UIs, and [NotionKit Web](https://notionkit-web.jungherz.com) is the official Astro template for complete websites on the same foundation – three layers, one design language.
 
 <br>
 
@@ -386,13 +386,24 @@ Serve the folder rather than opening files directly: the elements proof of conce
 
 NotionKit is the CSS foundation of a three-layer family. The layers share one design language and one naming stem: `.nk-callout` becomes `<nk-callout>`, a modifier class becomes an attribute, a state class becomes a boolean attribute.
 
-### NotionKit Elements – the app layer *(planned)*
+### NotionKit Elements – the app layer
 
-Vanilla-JS custom elements (`<nk-app>`, `<nk-sidebar>`, `<nk-tree-item>`, `<nk-callout>`, `<nk-database>`, `<nk-cmdk>`, `<nk-editor>` …) that wrap this markup, built on the constructable stylesheet shipped here. Package: `@jungherz-de/notionkit-elements`. The [proof of concept](elements-poc.html) in this repository is its seed.
+If you want to use NotionKit through **drop-in web components** instead of writing the class markup yourself, take a look at **NotionKit Elements**: 68 vanilla-JS custom elements (`<nk-app>`, `<nk-sidebar>`, `<nk-tree-item>`, `<nk-callout>`, `<nk-database>`, `<nk-cmdk>`, `<nk-block-host>` …) with Shadow DOM, native form participation and pixel parity with the class markup – built on the constructable stylesheet shipped here. The [proof of concept](elements-poc.html) in this repository is its seed.
 
-### NotionKit Web – the website layer *(planned)*
+Useful links:
+- GitHub: https://github.com/JUNGHERZ/NotionKit-Elements
+- Live demo: https://notionkit-elements.jungherz.com/
+- Docs: https://notionkit-elements.jungherz.com/docs.html
+- npm: [`@jungherz-de/notionkit-elements`](https://www.npmjs.com/package/@jungherz-de/notionkit-elements)
 
-An Astro template for complete websites – documentation, knowledge bases, product pages – on the same foundation.
+### NotionKit Web – the website layer
+
+If you want to build a **complete website** rather than assemble components yourself, **NotionKit Web** is the intended path: the official Astro template – docs from Markdown with page tree, bilingual blog with RSS, marketing sections, dark mode without a flash, no external requests, a Playwright smoke suite – on the NotionKit foundation.
+
+Useful links:
+- GitHub: https://github.com/JUNGHERZ/NotionKit-Web
+- Website: https://notionkit-web.jungherz.com/
+- Docs: https://notionkit-web.jungherz.com/docs.html
 
 ---
 
@@ -404,7 +415,7 @@ An Astro template for complete websites – documentation, knowledge bases, prod
 - complete token tables for both themes, read straight from the stylesheet
 - the state-class contract
 - **six complete app skeletons** – workspace app, database app, settings modal, AI chat page, form/onboarding page, landing/docs page – each with a "When to use this skeleton?" block
-- editor recipes, rules and common mistakes, the web-component contract, the Elements roadmap
+- editor recipes, rules and common mistakes, the web-component contract, the CSS-to-Elements mapping
 
 Point your assistant at it: *"Use NotionKit classes as documented in SKILL.md."* It has been validated blind – an agent given nothing but the file produced a working app whose 61 classes all existed.
 

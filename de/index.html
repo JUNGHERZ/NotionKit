@@ -126,7 +126,10 @@
   .site-note { font-size: 13px; color: var(--nk-text-tertiary); margin-top: 10px; line-height: 1.6; }
   .site-status { font-size: 11px; padding: 1px 8px; border-radius: 10px; font-weight: 500; }
   .site-status.on { background: var(--nk-tag-green-bg); color: var(--nk-tag-green-text); }
-  .site-status.soon { background: var(--nk-bg-callout); color: var(--nk-text-tertiary); }
+  .site-status.here { background: var(--nk-bg-callout); color: var(--nk-text-secondary); }
+  .site-family .links { display: flex; gap: 12px; margin-top: 12px; font-size: 13px; }
+  .site-family .links a { color: var(--nk-accent); text-decoration: none; }
+  .site-family .links a:hover { text-decoration: underline; }
   .site-family h3 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .site-family .role { font-size: 12px; color: var(--nk-text-tertiary); font-weight: 400; }
 </style>
@@ -272,19 +275,22 @@
     <p class="site-lead">NotionKit ist die CSS-Grundlage einer dreischichtigen Familie. Die Schichten teilen eine Design-Sprache und einen Namensstamm: aus <code class="nk-inline-code">.nk-callout</code> wird <code class="nk-inline-code">&lt;nk-callout&gt;</code>.</p>
     <div class="site-grid site-family">
       <div class="site-card">
-        <h3>NotionKit <span class="site-status on">Jetzt verfügbar</span></h3>
+        <h3>NotionKit <span class="site-status here">Du bist hier</span></h3>
         <div class="role">CSS-Grundlage</div>
         <p style="margin-top:8px">Dieses Projekt. <code class="nk-inline-code">.nk-*</code>-Klassen und <code class="nk-inline-code">--nk-*</code>-Tokens für jeden Stack.</p>
+        <div class="links"><a href="https://github.com/JUNGHERZ/NotionKit">GitHub →</a></div>
       </div>
       <div class="site-card">
-        <h3>NotionKit Elements <span class="site-status soon">Geplant</span></h3>
+        <h3>NotionKit Elements <span class="site-status on">Jetzt verfügbar</span></h3>
         <div class="role">Web Components</div>
-        <p style="margin-top:8px">Vanilla-JS-Custom-Elements, die dieses Markup kapseln — gebaut auf dem hier ausgelieferten Constructable Stylesheet.</p>
+        <p style="margin-top:8px">68 Vanilla-JS-Custom-Elements, die dieses Markup kapseln — Shadow DOM, native Formularteilnahme, Pixelgleichheit mit dem Klassen-Markup. Gebaut auf dem hier ausgelieferten Constructable Stylesheet.</p>
+        <div class="links"><a href="https://notionkit-elements.jungherz.com">Website →</a><a href="https://github.com/JUNGHERZ/NotionKit-Elements">GitHub →</a></div>
       </div>
       <div class="site-card">
-        <h3>NotionKit Web <span class="site-status soon">Geplant</span></h3>
+        <h3>NotionKit Web <span class="site-status on">Jetzt verfügbar</span></h3>
         <div class="role">Astro-Template</div>
-        <p style="margin-top:8px">Ein komplettes Website-Template — Dokumentationen, Wissensdatenbanken, Produktseiten — auf derselben Grundlage.</p>
+        <p style="margin-top:8px">Ein komplettes Website-Template — Dokumentationen, Wissensdatenbanken, Produktseiten und Blogs — auf derselben Grundlage. Zweisprachig, getestet, ohne externe Requests.</p>
+        <div class="links"><a href="https://notionkit-web.jungherz.com">Website →</a><a href="https://github.com/JUNGHERZ/NotionKit-Web">GitHub →</a></div>
       </div>
     </div>
   </div>

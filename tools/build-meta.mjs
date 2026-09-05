@@ -54,6 +54,11 @@ The theme is one attribute: \`<html data-theme="dark">\`. Re-branding is one dec
 - [README](${SITE}/README.md): installation (CDN, npm), quick start, component tables, browser support.
 - [Elements proof of concept](${SITE}/elements-poc.html): web components adopting the component sheet; the seed of NotionKit Elements.
 
+## The NotionKit family
+
+- [NotionKit Elements](https://notionkit-elements.jungherz.com/): 68 vanilla-JS web components (\`<nk-*>\`) wrapping this markup – Shadow DOM, native forms, pixel parity. npm: \`@jungherz-de/notionkit-elements\`. AI reference: https://notionkit-elements.jungherz.com/SKILL.md
+- [NotionKit Web](https://notionkit-web.jungherz.com/): the Astro template for complete websites on this foundation – docs, knowledge bases, product pages, blog; bilingual, no external requests. GitHub: https://github.com/JUNGHERZ/NotionKit-Web
+
 ## Optional
 
 - [German documentation](${SITE}/de/docs.html)
