@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.0.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.1.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -265,7 +265,7 @@ The workhorse of the sidebar. Minimum height is 28px, the label truncates with a
 </div>
 ```
 
-- **Classes:** `.nk-tree-item`, `.icon`, `.label`, `.actions`, `.active`
+- **Classes:** `.nk-tree-item`, `.icon`, `.label`, `.actions`, `.active`, `.compact`
 - **On a small screen:** Reaches 28px, below the 44px touch target. In a touch-first off-canvas drawer raise `min-height` on the item; the class does not force a height.
 
 ### Nested tree & toggle arrow — `.nk-tree-children`
@@ -450,7 +450,7 @@ The strip above a database. The active tab is marked by a 2px underline in text 
 
 ### Table view — `.nk-table`
 
-Header cells are quiet and clickable, rows highlight on hover, and every cell is `white-space: nowrap` so columns keep their shape. `.new-row` is the add affordance at the bottom.
+Header cells are quiet and clickable, rows highlight on hover, and every cell is `white-space: nowrap` so columns keep their shape. `.nk-new-row` is the add affordance at the bottom (inside `.nk-table` the short form `.new-row` still works).
 
 ```html
 <div class="nk-table-wrap"><table class="nk-table">
@@ -470,10 +470,10 @@ Header cells are quiet and clickable, rows highlight on hover, and every cell is
         <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
   </tbody>
 </table>
-<div class="new-row">＋ ＋ New page</div></div>
+<div class="nk-new-row">＋ ＋ New page</div></div>
 ```
 
-- **Classes:** `.nk-table-wrap`, `.nk-table`, `.th-icon`, `.row-title`, `.date-cell`, `.person-cell`, `.new-row`
+- **Classes:** `.nk-table-wrap`, `.nk-table`, `.th-icon`, `.row-title`, `.date-cell`, `.person-cell`, `.nk-new-row`
 - **On a small screen:** This is the key one: `nk-table-wrap` scrolls horizontally so the table never forces the page wider. Always wrap the table.
 
 ### Tags — `.nk-tag`
@@ -1226,7 +1226,7 @@ Six complete, runnable documents. Each starts with a decision block. Copy one, d
                   <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
                   <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
             </tbody>
-          </table><div class="new-row">＋ New row</div></div>
+          </table><div class="nk-new-row">＋ New row</div></div>
 
           <div class="nk-board" id="view-board">
             <div class="nk-board-col">
@@ -1616,10 +1616,10 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Group | Classes |
 |---|---|
 | App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-share-btn` `nk-theme-toggle` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
-| Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
+| Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` |
-| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-table-wrap` `nk-table` `th-icon` `row-title` `date-cell` `person-cell` `new-row` `nk-tag` `blue` `green` `orange` `purple` `nk-progress` `nk-progress-label` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` |
+| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-table-wrap` `nk-table` `th-icon` `row-title` `date-cell` `person-cell` `nk-new-row` `nk-tag` `blue` `green` `orange` `purple` `nk-progress` `nk-progress-label` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `nk-profile-row` `big-avatar` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-toast` `show` |
@@ -1682,4 +1682,4 @@ A web-component layer (`@jungherz-de/notionkit-elements`) is planned on top of t
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.0.0 · MIT · Jungherz GmbH*
+*NotionKit v1.1.0 · MIT · Jungherz GmbH*

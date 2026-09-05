@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.0.0
+   Jungherz GmbH – v1.1.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -74,6 +74,10 @@
    - For slotted content the outer tree wins. A consumer's own document
      rule takes precedence over ::slotted() from the shadow tree. That
      is a feature, not a bug.
+   - Since 1.1.0 every part that NotionKit Elements exposes as a named
+     slot has a second twin keyed on the slot name, e.g.
+     `.nk-tree-item ::slotted([slot="icon"])`, so a consumer writes
+     <span slot="icon">📁</span> without repeating the internal class.
    ============================================================ */
 
 
@@ -263,7 +267,8 @@
 }
 .nk-workspace:hover { background: var(--nk-bg-hover); }
 .nk-workspace .avatar,
-.nk-workspace ::slotted(.avatar) {
+.nk-workspace ::slotted(.avatar),
+.nk-workspace ::slotted([slot="avatar"]) {
   width: 22px; height: 22px; border-radius: 4px;
   background: linear-gradient(135deg, var(--nk-decor-purple), var(--nk-decor-blue));
   color: var(--nk-on-accent); font-size: 11px; font-weight: 600;
@@ -346,8 +351,12 @@
 }
 .nk-tree-item:hover { background: var(--nk-bg-hover); }
 .nk-tree-item.active { background: var(--nk-bg-active); color: var(--nk-text); font-weight: 500; }
+/* Explicit form of the footer / settings-nav row height, for a row that is
+   not a descendant of those containers (a web component's shadow tree). */
+.nk-tree-item.compact { min-height: 26px; }
 .nk-tree-item .icon,
-.nk-tree-item ::slotted(.icon) { font-size: 15px; width: 20px; text-align: center; flex-shrink: 0; }
+.nk-tree-item ::slotted(.icon),
+.nk-tree-item ::slotted([slot="icon"]) { font-size: 15px; width: 20px; text-align: center; flex-shrink: 0; }
 .nk-tree-item .label,
 .nk-tree-item ::slotted(.label) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nk-tree-item .actions {
@@ -395,7 +404,8 @@
 .nk-page { max-width: 760px; margin: 0 auto; padding: 0 64px 120px; }
 
 .nk-page-icon,
-.nk-page ::slotted(.nk-page-icon) {
+.nk-page ::slotted(.nk-page-icon),
+.nk-page ::slotted([slot="icon"]) {
   font-size: 64px; line-height: 1; margin-top: -42px;
   cursor: pointer; user-select: none;
   display: inline-block;
@@ -408,7 +418,8 @@
   color: var(--nk-text-tertiary); font-size: 13px; margin-bottom: 24px;
   display: flex; gap: 16px;
 }
-.nk-page p.lead { font-size: 16px; line-height: 1.6; color: var(--nk-text-secondary); margin-bottom: 20px; }
+.nk-page p.lead,
+.nk-page ::slotted(p.lead) { font-size: 16px; line-height: 1.6; color: var(--nk-text-secondary); margin-bottom: 20px; }
 
 .nk-heading {
   font-size: 22px; font-weight: 600; margin: 32px 0 10px;
@@ -443,6 +454,7 @@
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
 }
 .nk-todo input:checked + span { text-decoration: line-through; color: var(--nk-text-tertiary); }
+.nk-todo input:disabled { opacity: .5; cursor: not-allowed; }
 
 /* The summary marker is a pseudo-element and therefore cannot be
    reached on slotted content — <nk-toggle> must render its own
@@ -480,7 +492,8 @@
 .nk-mention:hover { background: var(--nk-bg-hover); }
 .nk-mention.person { color: var(--nk-text); }
 .nk-mention.person .mini-avatar,
-.nk-mention.person ::slotted(.mini-avatar) {
+.nk-mention.person ::slotted(.mini-avatar),
+.nk-mention.person ::slotted([slot="avatar"]) {
   width: 16px; height: 16px; border-radius: 50%; color: var(--nk-on-accent);
   font-size: 8.5px; font-weight: 600;
   display: inline-flex; align-items: center; justify-content: center;
@@ -506,8 +519,10 @@
   position: absolute; top: 6px; right: 10px;
   font-size: 11px; color: var(--nk-text-tertiary); font-family: var(--nk-font);
 }
-.nk-code .tag { color: var(--nk-accent); }
-.nk-code .attr { color: var(--nk-tag-orange-text); }
+.nk-code .tag,
+.nk-code ::slotted(.tag) { color: var(--nk-accent); }
+.nk-code .attr,
+.nk-code ::slotted(.attr) { color: var(--nk-tag-orange-text); }
 
 
 /* ============================================================
@@ -559,10 +574,12 @@
   font-size: 10px; color: var(--nk-on-accent); display: inline-flex;
   align-items: center; justify-content: center; font-weight: 600;
 }
+.nk-new-row,
 .nk-table .new-row {
   color: var(--nk-text-tertiary); cursor: pointer; padding: 8px 10px;
   display: flex; align-items: center; gap: 7px; font-size: 14px;
 }
+.nk-new-row:hover,
 .nk-table .new-row:hover { background: var(--nk-bg-hover); }
 
 .nk-tag {
@@ -609,9 +626,11 @@
    ============================================================ */
 .nk-field { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 9px 0; }
 .nk-field .f-label,
-.nk-field ::slotted(.f-label) { font-size: 14px; }
+.nk-field ::slotted(.f-label),
+.nk-field ::slotted([slot="label"]) { font-size: 14px; }
 .nk-field .f-desc,
-.nk-field ::slotted(.f-desc) { font-size: 12.5px; color: var(--nk-text-tertiary); margin-top: 2px; line-height: 1.45; }
+.nk-field ::slotted(.f-desc),
+.nk-field ::slotted([slot="desc"]) { font-size: 12.5px; color: var(--nk-text-tertiary); margin-top: 2px; line-height: 1.45; }
 .nk-field .f-control,
 .nk-field ::slotted(.f-control) { flex-shrink: 0; }
 
@@ -628,6 +647,7 @@
 }
 .nk-input::placeholder, .nk-textarea::placeholder { color: var(--nk-text-tertiary); }
 .nk-input.wide, .nk-textarea.wide { width: 100%; }
+.nk-select.compact { min-width: 120px; }
 .nk-textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
 .nk-select {
   appearance: none; cursor: pointer; padding-right: 26px;
@@ -659,6 +679,7 @@
 .nk-btn.danger-solid:hover { opacity: .88; }
 .nk-btn.small { padding: 3px 9px; font-size: 12.5px; }
 a.nk-btn { text-decoration: none; }
+.nk-btn:disabled { opacity: .5; cursor: not-allowed; pointer-events: none; }
 
 /* Two checked states on purpose: <input class="nk-switch" type="checkbox">
    uses :checked, <button class="nk-switch" role="switch"> uses
@@ -677,6 +698,7 @@ a.nk-btn { text-decoration: none; }
 .nk-switch[aria-checked="true"] { background: var(--nk-accent); }
 .nk-switch:checked::after,
 .nk-switch[aria-checked="true"]::after { transform: translateX(14px); }
+.nk-switch:disabled { opacity: .5; cursor: not-allowed; }
 
 .nk-check { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 14px; cursor: pointer; }
 .nk-check input {
@@ -691,13 +713,16 @@ a.nk-btn { text-decoration: none; }
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
 }
 .nk-check input[type="radio"]:checked::after { content: "●"; font-size: 7px; }
+.nk-check input:disabled { opacity: .5; cursor: not-allowed; }
+.nk-check input:disabled + * { opacity: .6; }
 
 .nk-slider { width: 210px; accent-color: var(--nk-accent); cursor: pointer; }
 .nk-slider-value { font-size: 12.5px; color: var(--nk-text-tertiary); margin-top: 3px; }
 
 .nk-profile-row { display: flex; align-items: center; gap: 14px; padding: 8px 0; }
 .nk-profile-row .big-avatar,
-.nk-profile-row ::slotted(.big-avatar) {
+.nk-profile-row ::slotted(.big-avatar),
+.nk-profile-row ::slotted([slot="avatar"]) {
   width: 56px; height: 56px; border-radius: 50%;
   background: linear-gradient(135deg, var(--nk-decor-purple), var(--nk-decor-blue));
   color: var(--nk-on-accent); font-size: 20px; font-weight: 600;
@@ -721,9 +746,11 @@ a.nk-btn { text-decoration: none; }
   content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--nk-accent);
 }
 .nk-model-card .m-name,
-.nk-model-card ::slotted(.m-name) { font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 7px; }
+.nk-model-card ::slotted(.m-name),
+.nk-model-card ::slotted([slot="title"]) { font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 7px; }
 .nk-model-card .m-desc,
-.nk-model-card ::slotted(.m-desc) { font-size: 12.5px; color: var(--nk-text-tertiary); margin-top: 2px; line-height: 1.45; }
+.nk-model-card ::slotted(.m-desc),
+.nk-model-card ::slotted([slot="desc"]) { font-size: 12.5px; color: var(--nk-text-tertiary); margin-top: 2px; line-height: 1.45; }
 
 .nk-danger-zone {
   border: 1px solid color-mix(in srgb, var(--nk-danger) 40%, transparent); border-radius: 8px;
@@ -735,15 +762,18 @@ a.nk-btn { text-decoration: none; }
    ::slotted() twin keeps working when <nk-member-list> projects rows. */
 .nk-member-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--nk-border); }
 .nk-member-list > .nk-member-row:last-child,
-.nk-member-list ::slotted(.nk-member-row:last-child) { border-bottom: none; }
+.nk-member-list ::slotted(.nk-member-row:last-child),
+.nk-member-row.last { border-bottom: none; }
 .nk-member-row .mini-avatar,
-.nk-member-row ::slotted(.mini-avatar) {
+.nk-member-row ::slotted(.mini-avatar),
+.nk-member-row ::slotted([slot="avatar"]) {
   width: 28px; height: 28px; border-radius: 50%; color: var(--nk-on-accent);
   display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 600; flex-shrink: 0;
 }
 .nk-member-row .m-mail { font-size: 12px; color: var(--nk-text-tertiary); }
 .nk-member-row .nk-select { min-width: 120px; margin-left: auto; }
+.nk-member-row ::slotted([slot="role"]) { margin-left: auto; }
 
 
 /* ============================================================
@@ -775,7 +805,8 @@ a.nk-btn { text-decoration: none; }
   padding: 6px 10px 12px; margin-bottom: 4px;
 }
 .nk-settings-user .avatar,
-.nk-settings-user ::slotted(.avatar) {
+.nk-settings-user ::slotted(.avatar),
+.nk-settings-user ::slotted([slot="avatar"]) {
   width: 34px; height: 34px; border-radius: 50%;
   background: linear-gradient(135deg, var(--nk-decor-purple), var(--nk-decor-blue));
   color: var(--nk-on-accent); font-weight: 600; font-size: 13px;
@@ -794,6 +825,10 @@ a.nk-btn { text-decoration: none; }
 .nk-settings-pane.active { display: block; }
 .nk-settings-pane > h2 { font-size: 16px; font-weight: 600; padding-bottom: 12px; border-bottom: 1px solid var(--nk-border); margin-bottom: 20px; }
 .nk-settings-pane > h3 { font-size: 13px; font-weight: 600; margin: 26px 0 10px; }
+/* Slotted headings: the child combinator above cannot cross a slot boundary,
+   and slotted nodes miss the scoped reset, so the margins are spelled out. */
+.nk-settings-pane ::slotted(h2) { font-size: 16px; font-weight: 600; padding: 0; border: 0; border-bottom: 1px solid var(--nk-border); padding-bottom: 12px; margin: 0 0 20px; }
+.nk-settings-pane ::slotted(h3) { font-size: 13px; font-weight: 600; padding: 0; margin: 26px 0 10px; }
 
 
 /* ============================================================
@@ -830,7 +865,8 @@ a.nk-btn { text-decoration: none; }
 }
 .nk-menu-item:hover { background: var(--nk-bg-hover); }
 .nk-menu-item .m-icon,
-.nk-menu-item ::slotted(.m-icon) { width: 17px; text-align: center; font-size: 14px; }
+.nk-menu-item ::slotted(.m-icon),
+.nk-menu-item ::slotted([slot="icon"]) { width: 17px; text-align: center; font-size: 14px; }
 .nk-menu-item .m-shortcut,
 .nk-menu-item ::slotted(.m-shortcut) { margin-left: auto; font-size: 11.5px; color: var(--nk-text-tertiary); }
 .nk-menu-item.danger { color: var(--nk-danger); }
@@ -867,7 +903,8 @@ a.nk-btn { text-decoration: none; }
 }
 .nk-cmdk-item.selected { background: var(--nk-bg-active); }
 .nk-cmdk-item .m-icon,
-.nk-cmdk-item ::slotted(.m-icon) { width: 17px; text-align: center; font-size: 14px; }
+.nk-cmdk-item ::slotted(.m-icon),
+.nk-cmdk-item ::slotted([slot="icon"]) { width: 17px; text-align: center; font-size: 14px; }
 .nk-cmdk-item .m-shortcut,
 .nk-cmdk-item ::slotted(.m-shortcut) { margin-left: auto; font-size: 11.5px; color: var(--nk-text-tertiary); }
 .nk-cmdk-empty { padding: 30px; text-align: center; color: var(--nk-text-tertiary); font-size: 13.5px; }
@@ -920,15 +957,20 @@ a.nk-btn { text-decoration: none; }
 .nk-stats { display: flex; gap: 10px; }
 .nk-stat { flex: 1; border: 1px solid var(--nk-border); border-radius: 8px; padding: 12px 14px; }
 .nk-stat .s-label,
-.nk-stat ::slotted(.s-label) { font-size: 12px; color: var(--nk-text-tertiary); margin-bottom: 4px; }
+.nk-stat ::slotted(.s-label),
+.nk-stat ::slotted([slot="label"]) { font-size: 12px; color: var(--nk-text-tertiary); margin-bottom: 4px; }
 .nk-stat .s-value,
-.nk-stat ::slotted(.s-value) { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.nk-stat ::slotted(.s-value),
+.nk-stat ::slotted([slot="value"]) { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
 .nk-stat .s-delta,
-.nk-stat ::slotted(.s-delta) { font-size: 11.5px; margin-top: 3px; }
+.nk-stat ::slotted(.s-delta),
+.nk-stat ::slotted([slot="delta"]) { font-size: 11.5px; margin-top: 3px; }
 .nk-stat .s-delta.up,
-.nk-stat ::slotted(.s-delta.up) { color: var(--nk-tag-green-text); }
+.nk-stat ::slotted(.s-delta.up),
+.nk-stat ::slotted([slot="delta"].up) { color: var(--nk-tag-green-text); }
 .nk-stat .s-delta.down,
-.nk-stat ::slotted(.s-delta.down) { color: var(--nk-danger); }
+.nk-stat ::slotted(.s-delta.down),
+.nk-stat ::slotted([slot="delta"].down) { color: var(--nk-danger); }
 
 .nk-synced {
   border: 1.5px solid color-mix(in srgb, var(--nk-danger) 55%, transparent); border-radius: 8px;
@@ -956,7 +998,8 @@ a.nk-btn { text-decoration: none; }
 .nk-banner.success { background: var(--nk-tag-green-bg); color: var(--nk-tag-green-text); }
 .nk-banner.warning { background: var(--nk-tag-orange-bg); color: var(--nk-tag-orange-text); }
 .nk-banner .b-action,
-.nk-banner ::slotted(.b-action) { margin-left: auto; font-weight: 500; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.nk-banner ::slotted(.b-action),
+.nk-banner ::slotted([slot="action"]) { margin-left: auto; font-weight: 500; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
 
 .nk-avatar-group { display: flex; }
 .nk-avatar-group .mini-avatar,
@@ -983,11 +1026,14 @@ a.nk-btn { text-decoration: none; }
   border-radius: 10px; color: var(--nk-text-tertiary);
 }
 .nk-empty .e-icon,
-.nk-empty ::slotted(.e-icon) { font-size: 30px; margin-bottom: 8px; }
+.nk-empty ::slotted(.e-icon),
+.nk-empty ::slotted([slot="icon"]) { font-size: 30px; margin-bottom: 8px; }
 .nk-empty .e-title,
-.nk-empty ::slotted(.e-title) { font-weight: 500; color: var(--nk-text-secondary); margin-bottom: 3px; font-size: 14px; }
+.nk-empty ::slotted(.e-title),
+.nk-empty ::slotted([slot="title"]) { font-weight: 500; color: var(--nk-text-secondary); margin-bottom: 3px; font-size: 14px; }
 .nk-empty .e-desc,
-.nk-empty ::slotted(.e-desc) { font-size: 12.5px; margin-bottom: 12px; }
+.nk-empty ::slotted(.e-desc),
+.nk-empty ::slotted([slot="desc"]) { font-size: 12.5px; margin-bottom: 12px; }
 
 
 /* ============================================================
@@ -996,7 +1042,8 @@ a.nk-btn { text-decoration: none; }
 .nk-comments { border-left: 1px solid var(--nk-border); padding: 4px 0 4px 18px; margin: 8px 0 8px 8px; }
 .nk-comment { display: flex; gap: 9px; margin-bottom: 14px; }
 .nk-comment .mini-avatar,
-.nk-comment ::slotted(.mini-avatar) {
+.nk-comment ::slotted(.mini-avatar),
+.nk-comment ::slotted([slot="avatar"]) {
   width: 24px; height: 24px; border-radius: 50%; color: var(--nk-on-accent); flex-shrink: 0;
   font-size: 10px; font-weight: 600;
   display: flex; align-items: center; justify-content: center;
@@ -1012,13 +1059,15 @@ a.nk-btn { text-decoration: none; }
 .nk-ai-thread { display: flex; flex-direction: column; gap: 14px; }
 .nk-ai-msg { display: flex; gap: 9px; }
 .nk-ai-msg .mini-avatar,
-.nk-ai-msg ::slotted(.mini-avatar) {
+.nk-ai-msg ::slotted(.mini-avatar),
+.nk-ai-msg ::slotted([slot="avatar"]) {
   width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center; font-size: 12px;
   background: var(--nk-bg-callout);
 }
 .nk-ai-msg.user .mini-avatar,
-.nk-ai-msg.user ::slotted(.mini-avatar) {
+.nk-ai-msg.user ::slotted(.mini-avatar),
+.nk-ai-msg.user ::slotted([slot="avatar"]) {
   background: linear-gradient(135deg, var(--nk-decor-purple), var(--nk-decor-blue));
   color: var(--nk-on-accent); font-size: 9.5px; font-weight: 600;
 }
@@ -1034,7 +1083,8 @@ a.nk-btn { text-decoration: none; }
   background: transparent; border: 1px solid var(--nk-border); border-radius: 5px;
   padding: 2px 8px; cursor: pointer;
 }
-.nk-ai-actions button:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
+.nk-ai-actions button:hover,
+.nk-ai-actions ::slotted(button:hover) { background: var(--nk-bg-hover); color: var(--nk-text); }
 .nk-ai-input-row {
   display: flex; align-items: center; gap: 8px; margin-top: 14px;
   border: 1px solid var(--nk-border-strong); border-radius: 10px; padding: 8px 12px;
@@ -1218,8 +1268,10 @@ a.nk-btn { text-decoration: none; }
   font-family: inherit; font-size: 13px; border: none; background: transparent;
   color: var(--nk-text-secondary); padding: 4px 8px; border-radius: 5px; cursor: pointer;
 }
-.nk-bubble-menu button:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
-.nk-bubble-menu button.active { color: var(--nk-accent); }
+.nk-bubble-menu button:hover,
+.nk-bubble-menu ::slotted(button:hover) { background: var(--nk-bg-hover); color: var(--nk-text); }
+.nk-bubble-menu button.active,
+.nk-bubble-menu ::slotted(button.active) { color: var(--nk-accent); }
 
 
 /* ============================================================

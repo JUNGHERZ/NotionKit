@@ -116,7 +116,7 @@ export const CATALOG = [
 ,
 // ============================================================ 5.2 NAVIGATION
 {
-  id: 'nk-tree-item', group: 'nav', classes: ['nk-tree-item', 'icon', 'label', 'actions', 'active'],
+  id: 'nk-tree-item', group: 'nav', classes: ['nk-tree-item', 'icon', 'label', 'actions', 'active', 'compact'],
   title: { en: 'Tree item', de: 'Baum-Eintrag' },
   desc: {
     en: 'The workhorse of the sidebar. Minimum height is 28px, the label truncates with an ellipsis, and the <code>.actions</code> block stays hidden until hover. Add <code>.active</code> for the current page.',
@@ -300,11 +300,11 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'new-row'],
+  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'nk-new-row'],
   title: { en: 'Table view', de: 'Tabellen-Ansicht' },
   desc: {
-    en: 'Header cells are quiet and clickable, rows highlight on hover, and every cell is <code>white-space: nowrap</code> so columns keep their shape. <code>.new-row</code> is the add affordance at the bottom.',
-    de: 'Kopfzellen sind ruhig und klickbar, Zeilen heben sich beim Hovern hervor, und jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten. <code>.new-row</code> ist die Hinzufügen-Zeile unten.',
+    en: 'Header cells are quiet and clickable, rows highlight on hover, and every cell is <code>white-space: nowrap</code> so columns keep their shape. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
+    de: 'Kopfzellen sind ruhig und klickbar, Zeilen heben sich beim Hovern hervor, und jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
   },
   mobile: {
     en: 'This is the key one: <code>nk-table-wrap</code> scrolls horizontally so the table never forces the page wider. Always wrap the table.',
@@ -327,7 +327,7 @@ export const CATALOG = [
         <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
   </tbody>
 </table>
-<div class="new-row">＋ ${W.newPage}</div></div>`,
+<div class="nk-new-row">＋ ${W.newPage}</div></div>`,
 },
 {
   id: 'nk-tag', group: 'database', classes: ['nk-tag', 'blue', 'green', 'orange', 'purple'],

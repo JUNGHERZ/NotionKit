@@ -4,6 +4,43 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] – 2026-09-05
+
+Companion release for NotionKit Elements. Additive only: no existing value
+changes, every rule below is new.
+
+### Added
+- `[slot="…"]` twins for every part the Elements layer exposes as a named
+  slot – `.nk-tree-item ::slotted([slot="icon"])`, `.nk-field
+  ::slotted([slot="label"])`, `.nk-stat ::slotted([slot="delta"].up)`,
+  `.nk-empty ::slotted([slot="title"])`, avatar slots on workspace,
+  settings user, profile row, member row, mention, comment and AI message,
+  and so on. A consumer writes `<span slot="icon">📁</span>` without
+  repeating the internal class. 92 twins in total (was 57).
+- Twins for rules that had none: `.nk-page ::slotted(p.lead)`,
+  `.nk-settings-pane ::slotted(h2)` / `::slotted(h3)` (with explicit
+  margins, since slotted nodes miss the scoped reset),
+  `.nk-code ::slotted(.tag)` / `::slotted(.attr)`,
+  `.nk-ai-actions ::slotted(button:hover)`,
+  `.nk-bubble-menu ::slotted(button:hover)` / `::slotted(button.active)`,
+  `.nk-member-row ::slotted([slot="role"])`.
+- Explicit state classes for states a container used to imply:
+  `.nk-tree-item.compact` (the 26px footer / settings-nav row height),
+  `.nk-member-row.last` (no bottom border), `.nk-select.compact`
+  (120px minimum, as inside a member row).
+- Disabled optics: `.nk-btn:disabled`, `.nk-switch:disabled`,
+  `.nk-check input:disabled`, `.nk-todo input:disabled`.
+- `.nk-new-row` as a class of its own. `.nk-table .new-row` stays as an
+  alias, but it never matched the documented markup – the add row sits
+  *after* the table inside `.nk-table-wrap`, so the descendant selector
+  found nothing. Demo, docs and skeletons now use `.nk-new-row`.
+
+### Notes
+- NotionKit Elements 1.0 declares `>=1.0.0` as its peer range and works
+  with 1.0.0, but pins 1.1.0 in its documentation: without this release
+  slotted icons need the internal class (`slot="icon" class="icon"`), footer
+  rows are 28px instead of 26px, and disabled controls carry no optics.
+
 ## [1.0.0] – 2026-09-05
 
 First release. The CSS foundation of the NotionKit family.

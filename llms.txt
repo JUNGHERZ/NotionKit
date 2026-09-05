@@ -1,6 +1,6 @@
 # NotionKit
 
-> A pure CSS component library (v1.0.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 `nk-*` classes, `--nk-*` design tokens, light & dark mode, no JavaScript, no build step. npm: `@jungherz-de/notionkit`.
+> A pure CSS component library (v1.1.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 `nk-*` classes, `--nk-*` design tokens, light & dark mode, no JavaScript, no build step. npm: `@jungherz-de/notionkit`.
 
 The theme is one attribute: `<html data-theme="dark">`. Re-branding is one declaration: `:root { --nk-accent: … }`. The library ships state classes (`active`, `open`, `collapsed`, `selected`, `show`, `aria-checked`) but no behaviour. It ships no editor: mount TipTap, BlockNote or Novel into `.nk-block-host`.
 

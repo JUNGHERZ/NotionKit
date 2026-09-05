@@ -400,7 +400,7 @@ class NkCallout extends HTMLElement {
       <h3>Why the split matters</h3>
       <p class="doc-note">A shadow root that adopts the whole sheet also adopts the <code class="nk-inline-code">:root</code> and <code class="nk-inline-code">[data-theme]</code> blocks. Inside that root the selectors match the element’s own theme wrapper, so every token is re-declared locally — and a matching rule always beats an inherited value. A consumer’s own <code class="nk-inline-code">:root { --nk-accent: … }</code> would then never arrive. Adopt <code class="nk-inline-code">componentsSheet</code> only, and put <code class="nk-inline-code">tokensCss</code> on the document.</p>
       <h3>The ::slotted() twins</h3>
-      <p class="doc-note">Content passed in from outside stays in the light DOM and is no descendant of anything in the shadow tree, so <code class="nk-inline-code">.nk-callout .c-icon</code> cannot reach it. Every such rule therefore has a <code class="nk-inline-code">::slotted()</code> twin beside it — 57 of them. Two limits: <code class="nk-inline-code">::slotted()</code> matches only the assigned node, never inside it (pass icons directly, never wrapped), and for slotted content the outer tree wins over the shadow tree.</p>
+      <p class="doc-note">Content passed in from outside stays in the light DOM and is no descendant of anything in the shadow tree, so <code class="nk-inline-code">.nk-callout .c-icon</code> cannot reach it. Every such rule therefore has a <code class="nk-inline-code">::slotted()</code> twin beside it — 92 of them, including a <code class="nk-inline-code">[slot="…"]</code> twin for every named slot of NotionKit Elements. Two limits: <code class="nk-inline-code">::slotted()</code> matches only the assigned node, never inside it (pass icons directly, never wrapped), and for slotted content the outer tree wins over the shadow tree.</p>
       <div class="nk-code"><span class="lang">html</span>.nk-callout .c-icon,
 .nk-callout ::slotted(.c-icon) { font-size: 17px; }</div>
       <p class="doc-note">A working proof of concept ships as <a href="elements-poc.html">elements-poc.html</a> — an <code class="nk-inline-code">&lt;nk-callout&gt;</code> and an <code class="nk-inline-code">&lt;nk-tag color="…"&gt;</code> that adopt <code class="nk-inline-code">componentsSheet</code>, re-theme through <code class="nk-inline-code">data-theme</code> and take the page’s branding. The page measures all of that live (it needs a build and a server: <code class="nk-inline-code">npm run build</code>, then serve the folder).</p>
@@ -557,7 +557,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tree-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>🎨<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Design system<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"actions"<span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>＋<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>⋯<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Reaches 28px, below the 44px touch target. In a touch-first off-canvas drawer raise <code>min-height</code> on the item; the class does not force a height.</span></div>
-        <div class="doc-classes"><code>.nk-tree-item</code><code>.icon</code><code>.label</code><code>.actions</code><code>.active</code></div>
+        <div class="doc-classes"><code>.nk-tree-item</code><code>.icon</code><code>.label</code><code>.actions</code><code>.active</code><code>.compact</code></div>
       </article>
       <article class="doc-entry" id="nk-tree-children">
         <h3>Nested tree & toggle arrow <code>.nk-tree-children</code></h3>
@@ -765,7 +765,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-table">
         <h3>Table view <code>.nk-table</code></h3>
-        <p class="doc-desc">Header cells are quiet and clickable, rows highlight on hover, and every cell is <code>white-space: nowrap</code> so columns keep their shape. <code>.new-row</code> is the add affordance at the bottom.</p>
+        <p class="doc-desc">Header cells are quiet and clickable, rows highlight on hover, and every cell is <code>white-space: nowrap</code> so columns keep their shape. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).</p>
         <div class="doc-preview"><div class="nk-table-wrap"><table class="nk-table">
   <thead><tr>
     <th><span class="th-icon">📄</span>Name</th><th><span class="th-icon">◉</span>Status</th>
@@ -783,7 +783,7 @@ class NkCallout extends HTMLElement {
         <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
   </tbody>
 </table>
-<div class="new-row">＋ ＋ New page</div></div></div>
+<div class="nk-new-row">＋ ＋ New page</div></div></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-table-wrap"<span class="tag">&gt;</span><span class="tag">&lt;table</span> <span class="attr">class=</span>"nk-table"<span class="tag">&gt;</span>
   <span class="tag">&lt;thead</span><span class="tag">&gt;</span><span class="tag">&lt;tr</span><span class="tag">&gt;</span>
@@ -802,9 +802,9 @@ class NkCallout extends HTMLElement {
         <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:65%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>65 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/tbody</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/table</span><span class="tag">&gt;</span>
-<span class="tag">&lt;div</span> <span class="attr">class=</span>"new-row"<span class="tag">&gt;</span>＋ ＋ New page<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-new-row"<span class="tag">&gt;</span>＋ ＋ New page<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>This is the key one: <code>nk-table-wrap</code> scrolls horizontally so the table never forces the page wider. Always wrap the table.</span></div>
-        <div class="doc-classes"><code>.nk-table-wrap</code><code>.nk-table</code><code>.th-icon</code><code>.row-title</code><code>.date-cell</code><code>.person-cell</code><code>.new-row</code></div>
+        <div class="doc-classes"><code>.nk-table-wrap</code><code>.nk-table</code><code>.th-icon</code><code>.row-title</code><code>.date-cell</code><code>.person-cell</code><code>.nk-new-row</code></div>
       </article>
       <article class="doc-entry" id="nk-tag">
         <h3>Tags <code>.nk-tag</code></h3>

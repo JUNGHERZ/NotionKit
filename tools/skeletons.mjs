@@ -113,7 +113,7 @@ export const SKELETONS = [
                   <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
                   <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
             </tbody>
-          </table><div class="new-row">＋ New row</div></div>
+          </table><div class="nk-new-row">＋ New row</div></div>
 
           <div class="nk-board" id="view-board">
             <div class="nk-board-col">

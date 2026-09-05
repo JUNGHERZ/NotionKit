@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-2383e2?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.1.0-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
   <img src="https://img.shields.io/badge/components-~100-448361?style=flat-square" alt="Components">
   <img src="https://img.shields.io/badge/gzip-7.2%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.0.0-9065b0?style=flat-square" alt="Changelog"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.1.0-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
   <a href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit/"><img src="https://img.shields.io/badge/CDN-jsDelivr-blue?style=flat-square" alt="jsDelivr"></a>
 </p>
@@ -77,7 +77,7 @@ NotionKit is the **CSS foundation** of a three-layer family. NotionKit Elements 
 Pin a version for production:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.0.0/notionkit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.1.0/notionkit.min.css">
 ```
 
 ### npm / yarn / pnpm
@@ -188,7 +188,7 @@ About 100 component classes across eleven groups. Every one of them is documente
 | Class | Description |
 |---|---|
 | `nk-database`, `nk-db-tabs`, `nk-db-tab` (`active`, `badge`) | View tabs with counts |
-| `nk-table-wrap`, `nk-table` (`th-icon`, `row-title`, `date-cell`, `person-cell`, `new-row`) | Horizontally scrolling table |
+| `nk-table-wrap`, `nk-table` (`th-icon`, `row-title`, `date-cell`, `person-cell`), `nk-new-row` | Horizontally scrolling table with add row |
 | `nk-tag` (`blue`, `green`, `orange`, `purple`) | Semantic tags, tuned per theme |
 | `nk-progress`, `nk-progress-label` | Progress bar |
 | `nk-board` (`active`), `nk-board-col`, `nk-board-col-header`, `nk-card` | Board view with scrolling columns |
@@ -332,7 +332,7 @@ customElements.define('nk-callout', NkCallout);
 
 ### `::slotted()` twins
 
-Content passed in from outside stays in the light DOM, so `.nk-callout .c-icon` cannot reach it. Every such rule has a twin next to it – `.nk-callout ::slotted(.c-icon)` – 57 in total. Two limits: `::slotted()` matches only the assigned node (pass icons directly, never wrapped), and for slotted content the outer document's rules win.
+Content passed in from outside stays in the light DOM, so `.nk-callout .c-icon` cannot reach it. Every such rule has a twin next to it – `.nk-callout ::slotted(.c-icon)` – 92 in total, including a `[slot="…"]` twin for every part NotionKit Elements exposes as a named slot. Two limits: `::slotted()` matches only the assigned node (pass icons directly, never wrapped), and for slotted content the outer document's rules win.
 
 A working proof of concept ships as [`elements-poc.html`](elements-poc.html) / [`nk-callout.js`](nk-callout.js): it measures live that class and element render identically, re-theme together and take the page's branding.
 
