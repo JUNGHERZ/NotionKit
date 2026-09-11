@@ -312,6 +312,8 @@
         <tr><td><code>.open</code></td><td><code>nk-modal-backdrop</code> <code>nk-cmdk-backdrop</code> <code>nk-toggle-arrow</code></td><td>Blendet das Overlay ein und macht es bedienbar; dreht den Toggle-Pfeil um 90°.</td></tr>
         <tr><td><code>.collapsed</code></td><td><code>nk-tree-children</code></td><td>Klappt einen Unterbaum per display: none weg.</td></tr>
         <tr><td><code>.selected</code></td><td><code>nk-cmdk-item</code> <code>nk-model-card</code> <code>nk-slash-item</code></td><td>Die per Tastatur hervorgehobene oder gewählte Option. Anders als active: Auswahl ist flüchtig, active ist der Ort, an dem du bist.</td></tr>
+        <tr><td><code>.stacked</code></td><td><code>nk-field</code></td><td>Label über einem vollbreiten Control statt daneben – Textareas, lange Beschreibungen.</td></tr>
+        <tr><td><code>.compact</code></td><td><code>nk-field</code> <code>nk-tree-item</code> <code>nk-select</code></td><td>Die engere Variante: ein Feld mit kleinem tertiärem Label ohne Zeilen-Padding (in .nk-fields), eine 26px-Baumzeile, ein 120px-Select.</td></tr>
         <tr><td><code>.always</code></td><td><code>nk-tab-bar</code></td><td>Zeigt die Tab-Bar in jeder Breite, nicht nur unter 860px – für Vorschauen und Telefon-Rahmen.</td></tr>
         <tr><td><code>.show</code></td><td><code>nk-toast</code></td><td>Fährt den Toast von unten hoch und blendet ihn ein.</td></tr>
         <tr><td><code>.aria-checked="true"</code></td><td><code>nk-switch (button form)</code></td><td>Füllt die Schiene mit dem Akzent und schiebt den Knopf. Ein Attribut, keine Klasse – der Zustand wird so auch an assistive Technik gemeldet.</td></tr>
@@ -937,12 +939,17 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-switch">
         <h3>Switch <code>.nk-switch</code></h3>
-        <p class="doc-desc">Funktioniert auf zwei Wegen: als <code>&lt;input type="checkbox"&gt;</code> über <code>:checked</code> oder als <code>&lt;button role="switch"&gt;</code> über <code>aria-checked="true"</code>. Die Button-Form ist der barrierefreie Standard.</p>
+        <p class="doc-desc">Funktioniert auf zwei Wegen: als <code>&lt;input type="checkbox"&gt;</code> über <code>:checked</code> oder als <code>&lt;button role="switch"&gt;</code> über <code>aria-checked="true"</code>. Die Button-Form ist der barrierefreie Standard. In einer Einstellungszeile benennt das <code>nk-field</code>-Label den Schalter; für mehrere Schalter nebeneinander bekommt jeder ein <code>label.nk-switch-label</code> mit sichtbarem Text – der Text gehört zur Trefferfläche.</p>
         <div class="doc-preview"><div style="max-width:420px">
   <div class="nk-field"><div><div class="f-label">Kompakte Ansicht</div><div class="f-desc">Reduziert Abstände in Sidebar und Listen.</div></div>
     <div class="f-control"><button class="nk-switch" role="switch" aria-checked="true"></button></div></div>
   <div class="nk-field"><div><div class="f-label">Animationen reduzieren</div></div>
     <div class="f-control"><button class="nk-switch" role="switch" aria-checked="false"></button></div></div>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;padding:9px 0">
+    <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="true"></button><span>Geplant</span></label>
+    <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="false"></button><span>In Arbeit</span></label>
+    <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="true"></button><span>Fertig</span></label>
+  </div>
 </div></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:420px"<span class="tag">&gt;</span>
@@ -950,9 +957,14 @@ class NkCallout extends HTMLElement {
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-switch" <span class="attr">role=</span>"switch" <span class="attr">aria-checked=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>Animationen reduzieren<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-switch" <span class="attr">role=</span>"switch" <span class="attr">aria-checked=</span>"false"<span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;gap:20px;flex-wrap:wrap;padding:9px 0"<span class="tag">&gt;</span>
+    <span class="tag">&lt;label</span> <span class="attr">class=</span>"nk-switch-label"<span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-switch" <span class="attr">role=</span>"switch" <span class="attr">aria-checked=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>Geplant<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/label</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;label</span> <span class="attr">class=</span>"nk-switch-label"<span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-switch" <span class="attr">role=</span>"switch" <span class="attr">aria-checked=</span>"false"<span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>In Arbeit<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/label</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;label</span> <span class="attr">class=</span>"nk-switch-label"<span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-switch" <span class="attr">role=</span>"switch" <span class="attr">aria-checked=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>Fertig<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/label</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>34×20px – die Trefferfläche vergrößern, indem die ganze <code>nk-field</code>-Zeile klickbar wird.</span></div>
-        <div class="doc-classes"><code>.nk-switch</code><code>.aria-checked</code></div>
+        <div class="doc-classes"><code>.nk-switch</code><code>.nk-switch-label</code><code>.aria-checked</code></div>
       </article>
       <article class="doc-entry" id="nk-check">
         <h3>Checkbox & Radio <code>.nk-check</code></h3>
@@ -994,12 +1006,14 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-field">
         <h3>Feld-Zeile <code>.nk-field</code></h3>
-        <p class="doc-desc">Das Grundelement einer Einstellungszeile: Label und Beschreibung links, Bedienelement rechts, auseinandergeschoben per <code>justify-content: space-between</code>. Gestapelt ergeben sie ein ganzes Einstellungs-Pane.</p>
+        <p class="doc-desc">Das Grundelement einer Einstellungszeile: Label und Beschreibung links, Bedienelement rechts, auseinandergeschoben per <code>justify-content: space-between</code>. Gestapelt ergeben sie ein ganzes Einstellungs-Pane. <code>stacked</code> setzt das Label über ein vollbreites Control – für Textareas und lange Beschreibungen; <code>compact</code> verkleinert das Label auf 12px tertiären Text und nimmt das Zeilen-Padding weg. Für mehrere kurze Felder nebeneinander gibt es <code>.nk-fields</code>.</p>
         <div class="doc-preview"><div style="max-width:460px">
   <div class="nk-field"><div><div class="f-label">Anzeigename</div><div class="f-desc">So wirst du im Workspace angezeigt.</div></div>
     <div class="f-control"><input class="nk-input" value="Ada Lovelace"></div></div>
   <div class="nk-field"><div><div class="f-label">E-Mail</div></div>
     <div class="f-control"><input class="nk-input" value="ada@acme.com"></div></div>
+  <div class="nk-field stacked"><div><div class="f-label">Über mich</div></div>
+    <div class="f-control"><textarea class="nk-textarea" rows="2" placeholder="Ein paar Worte über dich …"></textarea></div></div>
 </div></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:460px"<span class="tag">&gt;</span>
@@ -1007,9 +1021,28 @@ class NkCallout extends HTMLElement {
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">class=</span>"nk-input" <span class="attr">value=</span>"Ada Lovelace"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>E-Mail<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">class=</span>"nk-input" <span class="attr">value=</span>"ada@acme.com"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field stacked"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>Über mich<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;textarea</span> <span class="attr">class=</span>"nk-textarea" <span class="attr">rows=</span>"2" <span class="attr">placeholder=</span>"Ein paar Worte über dich …"<span class="tag">&gt;</span><span class="tag">&lt;/textarea</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Der 24px-Abstand hält beide Seiten getrennt; bei Bedarf selbst <code>flex-wrap: wrap</code> ergänzen, damit das Bedienelement eine eigene Zeile bekommt.</span></div>
-        <div class="doc-classes"><code>.nk-field</code><code>.f-label</code><code>.f-desc</code><code>.f-control</code></div>
+        <div class="doc-classes"><code>.nk-field</code><code>.f-label</code><code>.f-desc</code><code>.f-control</code><code>.stacked</code><code>.compact</code></div>
+      </article>
+      <article class="doc-entry" id="nk-fields">
+        <h3>Feldraster <code>.nk-fields</code></h3>
+        <p class="doc-desc">Mehrere kurze Felder in einer Zeile: ein Raster aus <code>minmax(150px, 1fr)</code>-Spalten, das umbricht, wie es die Breite erlaubt. Jedes direkte <code>.nk-field</code>-Kind wird von selbst gestapelt und kompakt – ein 12px-Label über einem vollbreiten Control –, damit nichts kollidiert.</p>
+        <div class="doc-preview"><div class="nk-fields" style="max-width:520px">
+  <div class="nk-field"><div><div class="f-label">Name</div></div><div class="f-control"><input class="nk-input" value="Ada Lovelace"></div></div>
+  <div class="nk-field"><div><div class="f-label">E-Mail</div></div><div class="f-control"><input class="nk-input" value="ada@acme.com"></div></div>
+  <div class="nk-field"><div><div class="f-label">Status</div></div><div class="f-control"><select class="nk-select"><option>In Arbeit</option><option>Fertig</option></select></div></div>
+</div></div>
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-fields" <span class="attr">style=</span>"max-width:520px"<span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>Name<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">class=</span>"nk-input" <span class="attr">value=</span>"Ada Lovelace"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>E-Mail<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">class=</span>"nk-input" <span class="attr">value=</span>"ada@acme.com"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>Status<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;select</span> <span class="attr">class=</span>"nk-select"<span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>In Arbeit<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>Fertig<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;/select</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Bricht von selbst auf ein oder zwei Spalten um; kein Breakpoint nötig.</span></div>
+        <div class="doc-classes"><code>.nk-fields</code></div>
       </article>
       <article class="doc-entry" id="nk-profile-row">
         <h3>Profil-Zeile <code>.nk-profile-row</code></h3>

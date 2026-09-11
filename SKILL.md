@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.2.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.3.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -581,7 +581,7 @@ Five variants. Hover is an opacity shift on the filled ones and a background was
 
 ### Switch — `.nk-switch`
 
-Works two ways: as an `<input type="checkbox">` via `:checked`, or as a `<button role="switch">` via `aria-checked="true"`. The button form is the accessible default.
+Works two ways: as an `<input type="checkbox">` via `:checked`, or as a `<button role="switch">` via `aria-checked="true"`. The button form is the accessible default. In a settings row the `nk-field` label names it; for several switches side by side wrap each in `label.nk-switch-label` with visible text – the text is part of the hit area.
 
 ```html
 <div>
@@ -589,10 +589,15 @@ Works two ways: as an `<input type="checkbox">` via `:checked`, or as a `<button
     <div class="f-control"><button class="nk-switch" role="switch" aria-checked="true"></button></div></div>
   <div class="nk-field"><div><div class="f-label">Reduce motion</div></div>
     <div class="f-control"><button class="nk-switch" role="switch" aria-checked="false"></button></div></div>
+  <div>
+    <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="true"></button><span>Planned</span></label>
+    <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="false"></button><span>In progress</span></label>
+    <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="true"></button><span>Done</span></label>
+  </div>
 </div>
 ```
 
-- **Classes:** `.nk-switch`, `.aria-checked`
+- **Classes:** `.nk-switch`, `.nk-switch-label`, `.aria-checked`
 - **On a small screen:** 34×20px, so give it a larger tap area by making the whole `nk-field` row clickable.
 
 ### Checkbox & radio — `.nk-check`
@@ -629,7 +634,7 @@ A native range input tinted with `accent-color: var(--nk-accent)` — no custom 
 
 ### Field row — `.nk-field`
 
-The settings-row primitive: label and description on the left, control on the right, pushed apart by `justify-content: space-between`. Stack these to build a whole settings pane.
+The settings-row primitive: label and description on the left, control on the right, pushed apart by `justify-content: space-between`. Stack these to build a whole settings pane. `stacked` puts the label above a full-width control – for textareas and long descriptions; `compact` shrinks the label to 12px tertiary text and drops the row padding. For several short fields side by side use `.nk-fields`.
 
 ```html
 <div>
@@ -637,11 +642,28 @@ The settings-row primitive: label and description on the left, control on the ri
     <div class="f-control"><input class="nk-input" value="Ada Lovelace"></div></div>
   <div class="nk-field"><div><div class="f-label">Email</div></div>
     <div class="f-control"><input class="nk-input" value="ada@acme.com"></div></div>
+  <div class="nk-field stacked"><div><div class="f-label">About me</div></div>
+    <div class="f-control"><textarea class="nk-textarea" rows="2" placeholder="A few words about yourself …"></textarea></div></div>
 </div>
 ```
 
-- **Classes:** `.nk-field`, `.f-label`, `.f-desc`, `.f-control`
+- **Classes:** `.nk-field`, `.f-label`, `.f-desc`, `.f-control`, `.stacked`, `.compact`
 - **On a small screen:** The 24px gap keeps both sides apart; add `flex-wrap: wrap` yourself if the control needs its own line.
+
+### Field grid — `.nk-fields`
+
+Several short fields in one row: a grid of `minmax(150px, 1fr)` columns that wraps as the width allows. Every direct `.nk-field` child becomes stacked and compact by itself – a 12px label above a full-width control – so nothing collides.
+
+```html
+<div class="nk-fields">
+  <div class="nk-field"><div><div class="f-label">Name</div></div><div class="f-control"><input class="nk-input" value="Ada Lovelace"></div></div>
+  <div class="nk-field"><div><div class="f-label">Email</div></div><div class="f-control"><input class="nk-input" value="ada@acme.com"></div></div>
+  <div class="nk-field"><div><div class="f-label">Status</div></div><div class="f-control"><select class="nk-select"><option>In progress</option><option>Done</option></select></div></div>
+</div>
+```
+
+- **Classes:** `.nk-fields`
+- **On a small screen:** Wraps to one or two columns on its own; no breakpoint needed.
 
 ### Profile row — `.nk-profile-row`
 
@@ -1105,6 +1127,8 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 | `open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-toggle-arrow` | Fades the overlay in and makes it interactive; rotates the toggle arrow by 90°. |
 | `collapsed` | `nk-tree-children` | Folds a subtree away with display: none. |
 | `selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item` | The keyboard-highlighted or chosen option. Distinct from active: selection is transient, active is where you are. |
+| `stacked` | `nk-field` | Label above a full-width control instead of beside it – textareas, long descriptions. |
+| `compact` | `nk-field`, `nk-tree-item`, `nk-select` | The tighter variant: a field with a small tertiary label and no row padding (inside .nk-fields), a 26px tree row, a 120px select. |
 | `always` | `nk-tab-bar` | Shows the tab bar at every width, not only below 860px – for previews and phone frames. |
 | `show` | `nk-toast` | Slides the toast up from below and fades it in. |
 | `aria-checked="true"` | `nk-switch (button form)` | Fills the track with the accent and slides the knob. An attribute, not a class, so the state is also announced to assistive technology. |
@@ -1640,7 +1664,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` |
 | Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-table-wrap` `nk-table` `th-icon` `row-title` `date-cell` `person-cell` `nk-new-row` `nk-tag` `blue` `green` `orange` `purple` `nk-progress` `nk-progress-label` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` |
-| Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `nk-profile-row` `big-avatar` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
+| Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-toast` `show` |
 | Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `nk-banner` `info` `success` `warning` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` |
@@ -1702,4 +1726,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.2.0 · MIT · Jungherz GmbH*
+*NotionKit v1.3.0 · MIT · Jungherz GmbH*

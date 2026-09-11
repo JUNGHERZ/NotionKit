@@ -430,11 +430,11 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-switch', group: 'forms', classes: ['nk-switch', 'aria-checked'],
+  id: 'nk-switch', group: 'forms', classes: ['nk-switch', 'nk-switch-label', 'aria-checked'],
   title: { en: 'Switch', de: 'Switch' },
   desc: {
-    en: 'Works two ways: as an <code>&lt;input type="checkbox"&gt;</code> via <code>:checked</code>, or as a <code>&lt;button role="switch"&gt;</code> via <code>aria-checked="true"</code>. The button form is the accessible default.',
-    de: 'Funktioniert auf zwei Wegen: als <code>&lt;input type="checkbox"&gt;</code> über <code>:checked</code> oder als <code>&lt;button role="switch"&gt;</code> über <code>aria-checked="true"</code>. Die Button-Form ist der barrierefreie Standard.',
+    en: 'Works two ways: as an <code>&lt;input type="checkbox"&gt;</code> via <code>:checked</code>, or as a <code>&lt;button role="switch"&gt;</code> via <code>aria-checked="true"</code>. The button form is the accessible default. In a settings row the <code>nk-field</code> label names it; for several switches side by side wrap each in <code>label.nk-switch-label</code> with visible text – the text is part of the hit area.',
+    de: 'Funktioniert auf zwei Wegen: als <code>&lt;input type="checkbox"&gt;</code> über <code>:checked</code> oder als <code>&lt;button role="switch"&gt;</code> über <code>aria-checked="true"</code>. Die Button-Form ist der barrierefreie Standard. In einer Einstellungszeile benennt das <code>nk-field</code>-Label den Schalter; für mehrere Schalter nebeneinander bekommt jeder ein <code>label.nk-switch-label</code> mit sichtbarem Text – der Text gehört zur Trefferfläche.',
   },
   mobile: { en: '34×20px, so give it a larger tap area by making the whole <code>nk-field</code> row clickable.', de: '34×20px – die Trefferfläche vergrößern, indem die ganze <code>nk-field</code>-Zeile klickbar wird.' },
   html: W => `<div style="max-width:420px">
@@ -442,6 +442,11 @@ export const CATALOG = [
     <div class="f-control"><button class="nk-switch" role="switch" aria-checked="true"></button></div></div>
   <div class="nk-field"><div><div class="f-label">${W.reduceMotion}</div></div>
     <div class="f-control"><button class="nk-switch" role="switch" aria-checked="false"></button></div></div>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;padding:9px 0">
+    <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="true"></button><span>${W.planned}</span></label>
+    <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="false"></button><span>${W.inProgress}</span></label>
+    <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="true"></button><span>${W.done}</span></label>
+  </div>
 </div>`,
 },
 {
@@ -475,11 +480,11 @@ export const CATALOG = [
 <div class="nk-slider-value">${W.textSize}: 100 %</div></div>`,
 },
 {
-  id: 'nk-field', group: 'forms', classes: ['nk-field', 'f-label', 'f-desc', 'f-control'],
+  id: 'nk-field', group: 'forms', classes: ['nk-field', 'f-label', 'f-desc', 'f-control', 'stacked', 'compact'],
   title: { en: 'Field row', de: 'Feld-Zeile' },
   desc: {
-    en: 'The settings-row primitive: label and description on the left, control on the right, pushed apart by <code>justify-content: space-between</code>. Stack these to build a whole settings pane.',
-    de: 'Das Grundelement einer Einstellungszeile: Label und Beschreibung links, Bedienelement rechts, auseinandergeschoben per <code>justify-content: space-between</code>. Gestapelt ergeben sie ein ganzes Einstellungs-Pane.',
+    en: 'The settings-row primitive: label and description on the left, control on the right, pushed apart by <code>justify-content: space-between</code>. Stack these to build a whole settings pane. <code>stacked</code> puts the label above a full-width control – for textareas and long descriptions; <code>compact</code> shrinks the label to 12px tertiary text and drops the row padding. For several short fields side by side use <code>.nk-fields</code>.',
+    de: 'Das Grundelement einer Einstellungszeile: Label und Beschreibung links, Bedienelement rechts, auseinandergeschoben per <code>justify-content: space-between</code>. Gestapelt ergeben sie ein ganzes Einstellungs-Pane. <code>stacked</code> setzt das Label über ein vollbreites Control – für Textareas und lange Beschreibungen; <code>compact</code> verkleinert das Label auf 12px tertiären Text und nimmt das Zeilen-Padding weg. Für mehrere kurze Felder nebeneinander gibt es <code>.nk-fields</code>.',
   },
   mobile: { en: 'The 24px gap keeps both sides apart; add <code>flex-wrap: wrap</code> yourself if the control needs its own line.', de: 'Der 24px-Abstand hält beide Seiten getrennt; bei Bedarf selbst <code>flex-wrap: wrap</code> ergänzen, damit das Bedienelement eine eigene Zeile bekommt.' },
   html: W => `<div style="max-width:460px">
@@ -487,6 +492,22 @@ export const CATALOG = [
     <div class="f-control"><input class="nk-input" value="${W.placeholderName}"></div></div>
   <div class="nk-field"><div><div class="f-label">${W.email}</div></div>
     <div class="f-control"><input class="nk-input" value="ada@acme.com"></div></div>
+  <div class="nk-field stacked"><div><div class="f-label">${W.aboutMe}</div></div>
+    <div class="f-control"><textarea class="nk-textarea" rows="2" placeholder="${W.placeholderAbout}"></textarea></div></div>
+</div>`,
+},
+{
+  id: 'nk-fields', group: 'forms', classes: ['nk-fields'],
+  title: { en: 'Field grid', de: 'Feldraster' },
+  desc: {
+    en: 'Several short fields in one row: a grid of <code>minmax(150px, 1fr)</code> columns that wraps as the width allows. Every direct <code>.nk-field</code> child becomes stacked and compact by itself – a 12px label above a full-width control – so nothing collides.',
+    de: 'Mehrere kurze Felder in einer Zeile: ein Raster aus <code>minmax(150px, 1fr)</code>-Spalten, das umbricht, wie es die Breite erlaubt. Jedes direkte <code>.nk-field</code>-Kind wird von selbst gestapelt und kompakt – ein 12px-Label über einem vollbreiten Control –, damit nichts kollidiert.',
+  },
+  mobile: { en: 'Wraps to one or two columns on its own; no breakpoint needed.', de: 'Bricht von selbst auf ein oder zwei Spalten um; kein Breakpoint nötig.' },
+  html: W => `<div class="nk-fields" style="max-width:520px">
+  <div class="nk-field"><div><div class="f-label">${W.name}</div></div><div class="f-control"><input class="nk-input" value="${W.placeholderName}"></div></div>
+  <div class="nk-field"><div><div class="f-label">${W.email}</div></div><div class="f-control"><input class="nk-input" value="ada@acme.com"></div></div>
+  <div class="nk-field"><div><div class="f-label">${W.status}</div></div><div class="f-control"><select class="nk-select"><option>${W.inProgress}</option><option>${W.done}</option></select></div></div>
 </div>`,
 },
 {

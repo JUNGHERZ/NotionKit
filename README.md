@@ -199,10 +199,10 @@ About 100 component classes across eleven groups. Every one of them is documente
 |---|---|
 | `nk-input`, `nk-textarea`, `nk-select` (`wide`) | Text controls with a token-derived focus ring |
 | `nk-btn` (`primary`, `secondary`, `danger`, `danger-solid`, `small`) | Buttons |
-| `nk-switch` (`aria-checked` / `:checked`) | iOS-style switch |
+| `nk-switch`, `nk-switch-label` (`aria-checked` / `:checked`) | iOS-style switch |
 | `nk-check` | Checkbox and radio |
 | `nk-slider`, `nk-slider-value` | Native range input |
-| `nk-field` (`f-label`, `f-desc`, `f-control`) | Settings row |
+| `nk-field` (`f-label`, `f-desc`, `f-control`, `stacked`, `compact`), `nk-fields` | Settings row, stacked field, field grid |
 | `nk-profile-row`, `nk-model-card` (`selected`), `nk-danger-zone`, `nk-member-list`, `nk-member-row` | Settings building blocks |
 | `nk-modal-backdrop` (`open`), `nk-modal`, `nk-settings-nav`, `nk-settings-user`, `nk-settings-content`, `nk-settings-pane` (`active`) | Settings modal |
 

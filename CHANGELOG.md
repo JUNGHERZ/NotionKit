@@ -4,6 +4,24 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] – 2026-09-11
+
+Additive: form layouts and a labelled switch, no existing value changes.
+
+### Added
+- **Field layouts.** `.nk-field.stacked` puts the label above a full-width
+  control (textareas, long descriptions); `.nk-field.compact` shrinks the
+  label to 12px tertiary text and drops the row padding. `.nk-fields` is a
+  grid of `minmax(150px, 1fr)` columns for several short fields in one row,
+  wrapping as the width allows; its direct `.nk-field` children are stacked
+  and compact by themselves. `.nk-select.wide` joins `.nk-input.wide` /
+  `.nk-textarea.wide`.
+- **Labelled switch.** `label.nk-switch-label` wraps a `.nk-switch` and its
+  visible text in one inline row; the text is part of the hit area. For
+  several switches side by side, where the `nk-field` row cannot name them.
+- State reference: `stacked`, `compact`. Requested by Auxdesk; NotionKit
+  Elements 1.2.0 wraps all of it.
+
 ## [1.2.0] – 2026-09-11
 
 Additive: one new component, no existing value changes.

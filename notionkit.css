@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.2.0
+   Jungherz GmbH – v1.3.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -678,6 +678,28 @@ a.crumb { text-decoration: none; }
 .nk-field ::slotted([slot="desc"]) { font-size: 12.5px; color: var(--nk-text-tertiary); margin-top: 2px; line-height: 1.45; }
 .nk-field .f-control,
 .nk-field ::slotted(.f-control) { flex-shrink: 0; }
+/* Field layouts. `stacked`: label above a full-width control – textareas,
+   long descriptions. `compact`: small tertiary label, no row padding – a
+   field inside a grid. `.nk-fields`: the grid itself, short fields side by
+   side with a small label each, wrapping as the width allows; its direct
+   .nk-field children are stacked and compact by themselves. */
+.nk-field.stacked,
+.nk-fields > .nk-field { flex-direction: column; align-items: stretch; gap: 6px; }
+.nk-field.stacked .f-control,
+.nk-fields > .nk-field .f-control { width: 100%; }
+.nk-field.stacked .nk-input, .nk-field.stacked .nk-textarea, .nk-field.stacked .nk-select,
+.nk-fields > .nk-field .nk-input, .nk-fields > .nk-field .nk-textarea, .nk-fields > .nk-field .nk-select { width: 100%; }
+.nk-field.compact,
+.nk-fields > .nk-field { padding: 0; gap: 4px; }
+.nk-field.compact .f-label,
+.nk-field.compact ::slotted([slot="label"]),
+.nk-fields > .nk-field .f-label,
+.nk-fields > .nk-field ::slotted([slot="label"]) { font-size: 12px; color: var(--nk-text-tertiary); }
+.nk-fields {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px 12px; padding: 9px 0;
+}
+.nk-fields > .nk-field { min-width: 0; }
 
 .nk-input, .nk-select, .nk-textarea {
   font-family: inherit; font-size: 13.5px; color: var(--nk-text);
@@ -691,7 +713,7 @@ a.crumb { text-decoration: none; }
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--nk-accent) 25%, transparent);
 }
 .nk-input::placeholder, .nk-textarea::placeholder { color: var(--nk-text-tertiary); }
-.nk-input.wide, .nk-textarea.wide { width: 100%; }
+.nk-input.wide, .nk-textarea.wide, .nk-select.wide { width: 100%; }
 .nk-select.compact { min-width: 120px; }
 .nk-textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
 .nk-select {
@@ -744,6 +766,10 @@ a.nk-btn { text-decoration: none; }
 .nk-switch:checked::after,
 .nk-switch[aria-checked="true"]::after { transform: translateX(14px); }
 .nk-switch:disabled { opacity: .5; cursor: not-allowed; }
+/* A switch with visible text: the label makes the text part of the hit area
+   (a button is a labelable element), for several switches in one row. */
+.nk-switch-label { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+.nk-switch-label:has(.nk-switch:disabled) { cursor: not-allowed; color: var(--nk-text-tertiary); }
 
 .nk-check { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 14px; cursor: pointer; }
 .nk-check input {
