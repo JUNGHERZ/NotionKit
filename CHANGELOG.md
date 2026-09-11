@@ -4,6 +4,16 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.3.1] – 2026-09-11
+
+### Fixed
+- Inputs in `.nk-fields` (and in `.nk-field.stacked` / `.compact`) overflowed
+  their column by about 20px: the controls' `min-width: 210px` became the
+  grid item's automatic minimum, which `width: 100%` cannot undercut. Now
+  `min-width: 0` on the stacked / compact field, its `.f-control`, the
+  controls inside, and on `.nk-input.wide` / `.nk-textarea.wide` /
+  `.nk-select.wide`. Reported by Auxdesk.
+
 ## [1.3.0] – 2026-09-11
 
 Additive: form layouts and a labelled switch, no existing value changes.

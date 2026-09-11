@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.3.0
+   Jungherz GmbH – v1.3.1
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -684,13 +684,16 @@ a.crumb { text-decoration: none; }
    side with a small label each, wrapping as the width allows; its direct
    .nk-field children are stacked and compact by themselves. */
 .nk-field.stacked,
-.nk-fields > .nk-field { flex-direction: column; align-items: stretch; gap: 6px; }
+.nk-fields > .nk-field { flex-direction: column; align-items: stretch; gap: 6px; min-width: 0; }
 .nk-field.stacked .f-control,
-.nk-fields > .nk-field .f-control { width: 100%; }
+.nk-fields > .nk-field .f-control { width: 100%; min-width: 0; }
+/* min-width: 0 all the way down: the controls' 210px minimum would otherwise
+   become the grid item's automatic minimum and push the input past a
+   150px column. */
 .nk-field.stacked .nk-input, .nk-field.stacked .nk-textarea, .nk-field.stacked .nk-select,
-.nk-fields > .nk-field .nk-input, .nk-fields > .nk-field .nk-textarea, .nk-fields > .nk-field .nk-select { width: 100%; }
+.nk-fields > .nk-field .nk-input, .nk-fields > .nk-field .nk-textarea, .nk-fields > .nk-field .nk-select { width: 100%; min-width: 0; }
 .nk-field.compact,
-.nk-fields > .nk-field { padding: 0; gap: 4px; }
+.nk-fields > .nk-field { padding: 0; gap: 4px; min-width: 0; }
 .nk-field.compact .f-label,
 .nk-field.compact ::slotted([slot="label"]),
 .nk-fields > .nk-field .f-label,
@@ -713,7 +716,7 @@ a.crumb { text-decoration: none; }
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--nk-accent) 25%, transparent);
 }
 .nk-input::placeholder, .nk-textarea::placeholder { color: var(--nk-text-tertiary); }
-.nk-input.wide, .nk-textarea.wide, .nk-select.wide { width: 100%; }
+.nk-input.wide, .nk-textarea.wide, .nk-select.wide { width: 100%; min-width: 0; }
 .nk-select.compact { min-width: 120px; }
 .nk-textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
 .nk-select {
