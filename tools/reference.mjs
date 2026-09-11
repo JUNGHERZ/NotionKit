@@ -65,7 +65,7 @@ export const TOKEN_MEANING = {
 };
 
 export const STATES = [
-  { cls: 'active', on: 'nk-tree-item, nk-db-tab, nk-tab, nk-settings-pane, nk-segmented button, nk-emoji-cats span, nk-board, nk-bubble-menu button',
+  { cls: 'active', on: 'nk-tree-item, nk-db-tab, nk-tab, nk-tab-bar-item, nk-settings-pane, nk-segmented button, nk-emoji-cats span, nk-board, nk-bubble-menu button',
     en: 'Marks the current item. Tree items get the active background, tabs get the underline, panes become visible.',
     de: 'Markiert das aktuelle Element. Baum-Einträge bekommen den Aktiv-Hintergrund, Reiter die Unterlinie, Panes werden sichtbar.' },
   { cls: 'open', on: 'nk-modal-backdrop, nk-cmdk-backdrop, nk-toggle-arrow',
@@ -76,6 +76,9 @@ export const STATES = [
   { cls: 'selected', on: 'nk-cmdk-item, nk-model-card, nk-slash-item',
     en: 'The keyboard-highlighted or chosen option. Distinct from active: selection is transient, active is where you are.',
     de: 'Die per Tastatur hervorgehobene oder gewählte Option. Anders als active: Auswahl ist flüchtig, active ist der Ort, an dem du bist.' },
+  { cls: 'always', on: 'nk-tab-bar',
+    en: 'Shows the tab bar at every width, not only below 860px – for previews and phone frames.',
+    de: 'Zeigt die Tab-Bar in jeder Breite, nicht nur unter 860px – für Vorschauen und Telefon-Rahmen.' },
   { cls: 'show', on: 'nk-toast',
     en: 'Slides the toast up from below and fades it in.', de: 'Fährt den Toast von unten hoch und blendet ihn ein.' },
   { cls: 'aria-checked="true"', on: 'nk-switch (button form)',

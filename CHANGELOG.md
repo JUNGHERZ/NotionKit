@@ -4,6 +4,24 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] – 2026-09-11
+
+Additive: one new component, no existing value changes.
+
+### Added
+- **Tab bar** – `.nk-tab-bar` with `.nk-tab-bar-item` (`.icon`, `.label`,
+  `.active`): the thumb-reachable twin of the sidebar for phones and
+  installed PWAs. Up to five destinations, icon over label, the current one
+  in `--nk-accent`, background `--nk-bg-sidebar`, top border `--nk-border`,
+  bottom padding grows with `env(safe-area-inset-bottom)`. Placed last inside
+  `.nk-main` it sits below the scrolling page; in a self-scrolling document
+  it is `position: sticky; bottom: 0`. Hidden above 860px (the sidebar takes
+  over), shown by the single breakpoint below; `.always` shows it at every
+  width (previews, phone frames), `.floating` turns it into a fixed capsule.
+  Slotted twins for `[slot="icon"]` and `.label`. Requested by Auxdesk;
+  NotionKit Elements 1.1.0 wraps it as `<nk-tab-bar>` / `<nk-tab-bar-item>`.
+- Demo app: a tab bar at the bottom of the main column, visible on a phone.
+
 ## [1.1.1] – 2026-09-05
 
 ### Fixed

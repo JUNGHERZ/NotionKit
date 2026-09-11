@@ -2,7 +2,7 @@
 // the catalog itself stays language-neutral.
 export const WORDS = {
   en: {
-    workspace: 'Acme Inc', search: 'Search', home: 'Home', inbox: 'Inbox',
+    workspace: 'Acme Inc', search: 'Search', home: 'Home', inbox: 'Inbox', more: 'More',
     favourites: 'Favourites', pages: 'Pages', share: 'Share', settings: 'Settings',
     projectOverview: 'Project overview', knowledgeBase: 'Knowledge base',
     designSystem: 'Design system', roadmap: 'Roadmap', meetingNotes: 'Meeting notes',
@@ -60,7 +60,7 @@ export const WORDS = {
     slashBasic: 'Basic blocks',
   },
   de: {
-    workspace: 'Acme GmbH', search: 'Suche', home: 'Start', inbox: 'Posteingang',
+    workspace: 'Acme GmbH', search: 'Suche', home: 'Start', inbox: 'Posteingang', more: 'Mehr',
     favourites: 'Favoriten', pages: 'Seiten', share: 'Teilen', settings: 'Einstellungen',
     projectOverview: 'Projektübersicht', knowledgeBase: 'Wissensdatenbank',
     designSystem: 'Design-System', roadmap: 'Roadmap', meetingNotes: 'Meeting-Notizen',

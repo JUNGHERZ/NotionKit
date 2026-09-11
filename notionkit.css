@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.1.1
+   Jungherz GmbH – v1.2.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -343,6 +343,43 @@ a.crumb { text-decoration: none; }
   font-size: 13px; padding: 3px 10px;
 }
 .nk-theme-toggle { font-size: 15px; width: 30px; height: 28px; padding: 0; }
+
+/* ---- Tab bar (phones, installed PWAs) ----
+   A bottom row of up to five destinations, the thumb-reachable twin of the
+   sidebar the breakpoint hides. Last child of .nk-main it sits below the
+   scrolling page; in a document that scrolls itself it sticks to the
+   viewport bottom. Hidden above 860px; `always` shows it at every width
+   (previews, phone frames), `floating` turns it into a capsule.
+   No view-transition-name here: the bar stays put between pages. ---- */
+.nk-tab-bar {
+  display: none; flex: none; align-items: stretch; gap: 2px;
+  position: sticky; bottom: 0; z-index: 30;
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+  background: var(--nk-bg-sidebar);
+  border-top: 1px solid var(--nk-border);
+}
+.nk-tab-bar.always { display: flex; }
+.nk-tab-bar.floating {
+  position: fixed; left: 12px; right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  padding: 6px; border: 1px solid var(--nk-border); border-radius: 16px;
+  box-shadow: var(--nk-shadow-menu);
+}
+.nk-tab-bar-item {
+  flex: 1 1 0; min-width: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 4px 2px; border: none; border-radius: var(--nk-radius);
+  background: transparent; font-family: inherit; font-size: 10.5px; line-height: 1.2;
+  color: var(--nk-text-secondary); text-decoration: none;
+  cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.nk-tab-bar-item:hover { color: var(--nk-text); background: var(--nk-bg-hover); }
+.nk-tab-bar-item.active { color: var(--nk-accent); }
+.nk-tab-bar-item:disabled { opacity: .5; cursor: not-allowed; }
+.nk-tab-bar-item .icon,
+.nk-tab-bar-item ::slotted([slot="icon"]) { font-size: 20px; line-height: 1; }
+.nk-tab-bar-item .label,
+.nk-tab-bar-item ::slotted(.label) { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 
 /* ============================================================
@@ -1304,6 +1341,7 @@ a.nk-btn { text-decoration: none; }
    ============================================================ */
 @media (max-width: 860px) {
   .nk-sidebar { display: none; }
+  .nk-tab-bar { display: flex; }
   .nk-page { padding: 0 24px 80px; }
   .nk-settings-nav { width: 60px; min-width: 60px; }
   .nk-settings-nav .label,

@@ -370,6 +370,13 @@
 
       </div>
     </div>
+    <nav class="nk-tab-bar" id="tabBar">
+      <button class="nk-tab-bar-item active"><span class="icon">🏠</span><span class="label">Start</span></button>
+      <button class="nk-tab-bar-item"><span class="icon">📥</span><span class="label">Eingang</span></button>
+      <button class="nk-tab-bar-item"><span class="icon">🔍</span><span class="label">Suche</span></button>
+      <button class="nk-tab-bar-item"><span class="icon">⚙️</span><span class="label">Einstellungen</span></button>
+      <button class="nk-tab-bar-item"><span class="icon">☰</span><span class="label">Mehr</span></button>
+    </nav>
   </main>
 </div>
 
@@ -1306,5 +1313,11 @@ if (host) {
 }
 </script>
 <!-- nk-editor-recipe:end -->
+<script>
+  /* Demo tab bar: the clicked item becomes the current one. */
+  document.querySelectorAll('#tabBar .nk-tab-bar-item').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('#tabBar .nk-tab-bar-item').forEach(x => x.classList.toggle('active', x === b));
+  }));
+</script>
 </body>
 </html>

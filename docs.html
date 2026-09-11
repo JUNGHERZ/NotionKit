@@ -308,10 +308,11 @@
       <p class="doc-note">NotionKit ships states, not behaviour. Add and remove these classes yourself; there is no JavaScript in the library.</p>
       <div class="doc-table-wrap"><table class="doc-table">
         <thead><tr><th>Class</th><th>Applies to</th><th>Effect</th></tr></thead>
-        <tbody><tr><td><code>.active</code></td><td><code>nk-tree-item</code> <code>nk-db-tab</code> <code>nk-tab</code> <code>nk-settings-pane</code> <code>nk-segmented button</code> <code>nk-emoji-cats span</code> <code>nk-board</code> <code>nk-bubble-menu button</code></td><td>Marks the current item. Tree items get the active background, tabs get the underline, panes become visible.</td></tr>
+        <tbody><tr><td><code>.active</code></td><td><code>nk-tree-item</code> <code>nk-db-tab</code> <code>nk-tab</code> <code>nk-tab-bar-item</code> <code>nk-settings-pane</code> <code>nk-segmented button</code> <code>nk-emoji-cats span</code> <code>nk-board</code> <code>nk-bubble-menu button</code></td><td>Marks the current item. Tree items get the active background, tabs get the underline, panes become visible.</td></tr>
         <tr><td><code>.open</code></td><td><code>nk-modal-backdrop</code> <code>nk-cmdk-backdrop</code> <code>nk-toggle-arrow</code></td><td>Fades the overlay in and makes it interactive; rotates the toggle arrow by 90°.</td></tr>
         <tr><td><code>.collapsed</code></td><td><code>nk-tree-children</code></td><td>Folds a subtree away with display: none.</td></tr>
         <tr><td><code>.selected</code></td><td><code>nk-cmdk-item</code> <code>nk-model-card</code> <code>nk-slash-item</code></td><td>The keyboard-highlighted or chosen option. Distinct from active: selection is transient, active is where you are.</td></tr>
+        <tr><td><code>.always</code></td><td><code>nk-tab-bar</code></td><td>Shows the tab bar at every width, not only below 860px – for previews and phone frames.</td></tr>
         <tr><td><code>.show</code></td><td><code>nk-toast</code></td><td>Slides the toast up from below and fades it in.</td></tr>
         <tr><td><code>.aria-checked="true"</code></td><td><code>nk-switch (button form)</code></td><td>Fills the track with the accent and slides the knob. An attribute, not a class, so the state is also announced to assistive technology.</td></tr>
         <tr><td><code>.:checked</code></td><td><code>nk-todo input</code> <code>nk-check input</code> <code>nk-switch (input form)</code></td><td>Native state. Draws the custom checkmark or dot and strikes a to-do label through.</td></tr>
@@ -505,6 +506,31 @@ class NkCallout extends HTMLElement {
 <span class="tag">&lt;/header</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Stays put. The breadcrumb wraps its crumbs; drop crumbs yourself if the trail gets long.</span></div>
         <div class="doc-classes"><code>.nk-topbar</code><code>.nk-topbar-actions</code><code>.nk-topbar-btn</code><code>.nk-share-btn</code><code>.nk-theme-toggle</code></div>
+      </article>
+      <article class="doc-entry" id="nk-tab-bar">
+        <h3>Tab bar (mobile) <code>.nk-tab-bar</code></h3>
+        <p class="doc-desc">The thumb-reachable twin of the sidebar for phones and installed PWAs: up to five destinations in a row, each an icon over a short label, the current one in <code>--nk-accent</code>. Put it last inside <code>nk-main</code> – it sits below the scrolling page and never moves. In a document that scrolls itself it sticks to the viewport bottom. <code>floating</code> makes it a capsule; the fifth item usually opens the sidebar as a drawer.</p>
+        <div class="doc-preview"><div style="max-width:390px;border:1px solid var(--nk-border);border-radius:12px;overflow:hidden">
+  <nav class="nk-tab-bar always">
+    <button class="nk-tab-bar-item active"><span class="icon">🏠</span><span class="label">Home</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">📥</span><span class="label">Inbox</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">🔍</span><span class="label">Search</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">⚙️</span><span class="label">Settings</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">☰</span><span class="label">More</span></button>
+  </nav>
+</div></div>
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:390px;border:1px solid var(--nk-border);border-radius:12px;overflow:hidden"<span class="tag">&gt;</span>
+  <span class="tag">&lt;nav</span> <span class="attr">class=</span>"nk-tab-bar always"<span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-tab-bar-item active"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>🏠<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Home<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-tab-bar-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>📥<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Inbox<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-tab-bar-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>🔍<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Search<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-tab-bar-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>⚙️<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Settings<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-tab-bar-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>☰<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>More<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/nav</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Visible only below 860px – above, the sidebar takes over and the bar is <code>display: none</code>. <code>always</code> shows it at every width, as in this preview. The bottom padding grows with <code>env(safe-area-inset-bottom)</code> on phones with a home indicator.</span></div>
+        <div class="doc-classes"><code>.nk-tab-bar</code><code>.nk-tab-bar-item</code><code>.icon</code><code>.label</code><code>.active</code><code>.always</code><code>.floating</code></div>
       </article>
       <article class="doc-entry" id="nk-breadcrumb">
         <h3>Breadcrumb <code>.nk-breadcrumb</code></h3>

@@ -87,6 +87,27 @@ export const CATALOG = [
 </header>`,
 },
 {
+  id: 'nk-tab-bar', group: 'shell', classes: ['nk-tab-bar', 'nk-tab-bar-item', 'icon', 'label', 'active', 'always', 'floating'],
+  title: { en: 'Tab bar (mobile)', de: 'Tab-Bar (mobil)' },
+  desc: {
+    en: 'The thumb-reachable twin of the sidebar for phones and installed PWAs: up to five destinations in a row, each an icon over a short label, the current one in <code>--nk-accent</code>. Put it last inside <code>nk-main</code> – it sits below the scrolling page and never moves. In a document that scrolls itself it sticks to the viewport bottom. <code>floating</code> makes it a capsule; the fifth item usually opens the sidebar as a drawer.',
+    de: 'Der daumenfreundliche Zwilling der Sidebar für Telefone und installierte PWAs: bis zu fünf Ziele in einer Reihe, jedes ein Icon über einer kurzen Beschriftung, das aktuelle in <code>--nk-accent</code>. Als letztes Kind von <code>nk-main</code> sitzt sie unter der scrollenden Seite und bewegt sich nie. In einem Dokument, das selbst scrollt, klebt sie am unteren Viewport-Rand. <code>floating</code> macht sie zur Kapsel; der fünfte Eintrag öffnet meist die Sidebar als Schublade.',
+  },
+  mobile: {
+    en: 'Visible only below 860px – above, the sidebar takes over and the bar is <code>display: none</code>. <code>always</code> shows it at every width, as in this preview. The bottom padding grows with <code>env(safe-area-inset-bottom)</code> on phones with a home indicator.',
+    de: 'Nur unter 860px sichtbar – darüber übernimmt die Sidebar, die Bar ist <code>display: none</code>. <code>always</code> zeigt sie in jeder Breite, wie in dieser Vorschau. Das untere Padding wächst auf Telefonen mit Home-Indikator um <code>env(safe-area-inset-bottom)</code>.',
+  },
+  html: W => `<div style="max-width:390px;border:1px solid var(--nk-border);border-radius:12px;overflow:hidden">
+  <nav class="nk-tab-bar always">
+    <button class="nk-tab-bar-item active"><span class="icon">🏠</span><span class="label">${W.home}</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">📥</span><span class="label">${W.inbox}</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">🔍</span><span class="label">${W.search}</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">⚙️</span><span class="label">${W.settings}</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">☰</span><span class="label">${W.more}</span></button>
+  </nav>
+</div>`,
+},
+{
   id: 'nk-breadcrumb', group: 'shell', classes: ['nk-breadcrumb', 'crumb', 'sep', 'current'],
   title: { en: 'Breadcrumb', de: 'Breadcrumb' },
   desc: {

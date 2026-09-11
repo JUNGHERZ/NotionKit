@@ -167,6 +167,7 @@ About 100 component classes across eleven groups. Every one of them is documente
 | `nk-workspace`, `nk-sidebar-scroll`, `nk-sidebar-footer` | Workspace switcher, scrolling tree area, pinned footer |
 | `nk-topbar`, `nk-topbar-actions`, `nk-topbar-btn`, `nk-share-btn`, `nk-theme-toggle` | 45px top bar with actions |
 | `nk-breadcrumb` (`crumb`, `sep`, `current`) | Page trail |
+| `nk-tab-bar`, `nk-tab-bar-item` (`icon`, `label`, `active`, `always`, `floating`) | Bottom tab bar for phones and installed PWAs, visible below 860px |
 | `nk-section-label` | Small uppercase caption between sidebar groups |
 | `nk-tree-item` (`icon`, `label`, `actions`, `active`) | Page-tree row with hover actions |
 | `nk-tree-children` (`collapsed`), `nk-toggle-arrow` (`open`) | Nested subtree and its arrow |

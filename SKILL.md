@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.1.1) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.2.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -221,6 +221,25 @@ A 45px-high row holding the breadcrumb on the left and actions on the right. `nk
 
 - **Classes:** `.nk-topbar`, `.nk-topbar-actions`, `.nk-topbar-btn`, `.nk-share-btn`, `.nk-theme-toggle`
 - **On a small screen:** Stays put. The breadcrumb wraps its crumbs; drop crumbs yourself if the trail gets long.
+
+### Tab bar (mobile) — `.nk-tab-bar`
+
+The thumb-reachable twin of the sidebar for phones and installed PWAs: up to five destinations in a row, each an icon over a short label, the current one in `--nk-accent`. Put it last inside `nk-main` – it sits below the scrolling page and never moves. In a document that scrolls itself it sticks to the viewport bottom. `floating` makes it a capsule; the fifth item usually opens the sidebar as a drawer.
+
+```html
+<div>
+  <nav class="nk-tab-bar always">
+    <button class="nk-tab-bar-item active"><span class="icon">🏠</span><span class="label">Home</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">📥</span><span class="label">Inbox</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">🔍</span><span class="label">Search</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">⚙️</span><span class="label">Settings</span></button>
+    <button class="nk-tab-bar-item"><span class="icon">☰</span><span class="label">More</span></button>
+  </nav>
+</div>
+```
+
+- **Classes:** `.nk-tab-bar`, `.nk-tab-bar-item`, `.icon`, `.label`, `.active`, `.always`, `.floating`
+- **On a small screen:** Visible only below 860px – above, the sidebar takes over and the bar is `display: none`. `always` shows it at every width, as in this preview. The bottom padding grows with `env(safe-area-inset-bottom)` on phones with a home indicator.
 
 ### Breadcrumb — `.nk-breadcrumb`
 
@@ -1082,10 +1101,11 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 
 | Class / attribute | Applies to | Effect |
 |---|---|---|
-| `active` | `nk-tree-item`, `nk-db-tab`, `nk-tab`, `nk-settings-pane`, `nk-segmented button`, `nk-emoji-cats span`, `nk-board`, `nk-bubble-menu button` | Marks the current item. Tree items get the active background, tabs get the underline, panes become visible. |
+| `active` | `nk-tree-item`, `nk-db-tab`, `nk-tab`, `nk-tab-bar-item`, `nk-settings-pane`, `nk-segmented button`, `nk-emoji-cats span`, `nk-board`, `nk-bubble-menu button` | Marks the current item. Tree items get the active background, tabs get the underline, panes become visible. |
 | `open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-toggle-arrow` | Fades the overlay in and makes it interactive; rotates the toggle arrow by 90°. |
 | `collapsed` | `nk-tree-children` | Folds a subtree away with display: none. |
 | `selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item` | The keyboard-highlighted or chosen option. Distinct from active: selection is transient, active is where you are. |
+| `always` | `nk-tab-bar` | Shows the tab bar at every width, not only below 860px – for previews and phone frames. |
 | `show` | `nk-toast` | Slides the toast up from below and fades it in. |
 | `aria-checked="true"` | `nk-switch (button form)` | Fills the track with the accent and slides the knob. An attribute, not a class, so the state is also announced to assistive technology. |
 | `:checked` | `nk-todo input`, `nk-check input`, `nk-switch (input form)` | Native state. Draws the custom checkmark or dot and strikes a to-do label through. |
@@ -1615,7 +1635,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 
 | Group | Classes |
 |---|---|
-| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-share-btn` `nk-theme-toggle` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
+| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `icon` `label` `active` `always` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` |
@@ -1682,4 +1702,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.1.1 · MIT · Jungherz GmbH*
+*NotionKit v1.2.0 · MIT · Jungherz GmbH*
