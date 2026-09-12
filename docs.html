@@ -318,6 +318,7 @@
         <tr><td><code>.scroll</code></td><td><code>nk-segmented</code></td><td>Scrolls the segments horizontally with the scrollbar hidden, capped at the parent width.</td></tr>
         <tr><td><code>.wrap</code></td><td><code>nk-segmented</code></td><td>Lets the segments wrap onto further rows.</td></tr>
         <tr><td><code>.fixed</code></td><td><code>nk-tab-bar</code></td><td>Pins the tab bar to the viewport bottom; a following .nk-tab-bar-spacer keeps its height in the flow.</td></tr>
+        <tr><td><code>.covered</code></td><td><code>nk-page</code></td><td>The page follows a cover: no top padding, the icon overlaps the cover’s bottom edge. Class markup gets this from .nk-cover + .nk-page; <nk-page cover> sets the class.</td></tr>
         <tr><td><code>.always</code></td><td><code>nk-tab-bar</code></td><td>Shows the tab bar at every width, not only below 860px – for previews and phone frames.</td></tr>
         <tr><td><code>.show</code></td><td><code>nk-toast</code></td><td>Slides the toast up from below and fades it in.</td></tr>
         <tr><td><code>.aria-checked="true"</code></td><td><code>nk-switch (button form)</code></td><td>Fills the track with the accent and slides the knob. An attribute, not a class, so the state is also announced to assistive technology.</td></tr>
@@ -637,7 +638,7 @@ class NkCallout extends HTMLElement {
       <div class="prd">PRD 5.3</div>
       <article class="doc-entry" id="nk-page">
         <h3>Page column <code>.nk-page</code></h3>
-        <p class="doc-desc">The document column: <code>max-width: 760px</code> with auto margins, never a fixed width. The icon pulls itself up over the cover with a negative margin; the title is <code>contenteditable</code>-ready.</p>
+        <p class="doc-desc">The document column: <code>max-width: 760px</code> with auto margins, never a fixed width. After a cover (<code>.nk-cover + .nk-page</code>, or <code>.nk-page.covered</code>) the icon pulls itself up over it with a negative margin and the page has no top padding; without one the page keeps 24px top padding and the icon sits inside it, fully visible. The title is <code>contenteditable</code>-ready.</p>
         <div class="doc-preview is-frame" style="height:320px"><div class="nk-page-scroll" style="height:100%">
   <div class="nk-cover" style="height:120px"></div>
   <div class="nk-page" style="padding-bottom:24px">
@@ -658,7 +659,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Side padding drops from 64px to 24px below 860px. The 760px cap simply never binds.</span></div>
-        <div class="doc-classes"><code>.nk-page-scroll</code><code>.nk-page</code><code>.nk-page-icon</code><code>.nk-page-title</code><code>.nk-page-meta</code></div>
+        <div class="doc-classes"><code>.nk-page-scroll</code><code>.nk-page</code><code>.nk-page-icon</code><code>.nk-page-title</code><code>.nk-page-meta</code><code>.covered</code></div>
       </article>
       <article class="doc-entry" id="nk-cover">
         <h3>Cover <code>.nk-cover</code></h3>

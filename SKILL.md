@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.4.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.4.1) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -325,7 +325,7 @@ Children indent under a guide line. Add `.collapsed` to fold them away and `.ope
 
 ### Page column — `.nk-page`
 
-The document column: `max-width: 760px` with auto margins, never a fixed width. The icon pulls itself up over the cover with a negative margin; the title is `contenteditable`-ready.
+The document column: `max-width: 760px` with auto margins, never a fixed width. After a cover (`.nk-cover + .nk-page`, or `.nk-page.covered`) the icon pulls itself up over it with a negative margin and the page has no top padding; without one the page keeps 24px top padding and the icon sits inside it, fully visible. The title is `contenteditable`-ready.
 
 ```html
 <div class="nk-page-scroll">
@@ -339,7 +339,7 @@ The document column: `max-width: 760px` with auto margins, never a fixed width. 
 </div>
 ```
 
-- **Classes:** `.nk-page-scroll`, `.nk-page`, `.nk-page-icon`, `.nk-page-title`, `.nk-page-meta`
+- **Classes:** `.nk-page-scroll`, `.nk-page`, `.nk-page-icon`, `.nk-page-title`, `.nk-page-meta`, `.covered`
 - **On a small screen:** Side padding drops from 64px to 24px below 860px. The 760px cap simply never binds.
 
 ### Cover — `.nk-cover`
@@ -1140,6 +1140,7 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 | `scroll` | `nk-segmented` | Scrolls the segments horizontally with the scrollbar hidden, capped at the parent width. |
 | `wrap` | `nk-segmented` | Lets the segments wrap onto further rows. |
 | `fixed` | `nk-tab-bar` | Pins the tab bar to the viewport bottom; a following .nk-tab-bar-spacer keeps its height in the flow. |
+| `covered` | `nk-page` | The page follows a cover: no top padding, the icon overlaps the cover’s bottom edge. Class markup gets this from .nk-cover + .nk-page; <nk-page cover> sets the class. |
 | `always` | `nk-tab-bar` | Shows the tab bar at every width, not only below 860px – for previews and phone frames. |
 | `show` | `nk-toast` | Slides the toast up from below and fades it in. |
 | `aria-checked="true"` | `nk-switch (button form)` | Fills the track with the accent and slides the knob. An attribute, not a class, so the state is also announced to assistive technology. |
@@ -1672,7 +1673,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 |---|---|
 | App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
-| Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `nk-cover` `nk-heading` `lead` |
+| Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` |
 | Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-table-wrap` `nk-table` `th-icon` `row-title` `date-cell` `person-cell` `nk-new-row` `nk-tag` `blue` `green` `orange` `purple` `nk-progress` `nk-progress-label` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
@@ -1737,4 +1738,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.4.0 · MIT · Jungherz GmbH*
+*NotionKit v1.4.1 · MIT · Jungherz GmbH*

@@ -186,11 +186,11 @@ export const CATALOG = [
 },
 // ============================================================ 5.3 PAGE
 {
-  id: 'nk-page', group: 'page', classes: ['nk-page-scroll', 'nk-page', 'nk-page-icon', 'nk-page-title', 'nk-page-meta'],
+  id: 'nk-page', group: 'page', classes: ['nk-page-scroll', 'nk-page', 'nk-page-icon', 'nk-page-title', 'nk-page-meta', 'covered'],
   title: { en: 'Page column', de: 'Seitenspalte' },
   desc: {
-    en: 'The document column: <code>max-width: 760px</code> with auto margins, never a fixed width. The icon pulls itself up over the cover with a negative margin; the title is <code>contenteditable</code>-ready.',
-    de: 'Die Dokumentspalte: <code>max-width: 760px</code> mit Auto-Rändern, nie eine feste Breite. Das Icon zieht sich per negativem Rand über das Cover; der Titel ist <code>contenteditable</code>-fähig.',
+    en: 'The document column: <code>max-width: 760px</code> with auto margins, never a fixed width. After a cover (<code>.nk-cover + .nk-page</code>, or <code>.nk-page.covered</code>) the icon pulls itself up over it with a negative margin and the page has no top padding; without one the page keeps 24px top padding and the icon sits inside it, fully visible. The title is <code>contenteditable</code>-ready.',
+    de: 'Die Dokumentspalte: <code>max-width: 760px</code> mit Auto-Rändern, nie eine feste Breite. Nach einem Cover (<code>.nk-cover + .nk-page</code> oder <code>.nk-page.covered</code>) zieht sich das Icon per negativem Rand darüber und die Seite hat kein oberes Padding; ohne Cover behält die Seite 24px oberes Padding und das Icon sitzt darin, ganz sichtbar. Der Titel ist <code>contenteditable</code>-fähig.',
   },
   mobile: { en: 'Side padding drops from 64px to 24px below 860px. The 760px cap simply never binds.', de: 'Der Seitenabstand fällt unter 860px von 64px auf 24px. Die 760px-Grenze greift dort schlicht nicht.' },
   frame: 320,

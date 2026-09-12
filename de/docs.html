@@ -318,6 +318,7 @@
         <tr><td><code>.scroll</code></td><td><code>nk-segmented</code></td><td>Scrollt die Segmente horizontal mit versteckter Scrollleiste, begrenzt auf die Elternbreite.</td></tr>
         <tr><td><code>.wrap</code></td><td><code>nk-segmented</code></td><td>Lässt die Segmente in weitere Zeilen umbrechen.</td></tr>
         <tr><td><code>.fixed</code></td><td><code>nk-tab-bar</code></td><td>Heftet die Tab-Bar an den unteren Viewport-Rand; ein folgender .nk-tab-bar-spacer hält ihre Höhe im Fluss frei.</td></tr>
+        <tr><td><code>.covered</code></td><td><code>nk-page</code></td><td>Die Seite folgt einem Cover: kein oberes Padding, das Icon überlappt die Cover-Unterkante. Klassen-Markup bekommt das über .nk-cover + .nk-page; <nk-page cover> setzt die Klasse.</td></tr>
         <tr><td><code>.always</code></td><td><code>nk-tab-bar</code></td><td>Zeigt die Tab-Bar in jeder Breite, nicht nur unter 860px – für Vorschauen und Telefon-Rahmen.</td></tr>
         <tr><td><code>.show</code></td><td><code>nk-toast</code></td><td>Fährt den Toast von unten hoch und blendet ihn ein.</td></tr>
         <tr><td><code>.aria-checked="true"</code></td><td><code>nk-switch (button form)</code></td><td>Füllt die Schiene mit dem Akzent und schiebt den Knopf. Ein Attribut, keine Klasse – der Zustand wird so auch an assistive Technik gemeldet.</td></tr>
@@ -637,7 +638,7 @@ class NkCallout extends HTMLElement {
       <div class="prd">PRD 5.3</div>
       <article class="doc-entry" id="nk-page">
         <h3>Seitenspalte <code>.nk-page</code></h3>
-        <p class="doc-desc">Die Dokumentspalte: <code>max-width: 760px</code> mit Auto-Rändern, nie eine feste Breite. Das Icon zieht sich per negativem Rand über das Cover; der Titel ist <code>contenteditable</code>-fähig.</p>
+        <p class="doc-desc">Die Dokumentspalte: <code>max-width: 760px</code> mit Auto-Rändern, nie eine feste Breite. Nach einem Cover (<code>.nk-cover + .nk-page</code> oder <code>.nk-page.covered</code>) zieht sich das Icon per negativem Rand darüber und die Seite hat kein oberes Padding; ohne Cover behält die Seite 24px oberes Padding und das Icon sitzt darin, ganz sichtbar. Der Titel ist <code>contenteditable</code>-fähig.</p>
         <div class="doc-preview is-frame" style="height:320px"><div class="nk-page-scroll" style="height:100%">
   <div class="nk-cover" style="height:120px"></div>
   <div class="nk-page" style="padding-bottom:24px">
@@ -658,7 +659,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Der Seitenabstand fällt unter 860px von 64px auf 24px. Die 760px-Grenze greift dort schlicht nicht.</span></div>
-        <div class="doc-classes"><code>.nk-page-scroll</code><code>.nk-page</code><code>.nk-page-icon</code><code>.nk-page-title</code><code>.nk-page-meta</code></div>
+        <div class="doc-classes"><code>.nk-page-scroll</code><code>.nk-page</code><code>.nk-page-icon</code><code>.nk-page-title</code><code>.nk-page-meta</code><code>.covered</code></div>
       </article>
       <article class="doc-entry" id="nk-cover">
         <h3>Cover <code>.nk-cover</code></h3>

@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.4.0
+   Jungherz GmbH – v1.4.1
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -457,15 +457,27 @@ a.crumb { text-decoration: none; }
     var(--nk-bg-callout);
 }
 
-.nk-page { max-width: 760px; margin: 0 auto; padding: 0 64px 120px; }
+.nk-page { max-width: 760px; margin: 0 auto; padding: 24px 64px 120px; }
+/* With a cover the icon overlaps its bottom edge and the page needs no top
+   padding; without one it sits inside the padding, fully visible even in a
+   scroll container. Class markup: the cover is the page's previous sibling.
+   Elements: <nk-page> sets `covered` on the page box. */
+.nk-cover + .nk-page,
+.nk-page.covered { padding-top: 0; }
 
 .nk-page-icon,
 .nk-page ::slotted(.nk-page-icon),
 .nk-page ::slotted([slot="icon"]) {
-  font-size: 64px; line-height: 1; margin-top: -42px;
+  font-size: 64px; line-height: 1; margin-top: 0;
   cursor: pointer; user-select: none;
   display: inline-block;
 }
+.nk-cover + .nk-page .nk-page-icon,
+.nk-cover + .nk-page ::slotted(.nk-page-icon),
+.nk-cover + .nk-page ::slotted([slot="icon"]),
+.nk-page.covered .nk-page-icon,
+.nk-page.covered ::slotted(.nk-page-icon),
+.nk-page.covered ::slotted([slot="icon"]) { margin-top: -42px; }
 .nk-page-title {
   font-size: 40px; font-weight: 700; margin: 8px 0 4px;
   outline: none; letter-spacing: -0.01em;
@@ -1390,7 +1402,7 @@ a.nk-btn { text-decoration: none; }
   .nk-sidebar { display: none; }
   .nk-tab-bar { display: flex; }
   .nk-tab-bar.fixed + .nk-tab-bar-spacer { display: block; }
-  .nk-page { padding: 0 24px 80px; }
+  .nk-page { padding-left: 24px; padding-right: 24px; padding-bottom: 80px; }
   .nk-settings-nav { width: 60px; min-width: 60px; }
   .nk-settings-nav .label,
   .nk-settings-nav .nk-section-label,

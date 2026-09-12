@@ -4,6 +4,17 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.4.1] – 2026-09-12
+
+### Fixed
+- A page without a cover clipped the top of its icon: `.nk-page-icon` always
+  had `margin-top: -42px`, and `.nk-page` no top padding, so half the icon
+  sat outside the scroll container. The overlap now applies only after a
+  cover (`.nk-cover + .nk-page`, or `.nk-page.covered` as set by
+  `<nk-page cover>`); otherwise the page has 24px top padding and the icon
+  sits inside it. The 860px rule no longer resets that padding. Reported by
+  Auxdesk.
+
 ## [1.4.0] – 2026-09-12
 
 Additive: phone fixes for the segmented control and the app shell.
