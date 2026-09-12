@@ -278,6 +278,7 @@
         <tr><td><code>--nk-scrim</code></td><td><span class="sw" style="background:rgba(15,15,15,0.6)"></span><code>rgba(15,15,15,0.6)</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Modal-Backdrop</td></tr>
         <tr><td><code>--nk-scrim-soft</code></td><td><span class="sw" style="background:rgba(15,15,15,0.5)"></span><code>rgba(15,15,15,0.5)</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Backdrop der Befehlspalette, eine Stufe heller</td></tr>
         <tr><td><code>--nk-sidebar-width</code></td><td><code>260px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Sidebar-Breite, zugleich ihre min-width</td></tr>
+        <tr><td><code>--nk-tab-bar-height</code></td><td><code>58px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Höhe der mobilen Tab-Bar ohne Safe-Area; der Platzhalter nutzt denselben Wert</td></tr>
         <tr><td><code>--nk-radius</code></td><td><code>6px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Radius für Bedienelemente. Karten und Modals nutzen direkt 8–12px</td></tr>
         <tr><td><code>--nk-font</code></td><td><code>ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>System-Schriftstapel</td></tr>
         <tr><td><code>--nk-font-mono</code></td><td><code>ui-monospace, "SF Mono", Menlo, Consolas, monospace</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Monospace-Stapel für Code</td></tr>
@@ -314,6 +315,9 @@
         <tr><td><code>.selected</code></td><td><code>nk-cmdk-item</code> <code>nk-model-card</code> <code>nk-slash-item</code></td><td>Die per Tastatur hervorgehobene oder gewählte Option. Anders als active: Auswahl ist flüchtig, active ist der Ort, an dem du bist.</td></tr>
         <tr><td><code>.stacked</code></td><td><code>nk-field</code></td><td>Label über einem vollbreiten Control statt daneben – Textareas, lange Beschreibungen.</td></tr>
         <tr><td><code>.compact</code></td><td><code>nk-field</code> <code>nk-tree-item</code> <code>nk-select</code></td><td>Die engere Variante: ein Feld mit kleinem tertiärem Label ohne Zeilen-Padding (in .nk-fields), eine 26px-Baumzeile, ein 120px-Select.</td></tr>
+        <tr><td><code>.scroll</code></td><td><code>nk-segmented</code></td><td>Scrollt die Segmente horizontal mit versteckter Scrollleiste, begrenzt auf die Elternbreite.</td></tr>
+        <tr><td><code>.wrap</code></td><td><code>nk-segmented</code></td><td>Lässt die Segmente in weitere Zeilen umbrechen.</td></tr>
+        <tr><td><code>.fixed</code></td><td><code>nk-tab-bar</code></td><td>Heftet die Tab-Bar an den unteren Viewport-Rand; ein folgender .nk-tab-bar-spacer hält ihre Höhe im Fluss frei.</td></tr>
         <tr><td><code>.always</code></td><td><code>nk-tab-bar</code></td><td>Zeigt die Tab-Bar in jeder Breite, nicht nur unter 860px – für Vorschauen und Telefon-Rahmen.</td></tr>
         <tr><td><code>.show</code></td><td><code>nk-toast</code></td><td>Fährt den Toast von unten hoch und blendet ihn ein.</td></tr>
         <tr><td><code>.aria-checked="true"</code></td><td><code>nk-switch (button form)</code></td><td>Füllt die Schiene mit dem Akzent und schiebt den Knopf. Ein Attribut, keine Klasse – der Zustand wird so auch an assistive Technik gemeldet.</td></tr>
@@ -462,7 +466,7 @@ class NkCallout extends HTMLElement {
     <span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/main</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Unter 860px verschwindet die Sidebar vollständig, die Hauptspalte nimmt die volle Breite. Eine Off-Canvas-Schublade ist Sache des Consumers – NotionKit Elements liefert sie als <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>.</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Unter 860px verschwindet die Sidebar vollständig, die Hauptspalte nimmt die volle Breite. Eine Off-Canvas-Schublade ist Sache des Consumers – NotionKit Elements liefert sie als <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>. Die Höhe ist <code>100dvh</code> mit <code>100vh</code>-Fallback, damit eine Standalone-PWA auf iOS die Statusleiste nicht in die Shell einrechnet.</span></div>
         <div class="doc-classes"><code>.nk-app</code><code>.nk-sidebar</code><code>.nk-sidebar-scroll</code><code>.nk-sidebar-footer</code><code>.nk-main</code></div>
       </article>
       <article class="doc-entry" id="nk-workspace">
@@ -511,7 +515,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-tab-bar">
         <h3>Tab-Bar (mobil) <code>.nk-tab-bar</code></h3>
-        <p class="doc-desc">Der daumenfreundliche Zwilling der Sidebar für Telefone und installierte PWAs: bis zu fünf Ziele in einer Reihe, jedes ein Icon über einer kurzen Beschriftung, das aktuelle in <code>--nk-accent</code>. Als letztes Kind von <code>nk-main</code> sitzt sie unter der scrollenden Seite und bewegt sich nie. In einem Dokument, das selbst scrollt, klebt sie am unteren Viewport-Rand. <code>floating</code> macht sie zur Kapsel; der fünfte Eintrag öffnet meist die Sidebar als Schublade.</p>
+        <p class="doc-desc">Der daumenfreundliche Zwilling der Sidebar für Telefone und installierte PWAs: bis zu fünf Ziele in einer Reihe, jedes ein Icon über einer kurzen Beschriftung, das aktuelle in <code>--nk-accent</code>. Als letztes Kind von <code>nk-main</code> sitzt sie unter der scrollenden Seite und bewegt sich nie. In einem Dokument, das selbst scrollt, klebt sie am unteren Viewport-Rand. <code>floating</code> macht sie zur Kapsel; <code>fixed</code> heftet sie für Standalone-PWAs an den unteren Viewport-Rand, ein <code>.nk-tab-bar-spacer</code> direkt dahinter hält ihre Höhe (<code>--nk-tab-bar-height</code> plus Safe-Area) im Fluss frei. Der fünfte Eintrag öffnet meist die Sidebar als Schublade.</p>
         <div class="doc-preview"><div style="max-width:390px;border:1px solid var(--nk-border);border-radius:12px;overflow:hidden">
   <nav class="nk-tab-bar always">
     <button class="nk-tab-bar-item active"><span class="icon">🏠</span><span class="label">Start</span></button>
@@ -520,7 +524,8 @@ class NkCallout extends HTMLElement {
     <button class="nk-tab-bar-item"><span class="icon">⚙️</span><span class="label">Einstellungen</span></button>
     <button class="nk-tab-bar-item"><span class="icon">☰</span><span class="label">Mehr</span></button>
   </nav>
-</div></div>
+</div>
+<pre class="nk-code" style="margin-top:12px"><span class="lang">html</span>&lt;nav class="nk-tab-bar fixed"&gt;…&lt;/nav&gt;&lt;div class="nk-tab-bar-spacer"&gt;&lt;/div&gt;</pre></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:390px;border:1px solid var(--nk-border);border-radius:12px;overflow:hidden"<span class="tag">&gt;</span>
   <span class="tag">&lt;nav</span> <span class="attr">class=</span>"nk-tab-bar always"<span class="tag">&gt;</span>
@@ -530,9 +535,10 @@ class NkCallout extends HTMLElement {
     <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-tab-bar-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>⚙️<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Einstellungen<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
     <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-tab-bar-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>☰<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Mehr<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/nav</span><span class="tag">&gt;</span>
-<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;pre</span> <span class="attr">class=</span>"nk-code" <span class="attr">style=</span>"margin-top:12px"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"lang"<span class="tag">&gt;</span>html<span class="tag">&lt;/span</span><span class="tag">&gt;</span>&amp;lt;nav class="nk-tab-bar fixed"&amp;gt;…&amp;lt;/nav&amp;gt;&amp;lt;div class="nk-tab-bar-spacer"&amp;gt;&amp;lt;/div&amp;gt;<span class="tag">&lt;/pre</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Nur unter 860px sichtbar – darüber übernimmt die Sidebar, die Bar ist <code>display: none</code>. <code>always</code> zeigt sie in jeder Breite, wie in dieser Vorschau. Das untere Padding wächst auf Telefonen mit Home-Indikator um <code>env(safe-area-inset-bottom)</code>.</span></div>
-        <div class="doc-classes"><code>.nk-tab-bar</code><code>.nk-tab-bar-item</code><code>.icon</code><code>.label</code><code>.active</code><code>.always</code><code>.floating</code></div>
+        <div class="doc-classes"><code>.nk-tab-bar</code><code>.nk-tab-bar-item</code><code>.nk-tab-bar-spacer</code><code>.icon</code><code>.label</code><code>.active</code><code>.always</code><code>.fixed</code><code>.floating</code></div>
       </article>
       <article class="doc-entry" id="nk-breadcrumb">
         <h3>Breadcrumb <code>.nk-breadcrumb</code></h3>
@@ -1396,16 +1402,28 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-segmented">
         <h3>Segment-Auswahl <code>.nk-segmented</code></h3>
-        <p class="doc-desc">Eine kleine Menge sich ausschließender Optionen. Das aktive Segment hebt sich mit dem Seitenhintergrund und einem Ein-Pixel-Schatten aus der Schiene.</p>
+        <p class="doc-desc">Eine kleine Menge sich ausschließender Optionen. Das aktive Segment hebt sich mit dem Seitenhintergrund und einem Ein-Pixel-Schatten aus der Schiene. Standard ist eine Zeile; <code>scroll</code> scrollt eine lange Zeile horizontal mit versteckter Scrollleiste, <code>wrap</code> bricht sie um.</p>
         <div class="doc-preview"><div class="nk-segmented">
   <button class="active">Woche</button><button>Monat</button><button>Quartal</button>
+</div>
+<div style="max-width:300px;margin-top:12px"><div class="nk-segmented scroll">
+  <button class="active">Alle</button><button>⚠️ Aufmerksamkeit</button><button>Fehlgeschlagen</button><button>Gelesen</button><button>Ignoriert</button>
 </div></div>
+<div style="max-width:300px;margin-top:12px"><div class="nk-segmented wrap">
+  <button class="active">Alle</button><button>⚠️ Aufmerksamkeit</button><button>Fehlgeschlagen</button><button>Gelesen</button><button>Ignoriert</button>
+</div></div></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-segmented"<span class="tag">&gt;</span>
   <span class="tag">&lt;button</span> <span class="attr">class=</span>"active"<span class="tag">&gt;</span>Woche<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Monat<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Quartal<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
-<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span><code>inline-flex</code>, es schrumpft also auf seinen Inhalt; bei drei, vier Segmenten bleiben.</span></div>
-        <div class="doc-classes"><code>.nk-segmented</code><code>.active</code></div>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:300px;margin-top:12px"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-segmented scroll"<span class="tag">&gt;</span>
+  <span class="tag">&lt;button</span> <span class="attr">class=</span>"active"<span class="tag">&gt;</span>Alle<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>⚠️ Aufmerksamkeit<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Fehlgeschlagen<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Gelesen<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Ignoriert<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:300px;margin-top:12px"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-segmented wrap"<span class="tag">&gt;</span>
+  <span class="tag">&lt;button</span> <span class="attr">class=</span>"active"<span class="tag">&gt;</span>Alle<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>⚠️ Aufmerksamkeit<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Fehlgeschlagen<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Gelesen<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Ignoriert<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span><code>inline-flex</code>, es schrumpft also auf seinen Inhalt. Fünf Filteroptionen sind breiter als ein Telefon: dem Control <code>scroll</code> geben (eine wischbare Zeile, begrenzt auf die Elternbreite) oder <code>wrap</code>.</span></div>
+        <div class="doc-classes"><code>.nk-segmented</code><code>.active</code><code>.scroll</code><code>.wrap</code></div>
       </article>
       <article class="doc-entry" id="nk-banner">
         <h3>Banner <code>.nk-banner</code></h3>

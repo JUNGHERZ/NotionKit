@@ -25,8 +25,8 @@ export const CATALOG = [
     de: '<code>nk-app</code> ist eine flex-Zeile über die volle Höhe: Sidebar links, Hauptspalte rechts. Es ist das äußerste Element einer Workspace-App und der einzige Ort, an den eine feste Höhe gehört. In der Sidebar ist <code>nk-sidebar-scroll</code> der scrollende Baumbereich und <code>nk-sidebar-footer</code> der fixierte Fuß (Einstellungen, Papierkorb).',
   },
   mobile: {
-    en: 'Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>.',
-    de: 'Unter 860px verschwindet die Sidebar vollständig, die Hauptspalte nimmt die volle Breite. Eine Off-Canvas-Schublade ist Sache des Consumers – NotionKit Elements liefert sie als <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>.',
+    en: 'Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>. The height is <code>100dvh</code> with a <code>100vh</code> fallback, so a standalone PWA on iOS does not count the status bar into the shell.',
+    de: 'Unter 860px verschwindet die Sidebar vollständig, die Hauptspalte nimmt die volle Breite. Eine Off-Canvas-Schublade ist Sache des Consumers – NotionKit Elements liefert sie als <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>. Die Höhe ist <code>100dvh</code> mit <code>100vh</code>-Fallback, damit eine Standalone-PWA auf iOS die Statusleiste nicht in die Shell einrechnet.',
   },
   frame: 340,
   html: W => `<div class="nk-app" style="height:100%">
@@ -87,11 +87,11 @@ export const CATALOG = [
 </header>`,
 },
 {
-  id: 'nk-tab-bar', group: 'shell', classes: ['nk-tab-bar', 'nk-tab-bar-item', 'icon', 'label', 'active', 'always', 'floating'],
+  id: 'nk-tab-bar', group: 'shell', classes: ['nk-tab-bar', 'nk-tab-bar-item', 'nk-tab-bar-spacer', 'icon', 'label', 'active', 'always', 'fixed', 'floating'],
   title: { en: 'Tab bar (mobile)', de: 'Tab-Bar (mobil)' },
   desc: {
-    en: 'The thumb-reachable twin of the sidebar for phones and installed PWAs: up to five destinations in a row, each an icon over a short label, the current one in <code>--nk-accent</code>. Put it last inside <code>nk-main</code> – it sits below the scrolling page and never moves. In a document that scrolls itself it sticks to the viewport bottom. <code>floating</code> makes it a capsule; the fifth item usually opens the sidebar as a drawer.',
-    de: 'Der daumenfreundliche Zwilling der Sidebar für Telefone und installierte PWAs: bis zu fünf Ziele in einer Reihe, jedes ein Icon über einer kurzen Beschriftung, das aktuelle in <code>--nk-accent</code>. Als letztes Kind von <code>nk-main</code> sitzt sie unter der scrollenden Seite und bewegt sich nie. In einem Dokument, das selbst scrollt, klebt sie am unteren Viewport-Rand. <code>floating</code> macht sie zur Kapsel; der fünfte Eintrag öffnet meist die Sidebar als Schublade.',
+    en: 'The thumb-reachable twin of the sidebar for phones and installed PWAs: up to five destinations in a row, each an icon over a short label, the current one in <code>--nk-accent</code>. Put it last inside <code>nk-main</code> – it sits below the scrolling page and never moves. In a document that scrolls itself it sticks to the viewport bottom. <code>floating</code> makes it a capsule; <code>fixed</code> pins it to the viewport bottom for standalone PWAs, with a <code>.nk-tab-bar-spacer</code> right after it keeping its height (<code>--nk-tab-bar-height</code> plus the safe area) in the flow. The fifth item usually opens the sidebar as a drawer.',
+    de: 'Der daumenfreundliche Zwilling der Sidebar für Telefone und installierte PWAs: bis zu fünf Ziele in einer Reihe, jedes ein Icon über einer kurzen Beschriftung, das aktuelle in <code>--nk-accent</code>. Als letztes Kind von <code>nk-main</code> sitzt sie unter der scrollenden Seite und bewegt sich nie. In einem Dokument, das selbst scrollt, klebt sie am unteren Viewport-Rand. <code>floating</code> macht sie zur Kapsel; <code>fixed</code> heftet sie für Standalone-PWAs an den unteren Viewport-Rand, ein <code>.nk-tab-bar-spacer</code> direkt dahinter hält ihre Höhe (<code>--nk-tab-bar-height</code> plus Safe-Area) im Fluss frei. Der fünfte Eintrag öffnet meist die Sidebar als Schublade.',
   },
   mobile: {
     en: 'Visible only below 860px – above, the sidebar takes over and the bar is <code>display: none</code>. <code>always</code> shows it at every width, as in this preview. The bottom padding grows with <code>env(safe-area-inset-bottom)</code> on phones with a home indicator.',
@@ -105,7 +105,8 @@ export const CATALOG = [
     <button class="nk-tab-bar-item"><span class="icon">⚙️</span><span class="label">${W.settings}</span></button>
     <button class="nk-tab-bar-item"><span class="icon">☰</span><span class="label">${W.more}</span></button>
   </nav>
-</div>`,
+</div>
+<pre class="nk-code" style="margin-top:12px"><span class="lang">html</span>&lt;nav class="nk-tab-bar fixed"&gt;…&lt;/nav&gt;&lt;div class="nk-tab-bar-spacer"&gt;&lt;/div&gt;</pre>`,
 },
 {
   id: 'nk-breadcrumb', group: 'shell', classes: ['nk-breadcrumb', 'crumb', 'sep', 'current'],
@@ -781,16 +782,22 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-segmented', group: 'gallery', classes: ['nk-segmented', 'active'],
+  id: 'nk-segmented', group: 'gallery', classes: ['nk-segmented', 'active', 'scroll', 'wrap'],
   title: { en: 'Segmented control', de: 'Segment-Auswahl' },
   desc: {
-    en: 'A small set of mutually exclusive options. The active segment lifts out of the track with the page background and a one-pixel shadow.',
-    de: 'Eine kleine Menge sich ausschließender Optionen. Das aktive Segment hebt sich mit dem Seitenhintergrund und einem Ein-Pixel-Schatten aus der Schiene.',
+    en: 'A small set of mutually exclusive options. The active segment lifts out of the track with the page background and a one-pixel shadow. One row by default; <code>scroll</code> scrolls a long row horizontally with the scrollbar hidden, <code>wrap</code> breaks it onto further rows.',
+    de: 'Eine kleine Menge sich ausschließender Optionen. Das aktive Segment hebt sich mit dem Seitenhintergrund und einem Ein-Pixel-Schatten aus der Schiene. Standard ist eine Zeile; <code>scroll</code> scrollt eine lange Zeile horizontal mit versteckter Scrollleiste, <code>wrap</code> bricht sie um.',
   },
-  mobile: { en: '<code>inline-flex</code>, so it shrinks to its content; keep it to three or four segments.', de: '<code>inline-flex</code>, es schrumpft also auf seinen Inhalt; bei drei, vier Segmenten bleiben.' },
+  mobile: { en: '<code>inline-flex</code>, so it shrinks to its content. Five filter options are wider than a phone: give the control <code>scroll</code> (it stays one thumb-swipeable row, capped at the parent width) or <code>wrap</code>.', de: '<code>inline-flex</code>, es schrumpft also auf seinen Inhalt. Fünf Filteroptionen sind breiter als ein Telefon: dem Control <code>scroll</code> geben (eine wischbare Zeile, begrenzt auf die Elternbreite) oder <code>wrap</code>.' },
   html: W => `<div class="nk-segmented">
   <button class="active">${W.week}</button><button>${W.month}</button><button>${W.quarter}</button>
-</div>`,
+</div>
+<div style="max-width:300px;margin-top:12px"><div class="nk-segmented scroll">
+  <button class="active">${W.all}</button><button>⚠️ ${W.attention}</button><button>${W.failed}</button><button>${W.read}</button><button>${W.ignored}</button>
+</div></div>
+<div style="max-width:300px;margin-top:12px"><div class="nk-segmented wrap">
+  <button class="active">${W.all}</button><button>⚠️ ${W.attention}</button><button>${W.failed}</button><button>${W.read}</button><button>${W.ignored}</button>
+</div></div>`,
 },
 {
   id: 'nk-banner', group: 'gallery', classes: ['nk-banner', 'info', 'success', 'warning', 'b-action'],

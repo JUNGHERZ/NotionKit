@@ -167,7 +167,7 @@ About 100 component classes across eleven groups. Every one of them is documente
 | `nk-workspace`, `nk-sidebar-scroll`, `nk-sidebar-footer` | Workspace switcher, scrolling tree area, pinned footer |
 | `nk-topbar`, `nk-topbar-actions`, `nk-topbar-btn`, `nk-share-btn`, `nk-theme-toggle` | 45px top bar with actions |
 | `nk-breadcrumb` (`crumb`, `sep`, `current`) | Page trail |
-| `nk-tab-bar`, `nk-tab-bar-item` (`icon`, `label`, `active`, `always`, `floating`) | Bottom tab bar for phones and installed PWAs, visible below 860px |
+| `nk-tab-bar`, `nk-tab-bar-item` (`icon`, `label`, `active`, `always`, `fixed`, `floating`), `nk-tab-bar-spacer` | Bottom tab bar for phones and installed PWAs, visible below 860px |
 | `nk-section-label` | Small uppercase caption between sidebar groups |
 | `nk-tree-item` (`icon`, `label`, `actions`, `active`) | Page-tree row with hover actions |
 | `nk-tree-children` (`collapsed`), `nk-toggle-arrow` (`open`) | Nested subtree and its arrow |
@@ -214,7 +214,7 @@ About 100 component classes across eleven groups. Every one of them is documente
 | `nk-cmdk-backdrop` (`open`), `nk-cmdk`, `nk-cmdk-input-row`, `nk-cmdk-list`, `nk-cmdk-group`, `nk-cmdk-item` (`selected`), `nk-cmdk-empty`, `nk-cmdk-footer` | Command palette |
 | `nk-toast` (`show`) | Toast |
 | `nk-gallery-grid`, `nk-g-item`, `nk-tabs`, `nk-tab`, `nk-tab-panel`, `nk-template-btn` | Gallery grid, tabs, template buttons |
-| `nk-stats`, `nk-stat` (`up`, `down`), `nk-synced`, `nk-segmented`, `nk-banner` (`info`, `success`, `warning`), `nk-avatar-group`, `nk-skeleton`, `nk-empty` | Productivity blocks |
+| `nk-stats`, `nk-stat` (`up`, `down`), `nk-synced`, `nk-segmented` (`scroll`, `wrap`), `nk-banner` (`info`, `success`, `warning`), `nk-avatar-group`, `nk-skeleton`, `nk-empty` | Productivity blocks |
 | `nk-comments`, `nk-comment`, `nk-comment-input` | Comment thread |
 | `nk-ai-thread`, `nk-ai-msg` (`user`), `nk-ai-actions`, `nk-ai-input-row`, `nk-ai-send` | AI conversation |
 

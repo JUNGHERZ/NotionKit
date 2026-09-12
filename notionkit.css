@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.3.1
+   Jungherz GmbH – v1.4.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -184,6 +184,7 @@
 
   /* ---- Metrics ---- */
   --nk-sidebar-width: 260px;
+  --nk-tab-bar-height: 58px;
   --nk-radius: 6px;
   --nk-font: ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
   --nk-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -241,6 +242,7 @@
 .nk-body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;   /* iOS standalone PWAs count the status bar into 100vh */
   font-family: var(--nk-font);
   font-size: 14px;
   background: var(--nk-bg);
@@ -253,7 +255,7 @@
 /* ============================================================
    B1. APP SHELL & LAYOUT  (PRD 5.1)
    ============================================================ */
-.nk-app { display: flex; height: 100vh; overflow: hidden; }
+.nk-app { display: flex; height: 100vh; height: 100dvh; overflow: hidden; }
 
 /* ---- Sidebar ---- */
 .nk-sidebar {
@@ -354,20 +356,29 @@ a.crumb { text-decoration: none; }
 .nk-tab-bar {
   display: none; flex: none; align-items: stretch; gap: 2px;
   position: sticky; bottom: 0; z-index: 30;
+  box-sizing: border-box; height: calc(var(--nk-tab-bar-height) + env(safe-area-inset-bottom, 0px));
   padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
   background: var(--nk-bg-sidebar);
   border-top: 1px solid var(--nk-border);
 }
 .nk-tab-bar.always { display: flex; }
+/* `fixed`: pinned to the viewport instead of sitting in the column – for
+   standalone PWAs where the shell and the screen disagree. The spacer that
+   follows it keeps the same height in the flow, so the page still ends
+   above the bar. */
+.nk-tab-bar.fixed { position: fixed; left: 0; right: 0; bottom: 0; }
+.nk-tab-bar-spacer { display: none; flex: none; height: calc(var(--nk-tab-bar-height) + env(safe-area-inset-bottom, 0px)); }
+.nk-tab-bar.always.fixed + .nk-tab-bar-spacer { display: block; }
 .nk-tab-bar.floating {
   position: fixed; left: 12px; right: 12px;
   bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  height: var(--nk-tab-bar-height);
   padding: 6px; border: 1px solid var(--nk-border); border-radius: 16px;
   box-shadow: var(--nk-shadow-menu);
 }
 .nk-tab-bar-item {
   flex: 1 1 0; min-width: 0;
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
   padding: 4px 2px; border: none; border-radius: var(--nk-radius);
   background: transparent; font-family: inherit; font-size: 10.5px; line-height: 1.2;
   color: var(--nk-text-secondary); text-decoration: none;
@@ -1069,6 +1080,13 @@ a.nk-btn { text-decoration: none; }
 }
 .nk-segmented button.active,
 .nk-segmented ::slotted(button.active) { background: var(--nk-bg); color: var(--nk-text); font-weight: 500; box-shadow: var(--nk-shadow-segment); }
+/* Five filter options do not fit a phone: `wrap` breaks the row, `scroll`
+   scrolls it horizontally with the scrollbar hidden. Default stays one row. */
+.nk-segmented.wrap { flex-wrap: wrap; }
+.nk-segmented.scroll { max-width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.nk-segmented.scroll::-webkit-scrollbar { display: none; }
+.nk-segmented.scroll button,
+.nk-segmented.scroll ::slotted(button) { flex-shrink: 0; white-space: nowrap; }
 
 .nk-banner {
   display: flex; align-items: center; gap: 10px; font-size: 13.5px;
@@ -1371,6 +1389,7 @@ a.nk-btn { text-decoration: none; }
 @media (max-width: 860px) {
   .nk-sidebar { display: none; }
   .nk-tab-bar { display: flex; }
+  .nk-tab-bar.fixed + .nk-tab-bar-spacer { display: block; }
   .nk-page { padding: 0 24px 80px; }
   .nk-settings-nav { width: 60px; min-width: 60px; }
   .nk-settings-nav .label,

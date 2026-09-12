@@ -4,6 +4,25 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.4.0] – 2026-09-12
+
+Additive: phone fixes for the segmented control and the app shell.
+
+### Added
+- `.nk-segmented.scroll` scrolls a long row horizontally with the scrollbar
+  hidden, capped at the parent width; `.nk-segmented.wrap` breaks it onto
+  further rows. Default stays one row.
+- `.nk-tab-bar.fixed` pins the bar to the viewport bottom; a following
+  `.nk-tab-bar-spacer` keeps its height in the flow. New token
+  `--nk-tab-bar-height` (58px) sets both, plus the safe-area inset; the bar
+  now has that fixed height instead of a content-driven one.
+
+### Changed
+- `.nk-body` and `.nk-app` use `100dvh` with a `100vh` fallback: a
+  standalone PWA on iOS no longer counts the status bar into the shell, so
+  the tab bar no longer sits half behind the home indicator. Reported by
+  Auxdesk.
+
 ## [1.3.1] – 2026-09-11
 
 ### Fixed

@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.3.1) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.4.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -105,6 +105,7 @@ All visual values are custom properties. `:root` holds the light theme, `[data-t
 | `--nk-scrim` | `rgba(15,15,15,0.6)` | — (inherits) | Modal backdrop |
 | `--nk-scrim-soft` | `rgba(15,15,15,0.5)` | — (inherits) | Command palette backdrop, one step lighter |
 | `--nk-sidebar-width` | `260px` | — (inherits) | Sidebar width, also its min-width |
+| `--nk-tab-bar-height` | `58px` | — (inherits) | Mobile tab bar height without the safe-area inset; the spacer uses the same value |
 | `--nk-radius` | `6px` | — (inherits) | Control radius. Cards and modals use 8–12px directly |
 | `--nk-font` | `ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif` | — (inherits) | System font stack |
 | `--nk-font-mono` | `ui-monospace, "SF Mono", Menlo, Consolas, monospace` | — (inherits) | Monospace stack for code |
@@ -185,7 +186,7 @@ Every snippet below is real markup from the documentation previews. A few inline
 ```
 
 - **Classes:** `.nk-app`, `.nk-sidebar`, `.nk-sidebar-scroll`, `.nk-sidebar-footer`, `.nk-main`
-- **On a small screen:** Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code"><nk-sidebar open>`.
+- **On a small screen:** Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code"><nk-sidebar open>`. The height is `100dvh` with a `100vh` fallback, so a standalone PWA on iOS does not count the status bar into the shell.
 
 ### Workspace switcher — `.nk-workspace`
 
@@ -224,7 +225,7 @@ A 45px-high row holding the breadcrumb on the left and actions on the right. `nk
 
 ### Tab bar (mobile) — `.nk-tab-bar`
 
-The thumb-reachable twin of the sidebar for phones and installed PWAs: up to five destinations in a row, each an icon over a short label, the current one in `--nk-accent`. Put it last inside `nk-main` – it sits below the scrolling page and never moves. In a document that scrolls itself it sticks to the viewport bottom. `floating` makes it a capsule; the fifth item usually opens the sidebar as a drawer.
+The thumb-reachable twin of the sidebar for phones and installed PWAs: up to five destinations in a row, each an icon over a short label, the current one in `--nk-accent`. Put it last inside `nk-main` – it sits below the scrolling page and never moves. In a document that scrolls itself it sticks to the viewport bottom. `floating` makes it a capsule; `fixed` pins it to the viewport bottom for standalone PWAs, with a `.nk-tab-bar-spacer` right after it keeping its height (`--nk-tab-bar-height` plus the safe area) in the flow. The fifth item usually opens the sidebar as a drawer.
 
 ```html
 <div>
@@ -236,9 +237,10 @@ The thumb-reachable twin of the sidebar for phones and installed PWAs: up to fiv
     <button class="nk-tab-bar-item"><span class="icon">☰</span><span class="label">More</span></button>
   </nav>
 </div>
+<pre class="nk-code"><span class="lang">html</span>&lt;nav class="nk-tab-bar fixed"&gt;…&lt;/nav&gt;&lt;div class="nk-tab-bar-spacer"&gt;&lt;/div&gt;</pre>
 ```
 
-- **Classes:** `.nk-tab-bar`, `.nk-tab-bar-item`, `.icon`, `.label`, `.active`, `.always`, `.floating`
+- **Classes:** `.nk-tab-bar`, `.nk-tab-bar-item`, `.nk-tab-bar-spacer`, `.icon`, `.label`, `.active`, `.always`, `.fixed`, `.floating`
 - **On a small screen:** Visible only below 860px – above, the sidebar takes over and the bar is `display: none`. `always` shows it at every width, as in this preview. The bottom padding grows with `env(safe-area-inset-bottom)` on phones with a home indicator.
 
 ### Breadcrumb — `.nk-breadcrumb`
@@ -946,16 +948,22 @@ Content mirrored across several pages, marked by a danger-coloured outline and a
 
 ### Segmented control — `.nk-segmented`
 
-A small set of mutually exclusive options. The active segment lifts out of the track with the page background and a one-pixel shadow.
+A small set of mutually exclusive options. The active segment lifts out of the track with the page background and a one-pixel shadow. One row by default; `scroll` scrolls a long row horizontally with the scrollbar hidden, `wrap` breaks it onto further rows.
 
 ```html
 <div class="nk-segmented">
   <button class="active">Week</button><button>Month</button><button>Quarter</button>
 </div>
+<div><div class="nk-segmented scroll">
+  <button class="active">All</button><button>⚠️ Attention</button><button>Failed</button><button>Read</button><button>Ignored</button>
+</div></div>
+<div><div class="nk-segmented wrap">
+  <button class="active">All</button><button>⚠️ Attention</button><button>Failed</button><button>Read</button><button>Ignored</button>
+</div></div>
 ```
 
-- **Classes:** `.nk-segmented`, `.active`
-- **On a small screen:** `inline-flex`, so it shrinks to its content; keep it to three or four segments.
+- **Classes:** `.nk-segmented`, `.active`, `.scroll`, `.wrap`
+- **On a small screen:** `inline-flex`, so it shrinks to its content. Five filter options are wider than a phone: give the control `scroll` (it stays one thumb-swipeable row, capped at the parent width) or `wrap`.
 
 ### Banner — `.nk-banner`
 
@@ -1129,6 +1137,9 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 | `selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item` | The keyboard-highlighted or chosen option. Distinct from active: selection is transient, active is where you are. |
 | `stacked` | `nk-field` | Label above a full-width control instead of beside it – textareas, long descriptions. |
 | `compact` | `nk-field`, `nk-tree-item`, `nk-select` | The tighter variant: a field with a small tertiary label and no row padding (inside .nk-fields), a 26px tree row, a 120px select. |
+| `scroll` | `nk-segmented` | Scrolls the segments horizontally with the scrollbar hidden, capped at the parent width. |
+| `wrap` | `nk-segmented` | Lets the segments wrap onto further rows. |
+| `fixed` | `nk-tab-bar` | Pins the tab bar to the viewport bottom; a following .nk-tab-bar-spacer keeps its height in the flow. |
 | `always` | `nk-tab-bar` | Shows the tab bar at every width, not only below 860px – for previews and phone frames. |
 | `show` | `nk-toast` | Slides the toast up from below and fades it in. |
 | `aria-checked="true"` | `nk-switch (button form)` | Fills the track with the accent and slides the knob. An attribute, not a class, so the state is also announced to assistive technology. |
@@ -1659,7 +1670,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 
 | Group | Classes |
 |---|---|
-| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `icon` `label` `active` `always` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
+| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` |
@@ -1667,7 +1678,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-toast` `show` |
-| Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `nk-banner` `info` `success` `warning` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` |
+| Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` |
 | Collaboration & AI | `nk-comments` `nk-comment` `c-head` `c-body` `nk-comment-input` `nk-ai-thread` `nk-ai-msg` `user` `a-name` `a-body` `nk-ai-actions` `nk-ai-input-row` `nk-ai-send` |
 | Editor adapter | `nk-block-host` `nk-block-handle` `nk-block-actions` `nk-drop-target` `nk-slash-menu` `nk-slash-menu-label` `nk-slash-item` `selected` `nk-bubble-menu` |
 
@@ -1726,4 +1737,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.3.1 · MIT · Jungherz GmbH*
+*NotionKit v1.4.0 · MIT · Jungherz GmbH*
