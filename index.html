@@ -49,6 +49,7 @@
     background: linear-gradient(135deg, var(--nk-decor-purple), var(--nk-decor-blue));
     color: var(--nk-on-accent); display: flex; align-items: center; justify-content: center;
   }
+  .site-version { font-size: 11px; color: var(--nk-text-tertiary); border: 1px solid var(--nk-border); border-radius: 10px; padding: 1px 7px; font-weight: 400; }
   .site-nav-links { display: flex; gap: 2px; margin-left: 18px; }
   .site-nav-links a {
     padding: 5px 10px; border-radius: var(--nk-radius); text-decoration: none;
@@ -137,7 +138,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit</a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.5.0</span></a>
   <div class="site-nav-links">
     <a href="index.html" class="current">Start</a>
     <a href="docs.html">Docs</a>
@@ -163,7 +164,7 @@
 </nav>
 
 <header class="site-wrap site-hero">
-  <div class="site-kicker">CSS component library · v1.0.0</div>
+  <div class="site-kicker">CSS component library · v1.5.0</div>
   <h1>The calm workspace look, as a design system.</h1>
   <p class="site-lead">NotionKit gives you Notion’s quiet, document-centric surface as ready-made CSS: sidebar, page tree, callouts, database views, settings and AI threads. One stylesheet. No build step, no JavaScript, no framework lock-in.</p>
   <div class="site-badges">

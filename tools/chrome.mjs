@@ -1,8 +1,10 @@
 // Page chrome for the demo/docs pages. Deliberately prefixed `site-`, not
 // `nk-`: this is the wrapper around the library, not part of it. Every value
 // comes from a --nk-* token so the chrome themes along with the components.
+import { readFileSync } from 'fs';
 import { readPalettes, paletteJs, paletteMenu } from './palettes.mjs';
 const PALETTES = readPalettes();
+const { version } = JSON.parse(readFileSync('package.json', 'utf-8'));
 
 export const CHROME_CSS = `
   *, *::before, *::after { box-sizing: border-box; }
@@ -23,6 +25,7 @@ export const CHROME_CSS = `
     background: linear-gradient(135deg, var(--nk-decor-purple), var(--nk-decor-blue));
     color: var(--nk-on-accent); display: flex; align-items: center; justify-content: center;
   }
+  .site-version { font-size: 11px; color: var(--nk-text-tertiary); border: 1px solid var(--nk-border); border-radius: 10px; padding: 1px 7px; font-weight: 400; }
   .site-nav-links { display: flex; gap: 2px; margin-left: 18px; }
   .site-nav-links a {
     padding: 5px 10px; border-radius: var(--nk-radius); text-decoration: none;
@@ -96,7 +99,7 @@ export const nav = (t, current) => {
   const other = t.lang === 'de' ? `../${current}.html` : `de/${current}.html`;
   return `
 <nav class="site-nav">
-  <a class="site-brand" href="${t.lang === 'de' ? 'index.html' : 'index.html'}"><span class="mark">N</span>NotionKit</a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v${version}</span></a>
   <div class="site-nav-links">
     <a href="index.html"${current === 'index' ? ' class="current"' : ''}>Start</a>
     <a href="docs.html"${current === 'docs' ? ' class="current"' : ''}>${t.navDocs}</a>

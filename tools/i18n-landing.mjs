@@ -1,4 +1,7 @@
 // Copy for index.html / de/index.html. One entry per language.
+import { readFileSync } from 'fs';
+const { version } = JSON.parse(readFileSync('package.json', 'utf-8'));
+
 export const LANDING = {
   en: {
     lang: 'en', htmlLang: 'en',
@@ -7,7 +10,7 @@ export const LANDING = {
     langHref: 'de/index.html', langLabel: 'DE', langTitle: 'Deutsche Version',
     appSrc: 'app.html', cssHref: 'notionkit.css',
     navDocs: 'Docs', navShowcase: 'Showcase', navDemo: 'Demo', navGithub: 'GitHub',
-    heroKicker: 'CSS component library · v1.0.0',
+    heroKicker: `CSS component library · v${version}`,
     heroTitle: 'The calm workspace look, as a design system.',
     heroLead: 'NotionKit gives you Notion’s quiet, document-centric surface as ready-made CSS: sidebar, page tree, callouts, database views, settings and AI threads. One stylesheet. No build step, no JavaScript, no framework lock-in.',
     ctaPrimary: 'Read the docs', ctaSecondary: 'Browse components',
@@ -51,7 +54,7 @@ export const LANDING = {
     langHref: '../index.html', langLabel: 'EN', langTitle: 'English version',
     appSrc: 'app.html', cssHref: '../notionkit.css',
     navDocs: 'Doku', navShowcase: 'Showcase', navDemo: 'Demo', navGithub: 'GitHub',
-    heroKicker: 'CSS-Komponentenbibliothek · v1.0.0',
+    heroKicker: `CSS-Komponentenbibliothek · v${version}`,
     heroTitle: 'Die ruhige Workspace-Optik, als Design-System.',
     heroLead: 'NotionKit liefert Notions ruhige, dokumentzentrierte Oberfläche als fertiges CSS: Sidebar, Seitenbaum, Callouts, Datenbank-Views, Einstellungen und KI-Fäden. Ein Stylesheet. Kein Build-Step, kein JavaScript, kein Framework-Zwang.',
     ctaPrimary: 'Zur Dokumentation', ctaSecondary: 'Komponenten ansehen',

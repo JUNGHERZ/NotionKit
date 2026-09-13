@@ -44,6 +44,9 @@ jobs:
       - name: Documentation covers every class
         run: npm run check:coverage
 
+      - name: Every version reference agrees with package.json
+        run: npm run check:versions
+
       - name: Artifacts exist and carry the package version
         run: |
           set -e
