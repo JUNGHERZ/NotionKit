@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.5.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.5.1) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -134,8 +134,8 @@ All visual values are custom properties. `:root` holds the light theme, `[data-t
 | `--nk-decor-orange` | `#d9730d` | — (inherits) | Cover accent |
 | `--nk-scrim` | `rgba(15,15,15,0.6)` | — (inherits) | Modal backdrop |
 | `--nk-scrim-soft` | `rgba(15,15,15,0.5)` | — (inherits) | Command palette backdrop, one step lighter |
-| `--nk-sidebar-width` | `260px` | — (inherits) | Sidebar width, also its min-width |
-| `--nk-tab-bar-height` | `58px` | — (inherits) | Mobile tab bar height without the safe-area inset; the spacer uses the same value |
+| `--nk-sidebar-width` | `260px` | — (inherits) | Sidebar width, also its min-width (plus the left safe-area inset, if any) |
+| `--nk-tab-bar-height` | `58px` | — (inherits) | Mobile tab bar height without the safe-area inset (the inset replaces the 6px bottom padding); the spacer uses the same value |
 | `--nk-radius` | `6px` | — (inherits) | Control radius. Cards and modals use 8–12px directly |
 | `--nk-font` | `ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif` | — (inherits) | System font stack |
 | `--nk-font-mono` | `ui-monospace, "SF Mono", Menlo, Consolas, monospace` | — (inherits) | Monospace stack for code |
@@ -221,7 +221,7 @@ Every snippet below is real markup from the documentation previews. A few inline
 ```
 
 - **Classes:** `.nk-app`, `.nk-sidebar`, `.nk-sidebar-scroll`, `.nk-sidebar-footer`, `.nk-main`
-- **On a small screen:** Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code"><nk-sidebar open>`. The height is `100dvh` with a `100vh` fallback, so a standalone PWA on iOS does not count the status bar into the shell.
+- **On a small screen:** Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code"><nk-sidebar open>`. The height is `100dvh` with a `100vh` fallback, so a standalone PWA on iOS does not count the status bar into the shell. Safe areas are handled per surface, not on `nk-app`: topbar, page, sidebar and tab bar pad their content by the left/right insets (Dynamic Island in landscape) while their backgrounds run edge to edge.
 
 ### Workspace switcher — `.nk-workspace`
 
@@ -276,7 +276,7 @@ The thumb-reachable twin of the sidebar for phones and installed PWAs: up to fiv
 ```
 
 - **Classes:** `.nk-tab-bar`, `.nk-tab-bar-item`, `.nk-tab-bar-spacer`, `.icon`, `.label`, `.active`, `.always`, `.fixed`, `.floating`
-- **On a small screen:** Visible only below 860px – above, the sidebar takes over and the bar is `display: none`. `always` shows it at every width, as in this preview. The bottom padding grows with `env(safe-area-inset-bottom)` on phones with a home indicator.
+- **On a small screen:** Visible only below 860px – above, the sidebar takes over and the bar is `display: none`. `always` shows it at every width, as in this preview. On phones with a home indicator the bottom padding is the larger of 6px and `env(safe-area-inset-bottom)`, so the labels end where iOS ends its own tab bar; in landscape the side padding grows to the left/right insets (Dynamic Island) while the background still runs edge to edge.
 
 ### Breadcrumb — `.nk-breadcrumb`
 
@@ -1783,4 +1783,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.5.0 · MIT · Jungherz GmbH*
+*NotionKit v1.5.1 · MIT · Jungherz GmbH*

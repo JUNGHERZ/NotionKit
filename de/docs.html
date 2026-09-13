@@ -170,7 +170,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.5.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.5.1</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Doku</a>
@@ -308,7 +308,7 @@
         <tr><td><code>--nk-decor-orange</code></td><td><span class="sw" style="background:#d9730d"></span><code>#d9730d</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Cover-Akzent</td></tr>
         <tr><td><code>--nk-scrim</code></td><td><span class="sw" style="background:rgba(15,15,15,0.6)"></span><code>rgba(15,15,15,0.6)</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Modal-Backdrop</td></tr>
         <tr><td><code>--nk-scrim-soft</code></td><td><span class="sw" style="background:rgba(15,15,15,0.5)"></span><code>rgba(15,15,15,0.5)</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Backdrop der Befehlspalette, eine Stufe heller</td></tr>
-        <tr><td><code>--nk-sidebar-width</code></td><td><code>260px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Sidebar-Breite, zugleich ihre min-width</td></tr>
+        <tr><td><code>--nk-sidebar-width</code></td><td><code>260px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Sidebar-Breite, zugleich ihre min-width (plus linker Safe-Area-Inset, falls vorhanden)</td></tr>
         <tr><td><code>--nk-tab-bar-height</code></td><td><code>58px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Höhe der mobilen Tab-Bar ohne Safe-Area; der Platzhalter nutzt denselben Wert</td></tr>
         <tr><td><code>--nk-radius</code></td><td><code>6px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Radius für Bedienelemente. Karten und Modals nutzen direkt 8–12px</td></tr>
         <tr><td><code>--nk-font</code></td><td><code>ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>System-Schriftstapel</td></tr>
@@ -503,7 +503,7 @@ class NkCallout extends HTMLElement {
     <span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/main</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Unter 860px verschwindet die Sidebar vollständig, die Hauptspalte nimmt die volle Breite. Eine Off-Canvas-Schublade ist Sache des Consumers – NotionKit Elements liefert sie als <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>. Die Höhe ist <code>100dvh</code> mit <code>100vh</code>-Fallback, damit eine Standalone-PWA auf iOS die Statusleiste nicht in die Shell einrechnet.</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Unter 860px verschwindet die Sidebar vollständig, die Hauptspalte nimmt die volle Breite. Eine Off-Canvas-Schublade ist Sache des Consumers – NotionKit Elements liefert sie als <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>. Die Höhe ist <code>100dvh</code> mit <code>100vh</code>-Fallback, damit eine Standalone-PWA auf iOS die Statusleiste nicht in die Shell einrechnet. Safe-Areas behandelt jede Fläche selbst, nicht <code>nk-app</code>: Topbar, Seite, Sidebar und Tab-Bar rücken ihren Inhalt um die linken/rechten Insets ein (Dynamic Island im Querformat), ihre Hintergründe laufen weiter bis zum Rand.</span></div>
         <div class="doc-classes"><code>.nk-app</code><code>.nk-sidebar</code><code>.nk-sidebar-scroll</code><code>.nk-sidebar-footer</code><code>.nk-main</code></div>
       </article>
       <article class="doc-entry" id="nk-workspace">
@@ -574,7 +574,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;/nav</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;pre</span> <span class="attr">class=</span>"nk-code" <span class="attr">style=</span>"margin-top:12px"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"lang"<span class="tag">&gt;</span>html<span class="tag">&lt;/span</span><span class="tag">&gt;</span>&amp;lt;nav class="nk-tab-bar fixed"&amp;gt;…&amp;lt;/nav&amp;gt;&amp;lt;div class="nk-tab-bar-spacer"&amp;gt;&amp;lt;/div&amp;gt;<span class="tag">&lt;/pre</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Nur unter 860px sichtbar – darüber übernimmt die Sidebar, die Bar ist <code>display: none</code>. <code>always</code> zeigt sie in jeder Breite, wie in dieser Vorschau. Das untere Padding wächst auf Telefonen mit Home-Indikator um <code>env(safe-area-inset-bottom)</code>.</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Nur unter 860px sichtbar – darüber übernimmt die Sidebar, die Bar ist <code>display: none</code>. <code>always</code> zeigt sie in jeder Breite, wie in dieser Vorschau. Auf Telefonen mit Home-Indikator ist das untere Padding das Größere aus 6px und <code>env(safe-area-inset-bottom)</code>, die Beschriftungen enden also dort, wo iOS seine eigene Tab-Bar enden lässt; im Querformat wächst das seitliche Padding auf die linken/rechten Insets (Dynamic Island), der Hintergrund läuft weiter bis zum Rand.</span></div>
         <div class="doc-classes"><code>.nk-tab-bar</code><code>.nk-tab-bar-item</code><code>.nk-tab-bar-spacer</code><code>.icon</code><code>.label</code><code>.active</code><code>.always</code><code>.fixed</code><code>.floating</code></div>
       </article>
       <article class="doc-entry" id="nk-breadcrumb">

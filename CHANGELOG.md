@@ -4,6 +4,24 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.5.1] – 2026-09-14
+
+### Fixed
+- **Tab bar over the home indicator.** The bottom padding added its own 6px
+  to `env(safe-area-inset-bottom)`, leaving a 40px empty strip on an
+  iPhone 15. Now `max(6px, inset)`: without an inset nothing changes, with
+  one the bar ends at the 34px iOS asks for. The bar height and the spacer
+  follow (`--nk-tab-bar-height` − 6px + the padding).
+- **Lateral safe areas.** Nothing honoured `env(safe-area-inset-left/right)`,
+  so in landscape the Dynamic Island covered the menu button, the page text
+  and the first tab. Handled per surface, never on `.nk-app`, so backgrounds
+  still run edge to edge: `.nk-topbar`, `.nk-page` (both breakpoints) and
+  `.nk-tab-bar` pad by `max(own padding, inset)`, `.nk-tab-bar.floating`
+  keeps its 12px inside the insets, `.nk-sidebar` grows by the left inset and
+  pads its content – which also covers the Elements drawer. `.nk-modal` and
+  `.nk-cmdk` sit inside the insets too (`max-width: 100%`). Reported by
+  Auxdesk.
+
 ## [1.5.0] – 2026-09-13
 
 Fidelity release: the light theme, the type scale and the form controls were
