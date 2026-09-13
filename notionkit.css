@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.4.1
+   Jungherz GmbH – v1.5.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -142,34 +142,62 @@
      autofill. Without it they render dark on a light page. */
   color-scheme: light;
 
-  /* ---- Surfaces ---- */
+  /* ---- Surfaces ----
+     Values follow Notion's 2025 light theme: a neutral sidebar grey, a
+     hover wash mixed from the text colour, and a filled input surface. */
   --nk-bg: #ffffff;
-  --nk-bg-sidebar: #f7f6f3;
-  --nk-bg-hover: rgba(0,0,0,0.045);
-  --nk-bg-active: rgba(0,0,0,0.06);
-  --nk-bg-callout: #f1f1ef;
+  --nk-bg-sidebar: #f9f8f7;
+  --nk-bg-hover: rgba(55,53,47,0.06);
+  --nk-bg-active: rgba(55,53,47,0.08);
+  --nk-bg-callout: #f0efed;
   --nk-bg-code: #f7f6f3;
   --nk-bg-card: #ffffff;
+  --nk-bg-input: rgba(242,241,238,0.6);
 
-  /* ---- Text ---- */
-  --nk-text: #37352f;
-  --nk-text-secondary: rgba(55,53,47,0.65);
-  --nk-text-tertiary: rgba(55,53,47,0.45);
+  /* ---- Text ----
+     Opaque greys, not alpha: Notion moved from rgba(55,53,47,α) to fixed
+     values so text reads the same on white and on the sidebar. The
+     sidebar gets its own, darker step – that is where legibility was
+     lost most. */
+  --nk-text: #2c2c2b;
+  --nk-text-secondary: #7d7a75;
+  --nk-text-tertiary: #91918e;
+  --nk-text-sidebar: #5f5e5b;
 
   /* ---- Borders ---- */
-  --nk-border: rgba(55,53,47,0.09);
-  --nk-border-strong: rgba(55,53,47,0.16);
+  --nk-border: rgba(28,19,1,0.11);
+  --nk-border-strong: rgba(27,21,0,0.19);
 
   /* ---- Accent & semantics ---- */
   --nk-accent: #2383e2;
   --nk-on-accent: #ffffff;
-  --nk-danger: #eb5757;
+  --nk-danger: #cd3c3a;
 
-  /* ---- Tags ---- */
-  --nk-tag-blue-bg: #e7f3f8;  --nk-tag-blue-text: #337ea9;
-  --nk-tag-green-bg: #edf3ec; --nk-tag-green-text: #448361;
-  --nk-tag-orange-bg: #fbecdd; --nk-tag-orange-text: #d9730d;
-  --nk-tag-purple-bg: #f6f3f9; --nk-tag-purple-text: #9065b0;
+  /* ---- Colour scale ----
+     Notion's nine hues in three roles. `tag`: the select-option pill –
+     a saturated fill with near-black text. `tint`: the soft block /
+     callout background, for banners and tracks, meant to sit under
+     the normal text colour. `color`: the mid-tone for coloured text
+     and marks – deltas, date mentions, progress fills. */
+  --nk-tag-gray-bg: #e3e2e0;   --nk-tag-gray-text: #32302c;
+  --nk-tag-brown-bg: #eee0da;  --nk-tag-brown-text: #442a1e;
+  --nk-tag-orange-bg: #fadec9; --nk-tag-orange-text: #49290e;
+  --nk-tag-yellow-bg: #fdecc8; --nk-tag-yellow-text: #402c1b;
+  --nk-tag-green-bg: #dbeddb;  --nk-tag-green-text: #1c3829;
+  --nk-tag-blue-bg: #d3e5ef;   --nk-tag-blue-text: #183347;
+  --nk-tag-purple-bg: #e8deee; --nk-tag-purple-text: #412454;
+  --nk-tag-pink-bg: #f5e0e9;   --nk-tag-pink-text: #4c2337;
+  --nk-tag-red-bg: #ffe2dd;    --nk-tag-red-text: #5d1715;
+
+  --nk-tint-gray: #f1f1ef;   --nk-color-gray: #787774;
+  --nk-tint-brown: #f4eeee;  --nk-color-brown: #9f6b53;
+  --nk-tint-orange: #fbecdd; --nk-color-orange: #d9730d;
+  --nk-tint-yellow: #fbf3db; --nk-color-yellow: #cb912f;
+  --nk-tint-green: #edf3ec;  --nk-color-green: #448361;
+  --nk-tint-blue: #e7f3f8;   --nk-color-blue: #337ea9;
+  --nk-tint-purple: #f8f3fc; --nk-color-purple: #9065b0;
+  --nk-tint-pink: #fcf1f6;   --nk-color-pink: #c14c8a;
+  --nk-tint-red: #fdebec;    --nk-color-red: #cd3c3a;
 
   /* ---- Decorative ----
      Avatar gradients and the page cover. Deliberately identical in
@@ -189,9 +217,12 @@
   --nk-font: ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
   --nk-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  /* ---- Shadows ---- */
+  /* ---- Shadows ----
+     --nk-shadow-btn is Notion's white button: a 1px inset ring plus a
+     1px drop, so the outline is drawn by the shadow, not by a border. */
   --nk-shadow-menu: rgba(15,15,15,0.05) 0px 0px 0px 1px, rgba(15,15,15,0.1) 0px 3px 6px, rgba(15,15,15,0.2) 0px 9px 24px;
   --nk-shadow-card: 0 1px 2px rgba(0,0,0,0.04);
+  --nk-shadow-btn: inset 0 0 0 1px rgba(15,15,15,0.1), 0 1px 2px rgba(15,15,15,0.1);
   --nk-shadow-knob: 0 1px 2px rgba(0,0,0,0.2);
   --nk-shadow-segment: 0 1px 2px rgba(0,0,0,0.08);
 }
@@ -206,23 +237,42 @@
   --nk-bg-callout: #252525;
   --nk-bg-code: #202020;
   --nk-bg-card: #202020;
+  --nk-bg-input: rgba(255,255,255,0.055);
 
   --nk-text: rgba(255,255,255,0.81);
   --nk-text-secondary: rgba(255,255,255,0.46);
-  --nk-text-tertiary: rgba(255,255,255,0.28);
+  --nk-text-tertiary: rgba(255,255,255,0.32);
+  --nk-text-sidebar: rgba(255,255,255,0.62);
 
   --nk-border: rgba(255,255,255,0.094);
   --nk-border-strong: rgba(255,255,255,0.16);
 
   --nk-accent: #529CCA;
+  --nk-danger: #df5452;
 
-  --nk-tag-blue-bg: #133040;  --nk-tag-blue-text: #529CCA;
-  --nk-tag-green-bg: #173B2C; --nk-tag-green-text: #4DAB9A;
-  --nk-tag-orange-bg: #40291B; --nk-tag-orange-text: #FFA344;
-  --nk-tag-purple-bg: #2E2440; --nk-tag-purple-text: #9A6DD7;
+  --nk-tag-gray-bg: #373737;   --nk-tag-gray-text: rgba(255,255,255,0.85);
+  --nk-tag-brown-bg: #603b2c;  --nk-tag-brown-text: rgba(255,255,255,0.85);
+  --nk-tag-orange-bg: #854c1d; --nk-tag-orange-text: rgba(255,255,255,0.85);
+  --nk-tag-yellow-bg: #89632a; --nk-tag-yellow-text: rgba(255,255,255,0.85);
+  --nk-tag-green-bg: #2b593f;  --nk-tag-green-text: rgba(255,255,255,0.85);
+  --nk-tag-blue-bg: #28456c;   --nk-tag-blue-text: rgba(255,255,255,0.85);
+  --nk-tag-purple-bg: #492f64; --nk-tag-purple-text: rgba(255,255,255,0.85);
+  --nk-tag-pink-bg: #69314c;   --nk-tag-pink-text: rgba(255,255,255,0.85);
+  --nk-tag-red-bg: #6e3630;    --nk-tag-red-text: rgba(255,255,255,0.85);
+
+  --nk-tint-gray: #252525;   --nk-color-gray: #9b9b9b;
+  --nk-tint-brown: #2e2724;  --nk-color-brown: #ba856f;
+  --nk-tint-orange: #36291f; --nk-color-orange: #c77d48;
+  --nk-tint-yellow: #372e20; --nk-color-yellow: #ca8f3d;
+  --nk-tint-green: #242b26;  --nk-color-green: #529e72;
+  --nk-tint-blue: #1f282d;   --nk-color-blue: #5e87c9;
+  --nk-tint-purple: #2a2430; --nk-color-purple: #9d68d3;
+  --nk-tint-pink: #2e2328;   --nk-color-pink: #d15796;
+  --nk-tint-red: #332523;    --nk-color-red: #df5452;
 
   --nk-shadow-menu: rgba(15,15,15,0.2) 0px 0px 0px 1px, rgba(15,15,15,0.4) 0px 3px 6px, rgba(15,15,15,0.6) 0px 9px 24px;
   --nk-shadow-card: none;
+  --nk-shadow-btn: inset 0 0 0 1px rgba(255,255,255,0.1), 0 1px 2px rgba(0,0,0,0.3);
 }
 
 
@@ -247,7 +297,9 @@
   font-size: 14px;
   background: var(--nk-bg);
   color: var(--nk-text);
-  -webkit-font-smoothing: antialiased;
+  /* `auto`, as in Notion. `antialiased` thins every glyph on macOS and was
+     the single biggest reason text looked lighter than the original. */
+  -webkit-font-smoothing: auto;
   transition: background .25s ease, color .25s ease;
 }
 
@@ -290,7 +342,7 @@
 .nk-sidebar-scroll::-webkit-scrollbar-thumb { background: var(--nk-border-strong); border-radius: 4px; }
 
 .nk-section-label {
-  font-size: 11px; font-weight: 500; letter-spacing: .02em;
+  font-size: 12px; font-weight: 500; letter-spacing: .01em;
   color: var(--nk-text-tertiary);
   padding: 14px 10px 4px;
   display: flex; justify-content: space-between; align-items: center;
@@ -304,21 +356,21 @@
 
 .nk-sidebar-footer {
   padding: 8px; border-top: 1px solid var(--nk-border);
-  color: var(--nk-text-secondary); font-size: 13px;
+  color: var(--nk-text-sidebar); font-size: 14px;
 }
 .nk-sidebar-footer .nk-tree-item { min-height: 26px; }
 
 /* ---- Main / Topbar ---- */
 .nk-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 .nk-topbar {
-  height: 45px; display: flex; align-items: center;
+  height: 44px; display: flex; align-items: center;
   padding: 0 12px; gap: 8px; flex-shrink: 0;
 }
 .nk-breadcrumb { display: flex; align-items: center; gap: 4px; font-size: 14px; }
 .nk-breadcrumb .crumb,
 .nk-breadcrumb ::slotted(.crumb) {
   padding: 2px 6px; border-radius: 4px; cursor: pointer;
-  color: var(--nk-text-secondary);
+  color: var(--nk-text-sidebar);
   display: flex; align-items: center; gap: 5px;
 }
 .nk-breadcrumb .crumb:hover { background: var(--nk-bg-hover); }
@@ -330,7 +382,7 @@ a.crumb { text-decoration: none; }
 .nk-topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 4px; }
 .nk-topbar-btn {
   padding: 4px 8px; border-radius: var(--nk-radius); cursor: pointer;
-  color: var(--nk-text-secondary); font-size: 14px; user-select: none;
+  color: var(--nk-text-sidebar); font-size: 14px; user-select: none;
   border: none; background: transparent; font-family: inherit;
 }
 .nk-topbar-btn:hover { background: var(--nk-bg-hover); }
@@ -340,10 +392,8 @@ a.crumb { text-decoration: none; }
   fill: none; stroke: currentColor;
   stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
 }
-.nk-share-btn {
-  border: 1px solid var(--nk-border-strong);
-  font-size: 13px; padding: 3px 10px;
-}
+/* Borderless since Notion's 2025 topbar: a plain word next to the icons. */
+.nk-share-btn { font-size: 14px; padding: 4px 8px; }
 .nk-theme-toggle { font-size: 15px; width: 30px; height: 28px; padding: 0; }
 
 /* ---- Tab bar (phones, installed PWAs) ----
@@ -401,7 +451,7 @@ a.crumb { text-decoration: none; }
   padding: 3px 8px 3px 10px;
   border-radius: var(--nk-radius);
   cursor: pointer; user-select: none;
-  color: var(--nk-text-secondary);
+  color: var(--nk-text-sidebar);
   position: relative;
   min-height: 28px;
 }
@@ -457,7 +507,9 @@ a.crumb { text-decoration: none; }
     var(--nk-bg-callout);
 }
 
-.nk-page { max-width: 760px; margin: 0 auto; padding: 24px 64px 120px; }
+/* Document text is 16px/1.5, one step above the 14px UI chrome – Notion's
+   own split between page and app. Tables, tags and controls keep 14px. */
+.nk-page { max-width: 760px; margin: 0 auto; padding: 24px 64px 120px; font-size: 16px; line-height: 1.5; }
 /* With a cover the icon overlaps its bottom edge and the page needs no top
    padding; without one it sits inside the padding, fully visible even in a
    scroll container. Class markup: the cover is the page's previous sibling.
@@ -479,8 +531,8 @@ a.crumb { text-decoration: none; }
 .nk-page.covered ::slotted(.nk-page-icon),
 .nk-page.covered ::slotted([slot="icon"]) { margin-top: -42px; }
 .nk-page-title {
-  font-size: 40px; font-weight: 700; margin: 8px 0 4px;
-  outline: none; letter-spacing: -0.01em;
+  font-size: 40px; font-weight: 700; line-height: 1.2; margin: 8px 0 4px;
+  outline: none; letter-spacing: 0;
 }
 .nk-page-meta {
   color: var(--nk-text-tertiary); font-size: 13px; margin-bottom: 24px;
@@ -490,7 +542,7 @@ a.crumb { text-decoration: none; }
 .nk-page ::slotted(p.lead) { font-size: 16px; line-height: 1.6; color: var(--nk-text-secondary); margin-bottom: 20px !important; }
 
 .nk-heading {
-  font-size: 22px; font-weight: 600; margin: 32px 0 10px;
+  font-size: 24px; font-weight: 600; line-height: 1.3; margin: 32px 0 10px;
   display: flex; align-items: center; gap: 8px;
 }
 
@@ -502,8 +554,8 @@ a.crumb { text-decoration: none; }
   display: flex; gap: 10px; align-items: flex-start;
   background: var(--nk-bg-callout);
   border-radius: var(--nk-radius);
-  padding: 14px 16px; margin: 16px 0;
-  line-height: 1.55; font-size: 14.5px;
+  padding: 16px 16px 16px 12px; margin: 16px 0;
+  line-height: 1.5;
 }
 .nk-callout .c-icon,
 .nk-callout ::slotted(.c-icon),
@@ -548,7 +600,7 @@ a.crumb { text-decoration: none; }
 .nk-quote {
   border-left: 3px solid var(--nk-text); padding: 2px 0 2px 14px;
   margin: 16px 0; color: var(--nk-text-secondary);
-  font-size: 14.5px; line-height: 1.55;
+  line-height: 1.5;
 }
 .nk-quote .q-cite { display: block; margin-top: 6px; font-size: 12.5px; color: var(--nk-text-tertiary); }
 
@@ -567,7 +619,7 @@ a.crumb { text-decoration: none; }
   display: inline-flex; align-items: center; justify-content: center;
 }
 .nk-mention.page { color: var(--nk-text-secondary); text-decoration: underline; text-decoration-color: var(--nk-border-strong); text-underline-offset: 2px; }
-.nk-mention.date { color: var(--nk-tag-orange-text); }
+.nk-mention.date { color: var(--nk-color-orange); }
 
 .nk-inline-code {
   font-family: var(--nk-font-mono); font-size: 85%;
@@ -590,7 +642,7 @@ a.crumb { text-decoration: none; }
 .nk-code .tag,
 .nk-code ::slotted(.tag) { color: var(--nk-accent); }
 .nk-code .attr,
-.nk-code ::slotted(.attr) { color: var(--nk-tag-orange-text); }
+.nk-code ::slotted(.attr) { color: var(--nk-color-orange); }
 
 
 /* ============================================================
@@ -599,16 +651,18 @@ a.crumb { text-decoration: none; }
 .nk-database { margin: 12px 0 8px; }
 
 .nk-db-tabs {
-  display: flex; gap: 2px; border-bottom: 1px solid var(--nk-border);
-  margin-bottom: 0; font-size: 13.5px;
+  display: flex; gap: 2px; align-items: center;
+  padding: 0 0 6px; margin-bottom: 0; font-size: 14px;
 }
+/* View tabs are pills since Notion's 2025 redesign: the current view sits on
+   the active wash, the others are plain words. No underline, no rule. */
 .nk-db-tab {
-  padding: 6px 10px; cursor: pointer; color: var(--nk-text-secondary);
-  border-bottom: 2px solid transparent; margin-bottom: -1px; user-select: none;
+  padding: 4px 8px; cursor: pointer; color: var(--nk-text-secondary);
+  border-radius: var(--nk-radius); user-select: none; line-height: 20px;
   display: flex; align-items: center; gap: 6px;
 }
-.nk-db-tab:hover { color: var(--nk-text); }
-.nk-db-tab.active { color: var(--nk-text); border-bottom-color: var(--nk-text); font-weight: 500; }
+.nk-db-tab:hover { color: var(--nk-text); background: var(--nk-bg-hover); }
+.nk-db-tab.active { color: var(--nk-text); background: var(--nk-bg-active); font-weight: 500; }
 .nk-db-tab .badge,
 .nk-db-tab ::slotted(.badge) {
   background: var(--nk-bg-callout); border-radius: 8px;
@@ -619,18 +673,25 @@ a.crumb { text-decoration: none; }
    wide tables (PRD 6.3a.4). */
 .nk-table-wrap { overflow-x: auto; }
 .nk-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+/* 36px rows, 14px throughout, hairlines between columns as well as rows –
+   measured on a live Notion table. Cells stay on one line; `.wrap` on the
+   table or on a cell lets text break, as Notion's "wrap column" does. */
 .nk-table th {
-  text-align: left; font-weight: 400; color: var(--nk-text-tertiary);
-  padding: 8px 10px; border-bottom: 1px solid var(--nk-border);
-  font-size: 13px; white-space: nowrap; user-select: none; cursor: pointer;
+  text-align: left; font-weight: 400; color: var(--nk-text-secondary);
+  height: 36px; padding: 0 8px; border-bottom: 1px solid var(--nk-border);
+  border-right: 1px solid var(--nk-border);
+  font-size: 14px; white-space: nowrap; user-select: none; cursor: pointer;
 }
 .nk-table th:hover { background: var(--nk-bg-hover); }
 .nk-table th .th-icon,
-.nk-table th ::slotted(.th-icon) { margin-right: 5px; font-size: 12px; }
+.nk-table th ::slotted(.th-icon) { margin-right: 6px; font-size: 13px; color: var(--nk-text-tertiary); }
 .nk-table td {
-  padding: 7px 10px; border-bottom: 1px solid var(--nk-border);
+  height: 36px; padding: 6px 8px; line-height: 1.5;
+  border-bottom: 1px solid var(--nk-border); border-right: 1px solid var(--nk-border);
   white-space: nowrap; vertical-align: middle;
 }
+.nk-table th:last-child, .nk-table td:last-child { border-right: none; }
+.nk-table.wrap td, .nk-table td.wrap { white-space: normal; vertical-align: top; }
 .nk-table tbody tr:hover { background: var(--nk-bg-hover); }
 .nk-table .row-title { display: flex; align-items: center; gap: 7px; font-weight: 500; cursor: pointer; }
 .nk-table .row-title:hover { text-decoration: underline; text-decoration-color: var(--nk-text-tertiary); }
@@ -644,26 +705,36 @@ a.crumb { text-decoration: none; }
 }
 .nk-new-row,
 .nk-table .new-row {
-  color: var(--nk-text-tertiary); cursor: pointer; padding: 8px 10px;
+  color: var(--nk-text-tertiary); cursor: pointer; padding: 8px;
   display: flex; align-items: center; gap: 7px; font-size: 14px;
 }
 .nk-new-row:hover,
 .nk-table .new-row:hover { background: var(--nk-bg-hover); }
 
+/* The select option as Notion draws it: 20px tall, 3px corners, the cell's
+   14px, dark text on a saturated fill. Without a colour it is the grey tag. */
 .nk-tag {
-  display: inline-block; padding: 1px 8px; border-radius: 10px;
-  font-size: 12.5px; font-weight: 450; line-height: 1.6;
+  display: inline-flex; align-items: center; max-width: 100%;
+  height: 20px; padding: 0 6px; border-radius: 3px;
+  font-size: 14px; font-weight: 400; line-height: 20px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; vertical-align: middle;
+  background: var(--nk-tag-gray-bg); color: var(--nk-tag-gray-text);
 }
-.nk-tag.blue   { background: var(--nk-tag-blue-bg);   color: var(--nk-tag-blue-text); }
-.nk-tag.green  { background: var(--nk-tag-green-bg);  color: var(--nk-tag-green-text); }
+.nk-tag.gray   { background: var(--nk-tag-gray-bg);   color: var(--nk-tag-gray-text); }
+.nk-tag.brown  { background: var(--nk-tag-brown-bg);  color: var(--nk-tag-brown-text); }
 .nk-tag.orange { background: var(--nk-tag-orange-bg); color: var(--nk-tag-orange-text); }
+.nk-tag.yellow { background: var(--nk-tag-yellow-bg); color: var(--nk-tag-yellow-text); }
+.nk-tag.green  { background: var(--nk-tag-green-bg);  color: var(--nk-tag-green-text); }
+.nk-tag.blue   { background: var(--nk-tag-blue-bg);   color: var(--nk-tag-blue-text); }
 .nk-tag.purple { background: var(--nk-tag-purple-bg); color: var(--nk-tag-purple-text); }
+.nk-tag.pink   { background: var(--nk-tag-pink-bg);   color: var(--nk-tag-pink-text); }
+.nk-tag.red    { background: var(--nk-tag-red-bg);    color: var(--nk-tag-red-text); }
 
 .nk-progress {
   width: 110px; height: 6px; border-radius: 3px;
-  background: var(--nk-tag-blue-bg); overflow: hidden; display: inline-block;
+  background: var(--nk-tint-blue); overflow: hidden; display: inline-block;
 }
-.nk-progress > i { display: block; height: 100%; background: var(--nk-tag-blue-text); border-radius: 3px; }
+.nk-progress > i { display: block; height: 100%; background: var(--nk-color-blue); border-radius: 3px; }
 .nk-progress-label { font-size: 12px; color: var(--nk-text-tertiary); margin-left: 7px; }
 
 /* Board columns scroll horizontally on narrow viewports (PRD 6.3a.4). */
@@ -686,7 +757,7 @@ a.crumb { text-decoration: none; }
 .nk-card .card-title,
 .nk-card ::slotted(.card-title) { font-weight: 500; margin-bottom: 7px; display: flex; gap: 6px; align-items: center; }
 .nk-card .card-meta,
-.nk-card ::slotted(.card-meta) { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--nk-text-tertiary); }
+.nk-card ::slotted(.card-meta) { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--nk-text-secondary); }
 
 
 /* ============================================================
@@ -698,7 +769,7 @@ a.crumb { text-decoration: none; }
 .nk-field ::slotted([slot="label"]) { font-size: 14px; }
 .nk-field .f-desc,
 .nk-field ::slotted(.f-desc),
-.nk-field ::slotted([slot="desc"]) { font-size: 12.5px; color: var(--nk-text-tertiary); margin-top: 2px; line-height: 1.45; }
+.nk-field ::slotted([slot="desc"]) { font-size: 12px; color: var(--nk-text-secondary); margin-top: 2px; line-height: 1.45; }
 .nk-field .f-control,
 .nk-field ::slotted(.f-control) { flex-shrink: 0; }
 /* Field layouts. `stacked`: label above a full-width control – textareas,
@@ -727,16 +798,19 @@ a.crumb { text-decoration: none; }
 }
 .nk-fields > .nk-field { min-width: 0; }
 
+/* Filled, not outlined: Notion's inputs sit on a faint grey wash inside a
+   hairline, 32px tall, and the focus ring is drawn from the accent. */
 .nk-input, .nk-select, .nk-textarea {
-  font-family: inherit; font-size: 13.5px; color: var(--nk-text);
-  background: var(--nk-bg); border: 1px solid var(--nk-border-strong);
+  font-family: inherit; font-size: 14px; line-height: 20px; color: var(--nk-text);
+  background: var(--nk-bg-input); border: 1px solid var(--nk-border);
   border-radius: var(--nk-radius); padding: 5px 10px;
   outline: none; transition: border-color .15s, box-shadow .15s;
   min-width: 210px;
 }
+.nk-input:hover, .nk-select:hover, .nk-textarea:hover { border-color: var(--nk-border-strong); }
 .nk-input:focus, .nk-select:focus, .nk-textarea:focus {
-  border-color: var(--nk-accent);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--nk-accent) 25%, transparent);
+  border-color: color-mix(in srgb, var(--nk-accent) 60%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--nk-accent) 30%, transparent);
 }
 .nk-input::placeholder, .nk-textarea::placeholder { color: var(--nk-text-tertiary); }
 .nk-input.wide, .nk-textarea.wide, .nk-select.wide { width: 100%; min-width: 0; }
@@ -749,12 +823,14 @@ a.crumb { text-decoration: none; }
   background-size: 4px 4px; background-repeat: no-repeat;
 }
 
+/* 28px tall at 14px. The secondary and danger buttons are Notion's white
+   button: the outline comes from --nk-shadow-btn, not from a border. */
 .nk-btn {
-  font-family: inherit; font-size: 13.5px; font-weight: 500;
+  font-family: inherit; font-size: 14px; line-height: 20px; font-weight: 500;
   border-radius: var(--nk-radius); cursor: pointer;
-  padding: 5px 12px; border: 1px solid transparent;
-  transition: background .15s, border-color .15s, opacity .15s;
-  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 12px; border: 1px solid transparent;
+  transition: background .15s, border-color .15s, box-shadow .15s, opacity .15s;
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
 }
 .nk-btn svg,
 .nk-btn ::slotted(svg) {
@@ -764,13 +840,13 @@ a.crumb { text-decoration: none; }
 }
 .nk-btn.primary { background: var(--nk-accent); color: var(--nk-on-accent); }
 .nk-btn.primary:hover { opacity: .88; }
-.nk-btn.secondary { background: transparent; color: var(--nk-text); border-color: var(--nk-border-strong); }
-.nk-btn.secondary:hover { background: var(--nk-bg-hover); }
-.nk-btn.danger { background: transparent; color: var(--nk-danger); border-color: var(--nk-border-strong); }
-.nk-btn.danger:hover { background: color-mix(in srgb, var(--nk-danger) 8%, transparent); }
+.nk-btn.secondary { background: var(--nk-bg-card); color: var(--nk-text); box-shadow: var(--nk-shadow-btn); }
+.nk-btn.secondary:hover { background: color-mix(in srgb, var(--nk-bg-card), var(--nk-text) 6%); }
+.nk-btn.danger { background: var(--nk-bg-card); color: var(--nk-danger); box-shadow: var(--nk-shadow-btn); }
+.nk-btn.danger:hover { background: color-mix(in srgb, var(--nk-danger) 8%, var(--nk-bg-card)); }
 .nk-btn.danger-solid { background: var(--nk-danger); color: var(--nk-on-accent); }
 .nk-btn.danger-solid:hover { opacity: .88; }
-.nk-btn.small { padding: 3px 9px; font-size: 12.5px; }
+.nk-btn.small { padding: 1px 8px; font-size: 13px; line-height: 20px; }
 a.nk-btn { text-decoration: none; }
 .nk-btn:disabled { opacity: .5; cursor: not-allowed; pointer-events: none; }
 
@@ -847,7 +923,7 @@ a.nk-btn { text-decoration: none; }
 .nk-model-card ::slotted([slot="title"]) { font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 7px; }
 .nk-model-card .m-desc,
 .nk-model-card ::slotted(.m-desc),
-.nk-model-card ::slotted([slot="desc"]) { font-size: 12.5px; color: var(--nk-text-tertiary); margin-top: 2px; line-height: 1.45; }
+.nk-model-card ::slotted([slot="desc"]) { font-size: 12px; color: var(--nk-text-secondary); margin-top: 2px; line-height: 1.45; }
 
 .nk-danger-zone {
   border: 1px solid color-mix(in srgb, var(--nk-danger) 40%, transparent); border-radius: 8px;
@@ -868,7 +944,7 @@ a.nk-btn { text-decoration: none; }
   display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 600; flex-shrink: 0;
 }
-.nk-member-row .m-mail { font-size: 12px; color: var(--nk-text-tertiary); }
+.nk-member-row .m-mail { font-size: 12px; color: var(--nk-text-secondary); }
 .nk-member-row .nk-select { min-width: 120px; margin-left: auto; }
 .nk-member-row ::slotted([slot="role"]) { margin-left: auto; }
 
@@ -884,7 +960,7 @@ a.nk-btn { text-decoration: none; }
 }
 .nk-modal-backdrop.open { opacity: 1; pointer-events: auto; }
 .nk-modal {
-  width: min(960px, 92vw); height: min(640px, 86vh);
+  width: min(1150px, 92vw); height: min(715px, 86vh);
   background: var(--nk-bg); border-radius: 10px;
   box-shadow: var(--nk-shadow-menu);
   display: flex; overflow: hidden;
@@ -893,7 +969,7 @@ a.nk-btn { text-decoration: none; }
 .nk-modal-backdrop.open .nk-modal { transform: scale(1) translateY(0); }
 
 .nk-settings-nav {
-  width: 230px; min-width: 230px; background: var(--nk-bg-sidebar);
+  width: 240px; min-width: 240px; background: var(--nk-bg-sidebar);
   border-right: 1px solid var(--nk-border);
   padding: 10px 8px; overflow-y: auto; flex-shrink: 0;
 }
@@ -909,23 +985,25 @@ a.nk-btn { text-decoration: none; }
   color: var(--nk-on-accent); font-weight: 600; font-size: 13px;
   display: flex; align-items: center; justify-content: center;
 }
-.nk-settings-user .name { font-weight: 500; font-size: 13.5px; }
-.nk-settings-user .mail { font-size: 11.5px; color: var(--nk-text-tertiary); }
-.nk-settings-nav .nk-tree-item { min-height: 27px; }
+.nk-settings-user .name { font-weight: 500; font-size: 14px; }
+.nk-settings-user .mail { font-size: 12px; color: var(--nk-text-secondary); }
+.nk-settings-nav .nk-tree-item { min-height: 28px; }
 .nk-settings-nav .nk-tree-item.active { background: var(--nk-bg-active); color: var(--nk-text); font-weight: 500; }
 
-.nk-settings-content { flex: 1; overflow-y: auto; padding: 36px 48px 80px; min-width: 0; }
+.nk-settings-content { flex: 1; overflow-y: auto; padding: 36px 60px 80px; min-width: 0; }
 .nk-settings-content::-webkit-scrollbar { width: 10px; }
 .nk-settings-content::-webkit-scrollbar-thumb { background: var(--nk-border-strong); border-radius: 5px; border: 2px solid var(--nk-bg); }
 
-.nk-settings-pane { display: none; max-width: 520px; }
+.nk-settings-pane { display: none; max-width: 800px; }
 .nk-settings-pane.active { display: block; }
-.nk-settings-pane > h2 { font-size: 16px; font-weight: 600; padding-bottom: 12px; border-bottom: 1px solid var(--nk-border); margin-bottom: 20px; }
-.nk-settings-pane > h3 { font-size: 13px; font-weight: 600; margin: 26px 0 10px; }
+/* Pane title as a page-like heading, sections as 16px rules – the
+   proportions of Notion's 2025 settings dialog. */
+.nk-settings-pane > h2 { font-size: 22px; font-weight: 600; line-height: 1.3; margin-bottom: 20px; }
+.nk-settings-pane > h3 { font-size: 16px; font-weight: 500; padding-bottom: 8px; border-bottom: 1px solid var(--nk-border); margin: 30px 0 12px; }
 /* Slotted headings: the child combinator above cannot cross a slot boundary,
    and slotted nodes miss the scoped reset, so the margins are spelled out. */
-.nk-settings-pane ::slotted(h2) { font-size: 16px; font-weight: 600; border: 0; border-bottom: 1px solid var(--nk-border); padding: 0 0 12px !important; margin: 0 0 20px !important; }
-.nk-settings-pane ::slotted(h3) { font-size: 13px; font-weight: 600; padding: 0 !important; margin: 26px 0 10px !important; }
+.nk-settings-pane ::slotted(h2) { font-size: 22px; font-weight: 600; line-height: 1.3; padding: 0 !important; margin: 0 0 20px !important; }
+.nk-settings-pane ::slotted(h3) { font-size: 16px; font-weight: 500; border: 0; border-bottom: 1px solid var(--nk-border); padding: 0 0 8px !important; margin: 30px 0 12px !important; }
 
 
 /* ============================================================
@@ -937,8 +1015,8 @@ a.nk-btn { text-decoration: none; }
 }
 
 .nk-emoji-search {
-  width: 100%; font-family: inherit; font-size: 13px; color: var(--nk-text);
-  background: var(--nk-bg-callout); border: none; border-radius: var(--nk-radius);
+  width: 100%; font-family: inherit; font-size: 14px; color: var(--nk-text);
+  background: var(--nk-bg-input); border: 1px solid var(--nk-border); border-radius: var(--nk-radius);
   padding: 6px 10px; outline: none; margin-bottom: 8px;
 }
 .nk-emoji-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; }
@@ -957,18 +1035,18 @@ a.nk-btn { text-decoration: none; }
 
 .nk-menu { padding: 5px; width: 230px; }
 .nk-menu-item {
-  display: flex; align-items: center; gap: 9px; padding: 5px 9px;
-  border-radius: 5px; cursor: pointer; font-size: 13.5px; user-select: none;
+  display: flex; align-items: center; gap: 9px; padding: 4px 8px; min-height: 28px;
+  border-radius: 5px; cursor: pointer; font-size: 14px; user-select: none;
 }
 .nk-menu-item:hover { background: var(--nk-bg-hover); }
 .nk-menu-item .m-icon,
 .nk-menu-item ::slotted(.m-icon),
 .nk-menu-item ::slotted([slot="icon"]) { width: 17px; text-align: center; font-size: 14px; }
 .nk-menu-item .m-shortcut,
-.nk-menu-item ::slotted(.m-shortcut) { margin-left: auto; font-size: 11.5px; color: var(--nk-text-tertiary); }
+.nk-menu-item ::slotted(.m-shortcut) { margin-left: auto; font-size: 12px; color: var(--nk-text-tertiary); }
 .nk-menu-item.danger { color: var(--nk-danger); }
 .nk-menu-sep { border-top: 1px solid var(--nk-border); margin: 5px 4px; }
-.nk-menu-label { font-size: 11px; color: var(--nk-text-tertiary); padding: 5px 9px 2px; }
+.nk-menu-label { font-size: 12px; color: var(--nk-text-tertiary); padding: 5px 8px 2px; }
 
 .nk-cmdk-backdrop {
   position: fixed; inset: 0; background: var(--nk-scrim-soft);
@@ -993,7 +1071,7 @@ a.nk-btn { text-decoration: none; }
 }
 .nk-cmdk-input-row input::placeholder { color: var(--nk-text-tertiary); }
 .nk-cmdk-list { max-height: 320px; overflow-y: auto; padding: 6px; }
-.nk-cmdk-group { font-size: 11px; color: var(--nk-text-tertiary); padding: 8px 10px 3px; }
+.nk-cmdk-group { font-size: 12px; color: var(--nk-text-tertiary); padding: 8px 10px 3px; }
 .nk-cmdk-item {
   display: flex; align-items: center; gap: 10px; padding: 8px 10px;
   border-radius: 6px; cursor: pointer; font-size: 14px; user-select: none;
@@ -1003,7 +1081,7 @@ a.nk-btn { text-decoration: none; }
 .nk-cmdk-item ::slotted(.m-icon),
 .nk-cmdk-item ::slotted([slot="icon"]) { width: 17px; text-align: center; font-size: 14px; }
 .nk-cmdk-item .m-shortcut,
-.nk-cmdk-item ::slotted(.m-shortcut) { margin-left: auto; font-size: 11.5px; color: var(--nk-text-tertiary); }
+.nk-cmdk-item ::slotted(.m-shortcut) { margin-left: auto; font-size: 12px; color: var(--nk-text-tertiary); }
 .nk-cmdk-empty { padding: 30px; text-align: center; color: var(--nk-text-tertiary); font-size: 13.5px; }
 .nk-cmdk-footer {
   display: flex; gap: 14px; padding: 8px 16px; border-top: 1px solid var(--nk-border);
@@ -1013,7 +1091,7 @@ a.nk-btn { text-decoration: none; }
 .nk-toast {
   position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px);
   background: var(--nk-text); color: var(--nk-bg);
-  padding: 8px 16px; border-radius: 8px; font-size: 13.5px;
+  padding: 8px 16px; border-radius: 8px; font-size: 14px;
   opacity: 0; transition: all .3s ease; pointer-events: none;
   box-shadow: var(--nk-shadow-menu);
   display: flex; gap: 8px; align-items: center;
@@ -1058,16 +1136,16 @@ a.nk-btn { text-decoration: none; }
 .nk-stat { flex: 1; border: 1px solid var(--nk-border); border-radius: 8px; padding: 12px 14px; }
 .nk-stat .s-label,
 .nk-stat ::slotted(.s-label),
-.nk-stat ::slotted([slot="label"]) { font-size: 12px; color: var(--nk-text-tertiary); margin-bottom: 4px; }
+.nk-stat ::slotted([slot="label"]) { font-size: 12px; color: var(--nk-text-secondary); margin-bottom: 4px; }
 .nk-stat .s-value,
 .nk-stat ::slotted(.s-value),
 .nk-stat ::slotted([slot="value"]) { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
 .nk-stat .s-delta,
 .nk-stat ::slotted(.s-delta),
-.nk-stat ::slotted([slot="delta"]) { font-size: 11.5px; margin-top: 3px; }
+.nk-stat ::slotted([slot="delta"]) { font-size: 12px; margin-top: 3px; }
 .nk-stat .s-delta.up,
 .nk-stat ::slotted(.s-delta.up),
-.nk-stat ::slotted([slot="delta"].up) { color: var(--nk-tag-green-text); }
+.nk-stat ::slotted([slot="delta"].up) { color: var(--nk-color-green); }
 .nk-stat .s-delta.down,
 .nk-stat ::slotted(.s-delta.down),
 .nk-stat ::slotted([slot="delta"].down) { color: var(--nk-danger); }
@@ -1083,11 +1161,11 @@ a.nk-btn { text-decoration: none; }
 
 .nk-segmented { display: inline-flex; background: var(--nk-bg-callout); border-radius: 7px; padding: 2px; }
 .nk-segmented button {
-  font-family: inherit; font-size: 13px; border: none; background: transparent;
+  font-family: inherit; font-size: 14px; border: none; background: transparent;
   color: var(--nk-text-secondary); padding: 4px 12px; border-radius: 5px; cursor: pointer;
 }
 .nk-segmented ::slotted(button) {
-  font-family: inherit; font-size: 13px; border: none; background: transparent;
+  font-family: inherit; font-size: 14px; border: none; background: transparent;
   color: var(--nk-text-secondary); padding: 4px 12px !important; border-radius: 5px; cursor: pointer;
 }
 .nk-segmented button.active,
@@ -1100,13 +1178,16 @@ a.nk-btn { text-decoration: none; }
 .nk-segmented.scroll button,
 .nk-segmented.scroll ::slotted(button) { flex-shrink: 0; white-space: nowrap; }
 
+/* A coloured callout, as Notion tints a block: soft background, the normal
+   text colour on top. The hue carries the mood, not the type. */
 .nk-banner {
-  display: flex; align-items: center; gap: 10px; font-size: 13.5px;
-  border-radius: 8px; padding: 9px 14px; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 10px; font-size: 14px;
+  border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; color: var(--nk-text);
 }
-.nk-banner.info { background: var(--nk-tag-blue-bg); color: var(--nk-tag-blue-text); }
-.nk-banner.success { background: var(--nk-tag-green-bg); color: var(--nk-tag-green-text); }
-.nk-banner.warning { background: var(--nk-tag-orange-bg); color: var(--nk-tag-orange-text); }
+.nk-banner.info { background: var(--nk-tint-blue); }
+.nk-banner.success { background: var(--nk-tint-green); }
+.nk-banner.warning { background: var(--nk-tint-yellow); }
+.nk-banner.danger { background: var(--nk-tint-red); }
 .nk-banner .b-action,
 .nk-banner ::slotted(.b-action),
 .nk-banner ::slotted([slot="action"]) { margin-left: auto; font-weight: 500; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
@@ -1143,7 +1224,7 @@ a.nk-btn { text-decoration: none; }
 .nk-empty ::slotted([slot="title"]) { font-weight: 500; color: var(--nk-text-secondary); margin-bottom: 3px; font-size: 14px; }
 .nk-empty .e-desc,
 .nk-empty ::slotted(.e-desc),
-.nk-empty ::slotted([slot="desc"]) { font-size: 12.5px; margin-bottom: 12px; }
+.nk-empty ::slotted([slot="desc"]) { font-size: 13px; margin-bottom: 12px; }
 
 
 /* ============================================================
@@ -1159,10 +1240,10 @@ a.nk-btn { text-decoration: none; }
   display: flex; align-items: center; justify-content: center;
 }
 .nk-comment .c-head,
-.nk-comment ::slotted(.c-head) { font-size: 12.5px; color: var(--nk-text-tertiary); margin-bottom: 2px; }
+.nk-comment ::slotted(.c-head) { font-size: 12px; color: var(--nk-text-tertiary); margin-bottom: 2px; }
 .nk-comment .c-head b { color: var(--nk-text); font-weight: 600; }
 .nk-comment .c-body,
-.nk-comment ::slotted(.c-body) { font-size: 13.5px; line-height: 1.5; }
+.nk-comment ::slotted(.c-body) { font-size: 14px; line-height: 1.5; }
 .nk-comment-input { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
 .nk-comment-input input { min-width: 0; flex: 1; }
 
@@ -1188,12 +1269,12 @@ a.nk-btn { text-decoration: none; }
 .nk-ai-msg .a-name span { color: var(--nk-text-tertiary); font-weight: 400; }
 .nk-ai-actions { display: flex; gap: 4px; margin-top: 6px; }
 .nk-ai-actions button {
-  font-family: inherit; font-size: 11.5px; color: var(--nk-text-tertiary);
+  font-family: inherit; font-size: 12px; color: var(--nk-text-secondary);
   background: transparent; border: 1px solid var(--nk-border); border-radius: 5px;
   padding: 2px 8px; cursor: pointer;
 }
 .nk-ai-actions ::slotted(button) {
-  font-family: inherit; font-size: 11.5px; color: var(--nk-text-tertiary);
+  font-family: inherit; font-size: 12px; color: var(--nk-text-secondary);
   background: transparent; border: 1px solid var(--nk-border); border-radius: 5px;
   padding: 2px 8px !important; cursor: pointer;
 }
@@ -1354,9 +1435,9 @@ a.nk-btn { text-decoration: none; }
 .nk-block-host .tippy-box {
   background: var(--nk-bg); border-radius: 10px; box-shadow: var(--nk-shadow-menu);
   padding: 6px; width: 280px; max-height: 320px; overflow-y: auto;
-  font-family: var(--nk-font); font-size: 13.5px; color: var(--nk-text);
+  font-family: var(--nk-font); font-size: 14px; color: var(--nk-text);
 }
-.nk-slash-menu-label { font-size: 11px; color: var(--nk-text-tertiary); padding: 6px 9px 2px; }
+.nk-slash-menu-label { font-size: 12px; color: var(--nk-text-tertiary); padding: 6px 9px 2px; }
 .nk-slash-item {
   display: flex; align-items: center; gap: 10px; padding: 6px 9px;
   border-radius: 5px; cursor: pointer; user-select: none;
@@ -1369,7 +1450,7 @@ a.nk-btn { text-decoration: none; }
   background: var(--nk-bg-callout); border: 1px solid var(--nk-border);
   display: flex; align-items: center; justify-content: center; font-size: 15px;
 }
-.nk-slash-item .m-desc { font-size: 11.5px; color: var(--nk-text-tertiary); }
+.nk-slash-item .m-desc { font-size: 12px; color: var(--nk-text-tertiary); }
 
 /* Bubble toolbar: a horizontal nk-pop. */
 .nk-bubble-menu {

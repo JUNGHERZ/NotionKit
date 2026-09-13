@@ -251,7 +251,7 @@ Declare on `:root`, not on a subtree. [`theme-override.css`](theme-override.css)
 
 ### Contrast
 
-Body text clears WCAG AA in both themes (12.3:1 light, 11.8:1 dark). The secondary layers – secondary and tertiary text, the four tag pairs, white on the accent, the danger colour – keep Notion's own values and sit below 4.5:1. The full measured table is in the docs; the high-contrast block in `theme-override.css` lifts every pair to ≥ 4.5:1 with the rest of the design untouched.
+Body text clears WCAG AA in both themes (14.0:1 light, 11.8:1 dark), so do sidebar text (6.1:1), the danger colour and all nine tag pairs (≥ 10:1 in light mode). Secondary text (4.27:1), tertiary text and white on the accent keep Notion's own 2025 values and sit below 4.5:1. The full measured table is in the docs; the high-contrast block in `theme-override.css` lifts those pairs with the rest of the design untouched.
 
 ---
 
@@ -262,14 +262,17 @@ All visual values are custom properties on `:root` (light) and `[data-theme="dar
 | Token | Light | Dark |
 |---|---|---|
 | `--nk-bg` | `#ffffff` | `#191919` |
-| `--nk-bg-sidebar` | `#f7f6f3` | `#202020` |
-| `--nk-bg-hover` | `rgba(0,0,0,0.045)` | `rgba(255,255,255,0.055)` |
-| `--nk-text` | `#37352f` | `rgba(255,255,255,0.81)` |
-| `--nk-text-secondary` | `rgba(55,53,47,0.65)` | `rgba(255,255,255,0.46)` |
-| `--nk-border` | `rgba(55,53,47,0.09)` | `rgba(255,255,255,0.094)` |
+| `--nk-bg-sidebar` | `#f9f8f7` | `#202020` |
+| `--nk-bg-hover` | `rgba(55,53,47,0.06)` | `rgba(255,255,255,0.055)` |
+| `--nk-bg-input` | `rgba(242,241,238,0.6)` | `rgba(255,255,255,0.055)` |
+| `--nk-text` | `#2c2c2b` | `rgba(255,255,255,0.81)` |
+| `--nk-text-secondary` | `#7d7a75` | `rgba(255,255,255,0.46)` |
+| `--nk-text-sidebar` | `#5f5e5b` | `rgba(255,255,255,0.62)` |
+| `--nk-border` | `rgba(28,19,1,0.11)` | `rgba(255,255,255,0.094)` |
 | `--nk-accent` | `#2383e2` | `#529CCA` |
-| `--nk-danger` | `#eb5757` | – |
-| `--nk-tag-blue-bg` / `-text` | `#e7f3f8` / `#337ea9` | `#133040` / `#529CCA` |
+| `--nk-danger` | `#cd3c3a` | `#df5452` |
+| `--nk-tag-blue-bg` / `-text` | `#d3e5ef` / `#183347` | `#28456c` / `rgba(255,255,255,0.85)` |
+| `--nk-tint-blue` / `--nk-color-blue` | `#e7f3f8` / `#337ea9` | `#1f282d` / `#5e87c9` |
 | `--nk-sidebar-width` | `260px` | – |
 | `--nk-radius` | `6px` | – |
 | `--nk-font` | system stack | – |

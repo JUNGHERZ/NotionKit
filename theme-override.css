@@ -63,35 +63,29 @@
 /* ============================================================
    HIGH CONTRAST — every measured pair at ≥ 4.5:1 (WCAG AA)
 
-   The default palette keeps Notion's own values. Body text passes
-   AA comfortably; secondary text, the tag pairs, white-on-accent
-   and the danger colour sit between 2.5:1 and 4.2:1 in light mode.
-   Uncomment this block to lift them. Values were found by searching
-   for the nearest colour that clears 4.5:1 against the surface each
-   pair actually sits on (tools/contrast.mjs), plus a small margin.
+   The default palette keeps Notion's own 2025 values. Body text,
+   sidebar text, the danger colour and all nine tag pairs pass AA
+   already; secondary text (4.27:1), tertiary text, white on the
+   accent and the dark yellow tag sit below 4.5:1. Uncomment this
+   block to lift them. Values were found by searching for the
+   nearest colour that clears 4.5:1 against the surface each pair
+   actually sits on (tools/contrast.mjs), plus a small margin.
 
-   Light: text-secondary 0.65 → 0.72, text-tertiary 0.45 → 0.70,
-          accent #2383e2 → #1e72c6, danger #eb5757 → #c64646,
-          tag text darkened. Dark: text-tertiary 0.28 → 0.48,
-          on-accent white → near-black (5.8:1 on the unchanged
-          accent), green and purple tag text lightened.
+   Light: text-secondary #7d7a75 → #767370, text-tertiary #91918e →
+          #6f6f6c, accent #2383e2 → #1e72c6.
+   Dark:  text-tertiary 0.32 → 0.48, on-accent white → near-black
+          (5.8:1 on the unchanged accent), yellow tag text → white.
    ============================================================ */
 /*
 :root {
-  --nk-text-secondary: rgba(55,53,47,0.72);
-  --nk-text-tertiary:  rgba(55,53,47,0.70);
+  --nk-text-secondary: #767370;
+  --nk-text-tertiary:  #6f6f6c;
   --nk-accent:         #1e72c6;
-  --nk-danger:         #c64646;
-  --nk-tag-blue-text:   #2d7096;
-  --nk-tag-green-text:  #3d7657;
-  --nk-tag-orange-text: #a05409;
-  --nk-tag-purple-text: #845ca2;
 }
 [data-theme="dark"] {
   --nk-text-tertiary:   rgba(255,255,255,0.48);
   --nk-on-accent:       #191919;
-  --nk-tag-green-text:  #52aea0;
-  --nk-tag-purple-text: #a880de;
+  --nk-tag-yellow-text: #ffffff;
 }
 */
 

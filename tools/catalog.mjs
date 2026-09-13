@@ -309,8 +309,8 @@ export const CATALOG = [
   id: 'nk-db-tabs', group: 'database', classes: ['nk-database', 'nk-db-tabs', 'nk-db-tab', 'active', 'badge'],
   title: { en: 'View tabs', de: 'View-Reiter' },
   desc: {
-    en: 'The strip above a database. The active tab is marked by a 2px underline in text colour, not by a fill. The <code>.badge</code> child carries the row count.',
-    de: 'Die Leiste über einer Datenbank. Der aktive Reiter wird durch eine 2px-Unterlinie in Textfarbe markiert, nicht durch eine Füllung. Das <code>.badge</code>-Kind trägt die Zeilenzahl.',
+    en: 'The strip above a database. The active view sits on the active wash as a pill, the others are plain words — no underline, no rule, as in Notion since 2025. The <code>.badge</code> child carries the row count.',
+    de: 'Die Leiste über einer Datenbank. Die aktive View sitzt als Pille auf dem Aktiv-Hauch, die anderen sind schlichte Wörter – keine Unterlinie, keine Linie, wie in Notion seit 2025. Das <code>.badge</code>-Kind trägt die Zeilenzahl.',
   },
   mobile: { en: 'Add <code>overflow-x: auto</code> to the strip when you have more than three or four views.', de: 'Bei mehr als drei, vier Views <code>overflow-x: auto</code> an die Leiste geben.' },
   html: W => `<div class="nk-database">
@@ -322,11 +322,11 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'nk-new-row'],
+  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'wrap', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'nk-new-row'],
   title: { en: 'Table view', de: 'Tabellen-Ansicht' },
   desc: {
-    en: 'Header cells are quiet and clickable, rows highlight on hover, and every cell is <code>white-space: nowrap</code> so columns keep their shape. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
-    de: 'Kopfzellen sind ruhig und klickbar, Zeilen heben sich beim Hovern hervor, und jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
+    en: '36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is <code>white-space: nowrap</code> so columns keep their shape; <code>.wrap</code> on the table or on a cell lets text break, like Notion\'s “wrap column”. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
+    de: '36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
   },
   mobile: {
     en: 'This is the key one: <code>nk-table-wrap</code> scrolls horizontally so the table never forces the page wider. Always wrap the table.',
@@ -347,22 +347,31 @@ export const CATALOG = [
         <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
         <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
+    <tr><td><span class="row-title">📣 ${W.launch}</span></td><td><span class="nk-tag yellow">${W.planned}</span></td>
+        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-orange)">MK</span>Mia</span></td>
+        <td class="date-cell">02.06.2026</td>
+        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td></tr>
   </tbody>
 </table>
 <div class="nk-new-row">＋ ${W.newPage}</div></div>`,
 },
 {
-  id: 'nk-tag', group: 'database', classes: ['nk-tag', 'blue', 'green', 'orange', 'purple'],
+  id: 'nk-tag', group: 'database', classes: ['nk-tag', 'gray', 'brown', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'red'],
   title: { en: 'Tags', de: 'Tags' },
   desc: {
-    en: 'Four semantic colours, each a background/text pair per theme. The pairs are tuned separately for light and dark rather than being derived by opacity.',
-    de: 'Vier semantische Farben, je ein Hintergrund/Text-Paar pro Theme. Die Paare sind für Hell und Dunkel getrennt abgestimmt, nicht per Deckkraft abgeleitet.',
+    en: 'The select option as Notion draws it: 20px tall, 3px corners, the cell\'s 14px, near-black text on a saturated fill (≥ 10:1 in light mode). Nine colours, each a background/text pair per theme; without a colour class it is the grey tag. For coloured <em>text</em> use the <code>--nk-color-*</code> mid-tones, for a soft surface the <code>--nk-tint-*</code> backgrounds.',
+    de: 'Die Select-Option, wie Notion sie zeichnet: 20px hoch, 3px Ecken, die 14px der Zelle, fast schwarzer Text auf gesättigter Fläche (≥ 10:1 im Hellmodus). Neun Farben, je ein Hintergrund/Text-Paar pro Theme; ohne Farbklasse ist es der graue Tag. Für farbigen <em>Text</em> die <code>--nk-color-*</code>-Mitteltöne nehmen, für eine weiche Fläche die <code>--nk-tint-*</code>-Hintergründe.',
   },
-  mobile: { en: 'Unchanged. Inline-block, so a row of tags wraps.', de: 'Unverändert. Inline-block, eine Tag-Reihe bricht also um.' },
-  html: W => `<span class="nk-tag blue">${W.inProgress}</span>
-<span class="nk-tag green">${W.done}</span>
+  mobile: { en: 'Unchanged. Inline-flex with an ellipsis, so a long option is cut rather than the column widened.', de: 'Unverändert. Inline-flex mit Ellipse, eine lange Option wird also gekürzt statt die Spalte verbreitert.' },
+  html: W => `<span class="nk-tag">${W.tagGray}</span>
+<span class="nk-tag brown">${W.tagBrown}</span>
 <span class="nk-tag orange">${W.planned}</span>
-<span class="nk-tag purple">${W.designSystem}</span>`,
+<span class="nk-tag yellow">${W.tagYellow}</span>
+<span class="nk-tag green">${W.done}</span>
+<span class="nk-tag blue">${W.inProgress}</span>
+<span class="nk-tag purple">${W.designSystem}</span>
+<span class="nk-tag pink">${W.tagPink}</span>
+<span class="nk-tag red">${W.tagRed}</span>`,
 },
 {
   id: 'nk-progress', group: 'database', classes: ['nk-progress', 'nk-progress-label'],
@@ -404,8 +413,8 @@ export const CATALOG = [
   id: 'nk-input', group: 'forms', classes: ['nk-input', 'nk-textarea', 'nk-select', 'wide'],
   title: { en: 'Inputs, textarea, select', de: 'Inputs, Textarea, Select' },
   desc: {
-    en: 'One shared shape for all three. The focus ring is <code>color-mix(in srgb, var(--nk-accent) 25%, transparent)</code>, so it re-brands with the accent. <code>.wide</code> makes an input fill its row.',
-    de: 'Eine gemeinsame Form für alle drei. Der Fokusring ist <code>color-mix(in srgb, var(--nk-accent) 25%, transparent)</code> und färbt sich mit dem Akzent um. <code>.wide</code> füllt die Zeile.',
+    en: 'One shared shape for all three: filled with <code>--nk-bg-input</code> inside a hairline, 32px tall at 14px — Notion\'s input, not an outlined white box. The focus ring is mixed from the accent, so it re-brands with it. <code>.wide</code> makes an input fill its row.',
+    de: 'Eine gemeinsame Form für alle drei: gefüllt mit <code>--nk-bg-input</code> in einer Haarlinie, 32px hoch bei 14px – Notions Input, keine umrandete weiße Box. Der Fokusring wird aus dem Akzent gemischt und färbt sich mit ihm um. <code>.wide</code> füllt die Zeile.',
   },
   mobile: { en: '<code>min-width: 210px</code> can overflow a narrow field row — pair it with <code>.wide</code> or let <code>nk-field</code> wrap.', de: '<code>min-width: 210px</code> kann eine schmale Feldzeile sprengen – mit <code>.wide</code> kombinieren oder <code>nk-field</code> umbrechen lassen.' },
   html: W => `<div style="display:flex;flex-direction:column;gap:10px;max-width:340px">
@@ -418,10 +427,10 @@ export const CATALOG = [
   id: 'nk-btn', group: 'forms', classes: ['nk-btn', 'primary', 'secondary', 'danger', 'danger-solid', 'small'],
   title: { en: 'Buttons', de: 'Buttons' },
   desc: {
-    en: 'Five variants. Hover is an opacity shift on the filled ones and a background wash on the outlined ones — never a hue change. <code>.small</code> combines with any variant.',
-    de: 'Fünf Varianten. Hover ist bei gefüllten Buttons eine Deckkraft-Änderung, bei umrandeten ein Hintergrund-Hauch – nie ein Farbwechsel. <code>.small</code> lässt sich mit jeder Variante kombinieren.',
+    en: 'Five variants, 28px tall at 14px. <code>.secondary</code> and <code>.danger</code> are Notion\'s white button: the outline is <code>--nk-shadow-btn</code>, a 1px inset ring plus a 1px drop, not a border. Hover is an opacity shift on the filled ones and a wash on the white ones — never a hue change. <code>.small</code> (24px) combines with any variant.',
+    de: 'Fünf Varianten, 28px hoch bei 14px. <code>.secondary</code> und <code>.danger</code> sind Notions weißer Button: die Kontur ist <code>--nk-shadow-btn</code>, ein 1px-Innenring plus 1px Schatten, kein Rahmen. Hover ist bei gefüllten Buttons eine Deckkraft-Änderung, bei weißen ein Hauch – nie ein Farbwechsel. <code>.small</code> (24px) lässt sich mit jeder Variante kombinieren.',
   },
-  mobile: { en: 'Height lands near 30px, under the 44px touch target. Raise the padding for touch-first screens.', de: 'Die Höhe liegt bei rund 30px, unter dem 44px-Touch-Ziel. Für Touch-Oberflächen das Padding anheben.' },
+  mobile: { en: 'Height lands at 28px, under the 44px touch target. Raise the padding for touch-first screens.', de: 'Die Höhe liegt bei 28px, unter dem 44px-Touch-Ziel. Für Touch-Oberflächen das Padding anheben.' },
   html: W => `<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
   <button class="nk-btn primary">${W.save}</button>
   <button class="nk-btn secondary">${W.discard}</button>
@@ -800,16 +809,17 @@ export const CATALOG = [
 </div></div>`,
 },
 {
-  id: 'nk-banner', group: 'gallery', classes: ['nk-banner', 'info', 'success', 'warning', 'b-action'],
+  id: 'nk-banner', group: 'gallery', classes: ['nk-banner', 'info', 'success', 'warning', 'danger', 'b-action'],
   title: { en: 'Banner', de: 'Banner' },
   desc: {
-    en: 'A full-width notice in three semantic tones, each reusing a tag colour pair. <code>.b-action</code> pushes an underlined action to the right edge.',
-    de: 'Ein Hinweis über die volle Breite in drei semantischen Tönen, jeder nutzt ein Tag-Farbpaar wieder. <code>.b-action</code> schiebt eine unterstrichene Aktion an den rechten Rand.',
+    en: 'A full-width notice in four tones, tinted the way Notion colours a block: a soft <code>--nk-tint-*</code> background under the normal text colour. <code>.b-action</code> pushes an underlined action to the right edge.',
+    de: 'Ein Hinweis über die volle Breite in vier Tönen, getönt wie Notion einen Block färbt: ein weicher <code>--nk-tint-*</code>-Hintergrund unter der normalen Textfarbe. <code>.b-action</code> schiebt eine unterstrichene Aktion an den rechten Rand.',
   },
   mobile: { en: 'The action stays on the same line; wrap the banner content yourself if it gets crowded.', de: 'Die Aktion bleibt in derselben Zeile; bei Enge den Banner-Inhalt selbst umbrechen lassen.' },
   html: W => `<div class="nk-banner info">ℹ️ ${W.bannerInfo}<span class="b-action">${W.bannerAction}</span></div>
 <div class="nk-banner success">✅ ${W.bannerSuccess}</div>
-<div class="nk-banner warning">⚠️ ${W.bannerWarning}<span class="b-action">${W.bannerAction}</span></div>`,
+<div class="nk-banner warning">⚠️ ${W.bannerWarning}<span class="b-action">${W.bannerAction}</span></div>
+<div class="nk-banner danger">⛔ ${W.bannerDanger}</div>`,
 },
 {
   id: 'nk-avatar-group', group: 'gallery', classes: ['nk-avatar-group', 'mini-avatar', 'more'],

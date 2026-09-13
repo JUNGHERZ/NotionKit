@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.4.1) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.5.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -77,28 +77,58 @@ All visual values are custom properties. `:root` holds the light theme, `[data-t
 | Token | Light (`:root`) | Dark (`[data-theme="dark"]`) | Meaning |
 |---|---|---|---|
 | `--nk-bg` | `#ffffff` | `#191919` | Page background |
-| `--nk-bg-sidebar` | `#f7f6f3` | `#202020` | Sidebar and settings nav |
-| `--nk-bg-hover` | `rgba(0,0,0,0.045)` | `rgba(255,255,255,0.055)` | Hover wash — a darkening, never a hue change |
-| `--nk-bg-active` | `rgba(0,0,0,0.06)` | `rgba(255,255,255,0.08)` | Active/selected row |
-| `--nk-bg-callout` | `#f1f1ef` | `#252525` | Callouts, badges, key caps, segmented track |
+| `--nk-bg-sidebar` | `#f9f8f7` | `#202020` | Sidebar and settings nav |
+| `--nk-bg-hover` | `rgba(55,53,47,0.06)` | `rgba(255,255,255,0.055)` | Hover wash — a darkening, never a hue change |
+| `--nk-bg-active` | `rgba(55,53,47,0.08)` | `rgba(255,255,255,0.08)` | Active/selected row |
+| `--nk-bg-callout` | `#f0efed` | `#252525` | Callouts, badges, key caps, segmented track |
 | `--nk-bg-code` | `#f7f6f3` | `#202020` | Code block background |
-| `--nk-bg-card` | `#ffffff` | `#202020` | Board cards — separate from --nk-bg so dark mode can lift them |
-| `--nk-text` | `#37352f` | `rgba(255,255,255,0.81)` | Body text. Never pure black |
-| `--nk-text-secondary` | `rgba(55,53,47,0.65)` | `rgba(255,255,255,0.46)` | Secondary text, inactive tree items |
-| `--nk-text-tertiary` | `rgba(55,53,47,0.45)` | `rgba(255,255,255,0.28)` | Meta, placeholders, captions |
-| `--nk-border` | `rgba(55,53,47,0.09)` | `rgba(255,255,255,0.094)` | Hairline separators |
-| `--nk-border-strong` | `rgba(55,53,47,0.16)` | `rgba(255,255,255,0.16)` | Input borders, scrollbar thumbs, dashed frames |
+| `--nk-bg-card` | `#ffffff` | `#202020` | Board cards and white buttons — separate from --nk-bg so dark mode can lift them |
+| `--nk-bg-input` | `rgba(242,241,238,0.6)` | `rgba(255,255,255,0.055)` | The filled input surface: inputs, selects, textareas, the emoji search |
+| `--nk-text` | `#2c2c2b` | `rgba(255,255,255,0.81)` | Body text. Never pure black |
+| `--nk-text-secondary` | `#7d7a75` | `rgba(255,255,255,0.46)` | Secondary text, table headers, descriptions |
+| `--nk-text-tertiary` | `#91918e` | `rgba(255,255,255,0.32)` | Meta, placeholders, section labels |
+| `--nk-text-sidebar` | `#5f5e5b` | `rgba(255,255,255,0.62)` | Tree items, breadcrumbs, topbar buttons — one step darker than secondary, as in Notion |
+| `--nk-border` | `rgba(28,19,1,0.11)` | `rgba(255,255,255,0.094)` | Hairline separators, table grid, input borders |
+| `--nk-border-strong` | `rgba(27,21,0,0.19)` | `rgba(255,255,255,0.16)` | Input hover, scrollbar thumbs, dashed frames, checkboxes |
 | `--nk-accent` | `#2383e2` | `#529CCA` | The one brand colour. Everything accented is mixed from it |
 | `--nk-on-accent` | `#ffffff` | — (inherits) | Text and marks on top of the accent or danger fill |
-| `--nk-danger` | `#eb5757` | — (inherits) | Destructive actions, inline code, negative deltas |
-| `--nk-tag-blue-bg` | `#e7f3f8` | `#133040` | Tag background, also the progress track |
-| `--nk-tag-blue-text` | `#337ea9` | `#529CCA` | Tag text, also the progress fill |
-| `--nk-tag-green-bg` | `#edf3ec` | `#173B2C` | Tag background |
-| `--nk-tag-green-text` | `#448361` | `#4DAB9A` | Tag text, also the positive delta |
-| `--nk-tag-orange-bg` | `#fbecdd` | `#40291B` | Tag background |
-| `--nk-tag-orange-text` | `#d9730d` | `#FFA344` | Tag text, also date mentions and code attributes |
-| `--nk-tag-purple-bg` | `#f6f3f9` | `#2E2440` | Tag background |
-| `--nk-tag-purple-text` | `#9065b0` | `#9A6DD7` | Tag text |
+| `--nk-danger` | `#cd3c3a` | `#df5452` | Destructive actions, inline code, negative deltas |
+| `--nk-tag-gray-bg` | `#e3e2e0` | `#373737` | Tag fill (gray) |
+| `--nk-tag-gray-text` | `#32302c` | `rgba(255,255,255,0.85)` | Tag text (gray), near-black on the fill |
+| `--nk-tag-brown-bg` | `#eee0da` | `#603b2c` | Tag fill (brown) |
+| `--nk-tag-brown-text` | `#442a1e` | `rgba(255,255,255,0.85)` | Tag text (brown), near-black on the fill |
+| `--nk-tag-orange-bg` | `#fadec9` | `#854c1d` | Tag fill (orange) |
+| `--nk-tag-orange-text` | `#49290e` | `rgba(255,255,255,0.85)` | Tag text (orange), near-black on the fill |
+| `--nk-tag-yellow-bg` | `#fdecc8` | `#89632a` | Tag fill (yellow) |
+| `--nk-tag-yellow-text` | `#402c1b` | `rgba(255,255,255,0.85)` | Tag text (yellow), near-black on the fill |
+| `--nk-tag-green-bg` | `#dbeddb` | `#2b593f` | Tag fill (green) |
+| `--nk-tag-green-text` | `#1c3829` | `rgba(255,255,255,0.85)` | Tag text (green), near-black on the fill |
+| `--nk-tag-blue-bg` | `#d3e5ef` | `#28456c` | Tag fill (blue) |
+| `--nk-tag-blue-text` | `#183347` | `rgba(255,255,255,0.85)` | Tag text (blue), near-black on the fill |
+| `--nk-tag-purple-bg` | `#e8deee` | `#492f64` | Tag fill (purple) |
+| `--nk-tag-purple-text` | `#412454` | `rgba(255,255,255,0.85)` | Tag text (purple), near-black on the fill |
+| `--nk-tag-pink-bg` | `#f5e0e9` | `#69314c` | Tag fill (pink) |
+| `--nk-tag-pink-text` | `#4c2337` | `rgba(255,255,255,0.85)` | Tag text (pink), near-black on the fill |
+| `--nk-tag-red-bg` | `#ffe2dd` | `#6e3630` | Tag fill (red) |
+| `--nk-tag-red-text` | `#5d1715` | `rgba(255,255,255,0.85)` | Tag text (red), near-black on the fill |
+| `--nk-tint-gray` | `#f1f1ef` | `#252525` | Soft gray surface for banners and tinted blocks |
+| `--nk-color-gray` | `#787774` | `#9b9b9b` | Coloured text and marks (gray) |
+| `--nk-tint-brown` | `#f4eeee` | `#2e2724` | Soft brown surface for banners and tinted blocks |
+| `--nk-color-brown` | `#9f6b53` | `#ba856f` | Coloured text and marks (brown) |
+| `--nk-tint-orange` | `#fbecdd` | `#36291f` | Soft orange surface for banners and tinted blocks |
+| `--nk-color-orange` | `#d9730d` | `#c77d48` | Coloured text and marks (orange) — also date mentions and code attributes |
+| `--nk-tint-yellow` | `#fbf3db` | `#372e20` | Soft yellow surface for banners and tinted blocks |
+| `--nk-color-yellow` | `#cb912f` | `#ca8f3d` | Coloured text and marks (yellow) |
+| `--nk-tint-green` | `#edf3ec` | `#242b26` | Soft green surface for banners and tinted blocks |
+| `--nk-color-green` | `#448361` | `#529e72` | Coloured text and marks (green) — also the positive delta |
+| `--nk-tint-blue` | `#e7f3f8` | `#1f282d` | Soft blue surface for banners and tinted blocks — also the progress track |
+| `--nk-color-blue` | `#337ea9` | `#5e87c9` | Coloured text and marks (blue) — also the progress fill |
+| `--nk-tint-purple` | `#f8f3fc` | `#2a2430` | Soft purple surface for banners and tinted blocks |
+| `--nk-color-purple` | `#9065b0` | `#9d68d3` | Coloured text and marks (purple) |
+| `--nk-tint-pink` | `#fcf1f6` | `#2e2328` | Soft pink surface for banners and tinted blocks |
+| `--nk-color-pink` | `#c14c8a` | `#d15796` | Coloured text and marks (pink) |
+| `--nk-tint-red` | `#fdebec` | `#332523` | Soft red surface for banners and tinted blocks |
+| `--nk-color-red` | `#cd3c3a` | `#df5452` | Coloured text and marks (red) |
 | `--nk-decor-purple` | `#9065b0` | — (inherits) | Avatar gradient start and cover. Same in both themes on purpose |
 | `--nk-decor-blue` | `#529cca` | — (inherits) | Avatar gradient end and cover |
 | `--nk-decor-orange` | `#d9730d` | — (inherits) | Cover accent |
@@ -111,6 +141,7 @@ All visual values are custom properties. `:root` holds the light theme, `[data-t
 | `--nk-font-mono` | `ui-monospace, "SF Mono", Menlo, Consolas, monospace` | — (inherits) | Monospace stack for code |
 | `--nk-shadow-menu` | `rgba(15,15,15,0.05) 0px 0px 0px 1px, rgba(15,15,15,0.1) 0px 3px 6px, rgba(15,15,15,0.2) 0px 9px 24px` | `rgba(15,15,15,0.2) 0px 0px 0px 1px, rgba(15,15,15,0.4) 0px 3px 6px, rgba(15,15,15,0.6) 0px 9px 24px` | Three-layer shadow for every floating surface |
 | `--nk-shadow-card` | `0 1px 2px rgba(0,0,0,0.04)` | `none` | Board card lift. `none` in dark mode |
+| `--nk-shadow-btn` | `inset 0 0 0 1px rgba(15,15,15,0.1), 0 1px 2px rgba(15,15,15,0.1)` | `inset 0 0 0 1px rgba(255,255,255,0.1), 0 1px 2px rgba(0,0,0,0.3)` | The white button’s outline: a 1px inset ring plus a 1px drop, no border |
 | `--nk-shadow-knob` | `0 1px 2px rgba(0,0,0,0.2)` | — (inherits) | Switch knob |
 | `--nk-shadow-segment` | `0 1px 2px rgba(0,0,0,0.08)` | — (inherits) | Active segment |
 
@@ -135,17 +166,21 @@ Body text clears WCAG AA in both themes. The secondary layers keep Notion's own 
 
 | Pair | Light | Dark | AA body text |
 |---|---|---|---|
-| `--nk-text / --nk-bg` | 12.26 | 11.78 | ✓ |
-| `--nk-text / --nk-bg-sidebar` | 11.35 | 11.06 | ✓ |
-| `--nk-text-secondary / --nk-bg` | 4.19 | 4.63 | ✗ |
-| `--nk-text-tertiary / --nk-bg` | 2.49 | 2.53 | — |
+| `--nk-text / --nk-bg` | 13.98 | 11.78 | ✓ |
+| `--nk-text / --nk-bg-sidebar` | 13.18 | 11.06 | ✓ |
+| `--nk-text-sidebar / --nk-bg-sidebar` | 6.11 | 7.03 | ✓ |
+| `--nk-text-secondary / --nk-bg` | 4.27 | 4.63 | ✗ |
+| `--nk-text-tertiary / --nk-bg` | 3.16 | 2.91 | — |
 | `--nk-accent / --nk-bg` | 3.88 | 5.83 | — |
 | `--nk-on-accent / --nk-accent` | 3.88 | 3.01 | ✗ |
-| `--nk-danger / --nk-bg` | 3.48 | 5.05 | ✗ |
-| `tag blue` | 3.95 | 4.57 | — |
-| `tag green` | 3.99 | 4.48 | — |
-| `tag orange` | 2.83 | 6.82 | — |
-| `tag purple` | 4.09 | 3.84 | — |
+| `--nk-danger / --nk-bg` | 4.88 | 4.63 | ✓ |
+| `tag gray` | 10.17 | 9.10 | — |
+| `tag blue` | 10.12 | 7.56 | — |
+| `tag green` | 10.41 | 6.37 | — |
+| `tag orange` | 10.18 | 5.49 | — |
+| `tag yellow` | 11.30 | 4.42 | — |
+| `tag purple` | 10.04 | 8.59 | — |
+| `tag red` | 10.74 | 7.30 | — |
 
 ---
 
@@ -454,7 +489,7 @@ A block with a language badge in the corner and two colour hooks — `.tag` take
 
 ### View tabs — `.nk-db-tabs`
 
-The strip above a database. The active tab is marked by a 2px underline in text colour, not by a fill. The `.badge` child carries the row count.
+The strip above a database. The active view sits on the active wash as a pill, the others are plain words — no underline, no rule, as in Notion since 2025. The `.badge` child carries the row count.
 
 ```html
 <div class="nk-database">
@@ -471,7 +506,7 @@ The strip above a database. The active tab is marked by a 2px underline in text 
 
 ### Table view — `.nk-table`
 
-Header cells are quiet and clickable, rows highlight on hover, and every cell is `white-space: nowrap` so columns keep their shape. `.nk-new-row` is the add affordance at the bottom (inside `.nk-table` the short form `.new-row` still works).
+36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is `white-space: nowrap` so columns keep their shape; `.wrap` on the table or on a cell lets text break, like Notion's “wrap column”. `.nk-new-row` is the add affordance at the bottom (inside `.nk-table` the short form `.new-row` still works).
 
 ```html
 <div class="nk-table-wrap"><table class="nk-table">
@@ -489,27 +524,36 @@ Header cells are quiet and clickable, rows highlight on hover, and every cell is
         <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
         <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
+    <tr><td><span class="row-title">📣 Launch</span></td><td><span class="nk-tag yellow">Planned</span></td>
+        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-orange)">MK</span>Mia</span></td>
+        <td class="date-cell">02.06.2026</td>
+        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td></tr>
   </tbody>
 </table>
 <div class="nk-new-row">＋ ＋ New page</div></div>
 ```
 
-- **Classes:** `.nk-table-wrap`, `.nk-table`, `.th-icon`, `.row-title`, `.date-cell`, `.person-cell`, `.nk-new-row`
+- **Classes:** `.nk-table-wrap`, `.nk-table`, `.wrap`, `.th-icon`, `.row-title`, `.date-cell`, `.person-cell`, `.nk-new-row`
 - **On a small screen:** This is the key one: `nk-table-wrap` scrolls horizontally so the table never forces the page wider. Always wrap the table.
 
 ### Tags — `.nk-tag`
 
-Four semantic colours, each a background/text pair per theme. The pairs are tuned separately for light and dark rather than being derived by opacity.
+The select option as Notion draws it: 20px tall, 3px corners, the cell's 14px, near-black text on a saturated fill (≥ 10:1 in light mode). Nine colours, each a background/text pair per theme; without a colour class it is the grey tag. For coloured <em>text</em> use the `--nk-color-*` mid-tones, for a soft surface the `--nk-tint-*` backgrounds.
 
 ```html
-<span class="nk-tag blue">In progress</span>
-<span class="nk-tag green">Done</span>
+<span class="nk-tag">Not started</span>
+<span class="nk-tag brown">Archive</span>
 <span class="nk-tag orange">Planned</span>
+<span class="nk-tag yellow">Review</span>
+<span class="nk-tag green">Done</span>
+<span class="nk-tag blue">In progress</span>
 <span class="nk-tag purple">Design system</span>
+<span class="nk-tag pink">Idea</span>
+<span class="nk-tag red">Blocked</span>
 ```
 
-- **Classes:** `.nk-tag`, `.blue`, `.green`, `.orange`, `.purple`
-- **On a small screen:** Unchanged. Inline-block, so a row of tags wraps.
+- **Classes:** `.nk-tag`, `.gray`, `.brown`, `.orange`, `.yellow`, `.green`, `.blue`, `.purple`, `.pink`, `.red`
+- **On a small screen:** Unchanged. Inline-flex with an ellipsis, so a long option is cut rather than the column widened.
 
 ### Progress bar — `.nk-progress`
 
@@ -551,7 +595,7 @@ Fixed 220px columns in a horizontally scrolling row. `nk-board` is `display:none
 
 ### Inputs, textarea, select — `.nk-input`
 
-One shared shape for all three. The focus ring is `color-mix(in srgb, var(--nk-accent) 25%, transparent)`, so it re-brands with the accent. `.wide` makes an input fill its row.
+One shared shape for all three: filled with `--nk-bg-input` inside a hairline, 32px tall at 14px — Notion's input, not an outlined white box. The focus ring is mixed from the accent, so it re-brands with it. `.wide` makes an input fill its row.
 
 ```html
 <div>
@@ -566,7 +610,7 @@ One shared shape for all three. The focus ring is `color-mix(in srgb, var(--nk-a
 
 ### Buttons — `.nk-btn`
 
-Five variants. Hover is an opacity shift on the filled ones and a background wash on the outlined ones — never a hue change. `.small` combines with any variant.
+Five variants, 28px tall at 14px. `.secondary` and `.danger` are Notion's white button: the outline is `--nk-shadow-btn`, a 1px inset ring plus a 1px drop, not a border. Hover is an opacity shift on the filled ones and a wash on the white ones — never a hue change. `.small` (24px) combines with any variant.
 
 ```html
 <div>
@@ -579,7 +623,7 @@ Five variants. Hover is an opacity shift on the filled ones and a background was
 ```
 
 - **Classes:** `.nk-btn`, `.primary`, `.secondary`, `.danger`, `.danger-solid`, `.small`
-- **On a small screen:** Height lands near 30px, under the 44px touch target. Raise the padding for touch-first screens.
+- **On a small screen:** Height lands at 28px, under the 44px touch target. Raise the padding for touch-first screens.
 
 ### Switch — `.nk-switch`
 
@@ -967,15 +1011,16 @@ A small set of mutually exclusive options. The active segment lifts out of the t
 
 ### Banner — `.nk-banner`
 
-A full-width notice in three semantic tones, each reusing a tag colour pair. `.b-action` pushes an underlined action to the right edge.
+A full-width notice in four tones, tinted the way Notion colours a block: a soft `--nk-tint-*` background under the normal text colour. `.b-action` pushes an underlined action to the right edge.
 
 ```html
 <div class="nk-banner info">ℹ️ The “Project overview” database has 2 overdue entries.<span class="b-action">View</span></div>
 <div class="nk-banner success">✅ All changes have been synced.</div>
 <div class="nk-banner warning">⚠️ Your trial ends in 5 days.<span class="b-action">View</span></div>
+<div class="nk-banner danger">⛔ The connection to Notion was lost.</div>
 ```
 
-- **Classes:** `.nk-banner`, `.info`, `.success`, `.warning`, `.b-action`
+- **Classes:** `.nk-banner`, `.info`, `.success`, `.warning`, `.danger`, `.b-action`
 - **On a small screen:** The action stays on the same line; wrap the banner content yourself if it gets crowded.
 
 ### Avatar group — `.nk-avatar-group`
@@ -1131,14 +1176,14 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 
 | Class / attribute | Applies to | Effect |
 |---|---|---|
-| `active` | `nk-tree-item`, `nk-db-tab`, `nk-tab`, `nk-tab-bar-item`, `nk-settings-pane`, `nk-segmented button`, `nk-emoji-cats span`, `nk-board`, `nk-bubble-menu button` | Marks the current item. Tree items get the active background, tabs get the underline, panes become visible. |
+| `active` | `nk-tree-item`, `nk-db-tab`, `nk-tab`, `nk-tab-bar-item`, `nk-settings-pane`, `nk-segmented button`, `nk-emoji-cats span`, `nk-board`, `nk-bubble-menu button` | Marks the current item. Tree items and view tabs get the active background, .nk-tab gets the underline, panes become visible. |
 | `open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-toggle-arrow` | Fades the overlay in and makes it interactive; rotates the toggle arrow by 90°. |
 | `collapsed` | `nk-tree-children` | Folds a subtree away with display: none. |
 | `selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item` | The keyboard-highlighted or chosen option. Distinct from active: selection is transient, active is where you are. |
 | `stacked` | `nk-field` | Label above a full-width control instead of beside it – textareas, long descriptions. |
 | `compact` | `nk-field`, `nk-tree-item`, `nk-select` | The tighter variant: a field with a small tertiary label and no row padding (inside .nk-fields), a 26px tree row, a 120px select. |
 | `scroll` | `nk-segmented` | Scrolls the segments horizontally with the scrollbar hidden, capped at the parent width. |
-| `wrap` | `nk-segmented` | Lets the segments wrap onto further rows. |
+| `wrap` | `nk-segmented`, `nk-table`, `nk-table td` | Lets the segments wrap onto further rows; on a table or a cell, lets cell text break instead of staying on one line. |
 | `fixed` | `nk-tab-bar` | Pins the tab bar to the viewport bottom; a following .nk-tab-bar-spacer keeps its height in the flow. |
 | `covered` | `nk-page` | The page follows a cover: no top padding, the icon overlaps the cover’s bottom edge. Class markup gets this from .nk-cover + .nk-page; <nk-page cover> sets the class. |
 | `always` | `nk-tab-bar` | Shows the tab bar at every width, not only below 860px – for previews and phone frames. |
@@ -1675,11 +1720,11 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` |
-| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-table-wrap` `nk-table` `th-icon` `row-title` `date-cell` `person-cell` `nk-new-row` `nk-tag` `blue` `green` `orange` `purple` `nk-progress` `nk-progress-label` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` |
+| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-toast` `show` |
-| Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` |
+| Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` |
 | Collaboration & AI | `nk-comments` `nk-comment` `c-head` `c-body` `nk-comment-input` `nk-ai-thread` `nk-ai-msg` `user` `a-name` `a-body` `nk-ai-actions` `nk-ai-input-row` `nk-ai-send` |
 | Editor adapter | `nk-block-host` `nk-block-handle` `nk-block-actions` `nk-drop-target` `nk-slash-menu` `nk-slash-menu-label` `nk-slash-item` `selected` `nk-bubble-menu` |
 
@@ -1738,4 +1783,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.4.1 · MIT · Jungherz GmbH*
+*NotionKit v1.5.0 · MIT · Jungherz GmbH*

@@ -250,28 +250,58 @@
         <thead><tr><th>Token</th><th>Light</th><th>Dark</th><th>What it is</th></tr></thead>
         <tbody>
         <tr><td><code>--nk-bg</code></td><td><span class="sw" style="background:#ffffff"></span><code>#ffffff</code></td><td><span class="sw" style="background:#191919"></span><code>#191919</code></td><td>Page background</td></tr>
-        <tr><td><code>--nk-bg-sidebar</code></td><td><span class="sw" style="background:#f7f6f3"></span><code>#f7f6f3</code></td><td><span class="sw" style="background:#202020"></span><code>#202020</code></td><td>Sidebar and settings nav</td></tr>
-        <tr><td><code>--nk-bg-hover</code></td><td><span class="sw" style="background:rgba(0,0,0,0.045)"></span><code>rgba(0,0,0,0.045)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.055)"></span><code>rgba(255,255,255,0.055)</code></td><td>Hover wash — a darkening, never a hue change</td></tr>
-        <tr><td><code>--nk-bg-active</code></td><td><span class="sw" style="background:rgba(0,0,0,0.06)"></span><code>rgba(0,0,0,0.06)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.08)"></span><code>rgba(255,255,255,0.08)</code></td><td>Active/selected row</td></tr>
-        <tr><td><code>--nk-bg-callout</code></td><td><span class="sw" style="background:#f1f1ef"></span><code>#f1f1ef</code></td><td><span class="sw" style="background:#252525"></span><code>#252525</code></td><td>Callouts, badges, key caps, segmented track</td></tr>
+        <tr><td><code>--nk-bg-sidebar</code></td><td><span class="sw" style="background:#f9f8f7"></span><code>#f9f8f7</code></td><td><span class="sw" style="background:#202020"></span><code>#202020</code></td><td>Sidebar and settings nav</td></tr>
+        <tr><td><code>--nk-bg-hover</code></td><td><span class="sw" style="background:rgba(55,53,47,0.06)"></span><code>rgba(55,53,47,0.06)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.055)"></span><code>rgba(255,255,255,0.055)</code></td><td>Hover wash — a darkening, never a hue change</td></tr>
+        <tr><td><code>--nk-bg-active</code></td><td><span class="sw" style="background:rgba(55,53,47,0.08)"></span><code>rgba(55,53,47,0.08)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.08)"></span><code>rgba(255,255,255,0.08)</code></td><td>Active/selected row</td></tr>
+        <tr><td><code>--nk-bg-callout</code></td><td><span class="sw" style="background:#f0efed"></span><code>#f0efed</code></td><td><span class="sw" style="background:#252525"></span><code>#252525</code></td><td>Callouts, badges, key caps, segmented track</td></tr>
         <tr><td><code>--nk-bg-code</code></td><td><span class="sw" style="background:#f7f6f3"></span><code>#f7f6f3</code></td><td><span class="sw" style="background:#202020"></span><code>#202020</code></td><td>Code block background</td></tr>
-        <tr><td><code>--nk-bg-card</code></td><td><span class="sw" style="background:#ffffff"></span><code>#ffffff</code></td><td><span class="sw" style="background:#202020"></span><code>#202020</code></td><td>Board cards — separate from --nk-bg so dark mode can lift them</td></tr>
-        <tr><td><code>--nk-text</code></td><td><span class="sw" style="background:#37352f"></span><code>#37352f</code></td><td><span class="sw" style="background:rgba(255,255,255,0.81)"></span><code>rgba(255,255,255,0.81)</code></td><td>Body text. Never pure black</td></tr>
-        <tr><td><code>--nk-text-secondary</code></td><td><span class="sw" style="background:rgba(55,53,47,0.65)"></span><code>rgba(55,53,47,0.65)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.46)"></span><code>rgba(255,255,255,0.46)</code></td><td>Secondary text, inactive tree items</td></tr>
-        <tr><td><code>--nk-text-tertiary</code></td><td><span class="sw" style="background:rgba(55,53,47,0.45)"></span><code>rgba(55,53,47,0.45)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.28)"></span><code>rgba(255,255,255,0.28)</code></td><td>Meta, placeholders, captions</td></tr>
-        <tr><td><code>--nk-border</code></td><td><span class="sw" style="background:rgba(55,53,47,0.09)"></span><code>rgba(55,53,47,0.09)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.094)"></span><code>rgba(255,255,255,0.094)</code></td><td>Hairline separators</td></tr>
-        <tr><td><code>--nk-border-strong</code></td><td><span class="sw" style="background:rgba(55,53,47,0.16)"></span><code>rgba(55,53,47,0.16)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.16)"></span><code>rgba(255,255,255,0.16)</code></td><td>Input borders, scrollbar thumbs, dashed frames</td></tr>
+        <tr><td><code>--nk-bg-card</code></td><td><span class="sw" style="background:#ffffff"></span><code>#ffffff</code></td><td><span class="sw" style="background:#202020"></span><code>#202020</code></td><td>Board cards and white buttons — separate from --nk-bg so dark mode can lift them</td></tr>
+        <tr><td><code>--nk-bg-input</code></td><td><span class="sw" style="background:rgba(242,241,238,0.6)"></span><code>rgba(242,241,238,0.6)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.055)"></span><code>rgba(255,255,255,0.055)</code></td><td>The filled input surface: inputs, selects, textareas, the emoji search</td></tr>
+        <tr><td><code>--nk-text</code></td><td><span class="sw" style="background:#2c2c2b"></span><code>#2c2c2b</code></td><td><span class="sw" style="background:rgba(255,255,255,0.81)"></span><code>rgba(255,255,255,0.81)</code></td><td>Body text. Never pure black</td></tr>
+        <tr><td><code>--nk-text-secondary</code></td><td><span class="sw" style="background:#7d7a75"></span><code>#7d7a75</code></td><td><span class="sw" style="background:rgba(255,255,255,0.46)"></span><code>rgba(255,255,255,0.46)</code></td><td>Secondary text, table headers, descriptions</td></tr>
+        <tr><td><code>--nk-text-tertiary</code></td><td><span class="sw" style="background:#91918e"></span><code>#91918e</code></td><td><span class="sw" style="background:rgba(255,255,255,0.32)"></span><code>rgba(255,255,255,0.32)</code></td><td>Meta, placeholders, section labels</td></tr>
+        <tr><td><code>--nk-text-sidebar</code></td><td><span class="sw" style="background:#5f5e5b"></span><code>#5f5e5b</code></td><td><span class="sw" style="background:rgba(255,255,255,0.62)"></span><code>rgba(255,255,255,0.62)</code></td><td>Tree items, breadcrumbs, topbar buttons — one step darker than secondary, as in Notion</td></tr>
+        <tr><td><code>--nk-border</code></td><td><span class="sw" style="background:rgba(28,19,1,0.11)"></span><code>rgba(28,19,1,0.11)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.094)"></span><code>rgba(255,255,255,0.094)</code></td><td>Hairline separators, table grid, input borders</td></tr>
+        <tr><td><code>--nk-border-strong</code></td><td><span class="sw" style="background:rgba(27,21,0,0.19)"></span><code>rgba(27,21,0,0.19)</code></td><td><span class="sw" style="background:rgba(255,255,255,0.16)"></span><code>rgba(255,255,255,0.16)</code></td><td>Input hover, scrollbar thumbs, dashed frames, checkboxes</td></tr>
         <tr><td><code>--nk-accent</code></td><td><span class="sw" style="background:#2383e2"></span><code>#2383e2</code></td><td><span class="sw" style="background:#529CCA"></span><code>#529CCA</code></td><td>The one brand colour. Everything accented is mixed from it</td></tr>
         <tr><td><code>--nk-on-accent</code></td><td><span class="sw" style="background:#ffffff"></span><code>#ffffff</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Text and marks on top of the accent or danger fill</td></tr>
-        <tr><td><code>--nk-danger</code></td><td><span class="sw" style="background:#eb5757"></span><code>#eb5757</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Destructive actions, inline code, negative deltas</td></tr>
-        <tr><td><code>--nk-tag-blue-bg</code></td><td><span class="sw" style="background:#e7f3f8"></span><code>#e7f3f8</code></td><td><span class="sw" style="background:#133040"></span><code>#133040</code></td><td>Tag background, also the progress track</td></tr>
-        <tr><td><code>--nk-tag-blue-text</code></td><td><span class="sw" style="background:#337ea9"></span><code>#337ea9</code></td><td><span class="sw" style="background:#529CCA"></span><code>#529CCA</code></td><td>Tag text, also the progress fill</td></tr>
-        <tr><td><code>--nk-tag-green-bg</code></td><td><span class="sw" style="background:#edf3ec"></span><code>#edf3ec</code></td><td><span class="sw" style="background:#173B2C"></span><code>#173B2C</code></td><td>Tag background</td></tr>
-        <tr><td><code>--nk-tag-green-text</code></td><td><span class="sw" style="background:#448361"></span><code>#448361</code></td><td><span class="sw" style="background:#4DAB9A"></span><code>#4DAB9A</code></td><td>Tag text, also the positive delta</td></tr>
-        <tr><td><code>--nk-tag-orange-bg</code></td><td><span class="sw" style="background:#fbecdd"></span><code>#fbecdd</code></td><td><span class="sw" style="background:#40291B"></span><code>#40291B</code></td><td>Tag background</td></tr>
-        <tr><td><code>--nk-tag-orange-text</code></td><td><span class="sw" style="background:#d9730d"></span><code>#d9730d</code></td><td><span class="sw" style="background:#FFA344"></span><code>#FFA344</code></td><td>Tag text, also date mentions and code attributes</td></tr>
-        <tr><td><code>--nk-tag-purple-bg</code></td><td><span class="sw" style="background:#f6f3f9"></span><code>#f6f3f9</code></td><td><span class="sw" style="background:#2E2440"></span><code>#2E2440</code></td><td>Tag background</td></tr>
-        <tr><td><code>--nk-tag-purple-text</code></td><td><span class="sw" style="background:#9065b0"></span><code>#9065b0</code></td><td><span class="sw" style="background:#9A6DD7"></span><code>#9A6DD7</code></td><td>Tag text</td></tr>
+        <tr><td><code>--nk-danger</code></td><td><span class="sw" style="background:#cd3c3a"></span><code>#cd3c3a</code></td><td><span class="sw" style="background:#df5452"></span><code>#df5452</code></td><td>Destructive actions, inline code, negative deltas</td></tr>
+        <tr><td><code>--nk-tag-gray-bg</code></td><td><span class="sw" style="background:#e3e2e0"></span><code>#e3e2e0</code></td><td><span class="sw" style="background:#373737"></span><code>#373737</code></td><td>Tag fill (gray)</td></tr>
+        <tr><td><code>--nk-tag-gray-text</code></td><td><span class="sw" style="background:#32302c"></span><code>#32302c</code></td><td><span class="sw" style="background:rgba(255,255,255,0.85)"></span><code>rgba(255,255,255,0.85)</code></td><td>Tag text (gray), near-black on the fill</td></tr>
+        <tr><td><code>--nk-tag-brown-bg</code></td><td><span class="sw" style="background:#eee0da"></span><code>#eee0da</code></td><td><span class="sw" style="background:#603b2c"></span><code>#603b2c</code></td><td>Tag fill (brown)</td></tr>
+        <tr><td><code>--nk-tag-brown-text</code></td><td><span class="sw" style="background:#442a1e"></span><code>#442a1e</code></td><td><span class="sw" style="background:rgba(255,255,255,0.85)"></span><code>rgba(255,255,255,0.85)</code></td><td>Tag text (brown), near-black on the fill</td></tr>
+        <tr><td><code>--nk-tag-orange-bg</code></td><td><span class="sw" style="background:#fadec9"></span><code>#fadec9</code></td><td><span class="sw" style="background:#854c1d"></span><code>#854c1d</code></td><td>Tag fill (orange)</td></tr>
+        <tr><td><code>--nk-tag-orange-text</code></td><td><span class="sw" style="background:#49290e"></span><code>#49290e</code></td><td><span class="sw" style="background:rgba(255,255,255,0.85)"></span><code>rgba(255,255,255,0.85)</code></td><td>Tag text (orange), near-black on the fill</td></tr>
+        <tr><td><code>--nk-tag-yellow-bg</code></td><td><span class="sw" style="background:#fdecc8"></span><code>#fdecc8</code></td><td><span class="sw" style="background:#89632a"></span><code>#89632a</code></td><td>Tag fill (yellow)</td></tr>
+        <tr><td><code>--nk-tag-yellow-text</code></td><td><span class="sw" style="background:#402c1b"></span><code>#402c1b</code></td><td><span class="sw" style="background:rgba(255,255,255,0.85)"></span><code>rgba(255,255,255,0.85)</code></td><td>Tag text (yellow), near-black on the fill</td></tr>
+        <tr><td><code>--nk-tag-green-bg</code></td><td><span class="sw" style="background:#dbeddb"></span><code>#dbeddb</code></td><td><span class="sw" style="background:#2b593f"></span><code>#2b593f</code></td><td>Tag fill (green)</td></tr>
+        <tr><td><code>--nk-tag-green-text</code></td><td><span class="sw" style="background:#1c3829"></span><code>#1c3829</code></td><td><span class="sw" style="background:rgba(255,255,255,0.85)"></span><code>rgba(255,255,255,0.85)</code></td><td>Tag text (green), near-black on the fill</td></tr>
+        <tr><td><code>--nk-tag-blue-bg</code></td><td><span class="sw" style="background:#d3e5ef"></span><code>#d3e5ef</code></td><td><span class="sw" style="background:#28456c"></span><code>#28456c</code></td><td>Tag fill (blue)</td></tr>
+        <tr><td><code>--nk-tag-blue-text</code></td><td><span class="sw" style="background:#183347"></span><code>#183347</code></td><td><span class="sw" style="background:rgba(255,255,255,0.85)"></span><code>rgba(255,255,255,0.85)</code></td><td>Tag text (blue), near-black on the fill</td></tr>
+        <tr><td><code>--nk-tag-purple-bg</code></td><td><span class="sw" style="background:#e8deee"></span><code>#e8deee</code></td><td><span class="sw" style="background:#492f64"></span><code>#492f64</code></td><td>Tag fill (purple)</td></tr>
+        <tr><td><code>--nk-tag-purple-text</code></td><td><span class="sw" style="background:#412454"></span><code>#412454</code></td><td><span class="sw" style="background:rgba(255,255,255,0.85)"></span><code>rgba(255,255,255,0.85)</code></td><td>Tag text (purple), near-black on the fill</td></tr>
+        <tr><td><code>--nk-tag-pink-bg</code></td><td><span class="sw" style="background:#f5e0e9"></span><code>#f5e0e9</code></td><td><span class="sw" style="background:#69314c"></span><code>#69314c</code></td><td>Tag fill (pink)</td></tr>
+        <tr><td><code>--nk-tag-pink-text</code></td><td><span class="sw" style="background:#4c2337"></span><code>#4c2337</code></td><td><span class="sw" style="background:rgba(255,255,255,0.85)"></span><code>rgba(255,255,255,0.85)</code></td><td>Tag text (pink), near-black on the fill</td></tr>
+        <tr><td><code>--nk-tag-red-bg</code></td><td><span class="sw" style="background:#ffe2dd"></span><code>#ffe2dd</code></td><td><span class="sw" style="background:#6e3630"></span><code>#6e3630</code></td><td>Tag fill (red)</td></tr>
+        <tr><td><code>--nk-tag-red-text</code></td><td><span class="sw" style="background:#5d1715"></span><code>#5d1715</code></td><td><span class="sw" style="background:rgba(255,255,255,0.85)"></span><code>rgba(255,255,255,0.85)</code></td><td>Tag text (red), near-black on the fill</td></tr>
+        <tr><td><code>--nk-tint-gray</code></td><td><span class="sw" style="background:#f1f1ef"></span><code>#f1f1ef</code></td><td><span class="sw" style="background:#252525"></span><code>#252525</code></td><td>Soft gray surface for banners and tinted blocks</td></tr>
+        <tr><td><code>--nk-color-gray</code></td><td><span class="sw" style="background:#787774"></span><code>#787774</code></td><td><span class="sw" style="background:#9b9b9b"></span><code>#9b9b9b</code></td><td>Coloured text and marks (gray)</td></tr>
+        <tr><td><code>--nk-tint-brown</code></td><td><span class="sw" style="background:#f4eeee"></span><code>#f4eeee</code></td><td><span class="sw" style="background:#2e2724"></span><code>#2e2724</code></td><td>Soft brown surface for banners and tinted blocks</td></tr>
+        <tr><td><code>--nk-color-brown</code></td><td><span class="sw" style="background:#9f6b53"></span><code>#9f6b53</code></td><td><span class="sw" style="background:#ba856f"></span><code>#ba856f</code></td><td>Coloured text and marks (brown)</td></tr>
+        <tr><td><code>--nk-tint-orange</code></td><td><span class="sw" style="background:#fbecdd"></span><code>#fbecdd</code></td><td><span class="sw" style="background:#36291f"></span><code>#36291f</code></td><td>Soft orange surface for banners and tinted blocks</td></tr>
+        <tr><td><code>--nk-color-orange</code></td><td><span class="sw" style="background:#d9730d"></span><code>#d9730d</code></td><td><span class="sw" style="background:#c77d48"></span><code>#c77d48</code></td><td>Coloured text and marks (orange) — also date mentions and code attributes</td></tr>
+        <tr><td><code>--nk-tint-yellow</code></td><td><span class="sw" style="background:#fbf3db"></span><code>#fbf3db</code></td><td><span class="sw" style="background:#372e20"></span><code>#372e20</code></td><td>Soft yellow surface for banners and tinted blocks</td></tr>
+        <tr><td><code>--nk-color-yellow</code></td><td><span class="sw" style="background:#cb912f"></span><code>#cb912f</code></td><td><span class="sw" style="background:#ca8f3d"></span><code>#ca8f3d</code></td><td>Coloured text and marks (yellow)</td></tr>
+        <tr><td><code>--nk-tint-green</code></td><td><span class="sw" style="background:#edf3ec"></span><code>#edf3ec</code></td><td><span class="sw" style="background:#242b26"></span><code>#242b26</code></td><td>Soft green surface for banners and tinted blocks</td></tr>
+        <tr><td><code>--nk-color-green</code></td><td><span class="sw" style="background:#448361"></span><code>#448361</code></td><td><span class="sw" style="background:#529e72"></span><code>#529e72</code></td><td>Coloured text and marks (green) — also the positive delta</td></tr>
+        <tr><td><code>--nk-tint-blue</code></td><td><span class="sw" style="background:#e7f3f8"></span><code>#e7f3f8</code></td><td><span class="sw" style="background:#1f282d"></span><code>#1f282d</code></td><td>Soft blue surface for banners and tinted blocks — also the progress track</td></tr>
+        <tr><td><code>--nk-color-blue</code></td><td><span class="sw" style="background:#337ea9"></span><code>#337ea9</code></td><td><span class="sw" style="background:#5e87c9"></span><code>#5e87c9</code></td><td>Coloured text and marks (blue) — also the progress fill</td></tr>
+        <tr><td><code>--nk-tint-purple</code></td><td><span class="sw" style="background:#f8f3fc"></span><code>#f8f3fc</code></td><td><span class="sw" style="background:#2a2430"></span><code>#2a2430</code></td><td>Soft purple surface for banners and tinted blocks</td></tr>
+        <tr><td><code>--nk-color-purple</code></td><td><span class="sw" style="background:#9065b0"></span><code>#9065b0</code></td><td><span class="sw" style="background:#9d68d3"></span><code>#9d68d3</code></td><td>Coloured text and marks (purple)</td></tr>
+        <tr><td><code>--nk-tint-pink</code></td><td><span class="sw" style="background:#fcf1f6"></span><code>#fcf1f6</code></td><td><span class="sw" style="background:#2e2328"></span><code>#2e2328</code></td><td>Soft pink surface for banners and tinted blocks</td></tr>
+        <tr><td><code>--nk-color-pink</code></td><td><span class="sw" style="background:#c14c8a"></span><code>#c14c8a</code></td><td><span class="sw" style="background:#d15796"></span><code>#d15796</code></td><td>Coloured text and marks (pink)</td></tr>
+        <tr><td><code>--nk-tint-red</code></td><td><span class="sw" style="background:#fdebec"></span><code>#fdebec</code></td><td><span class="sw" style="background:#332523"></span><code>#332523</code></td><td>Soft red surface for banners and tinted blocks</td></tr>
+        <tr><td><code>--nk-color-red</code></td><td><span class="sw" style="background:#cd3c3a"></span><code>#cd3c3a</code></td><td><span class="sw" style="background:#df5452"></span><code>#df5452</code></td><td>Coloured text and marks (red)</td></tr>
         <tr><td><code>--nk-decor-purple</code></td><td><span class="sw" style="background:#9065b0"></span><code>#9065b0</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Avatar gradient start and cover. Same in both themes on purpose</td></tr>
         <tr><td><code>--nk-decor-blue</code></td><td><span class="sw" style="background:#529cca"></span><code>#529cca</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Avatar gradient end and cover</td></tr>
         <tr><td><code>--nk-decor-orange</code></td><td><span class="sw" style="background:#d9730d"></span><code>#d9730d</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Cover accent</td></tr>
@@ -284,6 +314,7 @@
         <tr><td><code>--nk-font-mono</code></td><td><code>ui-monospace, "SF Mono", Menlo, Consolas, monospace</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Monospace stack for code</td></tr>
         <tr><td><code>--nk-shadow-menu</code></td><td><span class="sw" style="background:rgba(15,15,15,0.05) 0px 0px 0px 1px, rgba(15,15,15,0.1) 0px 3px 6px, rgba(15,15,15,0.2) 0px 9px 24px"></span><code>rgba(15,15,15,0.05) 0px 0px 0px 1px, rgba(15,15,15,0.1) 0px 3px 6px, rgba(15,15,15,0.2) 0px 9px 24px</code></td><td><span class="sw" style="background:rgba(15,15,15,0.2) 0px 0px 0px 1px, rgba(15,15,15,0.4) 0px 3px 6px, rgba(15,15,15,0.6) 0px 9px 24px"></span><code>rgba(15,15,15,0.2) 0px 0px 0px 1px, rgba(15,15,15,0.4) 0px 3px 6px, rgba(15,15,15,0.6) 0px 9px 24px</code></td><td>Three-layer shadow for every floating surface</td></tr>
         <tr><td><code>--nk-shadow-card</code></td><td><code>0 1px 2px rgba(0,0,0,0.04)</code></td><td><code>none</code></td><td>Board card lift. `none` in dark mode</td></tr>
+        <tr><td><code>--nk-shadow-btn</code></td><td><code>inset 0 0 0 1px rgba(15,15,15,0.1), 0 1px 2px rgba(15,15,15,0.1)</code></td><td><code>inset 0 0 0 1px rgba(255,255,255,0.1), 0 1px 2px rgba(0,0,0,0.3)</code></td><td>The white button’s outline: a 1px inset ring plus a 1px drop, no border</td></tr>
         <tr><td><code>--nk-shadow-knob</code></td><td><code>0 1px 2px rgba(0,0,0,0.2)</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Switch knob</td></tr>
         <tr><td><code>--nk-shadow-segment</code></td><td><code>0 1px 2px rgba(0,0,0,0.08)</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Active segment</td></tr>
         </tbody>
@@ -309,14 +340,14 @@
       <p class="doc-note">NotionKit ships states, not behaviour. Add and remove these classes yourself; there is no JavaScript in the library.</p>
       <div class="doc-table-wrap"><table class="doc-table">
         <thead><tr><th>Class</th><th>Applies to</th><th>Effect</th></tr></thead>
-        <tbody><tr><td><code>.active</code></td><td><code>nk-tree-item</code> <code>nk-db-tab</code> <code>nk-tab</code> <code>nk-tab-bar-item</code> <code>nk-settings-pane</code> <code>nk-segmented button</code> <code>nk-emoji-cats span</code> <code>nk-board</code> <code>nk-bubble-menu button</code></td><td>Marks the current item. Tree items get the active background, tabs get the underline, panes become visible.</td></tr>
+        <tbody><tr><td><code>.active</code></td><td><code>nk-tree-item</code> <code>nk-db-tab</code> <code>nk-tab</code> <code>nk-tab-bar-item</code> <code>nk-settings-pane</code> <code>nk-segmented button</code> <code>nk-emoji-cats span</code> <code>nk-board</code> <code>nk-bubble-menu button</code></td><td>Marks the current item. Tree items and view tabs get the active background, .nk-tab gets the underline, panes become visible.</td></tr>
         <tr><td><code>.open</code></td><td><code>nk-modal-backdrop</code> <code>nk-cmdk-backdrop</code> <code>nk-toggle-arrow</code></td><td>Fades the overlay in and makes it interactive; rotates the toggle arrow by 90°.</td></tr>
         <tr><td><code>.collapsed</code></td><td><code>nk-tree-children</code></td><td>Folds a subtree away with display: none.</td></tr>
         <tr><td><code>.selected</code></td><td><code>nk-cmdk-item</code> <code>nk-model-card</code> <code>nk-slash-item</code></td><td>The keyboard-highlighted or chosen option. Distinct from active: selection is transient, active is where you are.</td></tr>
         <tr><td><code>.stacked</code></td><td><code>nk-field</code></td><td>Label above a full-width control instead of beside it – textareas, long descriptions.</td></tr>
         <tr><td><code>.compact</code></td><td><code>nk-field</code> <code>nk-tree-item</code> <code>nk-select</code></td><td>The tighter variant: a field with a small tertiary label and no row padding (inside .nk-fields), a 26px tree row, a 120px select.</td></tr>
         <tr><td><code>.scroll</code></td><td><code>nk-segmented</code></td><td>Scrolls the segments horizontally with the scrollbar hidden, capped at the parent width.</td></tr>
-        <tr><td><code>.wrap</code></td><td><code>nk-segmented</code></td><td>Lets the segments wrap onto further rows.</td></tr>
+        <tr><td><code>.wrap</code></td><td><code>nk-segmented</code> <code>nk-table</code> <code>nk-table td</code></td><td>Lets the segments wrap onto further rows; on a table or a cell, lets cell text break instead of staying on one line.</td></tr>
         <tr><td><code>.fixed</code></td><td><code>nk-tab-bar</code></td><td>Pins the tab bar to the viewport bottom; a following .nk-tab-bar-spacer keeps its height in the flow.</td></tr>
         <tr><td><code>.covered</code></td><td><code>nk-page</code></td><td>The page follows a cover: no top padding, the icon overlaps the cover’s bottom edge. Class markup gets this from .nk-cover + .nk-page; <nk-page cover> sets the class.</td></tr>
         <tr><td><code>.always</code></td><td><code>nk-tab-bar</code></td><td>Shows the tab bar at every width, not only below 860px – for previews and phone frames.</td></tr>
@@ -332,17 +363,21 @@
       <p class="doc-note">Measured contrast ratios for the default palette against the surface each pair actually sits on. Body text clears WCAG AA comfortably in both themes. Secondary and tertiary text, the tag pairs, the primary button label and the danger colour sit below 4.5:1 — these are Notion’s own values, kept deliberately.</p>
       <div class="doc-table-wrap"><table class="doc-table">
         <thead><tr><th>Pair</th><th>Light</th><th>Dark</th><th>AA body text</th></tr></thead>
-        <tbody><tr><td><code>--nk-text / --nk-bg</code></td><td><span class="pass">12.26</span></td><td><span class="pass">11.78</span></td><td><span class="pass">✓</span></td></tr>
-        <tr><td><code>--nk-text / --nk-bg-sidebar</code></td><td><span class="pass">11.35</span></td><td><span class="pass">11.06</span></td><td><span class="pass">✓</span></td></tr>
-        <tr><td><code>--nk-text-secondary / --nk-bg</code></td><td><span class="warn">4.19</span></td><td><span class="pass">4.63</span></td><td><span class="warn">✗</span></td></tr>
-        <tr><td><code>--nk-text-tertiary / --nk-bg</code></td><td><span class="warn">2.49</span></td><td><span class="warn">2.53</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
+        <tbody><tr><td><code>--nk-text / --nk-bg</code></td><td><span class="pass">13.98</span></td><td><span class="pass">11.78</span></td><td><span class="pass">✓</span></td></tr>
+        <tr><td><code>--nk-text / --nk-bg-sidebar</code></td><td><span class="pass">13.18</span></td><td><span class="pass">11.06</span></td><td><span class="pass">✓</span></td></tr>
+        <tr><td><code>--nk-text-sidebar / --nk-bg-sidebar</code></td><td><span class="pass">6.11</span></td><td><span class="pass">7.03</span></td><td><span class="pass">✓</span></td></tr>
+        <tr><td><code>--nk-text-secondary / --nk-bg</code></td><td><span class="warn">4.27</span></td><td><span class="pass">4.63</span></td><td><span class="warn">✗</span></td></tr>
+        <tr><td><code>--nk-text-tertiary / --nk-bg</code></td><td><span class="warn">3.16</span></td><td><span class="warn">2.91</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
         <tr><td><code>--nk-accent / --nk-bg</code></td><td><span class="warn">3.88</span></td><td><span class="pass">5.83</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
         <tr><td><code>--nk-on-accent / --nk-accent</code></td><td><span class="warn">3.88</span></td><td><span class="warn">3.01</span></td><td><span class="warn">✗</span></td></tr>
-        <tr><td><code>--nk-danger / --nk-bg</code></td><td><span class="warn">3.48</span></td><td><span class="pass">5.05</span></td><td><span class="warn">✗</span></td></tr>
-        <tr><td><code>tag blue</code></td><td><span class="warn">3.95</span></td><td><span class="pass">4.57</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
-        <tr><td><code>tag green</code></td><td><span class="warn">3.99</span></td><td><span class="warn">4.48</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
-        <tr><td><code>tag orange</code></td><td><span class="warn">2.83</span></td><td><span class="pass">6.82</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
-        <tr><td><code>tag purple</code></td><td><span class="warn">4.09</span></td><td><span class="warn">3.84</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr></tbody>
+        <tr><td><code>--nk-danger / --nk-bg</code></td><td><span class="pass">4.88</span></td><td><span class="pass">4.63</span></td><td><span class="pass">✓</span></td></tr>
+        <tr><td><code>tag gray</code></td><td><span class="pass">10.17</span></td><td><span class="pass">9.10</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
+        <tr><td><code>tag blue</code></td><td><span class="pass">10.12</span></td><td><span class="pass">7.56</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
+        <tr><td><code>tag green</code></td><td><span class="pass">10.41</span></td><td><span class="pass">6.37</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
+        <tr><td><code>tag orange</code></td><td><span class="pass">10.18</span></td><td><span class="pass">5.49</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
+        <tr><td><code>tag yellow</code></td><td><span class="pass">11.30</span></td><td><span class="warn">4.42</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
+        <tr><td><code>tag purple</code></td><td><span class="pass">10.04</span></td><td><span class="pass">8.59</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr>
+        <tr><td><code>tag red</code></td><td><span class="pass">10.74</span></td><td><span class="pass">7.30</span></td><td><span style="color:var(--nk-text-tertiary)">—</span></td></tr></tbody>
       </table></div>
       <p class="doc-note">If your project needs AA everywhere, <code class="nk-inline-code">theme-override.css</code> ships a ready high-contrast block: uncomment it and the failing pairs are lifted, with the rest of the design untouched.</p>
     </section>
@@ -779,7 +814,7 @@ class NkCallout extends HTMLElement {
       <div class="prd">PRD 5.5</div>
       <article class="doc-entry" id="nk-db-tabs">
         <h3>View tabs <code>.nk-db-tabs</code></h3>
-        <p class="doc-desc">The strip above a database. The active tab is marked by a 2px underline in text colour, not by a fill. The <code>.badge</code> child carries the row count.</p>
+        <p class="doc-desc">The strip above a database. The active view sits on the active wash as a pill, the others are plain words — no underline, no rule, as in Notion since 2025. The <code>.badge</code> child carries the row count.</p>
         <div class="doc-preview"><div class="nk-database">
   <div class="nk-db-tabs">
     <div class="nk-db-tab active">▦ Table<span class="badge">4</span></div>
@@ -800,7 +835,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-table">
         <h3>Table view <code>.nk-table</code></h3>
-        <p class="doc-desc">Header cells are quiet and clickable, rows highlight on hover, and every cell is <code>white-space: nowrap</code> so columns keep their shape. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).</p>
+        <p class="doc-desc">36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is <code>white-space: nowrap</code> so columns keep their shape; <code>.wrap</code> on the table or on a cell lets text break, like Notion's “wrap column”. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).</p>
         <div class="doc-preview"><div class="nk-table-wrap"><table class="nk-table">
   <thead><tr>
     <th><span class="th-icon">📄</span>Name</th><th><span class="th-icon">◉</span>Status</th>
@@ -816,6 +851,10 @@ class NkCallout extends HTMLElement {
         <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
         <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
+    <tr><td><span class="row-title">📣 Launch</span></td><td><span class="nk-tag yellow">Planned</span></td>
+        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-orange)">MK</span>Mia</span></td>
+        <td class="date-cell">02.06.2026</td>
+        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td></tr>
   </tbody>
 </table>
 <div class="nk-new-row">＋ ＋ New page</div></div></div>
@@ -835,26 +874,40 @@ class NkCallout extends HTMLElement {
         <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"person-cell"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-blue)"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Tom<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
         <span class="tag">&lt;td</span> <span class="attr">class=</span>"date-cell"<span class="tag">&gt;</span>20.05.2026<span class="tag">&lt;/td</span><span class="tag">&gt;</span>
         <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:65%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>65 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;tr</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"row-title"<span class="tag">&gt;</span>📣 Launch<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag yellow"<span class="tag">&gt;</span>Planned<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"person-cell"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-orange)"<span class="tag">&gt;</span>MK<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Mia<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;td</span> <span class="attr">class=</span>"date-cell"<span class="tag">&gt;</span>02.06.2026<span class="tag">&lt;/td</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:10%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>10 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/tbody</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/table</span><span class="tag">&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-new-row"<span class="tag">&gt;</span>＋ ＋ New page<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>This is the key one: <code>nk-table-wrap</code> scrolls horizontally so the table never forces the page wider. Always wrap the table.</span></div>
-        <div class="doc-classes"><code>.nk-table-wrap</code><code>.nk-table</code><code>.th-icon</code><code>.row-title</code><code>.date-cell</code><code>.person-cell</code><code>.nk-new-row</code></div>
+        <div class="doc-classes"><code>.nk-table-wrap</code><code>.nk-table</code><code>.wrap</code><code>.th-icon</code><code>.row-title</code><code>.date-cell</code><code>.person-cell</code><code>.nk-new-row</code></div>
       </article>
       <article class="doc-entry" id="nk-tag">
         <h3>Tags <code>.nk-tag</code></h3>
-        <p class="doc-desc">Four semantic colours, each a background/text pair per theme. The pairs are tuned separately for light and dark rather than being derived by opacity.</p>
-        <div class="doc-preview"><span class="nk-tag blue">In progress</span>
-<span class="nk-tag green">Done</span>
+        <p class="doc-desc">The select option as Notion draws it: 20px tall, 3px corners, the cell's 14px, near-black text on a saturated fill (≥ 10:1 in light mode). Nine colours, each a background/text pair per theme; without a colour class it is the grey tag. For coloured <em>text</em> use the <code>--nk-color-*</code> mid-tones, for a soft surface the <code>--nk-tint-*</code> backgrounds.</p>
+        <div class="doc-preview"><span class="nk-tag">Not started</span>
+<span class="nk-tag brown">Archive</span>
 <span class="nk-tag orange">Planned</span>
-<span class="nk-tag purple">Design system</span></div>
+<span class="nk-tag yellow">Review</span>
+<span class="nk-tag green">Done</span>
+<span class="nk-tag blue">In progress</span>
+<span class="nk-tag purple">Design system</span>
+<span class="nk-tag pink">Idea</span>
+<span class="nk-tag red">Blocked</span></div>
         
-        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag blue"<span class="tag">&gt;</span>In progress<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
-<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag green"<span class="tag">&gt;</span>Done<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag"<span class="tag">&gt;</span>Not started<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag brown"<span class="tag">&gt;</span>Archive<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag orange"<span class="tag">&gt;</span>Planned<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
-<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag purple"<span class="tag">&gt;</span>Design system<span class="tag">&lt;/span</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>On a small screen:</b><span>Unchanged. Inline-block, so a row of tags wraps.</span></div>
-        <div class="doc-classes"><code>.nk-tag</code><code>.blue</code><code>.green</code><code>.orange</code><code>.purple</code></div>
+<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag yellow"<span class="tag">&gt;</span>Review<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag green"<span class="tag">&gt;</span>Done<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag blue"<span class="tag">&gt;</span>In progress<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag purple"<span class="tag">&gt;</span>Design system<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag pink"<span class="tag">&gt;</span>Idea<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag red"<span class="tag">&gt;</span>Blocked<span class="tag">&lt;/span</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Unchanged. Inline-flex with an ellipsis, so a long option is cut rather than the column widened.</span></div>
+        <div class="doc-classes"><code>.nk-tag</code><code>.gray</code><code>.brown</code><code>.orange</code><code>.yellow</code><code>.green</code><code>.blue</code><code>.purple</code><code>.pink</code><code>.red</code></div>
       </article>
       <article class="doc-entry" id="nk-progress">
         <h3>Progress bar <code>.nk-progress</code></h3>
@@ -908,7 +961,7 @@ class NkCallout extends HTMLElement {
       <div class="prd">PRD 5.6</div>
       <article class="doc-entry" id="nk-input">
         <h3>Inputs, textarea, select <code>.nk-input</code></h3>
-        <p class="doc-desc">One shared shape for all three. The focus ring is <code>color-mix(in srgb, var(--nk-accent) 25%, transparent)</code>, so it re-brands with the accent. <code>.wide</code> makes an input fill its row.</p>
+        <p class="doc-desc">One shared shape for all three: filled with <code>--nk-bg-input</code> inside a hairline, 32px tall at 14px — Notion's input, not an outlined white box. The focus ring is mixed from the accent, so it re-brands with it. <code>.wide</code> makes an input fill its row.</p>
         <div class="doc-preview"><div style="display:flex;flex-direction:column;gap:10px;max-width:340px">
   <input class="nk-input wide" value="Ada Lovelace">
   <select class="nk-select wide"><option>Light</option><option>Dark</option><option>System</option></select>
@@ -925,7 +978,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-btn">
         <h3>Buttons <code>.nk-btn</code></h3>
-        <p class="doc-desc">Five variants. Hover is an opacity shift on the filled ones and a background wash on the outlined ones — never a hue change. <code>.small</code> combines with any variant.</p>
+        <p class="doc-desc">Five variants, 28px tall at 14px. <code>.secondary</code> and <code>.danger</code> are Notion's white button: the outline is <code>--nk-shadow-btn</code>, a 1px inset ring plus a 1px drop, not a border. Hover is an opacity shift on the filled ones and a wash on the white ones — never a hue change. <code>.small</code> (24px) combines with any variant.</p>
         <div class="doc-preview"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
   <button class="nk-btn primary">Save changes</button>
   <button class="nk-btn secondary">Discard</button>
@@ -941,7 +994,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn danger-solid"<span class="tag">&gt;</span>Delete<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
   <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn secondary small"<span class="tag">&gt;</span>Remove<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>On a small screen:</b><span>Height lands near 30px, under the 44px touch target. Raise the padding for touch-first screens.</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Height lands at 28px, under the 44px touch target. Raise the padding for touch-first screens.</span></div>
         <div class="doc-classes"><code>.nk-btn</code><code>.primary</code><code>.secondary</code><code>.danger</code><code>.danger-solid</code><code>.small</code></div>
       </article>
       <article class="doc-entry" id="nk-switch">
@@ -1428,16 +1481,18 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-banner">
         <h3>Banner <code>.nk-banner</code></h3>
-        <p class="doc-desc">A full-width notice in three semantic tones, each reusing a tag colour pair. <code>.b-action</code> pushes an underlined action to the right edge.</p>
+        <p class="doc-desc">A full-width notice in four tones, tinted the way Notion colours a block: a soft <code>--nk-tint-*</code> background under the normal text colour. <code>.b-action</code> pushes an underlined action to the right edge.</p>
         <div class="doc-preview"><div class="nk-banner info">ℹ️ The “Project overview” database has 2 overdue entries.<span class="b-action">View</span></div>
 <div class="nk-banner success">✅ All changes have been synced.</div>
-<div class="nk-banner warning">⚠️ Your trial ends in 5 days.<span class="b-action">View</span></div></div>
+<div class="nk-banner warning">⚠️ Your trial ends in 5 days.<span class="b-action">View</span></div>
+<div class="nk-banner danger">⛔ The connection to Notion was lost.</div></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner info"<span class="tag">&gt;</span>ℹ️ The “Project overview” database has 2 overdue entries.<span class="tag">&lt;span</span> <span class="attr">class=</span>"b-action"<span class="tag">&gt;</span>View<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner success"<span class="tag">&gt;</span>✅ All changes have been synced.<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
-<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner warning"<span class="tag">&gt;</span>⚠️ Your trial ends in 5 days.<span class="tag">&lt;span</span> <span class="attr">class=</span>"b-action"<span class="tag">&gt;</span>View<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner warning"<span class="tag">&gt;</span>⚠️ Your trial ends in 5 days.<span class="tag">&lt;span</span> <span class="attr">class=</span>"b-action"<span class="tag">&gt;</span>View<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner danger"<span class="tag">&gt;</span>⛔ The connection to Notion was lost.<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>The action stays on the same line; wrap the banner content yourself if it gets crowded.</span></div>
-        <div class="doc-classes"><code>.nk-banner</code><code>.info</code><code>.success</code><code>.warning</code><code>.b-action</code></div>
+        <div class="doc-classes"><code>.nk-banner</code><code>.info</code><code>.success</code><code>.warning</code><code>.danger</code><code>.b-action</code></div>
       </article>
       <article class="doc-entry" id="nk-avatar-group">
         <h3>Avatar group <code>.nk-avatar-group</code></h3>
@@ -1655,7 +1710,7 @@ class NkCallout extends HTMLElement {
     });
   })();
   (function () {
-    var PALETTES = [{"id":"default","name":"Default","light":{},"dark":{}},{"id":"forest","name":"Forest","light":{"--nk-accent":"#2f8f5b"},"dark":{"--nk-accent":"#5cbf87"}},{"id":"slate","name":"Slate","light":{"--nk-accent":"#4b6b8a","--nk-decor-purple":"#6b7d94","--nk-decor-blue":"#4b6b8a","--nk-decor-orange":"#8a7a5b"},"dark":{"--nk-accent":"#7fa3c4"}},{"id":"sunset","name":"Sunset","light":{"--nk-accent":"#d9730d","--nk-danger":"#c93c3c","--nk-decor-purple":"#c2552a","--nk-decor-blue":"#e0a53c"},"dark":{"--nk-accent":"#ffa344"}},{"id":"high-contrast","name":"High Contrast","light":{"--nk-text-secondary":"rgba(55,53,47,0.72)","--nk-text-tertiary":"rgba(55,53,47,0.70)","--nk-accent":"#1e72c6","--nk-danger":"#c64646","--nk-tag-blue-text":"#2d7096","--nk-tag-green-text":"#3d7657","--nk-tag-orange-text":"#a05409","--nk-tag-purple-text":"#845ca2"},"dark":{"--nk-text-tertiary":"rgba(255,255,255,0.48)","--nk-on-accent":"#191919","--nk-tag-green-text":"#52aea0","--nk-tag-purple-text":"#a880de"}}];
+    var PALETTES = [{"id":"default","name":"Default","light":{},"dark":{}},{"id":"forest","name":"Forest","light":{"--nk-accent":"#2f8f5b"},"dark":{"--nk-accent":"#5cbf87"}},{"id":"slate","name":"Slate","light":{"--nk-accent":"#4b6b8a","--nk-decor-purple":"#6b7d94","--nk-decor-blue":"#4b6b8a","--nk-decor-orange":"#8a7a5b"},"dark":{"--nk-accent":"#7fa3c4"}},{"id":"sunset","name":"Sunset","light":{"--nk-accent":"#d9730d","--nk-danger":"#c93c3c","--nk-decor-purple":"#c2552a","--nk-decor-blue":"#e0a53c"},"dark":{"--nk-accent":"#ffa344"}},{"id":"high-contrast","name":"High Contrast","light":{"--nk-text-secondary":"#767370","--nk-text-tertiary":"#6f6f6c","--nk-accent":"#1e72c6"},"dark":{"--nk-text-tertiary":"rgba(255,255,255,0.48)","--nk-on-accent":"#191919","--nk-tag-yellow-text":"#ffffff"}}];
     var KEY = 'nk-palette';
     function css(p) {
       var rule = function (sel, o) { var k = Object.keys(o); return k.length ? sel + '{' + k.map(function (n) { return n + ':' + o[n]; }).join(';') + '}' : ''; };

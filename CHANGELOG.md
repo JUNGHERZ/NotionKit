@@ -4,6 +4,74 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.5.0] – 2026-09-13
+
+Fidelity release: the light theme, the type scale and the form controls were
+re-measured against Notion's current (2025) app – a public notion.site page
+exposes the full token set under `:root, .notion-light-theme`, and a live
+table view gave the metrics. Additive in markup; the visual defaults move.
+Reported by Auxdesk: text, tags and inputs read lighter than the original.
+
+### Added
+- Tag palette: `.nk-tag` now has all nine Notion select colours – `gray`
+  (also the default without a colour class), `brown`, `orange`, `yellow`,
+  `green`, `blue`, `purple`, `pink`, `red` – as `--nk-tag-<colour>-bg` /
+  `-text` pairs in both themes.
+- Two more roles per hue: `--nk-tint-<colour>` (the soft block background,
+  for banners and tracks) and `--nk-color-<colour>` (the mid-tone for
+  coloured text and marks). The old tag text values live on as
+  `--nk-color-*`, the old tag backgrounds as `--nk-tint-*`.
+- `--nk-text-sidebar` – tree items, breadcrumbs and topbar buttons; one
+  step darker than secondary, as Notion draws its sidebar (6.1:1 instead
+  of 4.0:1).
+- `--nk-bg-input` – the filled surface of inputs, selects, textareas and
+  the emoji search.
+- `--nk-shadow-btn` – the white button's outline, a 1px inset ring plus a
+  1px drop.
+- `.nk-table.wrap` / `.nk-table td.wrap` let cell text break, like Notion's
+  "wrap column".
+- `.nk-banner.danger`.
+
+### Changed
+- Tokens follow Notion's 2025 light theme: `--nk-text` `#2c2c2b`, opaque
+  greys for secondary (`#7d7a75`) and tertiary (`#91918e`) text instead of
+  alpha, `--nk-bg-sidebar` `#f9f8f7`, hover/active washes mixed from the
+  text colour, borders `rgba(28,19,1,0.11)` / `rgba(27,21,0,0.19)` –
+  hairlines are ~15 % stronger. `--nk-danger` is `#cd3c3a` (4.9:1, was
+  3.5:1); dark mode gets its own `#df5452`.
+- `.nk-body` uses `-webkit-font-smoothing: auto`, as Notion does. The
+  previous `antialiased` thinned every glyph on macOS.
+- Type scale on whole pixels: UI 14px, meta 12px; 13.5px / 12.5px / 11.5px
+  / 11px are gone from buttons, inputs, menus, tags, banners, comments and
+  labels. `.nk-page` sets 16px / 1.5 for document text (headings 24px);
+  callouts and quotes inherit instead of forcing 14.5px.
+- Tags are Notion's select option: 20px tall, 3px corners, 14px, near-black
+  text on a saturated fill – every light pair ≥ 10:1 (was 2.8–4.1:1).
+- Inputs are filled (`--nk-bg-input`) inside a `--nk-border` hairline, 32px
+  tall at 14px; the focus ring is 60 % accent border + 30 % accent halo.
+- Buttons are 28px at 14px (`.small` 24px at 13px). `.secondary` and
+  `.danger` are the white button: `--nk-bg-card` plus `--nk-shadow-btn`, no
+  border.
+- Tables: 36px rows, 14px header in secondary colour, hairlines between
+  columns as well as rows, `padding: 0 8px`.
+- `.nk-db-tab` is a pill on the active wash instead of an underline; the
+  strip has no bottom rule.
+- Banners are tinted blocks (`--nk-tint-*` under the normal text colour)
+  instead of tag-coloured text.
+- Settings modal: 1150 × 715, 240px nav, pane up to 800px, title 22px,
+  section headings 16px with a rule; field and card descriptions use
+  secondary instead of tertiary.
+- `.nk-share-btn` is borderless; `.nk-section-label` 12px; `.nk-topbar`
+  44px; menu items 28px at 14px.
+- `theme-override.css`: the high-contrast block now lifts only the pairs
+  still under 4.5:1 (secondary, tertiary, accent, dark yellow tag).
+
+### Migration
+- `--nk-tag-<colour>-text` is now near-black. Anything that used it as a
+  *text colour* (error text, deltas, code attributes) should switch to
+  `--nk-color-<colour>`; anything that used `--nk-tag-<colour>-bg` as a
+  soft surface should switch to `--nk-tint-<colour>`.
+
 ## [1.4.1] – 2026-09-12
 
 ### Fixed

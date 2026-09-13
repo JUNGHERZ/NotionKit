@@ -441,6 +441,10 @@
         <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
         <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
+    <tr><td><span class="row-title">📣 Launch</span></td><td><span class="nk-tag yellow">Planned</span></td>
+        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-orange)">MK</span>Mia</span></td>
+        <td class="date-cell">02.06.2026</td>
+        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td></tr>
   </tbody>
 </table>
 <div class="nk-new-row">＋ ＋ New page</div></div></div>
@@ -448,10 +452,15 @@
       </article>
       <article class="doc-entry" id="s-nk-tag">
         <h3>Tags <code>.nk-tag</code></h3>
-        <div class="doc-preview"><span class="nk-tag blue">In progress</span>
-<span class="nk-tag green">Done</span>
+        <div class="doc-preview"><span class="nk-tag">Not started</span>
+<span class="nk-tag brown">Archive</span>
 <span class="nk-tag orange">Planned</span>
-<span class="nk-tag purple">Design system</span></div>
+<span class="nk-tag yellow">Review</span>
+<span class="nk-tag green">Done</span>
+<span class="nk-tag blue">In progress</span>
+<span class="nk-tag purple">Design system</span>
+<span class="nk-tag pink">Idea</span>
+<span class="nk-tag red">Blocked</span></div>
         
       </article>
       <article class="doc-entry" id="s-nk-progress">
@@ -764,7 +773,8 @@
         <h3>Banner <code>.nk-banner</code></h3>
         <div class="doc-preview"><div class="nk-banner info">ℹ️ The “Project overview” database has 2 overdue entries.<span class="b-action">View</span></div>
 <div class="nk-banner success">✅ All changes have been synced.</div>
-<div class="nk-banner warning">⚠️ Your trial ends in 5 days.<span class="b-action">View</span></div></div>
+<div class="nk-banner warning">⚠️ Your trial ends in 5 days.<span class="b-action">View</span></div>
+<div class="nk-banner danger">⛔ The connection to Notion was lost.</div></div>
         
       </article>
       <article class="doc-entry" id="s-nk-avatar-group">
@@ -894,7 +904,7 @@
     });
   })();
   (function () {
-    var PALETTES = [{"id":"default","name":"Default","light":{},"dark":{}},{"id":"forest","name":"Forest","light":{"--nk-accent":"#2f8f5b"},"dark":{"--nk-accent":"#5cbf87"}},{"id":"slate","name":"Slate","light":{"--nk-accent":"#4b6b8a","--nk-decor-purple":"#6b7d94","--nk-decor-blue":"#4b6b8a","--nk-decor-orange":"#8a7a5b"},"dark":{"--nk-accent":"#7fa3c4"}},{"id":"sunset","name":"Sunset","light":{"--nk-accent":"#d9730d","--nk-danger":"#c93c3c","--nk-decor-purple":"#c2552a","--nk-decor-blue":"#e0a53c"},"dark":{"--nk-accent":"#ffa344"}},{"id":"high-contrast","name":"High Contrast","light":{"--nk-text-secondary":"rgba(55,53,47,0.72)","--nk-text-tertiary":"rgba(55,53,47,0.70)","--nk-accent":"#1e72c6","--nk-danger":"#c64646","--nk-tag-blue-text":"#2d7096","--nk-tag-green-text":"#3d7657","--nk-tag-orange-text":"#a05409","--nk-tag-purple-text":"#845ca2"},"dark":{"--nk-text-tertiary":"rgba(255,255,255,0.48)","--nk-on-accent":"#191919","--nk-tag-green-text":"#52aea0","--nk-tag-purple-text":"#a880de"}}];
+    var PALETTES = [{"id":"default","name":"Default","light":{},"dark":{}},{"id":"forest","name":"Forest","light":{"--nk-accent":"#2f8f5b"},"dark":{"--nk-accent":"#5cbf87"}},{"id":"slate","name":"Slate","light":{"--nk-accent":"#4b6b8a","--nk-decor-purple":"#6b7d94","--nk-decor-blue":"#4b6b8a","--nk-decor-orange":"#8a7a5b"},"dark":{"--nk-accent":"#7fa3c4"}},{"id":"sunset","name":"Sunset","light":{"--nk-accent":"#d9730d","--nk-danger":"#c93c3c","--nk-decor-purple":"#c2552a","--nk-decor-blue":"#e0a53c"},"dark":{"--nk-accent":"#ffa344"}},{"id":"high-contrast","name":"High Contrast","light":{"--nk-text-secondary":"#767370","--nk-text-tertiary":"#6f6f6c","--nk-accent":"#1e72c6"},"dark":{"--nk-text-tertiary":"rgba(255,255,255,0.48)","--nk-on-accent":"#191919","--nk-tag-yellow-text":"#ffffff"}}];
     var KEY = 'nk-palette';
     function css(p) {
       var rule = function (sel, o) { var k = Object.keys(o); return k.length ? sel + '{' + k.map(function (n) { return n + ':' + o[n]; }).join(';') + '}' : ''; };
