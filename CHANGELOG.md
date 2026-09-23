@@ -4,6 +4,54 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.5.3] – 2026-09-23
+
+Phone release: the topbar, the settings modal and the member list keep to a
+390px screen, and no page of the site scrolls sideways any more. Additive,
+no class renamed; on the desktop everything renders as before except the
+landing page's device frames, which now scale.
+
+### Fixed
+- **The topbar broke apart on phones.** At 390px the actions wrapped over
+  three lines, the trail wrapped as well, and "Share" ran off the screen.
+  Below 860px the topbar now shows the page and its actions, as Notion's
+  mobile app does: only the last crumb stays and ends in an ellipsis, and
+  passive text steps aside.
+- **The settings modal ran past the screen on phones.** Field rows kept
+  their 210px controls beside the label, so five of the six panes in the
+  demo ran 7–66px past a 390px screen. Below 860px a field row wraps – a
+  control that does not fit moves below its label – and no input, select,
+  textarea or slider grows past its column.
+- **A long address pushed the role select out of a member row.** The name
+  column may shrink now, and an address without a break point ends in an
+  ellipsis (`:has()`; Firefox before 121 keeps the old layout).
+
+### Added
+- `.nk-topbar-meta` for passive text among the topbar actions – "Edited
+  2 min ago": tertiary, 12px, one line, hidden below 860px. The demo used an
+  inline-styled `.nk-topbar-btn` for it.
+- `test/phone.spec.mjs`: at 390px no page of the site scrolls sideways,
+  every settings pane keeps to the screen, the topbar keeps to one row and
+  the member row keeps its select; the landing page's frames scale the app
+  to their width. Against 1.5.2 ten of the fourteen tests fail.
+
+### Changed
+- **Size budget: 14 KB gzipped instead of 10 KB.** The "14 KB rule": a new
+  connection delivers about 14 KB in its first round trip, and the
+  stylesheet usually arrives over a connection of its own. The minified
+  budget moves to 75 KB so it never binds first. `npm run check:size`
+  enforces both and keeps the size claims in README.md current – they had
+  stood at the 1.5.0 values. Today: 9.6 KB of 14 KB.
+
+### Site
+- Landing page: the desktop and mobile frames scale to the width they get,
+  CSS only (`container-type` and `tan(atan2(100cqw, 1280px))`, the way CSS
+  divides two lengths). The fixed 640px desktop frame made the page 656px
+  wide on a 390px phone.
+- Navigation on phones: the page links move into a second row that scrolls
+  sideways instead of disappearing, so docs, showcase and demo stay one tap
+  away; anchors in the docs land below the taller bar.
+
 ## [1.5.2] – 2026-09-23
 
 Fix release: five defects that GlassKit fixed in its 1.11–1.17 line and that

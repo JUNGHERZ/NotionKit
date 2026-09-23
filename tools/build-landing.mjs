@@ -23,8 +23,9 @@ const LANDING_CSS = `
 `;
 
 // Both viewports render the same document; only the width differs.
+// The two frames render these real viewport sizes and scale them to the
+// width the frame gets (see .site-scaler in chrome.mjs).
 const DESKTOP_W = 1280, DESKTOP_H = 800, MOBILE_W = 390, MOBILE_H = 780;
-const DESKTOP_SCALE = 0.5, MOBILE_SCALE = 0.62;
 
 const build = (t, groups) => `${head(t, {
   title: t.title, desc: t.metaDesc, css: t.cssHref, page: 'index',
@@ -78,18 +79,18 @@ ${nav(t, 'index')}
     <h2 class="site-h2">${t.responsiveTitle}</h2>
     <p class="site-lead">${t.responsiveLead}</p>
     <div class="site-viewports">
-      <div class="site-viewport" style="flex:0 0 auto;width:${Math.round(DESKTOP_W * DESKTOP_SCALE)}px">
+      <div class="site-viewport">
         <div class="site-viewport-label">${t.respDesktop}</div>
-        <div class="site-scaler" style="width:${Math.round(DESKTOP_W * DESKTOP_SCALE)}px;height:${Math.round(DESKTOP_H * DESKTOP_SCALE)}px">
+        <div class="site-scaler" style="--site-w:${DESKTOP_W}px;aspect-ratio:${DESKTOP_W} / ${DESKTOP_H}">
           <iframe src="${t.appSrc}" title="${t.respDesktop}" loading="lazy" data-theme-sync
-                  style="width:${DESKTOP_W}px;height:${DESKTOP_H}px;transform:scale(${DESKTOP_SCALE})"></iframe>
+                  style="width:${DESKTOP_W}px;height:${DESKTOP_H}px"></iframe>
         </div>
       </div>
-      <div class="site-viewport mobile" style="width:${Math.round(MOBILE_W * MOBILE_SCALE)}px">
+      <div class="site-viewport mobile">
         <div class="site-viewport-label">${t.respMobile}</div>
-        <div class="site-scaler" style="width:${Math.round(MOBILE_W * MOBILE_SCALE)}px;height:${Math.round(MOBILE_H * MOBILE_SCALE)}px">
+        <div class="site-scaler" style="--site-w:${MOBILE_W}px;aspect-ratio:${MOBILE_W} / ${MOBILE_H}">
           <iframe src="${t.appSrc}" title="${t.respMobile}" loading="lazy" data-theme-sync
-                  style="width:${MOBILE_W}px;height:${MOBILE_H}px;transform:scale(${MOBILE_SCALE})"></iframe>
+                  style="width:${MOBILE_W}px;height:${MOBILE_H}px"></iframe>
         </div>
       </div>
     </div>

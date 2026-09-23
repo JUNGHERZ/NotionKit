@@ -87,12 +87,15 @@
 
   .site-viewports { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
   .site-viewport { flex: 1 1 420px; min-width: 0; }
-  .site-viewport.mobile { flex: 0 0 auto; }
+  .site-viewport.mobile { flex: 0 1 242px; }
   .site-viewport-label { font-size: 12px; color: var(--nk-text-tertiary); margin-bottom: 8px; }
   /* The scaler shows a real viewport width shrunk to fit, so the layout the
-     iframe computes is the one that width would really produce. */
-  .site-scaler { overflow: hidden; border-radius: 10px; border: 1px solid var(--nk-border-strong); }
-  .site-scaler iframe { display: block; border: 0; transform-origin: top left; }
+     iframe computes is the one that width would really produce. The frame
+     takes the width it gets and scales the iframe by frame / viewport width:
+     tan(atan2(a, b)) is a / b as a plain number, the one way CSS divides two
+     lengths. A fixed 640px frame used to push the page to 656px on a phone. */
+  .site-scaler { box-sizing: content-box; container-type: inline-size; overflow: hidden; border-radius: 10px; border: 1px solid var(--nk-border-strong); }
+  .site-scaler iframe { display: block; border: 0; transform-origin: top left; transform: scale(tan(atan2(100cqw, var(--site-w)))); }
 
   .site-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   .site-table th {
@@ -112,7 +115,12 @@
   .site-foot a { color: var(--nk-text-secondary); }
 
   @media (max-width: 860px) {
-    .site-nav-links { display: none; }
+    /* Phones: the page links move into a second row that scrolls sideways,
+       brand and switches keep the first – every page stays one tap away. */
+    .site-nav { flex-wrap: wrap; height: auto; padding-top: 8px; row-gap: 2px; }
+    .site-nav-links { order: 3; flex: 1 0 100%; margin: 0 calc(-1 * clamp(16px, 4vw, 40px)); padding: 0 clamp(16px, 4vw, 40px) 6px; overflow-x: auto; scrollbar-width: none; }
+    .site-nav-links::-webkit-scrollbar { display: none; }
+    .site-nav-links a { flex-shrink: 0; }
     .site-viewports { gap: 32px; }
   }
 
@@ -149,6 +157,8 @@
   .doc-note--preview { margin: -2px 0 12px; font-size: 12.5px; color: var(--nk-text-tertiary); }
   .doc-note--preview a { color: var(--nk-text-secondary); }
   .doc-section { padding: 44px 0 8px; border-top: 1px solid var(--nk-border); scroll-margin-top: 76px; }
+  /* The nav takes two rows on a phone (chrome.mjs), so anchors land lower. */
+  @media (max-width: 860px) { .doc-group > h2, .doc-entry, .doc-section { scroll-margin-top: 92px; } }
   .doc-section:first-of-type { border-top: 0; }
   .doc-section > h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 10px; }
   .doc-section > h3 { font-size: 15px; font-weight: 600; margin: 26px 0 8px; }
@@ -170,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.5.2</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.5.3</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Docs</a>
@@ -522,12 +532,13 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-topbar">
         <h3>Topbar <code>.nk-topbar</code></h3>
-        <p class="doc-desc">A 45px-high row holding the breadcrumb on the left and actions on the right. <code>nk-topbar-actions</code> pushes itself right with <code>margin-left:auto</code>, so you never need a spacer.</p>
+        <p class="doc-desc">A 44px-high row holding the breadcrumb on the left and actions on the right. <code>nk-topbar-actions</code> pushes itself right with <code>margin-left:auto</code>, so you never need a spacer. Passive text among the actions – "Edited 2 min ago" – is <code>nk-topbar-meta</code>.</p>
         <div class="doc-preview"><header class="nk-topbar" style="border:1px solid var(--nk-border);border-radius:var(--nk-radius)">
   <div class="nk-breadcrumb">
     <span class="crumb">📊 Project overview</span><span class="sep">/</span><span class="crumb current">🚀 Roadmap</span>
   </div>
   <div class="nk-topbar-actions">
+    <span class="nk-topbar-meta">Last edited 2 min ago</span>
     <button class="nk-topbar-btn">💬</button>
     <button class="nk-topbar-btn nk-share-btn">Share</button>
     <button class="nk-topbar-btn">⭐</button>
@@ -541,6 +552,7 @@ class NkCallout extends HTMLElement {
     <span class="tag">&lt;span</span> <span class="attr">class=</span>"crumb"<span class="tag">&gt;</span>📊 Project overview<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"sep"<span class="tag">&gt;</span>/<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"crumb current"<span class="tag">&gt;</span>🚀 Roadmap<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-topbar-actions"<span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-topbar-meta"<span class="tag">&gt;</span>Last edited 2 min ago<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
     <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn"<span class="tag">&gt;</span>💬<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
     <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn nk-share-btn"<span class="tag">&gt;</span>Share<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
     <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn"<span class="tag">&gt;</span>⭐<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
@@ -548,8 +560,8 @@ class NkCallout extends HTMLElement {
     <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn"<span class="tag">&gt;</span>⋯<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/header</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>On a small screen:</b><span>Stays put. The breadcrumb wraps its crumbs; drop crumbs yourself if the trail gets long.</span></div>
-        <div class="doc-classes"><code>.nk-topbar</code><code>.nk-topbar-actions</code><code>.nk-topbar-btn</code><code>.nk-share-btn</code><code>.nk-theme-toggle</code></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Below 860px the topbar keeps the page and its actions, as Notion's mobile app does: only the last crumb stays and ends in an ellipsis, <code>nk-topbar-meta</code> hides.</span></div>
+        <div class="doc-classes"><code>.nk-topbar</code><code>.nk-topbar-actions</code><code>.nk-topbar-btn</code><code>.nk-topbar-meta</code><code>.nk-share-btn</code><code>.nk-theme-toggle</code></div>
       </article>
       <article class="doc-entry" id="nk-tab-bar">
         <h3>Tab bar (mobile) <code>.nk-tab-bar</code></h3>
@@ -1092,7 +1104,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field stacked"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>About me<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;textarea</span> <span class="attr">class=</span>"nk-textarea" <span class="attr">rows=</span>"2" <span class="attr">placeholder=</span>"A few words about yourself …"<span class="tag">&gt;</span><span class="tag">&lt;/textarea</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>On a small screen:</b><span>The 24px gap keeps both sides apart; add <code>flex-wrap: wrap</code> yourself if the control needs its own line.</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Below 860px the row wraps: a control that does not fit beside its label moves below it, and no control grows past its column.</span></div>
         <div class="doc-classes"><code>.nk-field</code><code>.f-label</code><code>.f-desc</code><code>.f-control</code><code>.stacked</code><code>.compact</code></div>
       </article>
       <article class="doc-entry" id="nk-fields">
@@ -1195,7 +1207,7 @@ class NkCallout extends HTMLElement {
     <span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span>Tom Weber<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"m-mail"<span class="tag">&gt;</span>tom@acme.com<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;select</span> <span class="attr">class=</span>"nk-select"<span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>Member<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;/select</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>On a small screen:</b><span>The role select is pushed right by <code>margin-left:auto</code>; on narrow rows let it wrap.</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>The name column shrinks first: a long address ends in an ellipsis and the role select keeps its place.</span></div>
         <div class="doc-classes"><code>.nk-member-list</code><code>.nk-member-row</code><code>.m-mail</code></div>
       </article>
     </section>

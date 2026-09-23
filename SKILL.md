@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.5.2) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.5.3) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -238,7 +238,7 @@ Sits at the very top of the sidebar. The avatar gradient is mixed from `--nk-dec
 
 ### Topbar — `.nk-topbar`
 
-A 45px-high row holding the breadcrumb on the left and actions on the right. `nk-topbar-actions` pushes itself right with `margin-left:auto`, so you never need a spacer.
+A 44px-high row holding the breadcrumb on the left and actions on the right. `nk-topbar-actions` pushes itself right with `margin-left:auto`, so you never need a spacer. Passive text among the actions – "Edited 2 min ago" – is `nk-topbar-meta`.
 
 ```html
 <header class="nk-topbar">
@@ -246,6 +246,7 @@ A 45px-high row holding the breadcrumb on the left and actions on the right. `nk
     <span class="crumb">📊 Project overview</span><span class="sep">/</span><span class="crumb current">🚀 Roadmap</span>
   </div>
   <div class="nk-topbar-actions">
+    <span class="nk-topbar-meta">Last edited 2 min ago</span>
     <button class="nk-topbar-btn">💬</button>
     <button class="nk-topbar-btn nk-share-btn">Share</button>
     <button class="nk-topbar-btn">⭐</button>
@@ -255,8 +256,8 @@ A 45px-high row holding the breadcrumb on the left and actions on the right. `nk
 </header>
 ```
 
-- **Classes:** `.nk-topbar`, `.nk-topbar-actions`, `.nk-topbar-btn`, `.nk-share-btn`, `.nk-theme-toggle`
-- **On a small screen:** Stays put. The breadcrumb wraps its crumbs; drop crumbs yourself if the trail gets long.
+- **Classes:** `.nk-topbar`, `.nk-topbar-actions`, `.nk-topbar-btn`, `.nk-topbar-meta`, `.nk-share-btn`, `.nk-theme-toggle`
+- **On a small screen:** Below 860px the topbar keeps the page and its actions, as Notion's mobile app does: only the last crumb stays and ends in an ellipsis, `nk-topbar-meta` hides.
 
 ### Tab bar (mobile) — `.nk-tab-bar`
 
@@ -697,7 +698,7 @@ The settings-row primitive: label and description on the left, control on the ri
 ```
 
 - **Classes:** `.nk-field`, `.f-label`, `.f-desc`, `.f-control`, `.stacked`, `.compact`
-- **On a small screen:** The 24px gap keeps both sides apart; add `flex-wrap: wrap` yourself if the control needs its own line.
+- **On a small screen:** Below 860px the row wraps: a control that does not fit beside its label moves below it, and no control grows past its column.
 
 ### Field grid — `.nk-fields`
 
@@ -781,7 +782,7 @@ Rows separated by a hairline. The “no border on the last row” rule is scoped
 ```
 
 - **Classes:** `.nk-member-list`, `.nk-member-row`, `.m-mail`
-- **On a small screen:** The role select is pushed right by `margin-left:auto`; on narrow rows let it wrap.
+- **On a small screen:** The name column shrinks first: a long address ends in an ellipsis and the role select keeps its place.
 
 ## Settings modal (PRD 5.7)
 
@@ -1720,7 +1721,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 
 | Group | Classes |
 |---|---|
-| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
+| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-topbar-meta` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` |
@@ -1787,4 +1788,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.5.2 · MIT · Jungherz GmbH*
+*NotionKit v1.5.3 · MIT · Jungherz GmbH*

@@ -66,18 +66,19 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-topbar', group: 'shell', classes: ['nk-topbar', 'nk-topbar-actions', 'nk-topbar-btn', 'nk-share-btn', 'nk-theme-toggle'],
+  id: 'nk-topbar', group: 'shell', classes: ['nk-topbar', 'nk-topbar-actions', 'nk-topbar-btn', 'nk-topbar-meta', 'nk-share-btn', 'nk-theme-toggle'],
   title: { en: 'Topbar', de: 'Topbar' },
   desc: {
-    en: 'A 45px-high row holding the breadcrumb on the left and actions on the right. <code>nk-topbar-actions</code> pushes itself right with <code>margin-left:auto</code>, so you never need a spacer.',
-    de: 'Eine 45px hohe Zeile: links der Breadcrumb, rechts die Aktionen. <code>nk-topbar-actions</code> schiebt sich per <code>margin-left:auto</code> nach rechts – ein Platzhalter ist nie nötig.',
+    en: 'A 44px-high row holding the breadcrumb on the left and actions on the right. <code>nk-topbar-actions</code> pushes itself right with <code>margin-left:auto</code>, so you never need a spacer. Passive text among the actions – "Edited 2 min ago" – is <code>nk-topbar-meta</code>.',
+    de: 'Eine 44px hohe Zeile: links der Breadcrumb, rechts die Aktionen. <code>nk-topbar-actions</code> schiebt sich per <code>margin-left:auto</code> nach rechts – ein Platzhalter ist nie nötig. Reiner Text zwischen den Aktionen – „Bearbeitet vor 2 Min.“ – ist <code>nk-topbar-meta</code>.',
   },
-  mobile: { en: 'Stays put. The breadcrumb wraps its crumbs; drop crumbs yourself if the trail gets long.', de: 'Bleibt bestehen. Der Breadcrumb bricht um; lange Pfade kürzt der Consumer selbst.' },
+  mobile: { en: 'Below 860px the topbar keeps the page and its actions, as Notion\'s mobile app does: only the last crumb stays and ends in an ellipsis, <code>nk-topbar-meta</code> hides.', de: 'Unter 860px bleiben die Seite und ihre Aktionen, wie in Notions Mobil-App: Nur der letzte Crumb bleibt und endet mit Auslassungspunkten, <code>nk-topbar-meta</code> wird ausgeblendet.' },
   html: W => `<header class="nk-topbar" style="border:1px solid var(--nk-border);border-radius:var(--nk-radius)">
   <div class="nk-breadcrumb">
     <span class="crumb">📊 ${W.projectOverview}</span><span class="sep">/</span><span class="crumb current">🚀 ${W.roadmap}</span>
   </div>
   <div class="nk-topbar-actions">
+    <span class="nk-topbar-meta">${W.lastEdited}</span>
     <button class="nk-topbar-btn">💬</button>
     <button class="nk-topbar-btn nk-share-btn">${W.share}</button>
     <button class="nk-topbar-btn">⭐</button>
@@ -499,7 +500,7 @@ export const CATALOG = [
     en: 'The settings-row primitive: label and description on the left, control on the right, pushed apart by <code>justify-content: space-between</code>. Stack these to build a whole settings pane. <code>stacked</code> puts the label above a full-width control – for textareas and long descriptions; <code>compact</code> shrinks the label to 12px tertiary text and drops the row padding. For several short fields side by side use <code>.nk-fields</code>.',
     de: 'Das Grundelement einer Einstellungszeile: Label und Beschreibung links, Bedienelement rechts, auseinandergeschoben per <code>justify-content: space-between</code>. Gestapelt ergeben sie ein ganzes Einstellungs-Pane. <code>stacked</code> setzt das Label über ein vollbreites Control – für Textareas und lange Beschreibungen; <code>compact</code> verkleinert das Label auf 12px tertiären Text und nimmt das Zeilen-Padding weg. Für mehrere kurze Felder nebeneinander gibt es <code>.nk-fields</code>.',
   },
-  mobile: { en: 'The 24px gap keeps both sides apart; add <code>flex-wrap: wrap</code> yourself if the control needs its own line.', de: 'Der 24px-Abstand hält beide Seiten getrennt; bei Bedarf selbst <code>flex-wrap: wrap</code> ergänzen, damit das Bedienelement eine eigene Zeile bekommt.' },
+  mobile: { en: 'Below 860px the row wraps: a control that does not fit beside its label moves below it, and no control grows past its column.', de: 'Unter 860px bricht die Zeile um: Ein Control, das nicht neben sein Label passt, rückt darunter, und kein Control wird breiter als seine Spalte.' },
   html: W => `<div style="max-width:460px">
   <div class="nk-field"><div><div class="f-label">${W.displayName}</div><div class="f-desc">${W.displayNameDesc}</div></div>
     <div class="f-control"><input class="nk-input" value="${W.placeholderName}"></div></div>
@@ -578,7 +579,7 @@ export const CATALOG = [
     en: 'Rows separated by a hairline. The “no border on the last row” rule is scoped to the <code>nk-member-list</code> container and has a <code>::slotted()</code> twin, so it keeps working when a future element projects the rows.',
     de: 'Zeilen, getrennt durch eine Haarlinie. Die Regel „letzte Zeile ohne Rahmen“ hängt am Container <code>nk-member-list</code> und hat einen <code>::slotted()</code>-Zwilling – sie funktioniert also weiter, wenn ein künftiges Element die Zeilen projiziert.',
   },
-  mobile: { en: 'The role select is pushed right by <code>margin-left:auto</code>; on narrow rows let it wrap.', de: 'Das Rollen-Select wird per <code>margin-left:auto</code> nach rechts geschoben; in schmalen Zeilen umbrechen lassen.' },
+  mobile: { en: 'The name column shrinks first: a long address ends in an ellipsis and the role select keeps its place.', de: 'Die Namensspalte gibt zuerst nach: Eine lange Adresse endet mit Auslassungspunkten, die Rollen-Auswahl behält ihren Platz.' },
   html: W => `<div class="nk-member-list" style="max-width:460px">
   <div class="nk-member-row"><span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>
     <div><div>${W.author}</div><div class="m-mail">ada@acme.com</div></div>

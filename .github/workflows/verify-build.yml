@@ -67,13 +67,8 @@ jobs:
           grep -q "## \[${VERSION}\]" CHANGELOG.md \
             || { echo "::error::CHANGELOG.md has no entry for ${VERSION} – add '## [${VERSION}] – YYYY-MM-DD' before releasing"; exit 1; }
 
-      - name: Size budget (≤ 60 KB raw, ≤ 10 KB gzip)
-        run: |
-          RAW=$(wc -c < notionkit.min.css)
-          GZ=$(gzip -9 -c notionkit.min.css | wc -c)
-          echo "minified: ${RAW} B · gzip: ${GZ} B"
-          test "$RAW" -le 61440 || { echo "::error::notionkit.min.css exceeds 60 KB"; exit 1; }
-          test "$GZ"  -le 10240 || { echo "::error::gzipped size exceeds 10 KB"; exit 1; }
+      - name: Size budget (≤ 14 KB gzip, 14 KB rule) and README size claims
+        run: npm run check:size
 
       - name: Install Chromium for Playwright
         run: npx playwright install --with-deps chromium

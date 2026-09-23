@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.5.2
+   Jungherz GmbH – v1.5.3
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -406,6 +406,11 @@ a.crumb { text-decoration: none; }
 }
 /* Borderless since Notion's 2025 topbar: a plain word next to the icons. */
 .nk-share-btn { font-size: 14px; padding: 4px 8px; }
+/* Passive text among the actions – "Edited 2 min ago": tertiary, one line.
+   A phone drops it (B12), as Notion's mobile topbar shows only the page and
+   what can be done with it. */
+.nk-topbar-meta,
+.nk-topbar-actions ::slotted(.nk-topbar-meta) { padding: 4px 8px; font-size: 12px; color: var(--nk-text-tertiary); white-space: nowrap; }
 .nk-theme-toggle { font-size: 15px; width: 30px; height: 28px; padding: 0; }
 
 /* ---- Tab bar (phones, installed PWAs) ----
@@ -981,7 +986,10 @@ a.nk-btn { text-decoration: none; }
   display: flex; align-items: center; justify-content: center;
   font-size: 11px; font-weight: 600; flex-shrink: 0;
 }
-.nk-member-row .m-mail { font-size: 12px; color: var(--nk-text-secondary); }
+/* The name column may shrink, so an address without a break point ends in
+   an ellipsis instead of pushing the role select past the row. */
+.nk-member-row > :has(> .m-mail) { min-width: 0; }
+.nk-member-row .m-mail { font-size: 12px; color: var(--nk-text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .nk-member-row .nk-select { min-width: 120px; margin-left: auto; }
 .nk-member-row ::slotted([slot="role"]) { margin-left: auto; }
 
@@ -1543,6 +1551,27 @@ a.nk-btn { text-decoration: none; }
   .nk-cmdk-backdrop { padding-top: max(6vh, env(safe-area-inset-top, 0px)); }
   .nk-cmdk { width: min(560px, 96vw); }
   .nk-stats { flex-wrap: wrap; }
+  /* The topbar shows the page it is on and its actions, as Notion's mobile
+     app does: the trail before the last crumb and passive text step aside,
+     and the last crumb ends in an ellipsis instead of wrapping. At 390px the
+     actions used to wrap over three lines and push "Share" off the screen. */
+  .nk-breadcrumb { min-width: 0; }
+  .nk-breadcrumb > .crumb:not(:last-child),
+  .nk-breadcrumb ::slotted(.crumb:not(:last-child)),
+  .nk-breadcrumb > .sep,
+  .nk-breadcrumb ::slotted(.sep),
+  .nk-topbar-meta,
+  .nk-topbar-actions ::slotted(.nk-topbar-meta) { display: none; }
+  .nk-breadcrumb > .crumb:last-child,
+  .nk-breadcrumb ::slotted(.crumb:last-child) { display: block; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nk-topbar-actions { flex-shrink: 0; }
+  /* A field row wraps: a control that does not fit beside its label moves
+     below it, and no control grows past its column. In the settings modal
+     five of six panes used to run up to 66px past the screen. */
+  .nk-field { flex-wrap: wrap; row-gap: 6px; }
+  .nk-field .f-control,
+  .nk-field ::slotted(.f-control) { max-width: 100%; min-width: 0; }
+  .nk-input, .nk-select, .nk-textarea, .nk-slider { max-width: 100%; }
   /* A visible tab bar would cover the toast, so it rises 12px above the bar.
      :has() sees class markup only; <nk-toast> measures the bar itself. */
   :root:has(.nk-tab-bar:not([hidden])) .nk-toast { bottom: calc(var(--nk-tab-bar-height) + max(6px, env(safe-area-inset-bottom, 0px)) + 6px); }

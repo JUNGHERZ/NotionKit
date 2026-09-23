@@ -42,6 +42,8 @@ const DOC_CSS = `
   .doc-note--preview { margin: -2px 0 12px; font-size: 12.5px; color: var(--nk-text-tertiary); }
   .doc-note--preview a { color: var(--nk-text-secondary); }
   .doc-section { padding: 44px 0 8px; border-top: 1px solid var(--nk-border); scroll-margin-top: 76px; }
+  /* The nav takes two rows on a phone (chrome.mjs), so anchors land lower. */
+  @media (max-width: 860px) { .doc-group > h2, .doc-entry, .doc-section { scroll-margin-top: 92px; } }
   .doc-section:first-of-type { border-top: 0; }
   .doc-section > h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 10px; }
   .doc-section > h3 { font-size: 15px; font-weight: 600; margin: 26px 0 8px; }

@@ -63,12 +63,15 @@ export const CHROME_CSS = `
 
   .site-viewports { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
   .site-viewport { flex: 1 1 420px; min-width: 0; }
-  .site-viewport.mobile { flex: 0 0 auto; }
+  .site-viewport.mobile { flex: 0 1 242px; }
   .site-viewport-label { font-size: 12px; color: var(--nk-text-tertiary); margin-bottom: 8px; }
   /* The scaler shows a real viewport width shrunk to fit, so the layout the
-     iframe computes is the one that width would really produce. */
-  .site-scaler { overflow: hidden; border-radius: 10px; border: 1px solid var(--nk-border-strong); }
-  .site-scaler iframe { display: block; border: 0; transform-origin: top left; }
+     iframe computes is the one that width would really produce. The frame
+     takes the width it gets and scales the iframe by frame / viewport width:
+     tan(atan2(a, b)) is a / b as a plain number, the one way CSS divides two
+     lengths. A fixed 640px frame used to push the page to 656px on a phone. */
+  .site-scaler { box-sizing: content-box; container-type: inline-size; overflow: hidden; border-radius: 10px; border: 1px solid var(--nk-border-strong); }
+  .site-scaler iframe { display: block; border: 0; transform-origin: top left; transform: scale(tan(atan2(100cqw, var(--site-w)))); }
 
   .site-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
   .site-table th {
@@ -88,7 +91,12 @@ export const CHROME_CSS = `
   .site-foot a { color: var(--nk-text-secondary); }
 
   @media (max-width: 860px) {
-    .site-nav-links { display: none; }
+    /* Phones: the page links move into a second row that scrolls sideways,
+       brand and switches keep the first – every page stays one tap away. */
+    .site-nav { flex-wrap: wrap; height: auto; padding-top: 8px; row-gap: 2px; }
+    .site-nav-links { order: 3; flex: 1 0 100%; margin: 0 calc(-1 * clamp(16px, 4vw, 40px)); padding: 0 clamp(16px, 4vw, 40px) 6px; overflow-x: auto; scrollbar-width: none; }
+    .site-nav-links::-webkit-scrollbar { display: none; }
+    .site-nav-links a { flex-shrink: 0; }
     .site-viewports { gap: 32px; }
   }
 `;

@@ -1,6 +1,6 @@
 {
   "name": "@jungherz-de/notionkit",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "type": "module",
   "description": "A calm, document-centric CSS component library in the Notion idiom – sidebar, page tree, database views, settings and AI surfaces. ~100 components, light & dark mode, no dependencies.",
   "main": "notionkit.css",
@@ -26,7 +26,8 @@
     "check:versions": "node tools/check-versions.mjs",
     "version": "node tools/sync-version.mjs && git add notionkit.css",
     "prepublishOnly": "npm run build",
-    "test": "playwright test"
+    "test": "playwright test",
+    "check:size": "node tools/check-size.mjs"
   },
   "keywords": [
     "css",
