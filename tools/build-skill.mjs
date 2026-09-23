@@ -33,7 +33,7 @@ const componentEntry = e => `### ${e.title.en} — \`.${e.id}\`
 ${md(e.desc.en)}
 
 ${code(clean(e.html(W)))}
-
+${e.after ? '\n' + code(md(e.after(W).replace(/<[^>]+>/g, '').replace(/^html/, ''))) + '\n' : ''}
 - **Classes:** ${e.classes.map(c => '`.' + c + '`').join(', ')}
 - **On a small screen:** ${md(e.mobile.en)}${e.note ? `\n- **Note:** ${md(e.note.en)}` : ''}
 `;
@@ -294,7 +294,7 @@ customElements.define('nk-callout', NkCallout);`, 'js')}
 
 ## 10. NotionKit Elements
 
-The web-component layer on top of this CSS ships as \`@jungherz-de/notionkit-elements\` (77 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
+The web-component layer on top of this CSS ships as \`@jungherz-de/notionkit-elements\` (79 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
 
 | CSS class markup | Element markup |
 |---|---|

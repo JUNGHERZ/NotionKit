@@ -82,14 +82,14 @@ ${nav(t, 'index')}
       <div class="site-viewport">
         <div class="site-viewport-label">${t.respDesktop}</div>
         <div class="site-scaler" style="--site-w:${DESKTOP_W}px;aspect-ratio:${DESKTOP_W} / ${DESKTOP_H}">
-          <iframe src="${t.appSrc}" title="${t.respDesktop}" loading="lazy" data-theme-sync
+          <iframe src="${t.appSrc}#menu" title="${t.respDesktop}" loading="lazy" data-theme-sync
                   style="width:${DESKTOP_W}px;height:${DESKTOP_H}px"></iframe>
         </div>
       </div>
       <div class="site-viewport mobile">
         <div class="site-viewport-label">${t.respMobile}</div>
         <div class="site-scaler" style="--site-w:${MOBILE_W}px;aspect-ratio:${MOBILE_W} / ${MOBILE_H}">
-          <iframe src="${t.appSrc}" title="${t.respMobile}" loading="lazy" data-theme-sync
+          <iframe src="${t.appSrc}#menu" title="${t.respMobile}" loading="lazy" data-theme-sync
                   style="width:${MOBILE_W}px;height:${MOBILE_H}px"></iframe>
         </div>
       </div>

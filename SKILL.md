@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.6.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.7.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -209,6 +209,7 @@ Every snippet below is real markup from the documentation previews. A few inline
   </aside>
   <main class="nk-main">
     <header class="nk-topbar">
+      <button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu">☰</button>
       <div class="nk-breadcrumb"><span class="crumb current">📊 Project overview</span></div>
       <div class="nk-topbar-actions"><button class="nk-topbar-btn nk-share-btn">Share</button></div>
     </header>
@@ -220,8 +221,14 @@ Every snippet below is real markup from the documentation previews. A few inline
 </div>
 ```
 
-- **Classes:** `.nk-app`, `.nk-sidebar`, `.nk-sidebar-scroll`, `.nk-sidebar-footer`, `.nk-main`
-- **On a small screen:** Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code"><nk-sidebar open>`. The height is `100dvh` with a `100vh` fallback, so a standalone PWA on iOS does not count the status bar into the shell. Safe areas are handled per surface, not on `nk-app`: topbar, page, sidebar and tab bar pad their content by the left/right insets (Dynamic Island in landscape) while their backgrounds run edge to edge.
+```html
+<div class="nk-sidebar-backdrop open"></div>   <!-- phones: the drawer's scrim -->
+<aside class="nk-sidebar open">…</aside>         <!-- slides in over the page -->
+<button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu">☰</button>
+```
+
+- **Classes:** `.nk-app`, `.nk-sidebar`, `.nk-sidebar-scroll`, `.nk-sidebar-footer`, `.nk-main`, `.nk-sidebar-backdrop`, `.nk-sidebar-toggle`, `.open`
+- **On a small screen:** Below 860px the sidebar steps aside and the main column takes the full width. `.open` brings it back as an off-canvas drawer over the page, with a `.nk-sidebar-backdrop` as its scrim: it slides in and the scrim fades, CSS only. The ☰ that opens it is a `.nk-topbar-btn.nk-sidebar-toggle` at the start of the topbar, shown on phones only; toggle `.open` on sidebar and backdrop, close on the backdrop, Escape and a chosen page. The height is `100dvh` with a `100vh` fallback, so a standalone PWA on iOS does not count the status bar into the shell. Safe areas are handled per surface, not on `nk-app`: topbar, page, sidebar and tab bar pad their content by the left/right insets (Dynamic Island in landscape) while their backgrounds run edge to edge.
 
 ### Workspace switcher — `.nk-workspace`
 
@@ -540,6 +547,32 @@ The strip above a database. The active view sits on the active wash as a pill, t
 
 - **Classes:** `.nk-database`, `.nk-db-tabs`, `.nk-db-tab`, `.active`, `.badge`
 - **On a small screen:** Add `overflow-x: auto` to the strip when you have more than three or four views.
+
+### Toolbar & filter pills — `.nk-db-toolbar`
+
+The database header as Notion lays it out: view tabs on the left, the view's tools on the right – `.nk-db-tool` buttons for Filter, Sort and search, then “New”. A tool in effect takes `.active`, the accent. Under it, `.nk-filter-row` holds the filters in effect as `.nk-filter-pill`s – `.active` with an accent tint – and a quiet `.add` pill at the end. A pill is one button, or a box with the label button and a `.fp-remove` × when a filter can be removed in place.
+
+```html
+<div class="nk-database">
+  <div class="nk-db-toolbar">
+    <div class="nk-db-tabs">
+      <div class="nk-db-tab active">▦ Table</div><div class="nk-db-tab">▤ Board</div><div class="nk-db-tab">☰ List</div>
+    </div>
+    <div class="tools">
+      <button class="nk-db-tool active">Filter</button><button class="nk-db-tool">Sort</button><button class="nk-db-tool" aria-label="Search">🔍</button>
+      <button class="nk-btn primary small">New</button>
+    </div>
+  </div>
+  <div class="nk-filter-row">
+    <span class="nk-filter-pill active"><button>Status: Open</button><button class="fp-remove" aria-label="Remove filter">×</button></span>
+    <button class="nk-filter-pill">Owner: Marcel ▾</button>
+    <button class="nk-filter-pill add">＋ Filter</button>
+  </div>
+</div>
+```
+
+- **Classes:** `.nk-db-toolbar`, `.tools`, `.nk-db-tool`, `.active`, `.nk-filter-row`, `.nk-filter-pill`, `.add`, `.fp-remove`
+- **On a small screen:** The tabs scroll sideways when the row gets narrow; the tools keep their place. The pills wrap onto further rows.
 
 ### Table view — `.nk-table`
 
@@ -904,7 +937,7 @@ An eight-column grid inside `nk-pop`, with a filter field above and a greyed-out
 
 ### Context menu — `.nk-menu`
 
-Combine `nk-pop` with `nk-menu`. Items take an `.m-icon` on the left and an `.m-shortcut` pushed right; `.danger` turns an item red. A `.nk-switch` as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu.
+Combine `nk-pop` with `nk-menu`. Items take an `.m-icon` on the left and an `.m-shortcut` pushed right; `.danger` turns an item red. A `.nk-switch` as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu. A menu that floats over the page takes `floating` and opens and closes with `.open`, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. `sheet` makes it a bottom sheet on a phone, as Notion's mobile app opens every menu – the same markup, two presentations.
 
 ```html
 <div class="nk-pop nk-menu">
@@ -917,10 +950,11 @@ Combine `nk-pop` with `nk-menu`. Items take an `.m-icon` on the left and an `.m-
   <div class="nk-menu-sep"></div>
   <div class="nk-menu-item danger"><span class="m-icon">🗑</span>Move to trash</div>
 </div>
+<pre class="nk-code"><span class="lang">html</span>&lt;div class="nk-pop nk-menu floating sheet open" style="position:fixed; top:48px; right:12px"&gt;…&lt;/div&gt;</pre>
 ```
 
-- **Classes:** `.nk-menu`, `.nk-menu-item`, `.m-icon`, `.m-shortcut`, `.danger`, `.nk-menu-sep`, `.nk-menu-label`
-- **On a small screen:** Shortcuts are meaningless on touch — hide the `.m-shortcut` spans there.
+- **Classes:** `.nk-menu`, `.nk-menu-item`, `.m-icon`, `.m-shortcut`, `.danger`, `.nk-menu-sep`, `.nk-menu-label`, `.floating`, `.sheet`, `.open`
+- **On a small screen:** Shortcuts are meaningless on touch — hide the `.m-shortcut` spans there. With `sheet` the menu becomes a bottom sheet below 860px: full width, a grabber, 40px rows, the page dimmed behind it; inline positioning is overruled.
 
 ### Command palette — `.nk-cmdk`
 
@@ -963,6 +997,26 @@ What the list shows when the filter matches nothing. Quote the query back so the
 
 - **Classes:** `.nk-cmdk-empty`
 - **On a small screen:** Same as the palette: full width, reduced top padding.
+
+### Sheet — `.nk-sheet`
+
+Notion's mobile surface for menus, properties and more: the phone's twin of the modal. The backdrop fades, the panel rises from the bottom edge with its top corners rounded and a `.sh-grabber` on top, and the home indicator keeps its distance. It lies above the tab bar. Like the modal it starts invisible and `.open` shows it; closed, the backdrop leaves the layout once it has faded. Up to 640px wide, centred on larger screens. Rows inside get 40px, a thumb's height. For a menu that is a popover on the desktop and a sheet on the phone, use `.nk-pop.sheet` instead.
+
+```html
+<div class="nk-sheet-backdrop open">
+  <div class="nk-sheet" role="dialog" aria-modal="true" aria-label="Page">
+    <div class="sh-grabber"></div>
+    <div class="sh-title">Page</div>
+    <div class="nk-menu-item"><span class="m-icon">🔡</span>Small text<button class="nk-switch" role="switch" aria-checked="true" aria-label="Small text"></button></div>
+    <div class="nk-menu-item"><span class="m-icon">🔗</span>Copy link</div>
+    <div class="nk-menu-item"><span class="m-icon">📄</span>Duplicate</div>
+    <div class="nk-menu-item danger"><span class="m-icon">🗑</span>Move to trash</div>
+  </div>
+</div>
+```
+
+- **Classes:** `.nk-sheet-backdrop`, `.open`, `.nk-sheet`, `.sh-grabber`, `.sh-title`
+- **On a small screen:** Made for the phone: full width, bottom padding from the safe area, the content scrolls inside the sheet and never moves the page.
 
 ### Toast — `.nk-toast`
 
@@ -1181,6 +1235,21 @@ A dashed frame with icon, title and one explanatory line, then the way out of th
 - **Classes:** `.nk-empty`, `.e-icon`, `.e-title`, `.e-desc`, `.e-actions`
 - **On a small screen:** Centred and fluid; padding drops naturally with the container.
 
+### Steps — `.nk-steps`
+
+Steps through a short flow – connecting an account, setting up a model – calm and vertical: a numbered circle per step joined by a hairline, done steps on the green tag with a check, the current one ringed in the accent and marked `aria-current="step"`, the rest quiet. `.st-desc` adds a line under a step. Not a Notion block; in Notion's idiom it is a numbered list with checks.
+
+```html
+<ol class="nk-steps" aria-label="Connect your own model">
+  <li class="nk-step done"><span class="st-mark">✓</span><span>Choose a provider<span class="st-desc">Anthropic</span></span></li>
+  <li class="nk-step current" aria-current="step"><span class="st-mark">2</span><span>Enter the API key</span></li>
+  <li class="nk-step"><span class="st-mark">3</span><span>Test the connection</span></li>
+</ol>
+```
+
+- **Classes:** `.nk-steps`, `.nk-step`, `.st-mark`, `.st-desc`, `.done`, `.current`
+- **On a small screen:** Unchanged: vertical, so it never runs out of width.
+
 ## Collaboration & AI (PRD 5.10)
 
 ### Comment thread — `.nk-comments`
@@ -1286,7 +1355,10 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 |---|---|---|
 | `[hidden]` | `[class*="nk-"]`, `::slotted(*)` | Hides, always – also on components that set their own display, which beat the browser rule before 1.5.2. hidden="until-found" keeps the browser’s find-in-page reveal. |
 | `active` | `nk-tree-item`, `nk-db-tab`, `nk-tab`, `nk-tab-bar-item`, `nk-settings-pane`, `nk-segmented button`, `nk-emoji-cats span`, `nk-board`, `nk-bubble-menu button` | Marks the current item. Tree items and view tabs get the active background, .nk-tab gets the underline, panes become visible. |
-| `open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-toggle-arrow` | Fades the overlay in and makes it interactive; rotates the toggle arrow by 90°. |
+| `open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-sheet-backdrop`, `nk-pop.floating`, `nk-sidebar`, `nk-sidebar-backdrop`, `nk-toggle-arrow` | Fades the overlay in and makes it interactive; shows a floating menu; slides the sidebar in as a drawer on a phone; rotates the toggle arrow by 90°. |
+| `floating` | `nk-pop` | A menu over the page: invisible and inert until .open, then it fades in and settles from 4px higher and 98 %, the way the palette opens. |
+| `sheet` | `nk-pop` | Below 860px the popover becomes a bottom sheet – full width, grabber, 40px rows, the page dimmed – and inline positioning is overruled. |
+| `done / current` | `nk-step` | A finished step on the green tag with a check; the step you are on, ringed in the accent, with aria-current="step". |
 | `collapsed` | `nk-tree-children` | Folds a subtree away with display: none. |
 | `selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item` | The keyboard-highlighted or chosen option. Distinct from active: selection is transient, active is where you are. |
 | `stacked` | `nk-field` | Label above a full-width control instead of beside it – textareas, long descriptions. |
@@ -1335,7 +1407,9 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
 <body class="nk-body">
 <div class="nk-app">
 
-  <aside class="nk-sidebar">
+  <!-- On a phone the sidebar is a drawer: the ☰ in the topbar opens it. -->
+  <div class="nk-sidebar-backdrop" id="backdrop"></div>
+  <aside class="nk-sidebar" id="sidebar">
     <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
     <div class="nk-sidebar-scroll">
       <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Search</span><span class="nk-kbd-hint"><kbd class="nk-kbd">⌘</kbd><kbd class="nk-kbd">K</kbd></span></div>
@@ -1354,6 +1428,7 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
 
   <main class="nk-main">
     <header class="nk-topbar">
+      <button class="nk-topbar-btn nk-sidebar-toggle" id="menu" aria-label="Menu" aria-expanded="false">☰</button>
       <div class="nk-breadcrumb"><span class="crumb">🚀 Roadmap</span><span class="sep">/</span><span class="crumb current">📄 Q3 goals</span></div>
       <div class="nk-topbar-actions">
         <button class="nk-topbar-btn nk-share-btn">Share</button>
@@ -1397,6 +1472,15 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
     const r = document.documentElement;
     r.setAttribute('data-theme', r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
+  // Phones: the ☰ slides the sidebar in; the backdrop and Escape close it.
+  const drawer = open => {
+    sidebar.classList.toggle('open', open);
+    backdrop.classList.toggle('open', open);
+    menu.setAttribute('aria-expanded', String(open));
+  };
+  menu.addEventListener('click', () => drawer(!sidebar.classList.contains('open')));
+  backdrop.addEventListener('click', () => drawer(false));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') drawer(false); });
 </script>
 </body>
 </html>
@@ -1430,16 +1514,26 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
   <main class="nk-main">
     <header class="nk-topbar">
       <div class="nk-breadcrumb"><span class="crumb current">🗃️ Projects</span></div>
-      <div class="nk-topbar-actions"><button class="nk-btn primary small">＋ New</button></div>
     </header>
     <div class="nk-page-scroll">
       <div class="nk-page" style="max-width: none">
         <h1 class="nk-page-title">Projects</h1>
 
         <div class="nk-database">
-          <div class="nk-db-tabs">
-            <div class="nk-db-tab active" data-view="table">▦ Table<span class="badge">2</span></div>
-            <div class="nk-db-tab" data-view="board">▤ Board</div>
+          <!-- Tabs left, the view's tools right; the filters in effect as pills below. -->
+          <div class="nk-db-toolbar">
+            <div class="nk-db-tabs">
+              <div class="nk-db-tab active" data-view="table">▦ Table<span class="badge">2</span></div>
+              <div class="nk-db-tab" data-view="board">▤ Board</div>
+            </div>
+            <div class="tools">
+              <button class="nk-db-tool active">Filter</button><button class="nk-db-tool">Sort</button><button class="nk-db-tool" aria-label="Search">🔍</button>
+              <button class="nk-btn primary small">New</button>
+            </div>
+          </div>
+          <div class="nk-filter-row">
+            <span class="nk-filter-pill active"><button>Status: Open</button><button class="fp-remove" aria-label="Remove filter">×</button></span>
+            <button class="nk-filter-pill add">＋ Filter</button>
           </div>
 
           <div class="nk-table-wrap" id="view-table"><table class="nk-table">
@@ -1449,10 +1543,10 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
             </tr></thead>
             <tbody>
               <tr><td><span class="row-title">🚀 Roadmap</span></td><td><span class="nk-tag green">Done</span></td>
-                  <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>Ada</span></td>
+                  <td><span class="person-cell"><span class="nk-avatar small purple">AL</span>Ada</span></td>
                   <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td></tr>
               <tr><td><span class="row-title">🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
-                  <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
+                  <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
                   <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
             </tbody>
           </table><div class="nk-new-row">＋ New row</div></div>
@@ -1671,6 +1765,12 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
 
   <h1 class="nk-page-title">Welcome to Acme</h1>
   <p class="lead">Three quick questions and your workspace is ready.</p>
+
+  <ol class="nk-steps" aria-label="Set-up">
+    <li class="nk-step current" aria-current="step"><span class="st-mark">1</span><span>About you</span></li>
+    <li class="nk-step"><span class="st-mark">2</span><span>Preferences</span></li>
+    <li class="nk-step"><span class="st-mark">3</span><span>Assistant</span></li>
+  </ol>
 
   <div class="nk-banner info">ℹ️ You can change all of this later in Settings.<span class="b-action">Skip</span></div>
 
@@ -1991,15 +2091,15 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 
 | Group | Classes |
 |---|---|
-| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-topbar-meta` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
+| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-sidebar-backdrop` `nk-sidebar-toggle` `open` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-topbar-meta` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
-| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` |
+| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
-| Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-toast` `show` |
-| Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-panels` `nk-panel` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-avatar` `small` `large` `xlarge` `square` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` |
+| Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-toast` `show` |
+| Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-panels` `nk-panel` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-avatar` `small` `large` `xlarge` `square` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` `nk-steps` `nk-step` `st-mark` `st-desc` `done` `current` |
 | Collaboration & AI | `nk-comments` `nk-comment` `c-head` `c-body` `nk-comment-input` `nk-ai-thread` `nk-ai-msg` `user` `bubble` `a-name` `a-body` `nk-ai-actions` `nk-ai-input-row` `nk-ai-send` |
 | Editor adapter | `nk-block-host` `nk-block-handle` `nk-block-actions` `nk-drop-target` `nk-slash-menu` `nk-slash-menu-label` `nk-slash-item` `selected` `nk-bubble-menu` |
 
@@ -2039,7 +2139,7 @@ customElements.define('nk-callout', NkCallout);
 
 ## 10. NotionKit Elements
 
-The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elements` (77 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
+The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elements` (79 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
 
 | CSS class markup | Element markup |
 |---|---|
@@ -2058,4 +2158,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.6.0 · MIT · Jungherz GmbH*
+*NotionKit v1.7.0 · MIT · Jungherz GmbH*

@@ -17,7 +17,9 @@ export const SKELETONS = [
 <body class="nk-body">
 <div class="nk-app">
 
-  <aside class="nk-sidebar">
+  <!-- On a phone the sidebar is a drawer: the ☰ in the topbar opens it. -->
+  <div class="nk-sidebar-backdrop" id="backdrop"></div>
+  <aside class="nk-sidebar" id="sidebar">
     <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
     <div class="nk-sidebar-scroll">
       <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Search</span><span class="nk-kbd-hint"><kbd class="nk-kbd">⌘</kbd><kbd class="nk-kbd">K</kbd></span></div>
@@ -36,6 +38,7 @@ export const SKELETONS = [
 
   <main class="nk-main">
     <header class="nk-topbar">
+      <button class="nk-topbar-btn nk-sidebar-toggle" id="menu" aria-label="Menu" aria-expanded="false">☰</button>
       <div class="nk-breadcrumb"><span class="crumb">🚀 Roadmap</span><span class="sep">/</span><span class="crumb current">📄 Q3 goals</span></div>
       <div class="nk-topbar-actions">
         <button class="nk-topbar-btn nk-share-btn">Share</button>
@@ -79,6 +82,15 @@ export const SKELETONS = [
     const r = document.documentElement;
     r.setAttribute('data-theme', r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
+  // Phones: the ☰ slides the sidebar in; the backdrop and Escape close it.
+  const drawer = open => {
+    sidebar.classList.toggle('open', open);
+    backdrop.classList.toggle('open', open);
+    menu.setAttribute('aria-expanded', String(open));
+  };
+  menu.addEventListener('click', () => drawer(!sidebar.classList.contains('open')));
+  backdrop.addEventListener('click', () => drawer(false));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') drawer(false); });
 </script>
 </body>
 </html>`,
@@ -102,16 +114,26 @@ export const SKELETONS = [
   <main class="nk-main">
     <header class="nk-topbar">
       <div class="nk-breadcrumb"><span class="crumb current">🗃️ Projects</span></div>
-      <div class="nk-topbar-actions"><button class="nk-btn primary small">＋ New</button></div>
     </header>
     <div class="nk-page-scroll">
       <div class="nk-page" style="max-width: none">
         <h1 class="nk-page-title">Projects</h1>
 
         <div class="nk-database">
-          <div class="nk-db-tabs">
-            <div class="nk-db-tab active" data-view="table">▦ Table<span class="badge">2</span></div>
-            <div class="nk-db-tab" data-view="board">▤ Board</div>
+          <!-- Tabs left, the view's tools right; the filters in effect as pills below. -->
+          <div class="nk-db-toolbar">
+            <div class="nk-db-tabs">
+              <div class="nk-db-tab active" data-view="table">▦ Table<span class="badge">2</span></div>
+              <div class="nk-db-tab" data-view="board">▤ Board</div>
+            </div>
+            <div class="tools">
+              <button class="nk-db-tool active">Filter</button><button class="nk-db-tool">Sort</button><button class="nk-db-tool" aria-label="Search">🔍</button>
+              <button class="nk-btn primary small">New</button>
+            </div>
+          </div>
+          <div class="nk-filter-row">
+            <span class="nk-filter-pill active"><button>Status: Open</button><button class="fp-remove" aria-label="Remove filter">×</button></span>
+            <button class="nk-filter-pill add">＋ Filter</button>
           </div>
 
           <div class="nk-table-wrap" id="view-table"><table class="nk-table">
@@ -121,10 +143,10 @@ export const SKELETONS = [
             </tr></thead>
             <tbody>
               <tr><td><span class="row-title">🚀 Roadmap</span></td><td><span class="nk-tag green">Done</span></td>
-                  <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>Ada</span></td>
+                  <td><span class="person-cell"><span class="nk-avatar small purple">AL</span>Ada</span></td>
                   <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td></tr>
               <tr><td><span class="row-title">🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
-                  <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
+                  <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
                   <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
             </tbody>
           </table><div class="nk-new-row">＋ New row</div></div>
@@ -313,6 +335,12 @@ export const SKELETONS = [
 
   <h1 class="nk-page-title">Welcome to Acme</h1>
   <p class="lead">Three quick questions and your workspace is ready.</p>
+
+  <ol class="nk-steps" aria-label="Set-up">
+    <li class="nk-step current" aria-current="step"><span class="st-mark">1</span><span>About you</span></li>
+    <li class="nk-step"><span class="st-mark">2</span><span>Preferences</span></li>
+    <li class="nk-step"><span class="st-mark">3</span><span>Assistant</span></li>
+  </ol>
 
   <div class="nk-banner info">ℹ️ You can change all of this later in Settings.<span class="b-action">Skip</span></div>
 

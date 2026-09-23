@@ -124,7 +124,8 @@ test('the list view is the third view tab, one line per row', async ({ page }) =
   await expect(page.locator('#view-list')).toBeVisible();
   await expect(page.locator('#view-table')).toBeHidden();
   const rows = await page.evaluate(() => [...document.querySelectorAll('#view-list .nk-list-item')].map(r => r.getBoundingClientRect().height));
-  expect(rows).toHaveLength(4);
+  // The list shows what the table shows – the rows through the active filters (1.7.0).
+  expect(rows).toHaveLength(await page.evaluate(() => document.querySelectorAll('#tableBody tr').length));
   for (const h of rows) expect(h).toBeLessThanOrEqual(37);
   await page.click('.nk-db-tab[data-view="board"]');
   await expect(page.locator('#view-board')).toBeVisible();

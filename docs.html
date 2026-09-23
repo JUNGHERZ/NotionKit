@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.6.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.7.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Docs</a>
@@ -353,7 +353,10 @@
         <thead><tr><th>Class</th><th>Applies to</th><th>Effect</th></tr></thead>
         <tbody><tr><td><code>[hidden]</code></td><td><code>[class*="nk-"]</code> <code>::slotted(*)</code></td><td>Hides, always – also on components that set their own display, which beat the browser rule before 1.5.2. hidden="until-found" keeps the browser’s find-in-page reveal.</td></tr>
         <tr><td><code>.active</code></td><td><code>nk-tree-item</code> <code>nk-db-tab</code> <code>nk-tab</code> <code>nk-tab-bar-item</code> <code>nk-settings-pane</code> <code>nk-segmented button</code> <code>nk-emoji-cats span</code> <code>nk-board</code> <code>nk-bubble-menu button</code></td><td>Marks the current item. Tree items and view tabs get the active background, .nk-tab gets the underline, panes become visible.</td></tr>
-        <tr><td><code>.open</code></td><td><code>nk-modal-backdrop</code> <code>nk-cmdk-backdrop</code> <code>nk-toggle-arrow</code></td><td>Fades the overlay in and makes it interactive; rotates the toggle arrow by 90°.</td></tr>
+        <tr><td><code>.open</code></td><td><code>nk-modal-backdrop</code> <code>nk-cmdk-backdrop</code> <code>nk-sheet-backdrop</code> <code>nk-pop.floating</code> <code>nk-sidebar</code> <code>nk-sidebar-backdrop</code> <code>nk-toggle-arrow</code></td><td>Fades the overlay in and makes it interactive; shows a floating menu; slides the sidebar in as a drawer on a phone; rotates the toggle arrow by 90°.</td></tr>
+        <tr><td><code>.floating</code></td><td><code>nk-pop</code></td><td>A menu over the page: invisible and inert until .open, then it fades in and settles from 4px higher and 98 %, the way the palette opens.</td></tr>
+        <tr><td><code>.sheet</code></td><td><code>nk-pop</code></td><td>Below 860px the popover becomes a bottom sheet – full width, grabber, 40px rows, the page dimmed – and inline positioning is overruled.</td></tr>
+        <tr><td><code>.done / current</code></td><td><code>nk-step</code></td><td>A finished step on the green tag with a check; the step you are on, ringed in the accent, with aria-current="step".</td></tr>
         <tr><td><code>.collapsed</code></td><td><code>nk-tree-children</code></td><td>Folds a subtree away with display: none.</td></tr>
         <tr><td><code>.selected</code></td><td><code>nk-cmdk-item</code> <code>nk-model-card</code> <code>nk-slash-item</code></td><td>The keyboard-highlighted or chosen option. Distinct from active: selection is transient, active is where you are.</td></tr>
         <tr><td><code>.stacked</code></td><td><code>nk-field</code></td><td>Label above a full-width control instead of beside it – textareas, long descriptions.</td></tr>
@@ -486,6 +489,7 @@ class NkCallout extends HTMLElement {
   </aside>
   <main class="nk-main">
     <header class="nk-topbar">
+      <button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu">☰</button>
       <div class="nk-breadcrumb"><span class="crumb current">📊 Project overview</span></div>
       <div class="nk-topbar-actions"><button class="nk-topbar-btn nk-share-btn">Share</button></div>
     </header>
@@ -495,6 +499,9 @@ class NkCallout extends HTMLElement {
     </div></div>
   </main>
 </div></div>
+        <pre class="nk-code"><span class="lang">html</span>&lt;div class="nk-sidebar-backdrop open"&gt;&lt;/div&gt;   &lt;!-- phones: the drawer's scrim --&gt;
+&lt;aside class="nk-sidebar open"&gt;…&lt;/aside&gt;         &lt;!-- slides in over the page --&gt;
+&lt;button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu"&gt;☰&lt;/button&gt;</pre>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-app" <span class="attr">style=</span>"height:100%"<span class="tag">&gt;</span>
   <span class="tag">&lt;aside</span> <span class="attr">class=</span>"nk-sidebar"<span class="tag">&gt;</span>
@@ -510,6 +517,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;/aside</span><span class="tag">&gt;</span>
   <span class="tag">&lt;main</span> <span class="attr">class=</span>"nk-main"<span class="tag">&gt;</span>
     <span class="tag">&lt;header</span> <span class="attr">class=</span>"nk-topbar"<span class="tag">&gt;</span>
+      <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn nk-sidebar-toggle" <span class="attr">aria-label=</span>"Menu"<span class="tag">&gt;</span>☰<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
       <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-breadcrumb"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"crumb current"<span class="tag">&gt;</span>📊 Project overview<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
       <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-topbar-actions"<span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn nk-share-btn"<span class="tag">&gt;</span>Share<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;/header</span><span class="tag">&gt;</span>
@@ -519,8 +527,8 @@ class NkCallout extends HTMLElement {
     <span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/main</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>On a small screen:</b><span>Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>. The height is <code>100dvh</code> with a <code>100vh</code> fallback, so a standalone PWA on iOS does not count the status bar into the shell. Safe areas are handled per surface, not on <code>nk-app</code>: topbar, page, sidebar and tab bar pad their content by the left/right insets (Dynamic Island in landscape) while their backgrounds run edge to edge.</span></div>
-        <div class="doc-classes"><code>.nk-app</code><code>.nk-sidebar</code><code>.nk-sidebar-scroll</code><code>.nk-sidebar-footer</code><code>.nk-main</code></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Below 860px the sidebar steps aside and the main column takes the full width. <code>.open</code> brings it back as an off-canvas drawer over the page, with a <code>.nk-sidebar-backdrop</code> as its scrim: it slides in and the scrim fades, CSS only. The ☰ that opens it is a <code>.nk-topbar-btn.nk-sidebar-toggle</code> at the start of the topbar, shown on phones only; toggle <code>.open</code> on sidebar and backdrop, close on the backdrop, Escape and a chosen page. The height is <code>100dvh</code> with a <code>100vh</code> fallback, so a standalone PWA on iOS does not count the status bar into the shell. Safe areas are handled per surface, not on <code>nk-app</code>: topbar, page, sidebar and tab bar pad their content by the left/right insets (Dynamic Island in landscape) while their backgrounds run edge to edge.</span></div>
+        <div class="doc-classes"><code>.nk-app</code><code>.nk-sidebar</code><code>.nk-sidebar-scroll</code><code>.nk-sidebar-footer</code><code>.nk-main</code><code>.nk-sidebar-backdrop</code><code>.nk-sidebar-toggle</code><code>.open</code></div>
       </article>
       <article class="doc-entry" id="nk-workspace">
         <h3>Workspace switcher <code>.nk-workspace</code></h3>
@@ -528,6 +536,7 @@ class NkCallout extends HTMLElement {
         <div class="doc-preview"><div class="nk-workspace" style="background:var(--nk-bg-sidebar);max-width:244px">
   <div class="avatar">A</div>Acme Inc<span class="chev">⌄</span>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-workspace" <span class="attr">style=</span>"background:var(--nk-bg-sidebar);max-width:244px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"avatar"<span class="tag">&gt;</span>A<span class="tag">&lt;/div</span><span class="tag">&gt;</span>Acme Inc<span class="tag">&lt;span</span> <span class="attr">class=</span>"chev"<span class="tag">&gt;</span>⌄<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
@@ -551,6 +560,7 @@ class NkCallout extends HTMLElement {
     <button class="nk-topbar-btn">⋯</button>
   </div>
 </header></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;header</span> <span class="attr">class=</span>"nk-topbar" <span class="attr">style=</span>"border:1px solid var(--nk-border);border-radius:var(--nk-radius)"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-breadcrumb"<span class="tag">&gt;</span>
@@ -582,6 +592,7 @@ class NkCallout extends HTMLElement {
 </div>
 <pre class="nk-code" style="margin-top:12px"><span class="lang">html</span>&lt;nav class="nk-tab-bar fixed"&gt;…&lt;/nav&gt;&lt;div class="nk-tab-bar-spacer"&gt;&lt;/div&gt;</pre></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:390px;border:1px solid var(--nk-border);border-radius:12px;overflow:hidden"<span class="tag">&gt;</span>
   <span class="tag">&lt;nav</span> <span class="attr">class=</span>"nk-tab-bar always"<span class="tag">&gt;</span>
     <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-tab-bar-item active"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>🏠<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Home<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
@@ -604,6 +615,7 @@ class NkCallout extends HTMLElement {
   <span class="crumb current">🚀 Roadmap</span>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-breadcrumb"<span class="tag">&gt;</span>
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"crumb"<span class="tag">&gt;</span>📊 Project overview<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"sep"<span class="tag">&gt;</span>/<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"crumb"<span class="tag">&gt;</span>📚 Knowledge base<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"sep"<span class="tag">&gt;</span>/<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
@@ -619,6 +631,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-section-label">Favourites<span class="plus">＋</span></div>
   <div class="nk-tree-item"><span class="icon">📊</span><span class="label">Project overview</span></div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"background:var(--nk-bg-sidebar);border-radius:var(--nk-radius);padding:4px 8px;max-width:244px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-section-label"<span class="tag">&gt;</span>Favourites<span class="tag">&lt;span</span> <span class="attr">class=</span>"plus"<span class="tag">&gt;</span>＋<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -639,6 +652,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-tree-item"><span class="icon">📚</span><span class="label">Knowledge base</span><span class="actions"><span>＋</span><span>⋯</span></span></div>
   <div class="nk-tree-item"><span class="icon">🎨</span><span class="label">Design system</span><span class="actions"><span>＋</span><span>⋯</span></span></div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"background:var(--nk-bg-sidebar);border-radius:var(--nk-radius);padding:6px 8px;max-width:244px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tree-item active"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>📊<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Project overview<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"actions"<span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>＋<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>⋯<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -661,6 +675,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-tree-children collapsed"><div class="nk-tree-item"><span class="label">—</span></div></div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"background:var(--nk-bg-sidebar);border-radius:var(--nk-radius);padding:6px 8px;max-width:244px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tree-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-toggle-arrow open"<span class="tag">&gt;</span>▶<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>📚<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Knowledge base<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tree-children"<span class="tag">&gt;</span>
@@ -679,6 +694,7 @@ class NkCallout extends HTMLElement {
         <div class="doc-preview"><div style="background:var(--nk-bg-sidebar);border-radius:var(--nk-radius);padding:6px 8px;max-width:244px">
   <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Search</span><span class="nk-kbd-hint"><kbd class="nk-kbd">⌘</kbd><kbd class="nk-kbd">K</kbd></span></div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"background:var(--nk-bg-sidebar);border-radius:var(--nk-radius);padding:6px 8px;max-width:244px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tree-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>🔍<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Search<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-kbd-hint"<span class="tag">&gt;</span><span class="tag">&lt;kbd</span> <span class="attr">class=</span>"nk-kbd"<span class="tag">&gt;</span>⌘<span class="tag">&lt;/kbd</span><span class="tag">&gt;</span><span class="tag">&lt;kbd</span> <span class="attr">class=</span>"nk-kbd"<span class="tag">&gt;</span>K<span class="tag">&lt;/kbd</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -703,6 +719,7 @@ class NkCallout extends HTMLElement {
   </div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-page-scroll" <span class="attr">style=</span>"height:100%"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover" <span class="attr">style=</span>"height:120px"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-page" <span class="attr">style=</span>"padding-bottom:24px"<span class="tag">&gt;</span>
@@ -726,6 +743,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Progress</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
 </dl></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;dl</span> <span class="attr">class=</span>"nk-props" <span class="attr">style=</span>"max-width:520px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prop"<span class="tag">&gt;</span><span class="tag">&lt;dt</span> <span class="attr">class=</span>"p-name"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"p-icon"<span class="tag">&gt;</span>◉<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Status<span class="tag">&lt;/dt</span><span class="tag">&gt;</span><span class="tag">&lt;dd</span> <span class="attr">class=</span>"p-value"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag blue"<span class="tag">&gt;</span>In progress<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/dd</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prop"<span class="tag">&gt;</span><span class="tag">&lt;dt</span> <span class="attr">class=</span>"p-name"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"p-icon"<span class="tag">&gt;</span>👤<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Owner<span class="tag">&lt;/dt</span><span class="tag">&gt;</span><span class="tag">&lt;dd</span> <span class="attr">class=</span>"p-value"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar small purple"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Ada Lovelace<span class="tag">&lt;/dd</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -742,6 +760,7 @@ class NkCallout extends HTMLElement {
         <div class="doc-preview"><div class="nk-cover" style="border-radius:var(--nk-radius)"></div>
 <div class="nk-cover" style="height:120px;border-radius:var(--nk-radius);margin-top:12px"><img src="covers/meadow.svg" alt=""></div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover" <span class="attr">style=</span>"border-radius:var(--nk-radius)"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover" <span class="attr">style=</span>"height:120px;border-radius:var(--nk-radius);margin-top:12px"<span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attr">src=</span>"covers/meadow.svg" <span class="attr">alt=</span>""<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Fixed 200px height, full bleed. Reduce it yourself if it eats too much of a short screen.</span></div>
@@ -754,6 +773,7 @@ class NkCallout extends HTMLElement {
   <h2 class="nk-heading">✅ How this works</h2>
   <p class="lead">A short lead paragraph sets up the page in a calmer, larger type size before the body copy begins.</p>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-page" <span class="attr">style=</span>"padding:0;max-width:none"<span class="tag">&gt;</span>
   <span class="tag">&lt;h2</span> <span class="attr">class=</span>"nk-heading"<span class="tag">&gt;</span>✅ How this works<span class="tag">&lt;/h2</span><span class="tag">&gt;</span>
@@ -771,6 +791,7 @@ class NkCallout extends HTMLElement {
         <p class="doc-desc">A tinted block for the one thought that must not be missed. The icon is a <code>.c-icon</code> child and has a <code>::slotted()</code> twin, so <code>&lt;nk-callout&gt;</code> can accept it through a slot.</p>
         <div class="doc-preview"><div class="nk-callout"><span class="c-icon">💡</span><div><b>Core idea:</b> a callout carries one thought that should not be missed. Keep it to a sentence or two.</div></div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-callout"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"c-icon"<span class="tag">&gt;</span>💡<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;b</span><span class="tag">&gt;</span>Core idea:<span class="tag">&lt;/b</span><span class="tag">&gt;</span> a callout carries one thought that should not be missed. Keep it to a sentence or two.<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Flows naturally; the icon stays on the first line because the row is <code>align-items: flex-start</code>.</span></div>
         <div class="doc-classes"><code>.nk-callout</code><code>.c-icon</code></div>
@@ -783,6 +804,7 @@ class NkCallout extends HTMLElement {
   <label class="nk-todo"><input type="checkbox" checked><span>Build the preview</span></label>
   <label class="nk-todo"><input type="checkbox"><span>Prioritise the MVP</span></label>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;label</span> <span class="attr">class=</span>"nk-todo"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">type=</span>"checkbox" checked<span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>Sketch the component scope<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/label</span><span class="tag">&gt;</span>
@@ -800,6 +822,7 @@ class NkCallout extends HTMLElement {
   <div class="toggle-body">The text editor itself. NotionKit ships the optical shell; you mount TipTap, BlockNote or Novel inside it.</div>
 </details></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;details</span> <span class="attr">class=</span>"nk-toggle" open<span class="tag">&gt;</span>
   <span class="tag">&lt;summary</span><span class="tag">&gt;</span>What is not included?<span class="tag">&lt;/summary</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"toggle-body"<span class="tag">&gt;</span>The text editor itself. NotionKit ships the optical shell; you mount TipTap, BlockNote or Novel inside it.<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -812,6 +835,7 @@ class NkCallout extends HTMLElement {
         <p class="doc-desc">A block quote with a solid left rule, plus the horizontal divider. <code>nk-divider</code> is meant for an <code>&lt;hr&gt;</code> and resets the element’s own border.</p>
         <div class="doc-preview"><blockquote class="nk-quote">Design is not just what it looks like. Design is how it works.<cite class="q-cite">— Steve Jobs</cite></blockquote>
 <hr class="nk-divider"></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;blockquote</span> <span class="attr">class=</span>"nk-quote"<span class="tag">&gt;</span>Design is not just what it looks like. Design is how it works.<span class="tag">&lt;cite</span> <span class="attr">class=</span>"q-cite"<span class="tag">&gt;</span>— Steve Jobs<span class="tag">&lt;/cite</span><span class="tag">&gt;</span><span class="tag">&lt;/blockquote</span><span class="tag">&gt;</span>
 <span class="tag">&lt;hr</span> <span class="attr">class=</span>"nk-divider"<span class="tag">&gt;</span></div>
@@ -826,6 +850,7 @@ class NkCallout extends HTMLElement {
   <span class="nk-mention page">📄 Knowledge base</span>
   <span class="nk-mention date">📅 20 May</span>
 </p></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;p</span> <span class="attr">style=</span>"line-height:1.9"<span class="tag">&gt;</span>
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-mention person"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar purple"<span class="tag">&gt;</span>SL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Sara Lindt<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
@@ -842,6 +867,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"c-icon"<span class="tag">&gt;</span>💡<span class="tag">&lt;/span&gt;</span>
 <span class="tag">&lt;/div&gt;</span></div>
 <p>Inline: <code class="nk-inline-code">--nk-accent</code></p></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-code"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"lang"<span class="tag">&gt;</span>html<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"tag"<span class="tag">&gt;</span>&amp;lt;div<span class="tag">&lt;/span</span><span class="tag">&gt;</span> <span class="tag">&lt;span</span> <span class="attr">class=</span>"attr"<span class="tag">&gt;</span>class=<span class="tag">&lt;/span</span><span class="tag">&gt;</span>"nk-callout"<span class="tag">&lt;span</span> <span class="attr">class=</span>"tag"<span class="tag">&gt;</span>&amp;gt;<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"tag"<span class="tag">&gt;</span>&amp;lt;span<span class="tag">&lt;/span</span><span class="tag">&gt;</span> <span class="tag">&lt;span</span> <span class="attr">class=</span>"attr"<span class="tag">&gt;</span>class=<span class="tag">&lt;/span</span><span class="tag">&gt;</span>"c-icon"<span class="tag">&lt;span</span> <span class="attr">class=</span>"tag"<span class="tag">&gt;</span>&amp;gt;<span class="tag">&lt;/span</span><span class="tag">&gt;</span>💡<span class="tag">&lt;span</span> <span class="attr">class=</span>"tag"<span class="tag">&gt;</span>&amp;lt;/span&amp;gt;<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
@@ -860,6 +886,7 @@ class NkCallout extends HTMLElement {
   <blockquote>The editor adapter reads the same rules.</blockquote>
   <table><thead><tr><th>Class</th><th>For</th></tr></thead><tbody><tr><td><code>full</code></td><td>Full width</td></tr><tr><td><code>small</code></td><td>Small text</td></tr></tbody></table>
 </div></div></div>
+        
         <p class="doc-note doc-note--preview">Class only, on purpose: <code>::slotted()</code> reaches the slotted node and never a paragraph inside it, so a <code>&lt;nk-prose&gt;</code> element could not style its content. Put the class on a light-DOM container, also inside NotionKit Elements.</p>
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-page" <span class="attr">style=</span>"padding:0;max-width:560px;margin:0"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prose"<span class="tag">&gt;</span>
   <span class="tag">&lt;h2</span><span class="tag">&gt;</span>Release notes<span class="tag">&lt;/h2</span><span class="tag">&gt;</span>
@@ -886,6 +913,7 @@ class NkCallout extends HTMLElement {
   </div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-database"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-db-tabs"<span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-db-tab active"<span class="tag">&gt;</span>▦ Table<span class="tag">&lt;span</span> <span class="attr">class=</span>"badge"<span class="tag">&gt;</span>4<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -895,6 +923,46 @@ class NkCallout extends HTMLElement {
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Add <code>overflow-x: auto</code> to the strip when you have more than three or four views.</span></div>
         <div class="doc-classes"><code>.nk-database</code><code>.nk-db-tabs</code><code>.nk-db-tab</code><code>.active</code><code>.badge</code></div>
+      </article>
+      <article class="doc-entry" id="nk-db-toolbar">
+        <h3>Toolbar & filter pills <code>.nk-db-toolbar</code></h3>
+        <p class="doc-desc">The database header as Notion lays it out: view tabs on the left, the view's tools on the right – <code>.nk-db-tool</code> buttons for Filter, Sort and search, then “New”. A tool in effect takes <code>.active</code>, the accent. Under it, <code>.nk-filter-row</code> holds the filters in effect as <code>.nk-filter-pill</code>s – <code>.active</code> with an accent tint – and a quiet <code>.add</code> pill at the end. A pill is one button, or a box with the label button and a <code>.fp-remove</code> × when a filter can be removed in place.</p>
+        <div class="doc-preview"><div class="nk-database" style="max-width:620px">
+  <div class="nk-db-toolbar">
+    <div class="nk-db-tabs">
+      <div class="nk-db-tab active">▦ Table</div><div class="nk-db-tab">▤ Board</div><div class="nk-db-tab">☰ List</div>
+    </div>
+    <div class="tools">
+      <button class="nk-db-tool active">Filter</button><button class="nk-db-tool">Sort</button><button class="nk-db-tool" aria-label="Search">🔍</button>
+      <button class="nk-btn primary small">New</button>
+    </div>
+  </div>
+  <div class="nk-filter-row">
+    <span class="nk-filter-pill active"><button>Status: Open</button><button class="fp-remove" aria-label="Remove filter">×</button></span>
+    <button class="nk-filter-pill">Owner: Marcel ▾</button>
+    <button class="nk-filter-pill add">＋ Filter</button>
+  </div>
+</div></div>
+        
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-database" <span class="attr">style=</span>"max-width:620px"<span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-db-toolbar"<span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-db-tabs"<span class="tag">&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-db-tab active"<span class="tag">&gt;</span>▦ Table<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-db-tab"<span class="tag">&gt;</span>▤ Board<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-db-tab"<span class="tag">&gt;</span>☰ List<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"tools"<span class="tag">&gt;</span>
+      <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-db-tool active"<span class="tag">&gt;</span>Filter<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-db-tool"<span class="tag">&gt;</span>Sort<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-db-tool" <span class="attr">aria-label=</span>"Search"<span class="tag">&gt;</span>🔍<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn primary small"<span class="tag">&gt;</span>New<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-filter-row"<span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-filter-pill active"<span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Status: Open<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"fp-remove" <span class="attr">aria-label=</span>"Remove filter"<span class="tag">&gt;</span>×<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-filter-pill"<span class="tag">&gt;</span>Owner: Marcel ▾<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-filter-pill add"<span class="tag">&gt;</span>＋ Filter<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>The tabs scroll sideways when the row gets narrow; the tools keep their place. The pills wrap onto further rows.</span></div>
+        <div class="doc-classes"><code>.nk-db-toolbar</code><code>.tools</code><code>.nk-db-tool</code><code>.active</code><code>.nk-filter-row</code><code>.nk-filter-pill</code><code>.add</code><code>.fp-remove</code></div>
       </article>
       <article class="doc-entry" id="nk-table">
         <h3>Table view <code>.nk-table</code></h3>
@@ -921,6 +989,7 @@ class NkCallout extends HTMLElement {
   </tbody>
 </table>
 <div class="nk-new-row">＋ New page</div></div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-table-wrap"<span class="tag">&gt;</span><span class="tag">&lt;table</span> <span class="attr">class=</span>"nk-table"<span class="tag">&gt;</span>
   <span class="tag">&lt;thead</span><span class="tag">&gt;</span><span class="tag">&lt;tr</span><span class="tag">&gt;</span>
@@ -960,6 +1029,7 @@ class NkCallout extends HTMLElement {
 <span class="nk-tag pink">Idea</span>
 <span class="nk-tag red">Blocked</span></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag"<span class="tag">&gt;</span>Not started<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag brown"<span class="tag">&gt;</span>Archive<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag orange"<span class="tag">&gt;</span>Planned<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
@@ -978,6 +1048,7 @@ class NkCallout extends HTMLElement {
         <div class="doc-preview"><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
 <span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span>
 <div style="display:flex;align-items:center;max-width:360px;margin-top:14px"><span class="nk-progress wide"><i style="width:80%"></i></span><span class="nk-progress-label">80 %</span></div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:65%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>65 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;br</span><span class="tag">&gt;</span><span class="tag">&lt;br</span><span class="tag">&gt;</span>
 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:20%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>20 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
@@ -1002,6 +1073,7 @@ class NkCallout extends HTMLElement {
     <div class="nk-card"><div class="card-title">🚀 Roadmap</div><div class="card-meta">12.05.</div></div>
   </div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-board active"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-board-col"<span class="tag">&gt;</span>
@@ -1029,6 +1101,7 @@ class NkCallout extends HTMLElement {
   <a class="nk-list-item" href="#"><span class="l-icon">📣</span><span class="l-title">Launch</span><span class="l-meta">02.06.2026 <span class="nk-tag orange">Planned</span></span></a>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-list" <span class="attr">style=</span>"max-width:520px"<span class="tag">&gt;</span>
   <span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-list-item" <span class="attr">href=</span>"#"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-icon"<span class="tag">&gt;</span>🚀<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-title"<span class="tag">&gt;</span>Roadmap<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-meta"<span class="tag">&gt;</span>12.05.2026 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag green"<span class="tag">&gt;</span>Done<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/a</span><span class="tag">&gt;</span>
   <span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-list-item" <span class="attr">href=</span>"#"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-icon"<span class="tag">&gt;</span>🎨<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-title"<span class="tag">&gt;</span>Design system<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-meta"<span class="tag">&gt;</span>20.05.2026 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag blue"<span class="tag">&gt;</span>In progress<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/a</span><span class="tag">&gt;</span>
@@ -1050,6 +1123,7 @@ class NkCallout extends HTMLElement {
   <textarea class="nk-textarea wide" placeholder="A few words about yourself …"></textarea>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;flex-direction:column;gap:10px;max-width:340px"<span class="tag">&gt;</span>
   <span class="tag">&lt;input</span> <span class="attr">class=</span>"nk-input wide" <span class="attr">value=</span>"Ada Lovelace"<span class="tag">&gt;</span>
   <span class="tag">&lt;select</span> <span class="attr">class=</span>"nk-select wide"<span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>Light<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>Dark<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>System<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;/select</span><span class="tag">&gt;</span>
@@ -1068,6 +1142,7 @@ class NkCallout extends HTMLElement {
   <button class="nk-btn danger-solid">Delete</button>
   <button class="nk-btn secondary small">Remove</button>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;gap:8px;flex-wrap:wrap;align-items:center"<span class="tag">&gt;</span>
   <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn primary"<span class="tag">&gt;</span>Save changes<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
@@ -1093,6 +1168,7 @@ class NkCallout extends HTMLElement {
     <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="true"></button><span>Done</span></label>
   </div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:420px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>Compact view<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-desc"<span class="tag">&gt;</span>Reduces spacing in the sidebar and lists.<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1125,6 +1201,7 @@ class NkCallout extends HTMLElement {
   </div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;gap:32px;flex-wrap:wrap"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;label</span> <span class="attr">class=</span>"nk-check"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">type=</span>"checkbox" checked<span class="tag">&gt;</span>Light<span class="tag">&lt;/label</span><span class="tag">&gt;</span>
@@ -1147,6 +1224,7 @@ class NkCallout extends HTMLElement {
         <div class="doc-preview"><div><input class="nk-slider" type="range" min="80" max="140" value="100">
 <div class="nk-slider-value">Text size: 100 %</div></div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">class=</span>"nk-slider" <span class="attr">type=</span>"range" <span class="attr">min=</span>"80" <span class="attr">max=</span>"140" <span class="attr">value=</span>"100"<span class="tag">&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-slider-value"<span class="tag">&gt;</span>Text size: 100 %<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Native thumb sizing gives a comfortable touch target on every platform.</span></div>
@@ -1163,6 +1241,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-field stacked"><div><div class="f-label">About me</div></div>
     <div class="f-control"><textarea class="nk-textarea" rows="2" placeholder="A few words about yourself …"></textarea></div></div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:460px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>Display name<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-desc"<span class="tag">&gt;</span>How you appear in the workspace.<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1184,6 +1263,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-field"><div><div class="f-label">Status</div></div><div class="f-control"><select class="nk-select"><option>In progress</option><option>Done</option></select></div></div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-fields" <span class="attr">style=</span>"max-width:520px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>Name<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">class=</span>"nk-input" <span class="attr">value=</span>"Ada Lovelace"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>Email<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">class=</span>"nk-input" <span class="attr">value=</span>"ada@acme.com"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1202,6 +1282,7 @@ class NkCallout extends HTMLElement {
     <button class="nk-btn secondary small">Remove</button>
   </div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-profile-row"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"big-avatar"<span class="tag">&gt;</span>AL<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1224,6 +1305,7 @@ class NkCallout extends HTMLElement {
     <div class="m-name">Mona Deep</div><div class="m-desc">A balanced model for everyday work. Fast, calm, dependable.</div></div></div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:460px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-model-card selected"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"m-radio"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"m-name"<span class="tag">&gt;</span>Mona Standard<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag green"<span class="tag">&gt;</span>Recommended<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1244,6 +1326,7 @@ class NkCallout extends HTMLElement {
     <div class="f-control"><button class="nk-btn danger-solid small">Delete</button></div>
   </div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-danger-zone" <span class="attr">style=</span>"margin-top:0;max-width:460px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"dz-title"<span class="tag">&gt;</span>⚠️ Danger zone<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1266,6 +1349,7 @@ class NkCallout extends HTMLElement {
     <div><div>Tom Weber</div><div class="m-mail">tom@acme.com</div></div>
     <select class="nk-select"><option>Member</option></select></div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-member-list" <span class="attr">style=</span>"max-width:460px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-member-row"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar purple"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
@@ -1307,6 +1391,7 @@ class NkCallout extends HTMLElement {
   </div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-modal-backdrop open" <span class="attr">style=</span>"position:absolute;border-radius:var(--nk-radius)"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-modal" <span class="attr">style=</span>"width:96%;height:92%"<span class="tag">&gt;</span>
     <span class="tag">&lt;nav</span> <span class="attr">class=</span>"nk-settings-nav"<span class="tag">&gt;</span>
@@ -1343,6 +1428,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-menu-item"><span class="m-icon">✏️</span>Rename</div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-pop" <span class="attr">style=</span>"width:240px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-label"<span class="tag">&gt;</span>Actions<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>✏️<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Rename<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1361,6 +1447,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-emoji-cats"><span class="active">🕐</span><span>😀</span><span>🐶</span><span>🍎</span><span>⚽</span><span>🚗</span><span>💡</span></div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-pop"<span class="tag">&gt;</span>
   <span class="tag">&lt;input</span> <span class="attr">class=</span>"nk-emoji-search" <span class="attr">placeholder=</span>"Search …"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-emoji-grid"<span class="tag">&gt;</span>
@@ -1373,7 +1460,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-menu">
         <h3>Context menu <code>.nk-menu</code></h3>
-        <p class="doc-desc">Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu.</p>
+        <p class="doc-desc">Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu. A menu that floats over the page takes <code>floating</code> and opens and closes with <code>.open</code>, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. <code>sheet</code> makes it a bottom sheet on a phone, as Notion's mobile app opens every menu – the same markup, two presentations.</p>
         <div class="doc-preview"><div class="nk-pop nk-menu">
   <div class="nk-menu-label">Pages</div>
   <div class="nk-menu-item"><span class="m-icon">✏️</span>Rename<span class="m-shortcut">⌘⇧R</span></div>
@@ -1383,7 +1470,9 @@ class NkCallout extends HTMLElement {
   <div class="nk-menu-item"><span class="m-icon">🔡</span>Small text<button class="nk-switch" role="switch" aria-checked="true" aria-label="Small text"></button></div>
   <div class="nk-menu-sep"></div>
   <div class="nk-menu-item danger"><span class="m-icon">🗑</span>Move to trash</div>
-</div></div>
+</div>
+<pre class="nk-code" style="margin-top:12px"><span class="lang">html</span>&lt;div class="nk-pop nk-menu floating sheet open" style="position:fixed; top:48px; right:12px"&gt;…&lt;/div&gt;</pre></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-pop nk-menu"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-label"<span class="tag">&gt;</span>Pages<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1394,9 +1483,10 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>🔡<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Small text<span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-switch" <span class="attr">role=</span>"switch" <span class="attr">aria-checked=</span>"true" <span class="attr">aria-label=</span>"Small text"<span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-sep"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item danger"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>🗑<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Move to trash<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
-<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>On a small screen:</b><span>Shortcuts are meaningless on touch — hide the <code>.m-shortcut</code> spans there.</span></div>
-        <div class="doc-classes"><code>.nk-menu</code><code>.nk-menu-item</code><code>.m-icon</code><code>.m-shortcut</code><code>.danger</code><code>.nk-menu-sep</code><code>.nk-menu-label</code></div>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;pre</span> <span class="attr">class=</span>"nk-code" <span class="attr">style=</span>"margin-top:12px"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"lang"<span class="tag">&gt;</span>html<span class="tag">&lt;/span</span><span class="tag">&gt;</span>&amp;lt;div class="nk-pop nk-menu floating sheet open" style="position:fixed; top:48px; right:12px"&amp;gt;…&amp;lt;/div&amp;gt;<span class="tag">&lt;/pre</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Shortcuts are meaningless on touch — hide the <code>.m-shortcut</code> spans there. With <code>sheet</code> the menu becomes a bottom sheet below 860px: full width, a grabber, 40px rows, the page dimmed behind it; inline positioning is overruled.</span></div>
+        <div class="doc-classes"><code>.nk-menu</code><code>.nk-menu-item</code><code>.m-icon</code><code>.m-shortcut</code><code>.danger</code><code>.nk-menu-sep</code><code>.nk-menu-label</code><code>.floating</code><code>.sheet</code><code>.open</code></div>
       </article>
       <article class="doc-entry" id="nk-cmdk">
         <h3>Command palette <code>.nk-cmdk</code></h3>
@@ -1419,6 +1509,7 @@ class NkCallout extends HTMLElement {
   </div>
 </div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cmdk-backdrop open" <span class="attr">style=</span>"position:absolute;padding-top:22px;border-radius:var(--nk-radius)"<span class="tag">&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cmdk" <span class="attr">style=</span>"width:min(460px, 92%)"<span class="tag">&gt;</span>
@@ -1449,6 +1540,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-cmdk-list"><div class="nk-cmdk-empty">No results for “xyzzy”</div></div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cmdk" <span class="attr">style=</span>"box-shadow:none;border:1px solid var(--nk-border);width:min(460px,100%)"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cmdk-input-row"<span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>🔍<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">value=</span>"xyzzy" <span class="attr">placeholder=</span>"Search or type a command …"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cmdk-list"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cmdk-empty"<span class="tag">&gt;</span>No results for “xyzzy”<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1456,10 +1548,39 @@ class NkCallout extends HTMLElement {
         <div class="doc-meta"><b>On a small screen:</b><span>Same as the palette: full width, reduced top padding.</span></div>
         <div class="doc-classes"><code>.nk-cmdk-empty</code></div>
       </article>
+      <article class="doc-entry" id="nk-sheet">
+        <h3>Sheet <code>.nk-sheet</code></h3>
+        <p class="doc-desc">Notion's mobile surface for menus, properties and more: the phone's twin of the modal. The backdrop fades, the panel rises from the bottom edge with its top corners rounded and a <code>.sh-grabber</code> on top, and the home indicator keeps its distance. It lies above the tab bar. Like the modal it starts invisible and <code>.open</code> shows it; closed, the backdrop leaves the layout once it has faded. Up to 640px wide, centred on larger screens. Rows inside get 40px, a thumb's height. For a menu that is a popover on the desktop and a sheet on the phone, use <code>.nk-pop.sheet</code> instead.</p>
+        <div class="doc-preview is-frame" style="height:360px;position:relative"><div class="nk-sheet-backdrop open" style="position:absolute;border-radius:var(--nk-radius)">
+  <div class="nk-sheet" role="dialog" aria-modal="true" aria-label="Page">
+    <div class="sh-grabber"></div>
+    <div class="sh-title">Page</div>
+    <div class="nk-menu-item"><span class="m-icon">🔡</span>Small text<button class="nk-switch" role="switch" aria-checked="true" aria-label="Small text"></button></div>
+    <div class="nk-menu-item"><span class="m-icon">🔗</span>Copy link</div>
+    <div class="nk-menu-item"><span class="m-icon">📄</span>Duplicate</div>
+    <div class="nk-menu-item danger"><span class="m-icon">🗑</span>Move to trash</div>
+  </div>
+</div></div>
+        
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-sheet-backdrop open" <span class="attr">style=</span>"position:absolute;border-radius:var(--nk-radius)"<span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-sheet" <span class="attr">role=</span>"dialog" <span class="attr">aria-modal=</span>"true" <span class="attr">aria-label=</span>"Page"<span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"sh-grabber"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"sh-title"<span class="tag">&gt;</span>Page<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>🔡<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Small text<span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-switch" <span class="attr">role=</span>"switch" <span class="attr">aria-checked=</span>"true" <span class="attr">aria-label=</span>"Small text"<span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>🔗<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Copy link<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>📄<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Duplicate<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item danger"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>🗑<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Move to trash<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Made for the phone: full width, bottom padding from the safe area, the content scrolls inside the sheet and never moves the page.</span></div>
+        <div class="doc-classes"><code>.nk-sheet-backdrop</code><code>.open</code><code>.nk-sheet</code><code>.sh-grabber</code><code>.sh-title</code></div>
+      </article>
       <article class="doc-entry" id="nk-toast">
         <h3>Toast <code>.nk-toast</code></h3>
         <p class="doc-desc">Fixed to the bottom centre, inverted (text colour as background). It sits off-screen until <code>.show</code> is added, then slides up. <code>pointer-events: none</code> keeps it from stealing clicks.</p>
         <div class="doc-preview"><div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>Settings saved</span></div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-toast show" <span class="attr">style=</span>"position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto"<span class="tag">&gt;</span>✓ <span class="tag">&lt;span</span><span class="tag">&gt;</span>Settings saved<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Centred by <code>translateX(-50%)</code>, so it stays centred at any width.</span></div>
@@ -1476,6 +1597,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-g-item"><h4>Active pages</h4><div class="nk-stat"><div class="s-label">this week</div><div class="s-value">128</div></div></div>
   <div class="nk-g-item"><h4>Open tasks</h4><div class="nk-stat"><div class="s-label">this week</div><div class="s-value">17</div></div></div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-gallery-grid"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-g-item"<span class="tag">&gt;</span><span class="tag">&lt;h4</span><span class="tag">&gt;</span>Active pages<span class="tag">&lt;/h4</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-stat"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"s-label"<span class="tag">&gt;</span>this week<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"s-value"<span class="tag">&gt;</span>128<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1507,6 +1629,7 @@ class NkCallout extends HTMLElement {
   </div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-panels"<span class="tag">&gt;</span>
   <span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-panel" <span class="attr">href=</span>"#"<span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover"<span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attr">src=</span>"covers/aurora.svg" <span class="attr">alt=</span>""<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1537,6 +1660,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-tab-panel">Panel content follows the tab strip and inherits the calm body type.</div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tabs"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tab active"<span class="tag">&gt;</span>📝 Notes<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tab"<span class="tag">&gt;</span>✅ Tasks<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tab"<span class="tag">&gt;</span>📎 Files<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tab-panel"<span class="tag">&gt;</span>Panel content follows the tab strip and inherits the calm body type.<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1551,6 +1675,7 @@ class NkCallout extends HTMLElement {
   <button class="nk-template-btn">📅 Insert week plan</button>
   <button class="nk-template-btn">🤝 Insert meeting minutes</button>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:420px"<span class="tag">&gt;</span>
   <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-template-btn"<span class="tag">&gt;</span>📅 Insert week plan<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
@@ -1568,6 +1693,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-stat"><div class="s-label">Open tasks</div><div class="s-value">17</div><div class="s-delta down">▼ 5 since yesterday</div></div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-stats"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-stat"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"s-label"<span class="tag">&gt;</span>Active pages<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"s-value"<span class="tag">&gt;</span>128<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"s-delta up"<span class="tag">&gt;</span>▲ 12 this week<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-stat"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"s-label"<span class="tag">&gt;</span>AI requests<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"s-value"<span class="tag">&gt;</span>1 204<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"s-delta up"<span class="tag">&gt;</span>▲ 8 %<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1583,6 +1709,7 @@ class NkCallout extends HTMLElement {
   <span class="synced-badge">⟳ 3 places</span>
   This text appears identically on three pages and is maintained in one place.
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-synced" <span class="attr">style=</span>"max-width:420px"<span class="tag">&gt;</span>
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"synced-badge"<span class="tag">&gt;</span>⟳ 3 places<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
@@ -1604,6 +1731,7 @@ class NkCallout extends HTMLElement {
   <button class="active">All</button><button>⚠️ Attention</button><button>Failed</button><button>Read</button><button>Ignored</button>
 </div></div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-segmented"<span class="tag">&gt;</span>
   <span class="tag">&lt;button</span> <span class="attr">class=</span>"active"<span class="tag">&gt;</span>Week<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Month<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span><span class="tag">&gt;</span>Quarter<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1624,6 +1752,7 @@ class NkCallout extends HTMLElement {
 <div class="nk-banner warning">⚠️ Your trial ends in 5 days.<span class="b-action">View</span></div>
 <div class="nk-banner danger">⛔ The connection to Notion was lost.</div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner info"<span class="tag">&gt;</span>ℹ️ The “Project overview” database has 2 overdue entries.<span class="tag">&lt;span</span> <span class="attr">class=</span>"b-action"<span class="tag">&gt;</span>View<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner success"<span class="tag">&gt;</span>✅ All changes have been synced.<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner warning"<span class="tag">&gt;</span>⚠️ Your trial ends in 5 days.<span class="tag">&lt;span</span> <span class="attr">class=</span>"b-action"<span class="tag">&gt;</span>View<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1643,6 +1772,7 @@ class NkCallout extends HTMLElement {
   </div>
   <span style="font-size:13px;color:var(--nk-text-tertiary)">5 people have access</span>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;align-items:center;gap:10px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-avatar-group"<span class="tag">&gt;</span>
@@ -1670,6 +1800,7 @@ class NkCallout extends HTMLElement {
   <span class="nk-avatar large"><img src="covers/tide.svg" alt=""></span>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;align-items:center;gap:10px;flex-wrap:wrap"<span class="tag">&gt;</span>
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar small blue"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
@@ -1693,6 +1824,7 @@ class NkCallout extends HTMLElement {
   <div class="nk-skeleton" style="height:13px;width:40%"></div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:420px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-skeleton" <span class="attr">style=</span>"height:22px;width:55%"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-skeleton" <span class="attr">style=</span>"height:13px;width:100%"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1712,6 +1844,7 @@ class NkCallout extends HTMLElement {
   <div class="e-actions"><button class="nk-btn primary small">＋ New entry</button><button class="nk-btn secondary small">Import</button></div>
 </div></div>
         
+        
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-empty" <span class="attr">style=</span>"max-width:420px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"e-icon"<span class="tag">&gt;</span>🗂️<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"e-title"<span class="tag">&gt;</span>No entries yet<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1720,6 +1853,24 @@ class NkCallout extends HTMLElement {
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Centred and fluid; padding drops naturally with the container.</span></div>
         <div class="doc-classes"><code>.nk-empty</code><code>.e-icon</code><code>.e-title</code><code>.e-desc</code><code>.e-actions</code></div>
+      </article>
+      <article class="doc-entry" id="nk-steps">
+        <h3>Steps <code>.nk-steps</code></h3>
+        <p class="doc-desc">Steps through a short flow – connecting an account, setting up a model – calm and vertical: a numbered circle per step joined by a hairline, done steps on the green tag with a check, the current one ringed in the accent and marked <code>aria-current="step"</code>, the rest quiet. <code>.st-desc</code> adds a line under a step. Not a Notion block; in Notion's idiom it is a numbered list with checks.</p>
+        <div class="doc-preview"><ol class="nk-steps" aria-label="Connect your own model">
+  <li class="nk-step done"><span class="st-mark">✓</span><span>Choose a provider<span class="st-desc">Anthropic</span></span></li>
+  <li class="nk-step current" aria-current="step"><span class="st-mark">2</span><span>Enter the API key</span></li>
+  <li class="nk-step"><span class="st-mark">3</span><span>Test the connection</span></li>
+</ol></div>
+        
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;ol</span> <span class="attr">class=</span>"nk-steps" <span class="attr">aria-label=</span>"Connect your own model"<span class="tag">&gt;</span>
+  <span class="tag">&lt;li</span> <span class="attr">class=</span>"nk-step done"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"st-mark"<span class="tag">&gt;</span>✓<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>Choose a provider<span class="tag">&lt;span</span> <span class="attr">class=</span>"st-desc"<span class="tag">&gt;</span>Anthropic<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/li</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;li</span> <span class="attr">class=</span>"nk-step current" <span class="attr">aria-current=</span>"step"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"st-mark"<span class="tag">&gt;</span>2<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>Enter the API key<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/li</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;li</span> <span class="attr">class=</span>"nk-step"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"st-mark"<span class="tag">&gt;</span>3<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>Test the connection<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/li</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/ol</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Unchanged: vertical, so it never runs out of width.</span></div>
+        <div class="doc-classes"><code>.nk-steps</code><code>.nk-step</code><code>.st-mark</code><code>.st-desc</code><code>.done</code><code>.current</code></div>
       </article>
     </section>
     <section class="doc-group" id="collab">
@@ -1737,6 +1888,7 @@ class NkCallout extends HTMLElement {
     <input class="nk-input" placeholder="Comment …"><button class="nk-btn primary small">Send</button>
   </div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-comments" <span class="attr">style=</span>"max-width:420px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-comment"<span class="tag">&gt;</span>
@@ -1771,6 +1923,7 @@ class NkCallout extends HTMLElement {
     <input placeholder="Ask Mona something …"><button class="nk-ai-send">↑</button>
   </div>
 </div></div>
+        
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:460px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-ai-thread"<span class="tag">&gt;</span>
@@ -1810,6 +1963,7 @@ class NkCallout extends HTMLElement {
     <div style="padding:4px 2px;color:var(--nk-text-tertiary)">Type “/” for commands …</div>
   </div>
 </div></div>
+        
         <p class="doc-note doc-note--preview">This preview is the static shell only — the ＋ / ⠿ rail here does nothing. The working version, with slash menu, drag &amp; drop and block menu, is the live editor in the <a href="docs.html#editor">docs</a>.</p>
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"padding-left:48px;max-width:460px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-block-host"<span class="tag">&gt;</span>
@@ -1838,6 +1992,7 @@ class NkCallout extends HTMLElement {
     <button class="active"><b>B</b></button><button><i>I</i></button><button><s>S</s></button><button>&lt;/&gt;</button><button>🔗</button>
   </div>
 </div></div>
+        
         <p class="doc-note doc-note--preview">Static markup for the look. The live, keyboard-driven version runs in the <a href="docs.html#editor">docs editor</a> — type <code>/</code> there.</p>
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-slash-menu" <span class="attr">style=</span>"box-shadow:none;border:1px solid var(--nk-border)"<span class="tag">&gt;</span>

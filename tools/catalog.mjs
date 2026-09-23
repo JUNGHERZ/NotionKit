@@ -18,15 +18,15 @@ export const GROUPS = [
 export const CATALOG = [
 // ============================================================ 5.1 APP SHELL
 {
-  id: 'nk-app', group: 'shell', classes: ['nk-app', 'nk-sidebar', 'nk-sidebar-scroll', 'nk-sidebar-footer', 'nk-main'],
+  id: 'nk-app', group: 'shell', classes: ['nk-app', 'nk-sidebar', 'nk-sidebar-scroll', 'nk-sidebar-footer', 'nk-main', 'nk-sidebar-backdrop', 'nk-sidebar-toggle', 'open'],
   title: { en: 'App shell', de: 'App-Shell' },
   desc: {
     en: '<code>nk-app</code> is a full-height flex row: sidebar left, main column right. It is the outermost element of a workspace app and the only place a fixed height belongs. Inside the sidebar, <code>nk-sidebar-scroll</code> is the scrolling tree area and <code>nk-sidebar-footer</code> the pinned bottom (Settings, Trash).',
     de: '<code>nk-app</code> ist eine flex-Zeile über die volle Höhe: Sidebar links, Hauptspalte rechts. Es ist das äußerste Element einer Workspace-App und der einzige Ort, an den eine feste Höhe gehört. In der Sidebar ist <code>nk-sidebar-scroll</code> der scrollende Baumbereich und <code>nk-sidebar-footer</code> der fixierte Fuß (Einstellungen, Papierkorb).',
   },
   mobile: {
-    en: 'Below 860px the sidebar is hidden entirely and the main column takes the full width. An off-canvas drawer is the consumer’s job – NotionKit Elements ships one as <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>. The height is <code>100dvh</code> with a <code>100vh</code> fallback, so a standalone PWA on iOS does not count the status bar into the shell. Safe areas are handled per surface, not on <code>nk-app</code>: topbar, page, sidebar and tab bar pad their content by the left/right insets (Dynamic Island in landscape) while their backgrounds run edge to edge.',
-    de: 'Unter 860px verschwindet die Sidebar vollständig, die Hauptspalte nimmt die volle Breite. Eine Off-Canvas-Schublade ist Sache des Consumers – NotionKit Elements liefert sie als <code class="nk-inline-code">&lt;nk-sidebar open&gt;</code>. Die Höhe ist <code>100dvh</code> mit <code>100vh</code>-Fallback, damit eine Standalone-PWA auf iOS die Statusleiste nicht in die Shell einrechnet. Safe-Areas behandelt jede Fläche selbst, nicht <code>nk-app</code>: Topbar, Seite, Sidebar und Tab-Bar rücken ihren Inhalt um die linken/rechten Insets ein (Dynamic Island im Querformat), ihre Hintergründe laufen weiter bis zum Rand.',
+    en: 'Below 860px the sidebar steps aside and the main column takes the full width. <code>.open</code> brings it back as an off-canvas drawer over the page, with a <code>.nk-sidebar-backdrop</code> as its scrim: it slides in and the scrim fades, CSS only. The ☰ that opens it is a <code>.nk-topbar-btn.nk-sidebar-toggle</code> at the start of the topbar, shown on phones only; toggle <code>.open</code> on sidebar and backdrop, close on the backdrop, Escape and a chosen page. The height is <code>100dvh</code> with a <code>100vh</code> fallback, so a standalone PWA on iOS does not count the status bar into the shell. Safe areas are handled per surface, not on <code>nk-app</code>: topbar, page, sidebar and tab bar pad their content by the left/right insets (Dynamic Island in landscape) while their backgrounds run edge to edge.',
+    de: 'Unter 860px tritt die Sidebar zur Seite, die Hauptspalte nimmt die volle Breite. <code>.open</code> holt sie als Off-Canvas-Schublade über die Seite zurück, mit einem <code>.nk-sidebar-backdrop</code> als Abdunklung: Sie gleitet herein und die Abdunklung blendet ein, nur mit CSS. Das ☰, das sie öffnet, ist ein <code>.nk-topbar-btn.nk-sidebar-toggle</code> am Anfang der Topbar, nur auf dem Telefon sichtbar; <code>.open</code> an Sidebar und Backdrop umschalten, schließen über den Backdrop, Escape und eine gewählte Seite. Die Höhe ist <code>100dvh</code> mit <code>100vh</code>-Fallback, damit eine Standalone-PWA auf iOS die Statusleiste nicht in die Shell einrechnet. Safe-Areas behandelt jede Fläche selbst, nicht <code>nk-app</code>: Topbar, Seite, Sidebar und Tab-Bar rücken ihren Inhalt um die linken/rechten Insets ein (Dynamic Island im Querformat), ihre Hintergründe laufen weiter bis zum Rand.',
   },
   frame: 340,
   html: W => `<div class="nk-app" style="height:100%">
@@ -43,6 +43,7 @@ export const CATALOG = [
   </aside>
   <main class="nk-main">
     <header class="nk-topbar">
+      <button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu">☰</button>
       <div class="nk-breadcrumb"><span class="crumb current">📊 ${W.projectOverview}</span></div>
       <div class="nk-topbar-actions"><button class="nk-topbar-btn nk-share-btn">${W.share}</button></div>
     </header>
@@ -52,6 +53,9 @@ export const CATALOG = [
     </div></div>
   </main>
 </div>`,
+  after: W => `<pre class="nk-code"><span class="lang">html</span>&lt;div class="nk-sidebar-backdrop open"&gt;&lt;/div&gt;   &lt;!-- phones: the drawer's scrim --&gt;
+&lt;aside class="nk-sidebar open"&gt;…&lt;/aside&gt;         &lt;!-- slides in over the page --&gt;
+&lt;button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu"&gt;☰&lt;/button&gt;</pre>`,
 },
 {
   id: 'nk-workspace', group: 'shell', classes: ['nk-workspace', 'avatar', 'chev'],
@@ -356,6 +360,31 @@ export const CATALOG = [
     <div class="nk-db-tab active">▦ ${W.table}<span class="badge">4</span></div>
     <div class="nk-db-tab">▤ ${W.board}</div>
     <div class="nk-db-tab">🖼 ${W.gallery}</div>
+  </div>
+</div>`,
+},
+{
+  id: 'nk-db-toolbar', group: 'database', classes: ['nk-db-toolbar', 'tools', 'nk-db-tool', 'active', 'nk-filter-row', 'nk-filter-pill', 'add', 'fp-remove'],
+  title: { en: 'Toolbar & filter pills', de: 'Werkzeugleiste & Filter-Pills' },
+  desc: {
+    en: 'The database header as Notion lays it out: view tabs on the left, the view\'s tools on the right – <code>.nk-db-tool</code> buttons for Filter, Sort and search, then “New”. A tool in effect takes <code>.active</code>, the accent. Under it, <code>.nk-filter-row</code> holds the filters in effect as <code>.nk-filter-pill</code>s – <code>.active</code> with an accent tint – and a quiet <code>.add</code> pill at the end. A pill is one button, or a box with the label button and a <code>.fp-remove</code> × when a filter can be removed in place.',
+    de: 'Der Datenbank-Kopf, wie Notion ihn anordnet: links die View-Reiter, rechts die Werkzeuge der Ansicht – <code>.nk-db-tool</code>-Knöpfe für Filter, Sortieren und Suche, dann „Neu“. Ein Werkzeug, das wirkt, bekommt <code>.active</code>, den Akzent. Darunter hält <code>.nk-filter-row</code> die wirkenden Filter als <code>.nk-filter-pill</code>s – <code>.active</code> mit Akzent-Tönung – und am Ende eine ruhige <code>.add</code>-Pill. Eine Pill ist ein Knopf, oder ein Kasten mit dem Label-Knopf und einem <code>.fp-remove</code>-×, wenn sich ein Filter direkt entfernen lässt.',
+  },
+  mobile: { en: 'The tabs scroll sideways when the row gets narrow; the tools keep their place. The pills wrap onto further rows.', de: 'Wird die Zeile schmal, scrollen die Reiter seitwärts; die Werkzeuge behalten ihren Platz. Die Pills brechen in weitere Zeilen um.' },
+  html: W => `<div class="nk-database" style="max-width:620px">
+  <div class="nk-db-toolbar">
+    <div class="nk-db-tabs">
+      <div class="nk-db-tab active">▦ ${W.table}</div><div class="nk-db-tab">▤ ${W.board}</div><div class="nk-db-tab">☰ ${W.list}</div>
+    </div>
+    <div class="tools">
+      <button class="nk-db-tool active">${W.filter}</button><button class="nk-db-tool">${W.sort}</button><button class="nk-db-tool" aria-label="${W.searchLabel}">🔍</button>
+      <button class="nk-btn primary small">${W.newBtn}</button>
+    </div>
+  </div>
+  <div class="nk-filter-row">
+    <span class="nk-filter-pill active"><button>${W.statusOpen}</button><button class="fp-remove" aria-label="${W.removeFilter}">×</button></span>
+    <button class="nk-filter-pill">${W.ownerMarcel} ▾</button>
+    <button class="nk-filter-pill add">${W.addFilter}</button>
   </div>
 </div>`,
 },
@@ -708,13 +737,13 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-menu', group: 'overlay', classes: ['nk-menu', 'nk-menu-item', 'm-icon', 'm-shortcut', 'danger', 'nk-menu-sep', 'nk-menu-label'],
+  id: 'nk-menu', group: 'overlay', classes: ['nk-menu', 'nk-menu-item', 'm-icon', 'm-shortcut', 'danger', 'nk-menu-sep', 'nk-menu-label', 'floating', 'sheet', 'open'],
   title: { en: 'Context menu', de: 'Kontextmenü' },
   desc: {
-    en: 'Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion\'s page menu.',
-    de: '<code>nk-pop</code> mit <code>nk-menu</code> kombinieren. Einträge nehmen links ein <code>.m-icon</code> und rechts ein <code>.m-shortcut</code>; <code>.danger</code> färbt einen Eintrag rot. Ein <code>.nk-switch</code> als letztes Kind eines Eintrags sitzt rechts, wie „Kleiner Text“ und „Volle Breite“ in Notions Seitenmenü.',
+    en: 'Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion\'s page menu. A menu that floats over the page takes <code>floating</code> and opens and closes with <code>.open</code>, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. <code>sheet</code> makes it a bottom sheet on a phone, as Notion\'s mobile app opens every menu – the same markup, two presentations.',
+    de: '<code>nk-pop</code> mit <code>nk-menu</code> kombinieren. Einträge nehmen links ein <code>.m-icon</code> und rechts ein <code>.m-shortcut</code>; <code>.danger</code> färbt einen Eintrag rot. Ein <code>.nk-switch</code> als letztes Kind eines Eintrags sitzt rechts, wie „Kleiner Text“ und „Volle Breite“ in Notions Seitenmenü. Ein Menü, das über der Seite schwebt, bekommt <code>floating</code> und öffnet und schließt über <code>.open</code> wie die Palette: Es blendet ein und setzt sich aus 4px Höhe und 98 % ab; geschlossen nimmt es weder Klicks noch Fokus an, und wo es sitzt, bestimmst du. <code>sheet</code> macht es auf dem Telefon zum Bottom Sheet, so wie Notions Mobil-App jedes Menü öffnet – dasselbe Markup, zwei Darstellungen.',
   },
-  mobile: { en: 'Shortcuts are meaningless on touch — hide the <code>.m-shortcut</code> spans there.', de: 'Kürzel sind auf Touch bedeutungslos – die <code>.m-shortcut</code>-Spans dort ausblenden.' },
+  mobile: { en: 'Shortcuts are meaningless on touch — hide the <code>.m-shortcut</code> spans there. With <code>sheet</code> the menu becomes a bottom sheet below 860px: full width, a grabber, 40px rows, the page dimmed behind it; inline positioning is overruled.', de: 'Kürzel sind auf Touch bedeutungslos – die <code>.m-shortcut</code>-Spans dort ausblenden. Mit <code>sheet</code> wird das Menü unter 860px zum Bottom Sheet: volle Breite, ein Griff, 40px-Zeilen, die Seite dahinter abgedunkelt; eine Inline-Position wird übergangen.' },
   html: W => `<div class="nk-pop nk-menu">
   <div class="nk-menu-label">${W.pages}</div>
   <div class="nk-menu-item"><span class="m-icon">✏️</span>${W.rename}<span class="m-shortcut">⌘⇧R</span></div>
@@ -724,7 +753,8 @@ export const CATALOG = [
   <div class="nk-menu-item"><span class="m-icon">🔡</span>${W.smallText}<button class="nk-switch" role="switch" aria-checked="true" aria-label="${W.smallText}"></button></div>
   <div class="nk-menu-sep"></div>
   <div class="nk-menu-item danger"><span class="m-icon">🗑</span>${W.moveToTrash}</div>
-</div>`,
+</div>
+<pre class="nk-code" style="margin-top:12px"><span class="lang">html</span>&lt;div class="nk-pop nk-menu floating sheet open" style="position:fixed; top:48px; right:12px"&gt;…&lt;/div&gt;</pre>`,
 },
 {
   id: 'nk-cmdk', group: 'overlay', classes: ['nk-cmdk-backdrop', 'nk-cmdk', 'nk-cmdk-input-row', 'nk-cmdk-list', 'nk-cmdk-group', 'nk-cmdk-item', 'selected', 'nk-cmdk-empty', 'nk-cmdk-footer'],
@@ -768,6 +798,26 @@ export const CATALOG = [
   html: W => `<div class="nk-cmdk" style="box-shadow:none;border:1px solid var(--nk-border);width:min(460px,100%)">
   <div class="nk-cmdk-input-row"><span>🔍</span><input value="xyzzy" placeholder="${W.cmdkPlaceholder}"></div>
   <div class="nk-cmdk-list"><div class="nk-cmdk-empty">${W.noResults} “xyzzy”</div></div>
+</div>`,
+},
+{
+  id: 'nk-sheet', group: 'overlay', classes: ['nk-sheet-backdrop', 'open', 'nk-sheet', 'sh-grabber', 'sh-title'],
+  title: { en: 'Sheet', de: 'Sheet' },
+  desc: {
+    en: 'Notion\'s mobile surface for menus, properties and more: the phone\'s twin of the modal. The backdrop fades, the panel rises from the bottom edge with its top corners rounded and a <code>.sh-grabber</code> on top, and the home indicator keeps its distance. It lies above the tab bar. Like the modal it starts invisible and <code>.open</code> shows it; closed, the backdrop leaves the layout once it has faded. Up to 640px wide, centred on larger screens. Rows inside get 40px, a thumb\'s height. For a menu that is a popover on the desktop and a sheet on the phone, use <code>.nk-pop.sheet</code> instead.',
+    de: 'Notions Mobil-Fläche für Menüs, Eigenschaften und mehr: der Telefon-Zwilling des Modals. Der Backdrop blendet ein, das Panel steigt von der Unterkante auf, mit gerundeten oberen Ecken und einem <code>.sh-grabber</code> oben, und der Home-Indikator behält seinen Abstand. Es liegt über der Tab-Leiste. Wie das Modal startet es unsichtbar, <code>.open</code> zeigt es; geschlossen verlässt der Backdrop nach dem Ausblenden das Layout. Bis 640px breit, auf größeren Schirmen zentriert. Zeilen darin bekommen 40px, eine Daumenhöhe. Für ein Menü, das auf dem Desktop Popover und auf dem Telefon Sheet ist, stattdessen <code>.nk-pop.sheet</code> nehmen.',
+  },
+  mobile: { en: 'Made for the phone: full width, bottom padding from the safe area, the content scrolls inside the sheet and never moves the page.', de: 'Fürs Telefon gemacht: volle Breite, unteres Padding aus der Safe Area, der Inhalt scrollt im Sheet und bewegt nie die Seite.' },
+  frame: 360, relativeFrame: true,
+  html: W => `<div class="nk-sheet-backdrop open" style="position:absolute;border-radius:var(--nk-radius)">
+  <div class="nk-sheet" role="dialog" aria-modal="true" aria-label="${W.page}">
+    <div class="sh-grabber"></div>
+    <div class="sh-title">${W.page}</div>
+    <div class="nk-menu-item"><span class="m-icon">🔡</span>${W.smallText}<button class="nk-switch" role="switch" aria-checked="true" aria-label="${W.smallText}"></button></div>
+    <div class="nk-menu-item"><span class="m-icon">🔗</span>${W.copyLink}</div>
+    <div class="nk-menu-item"><span class="m-icon">📄</span>${W.duplicate}</div>
+    <div class="nk-menu-item danger"><span class="m-icon">🗑</span>${W.moveToTrash}</div>
+  </div>
 </div>`,
 },
 {
@@ -973,6 +1023,20 @@ export const CATALOG = [
   <div class="e-desc">${W.emptyDesc}</div>
   <div class="e-actions"><button class="nk-btn primary small">${W.emptyBtn}</button><button class="nk-btn secondary small">${W.importBtn}</button></div>
 </div>`,
+},
+{
+  id: 'nk-steps', group: 'gallery', classes: ['nk-steps', 'nk-step', 'st-mark', 'st-desc', 'done', 'current'],
+  title: { en: 'Steps', de: 'Schritte' },
+  desc: {
+    en: 'Steps through a short flow – connecting an account, setting up a model – calm and vertical: a numbered circle per step joined by a hairline, done steps on the green tag with a check, the current one ringed in the accent and marked <code>aria-current="step"</code>, the rest quiet. <code>.st-desc</code> adds a line under a step. Not a Notion block; in Notion\'s idiom it is a numbered list with checks.',
+    de: 'Schritte durch einen kurzen Ablauf – ein Konto verbinden, ein Modell einrichten –, ruhig und vertikal: ein nummerierter Kreis pro Schritt, verbunden durch eine Haarlinie, erledigte Schritte mit Haken auf dem grünen Tag, der aktuelle im Akzent umrandet und mit <code>aria-current="step"</code> markiert, der Rest leise. <code>.st-desc</code> ergänzt eine Zeile unter einem Schritt. Kein Notion-Block; in Notions Sprache ist es eine nummerierte Liste mit Haken.',
+  },
+  mobile: { en: 'Unchanged: vertical, so it never runs out of width.', de: 'Unverändert: vertikal, die Breite geht also nie aus.' },
+  html: W => `<ol class="nk-steps" aria-label="${W.stepsLabel}">
+  <li class="nk-step done"><span class="st-mark">✓</span><span>${W.stepProvider}<span class="st-desc">${W.stepProviderDesc}</span></span></li>
+  <li class="nk-step current" aria-current="step"><span class="st-mark">2</span><span>${W.stepKey}</span></li>
+  <li class="nk-step"><span class="st-mark">3</span><span>${W.stepTest}</span></li>
+</ol>`,
 },
 // ============================================================ 5.10 COLLAB & AI
 {

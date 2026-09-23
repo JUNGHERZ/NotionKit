@@ -100,6 +100,7 @@ ${nav(t, 'showcase')}
       ${items.map(e => `<article class="doc-entry" id="s-${e.id}">
         <h3>${e.title[lang]} <code>.${e.id}</code></h3>
         ${previewBox(e, e.html(W))}
+        ${e.after ? e.after(W) : ''}
         ${e.note ? `<p class="doc-note doc-note--preview">${e.note[lang]}</p>` : ''}
       </article>`).join('\n      ')}
     </section>`).join('\n    ')}
@@ -305,6 +306,7 @@ class NkCallout extends HTMLElement {
         <h3>${e.title[lang]} <code>.${e.id}</code></h3>
         <p class="doc-desc">${e.desc[lang]}</p>
         ${previewBox(e, markup)}
+        ${e.after ? e.after(W) : ''}
         ${e.note ? `<p class="doc-note doc-note--preview">${e.note[lang]}</p>` : ''}
         ${code(markup)}
         <div class="doc-meta"><b>${t.mobileLabel}:</b><span>${e.mobile[lang]}</span></div>

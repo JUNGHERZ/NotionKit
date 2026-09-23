@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NotionKit – Die ruhige Workspace-Optik als CSS-Design-System</title>
-<meta name="description" content="NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen. Rund 130 Komponenten, Light &amp; Dark, ohne Build-Step, ohne Abhängigkeiten.">
+<meta name="description" content="NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen. Rund 140 Komponenten, Light &amp; Dark, ohne Build-Step, ohne Abhängigkeiten.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://notionkit.jungherz.com/de/index.html">
 <link rel="alternate" hreflang="en" href="https://notionkit.jungherz.com/index.html">
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="NotionKit">
 <meta property="og:title" content="NotionKit – Die ruhige Workspace-Optik als CSS-Design-System">
-<meta property="og:description" content="NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen. Rund 130 Komponenten, Light &amp; Dark, ohne Build-Step, ohne Abhängigkeiten.">
+<meta property="og:description" content="NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen. Rund 140 Komponenten, Light &amp; Dark, ohne Build-Step, ohne Abhängigkeiten.">
 <meta property="og:url" content="https://notionkit.jungherz.com/de/index.html">
 <meta property="og:image" content="https://notionkit.jungherz.com/og.png">
 <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="NotionKit – Die ruhige Workspace-Optik als CSS-Design-System">
-<meta name="twitter:description" content="NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen. Rund 130 Komponenten, Light &amp; Dark, ohne Build-Step, ohne Abhängigkeiten.">
+<meta name="twitter:description" content="NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen. Rund 140 Komponenten, Light &amp; Dark, ohne Build-Step, ohne Abhängigkeiten.">
 <meta name="twitter:image" content="https://notionkit.jungherz.com/og.png">
 <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#202020" media="(prefers-color-scheme: dark)">
@@ -146,7 +146,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.6.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.7.0</span></a>
   <div class="site-nav-links">
     <a href="index.html" class="current">Start</a>
     <a href="docs.html">Doku</a>
@@ -172,7 +172,7 @@
 </nav>
 
 <header class="site-wrap site-hero">
-  <div class="site-kicker">CSS-Komponentenbibliothek · v1.6.0</div>
+  <div class="site-kicker">CSS-Komponentenbibliothek · v1.7.0</div>
   <h1>Die ruhige Workspace-Optik, als Design-System.</h1>
   <p class="site-lead">NotionKit liefert Notions ruhige, dokumentzentrierte Oberfläche als fertiges CSS: Sidebar, Seitenbaum, Callouts, Datenbank-Views, Einstellungen und KI-Fäden. Ein Stylesheet. Kein Build-Step, kein JavaScript, kein Framework-Zwang.</p>
   <div class="site-badges">
@@ -213,19 +213,19 @@
 <section class="site-section">
   <div class="site-wrap">
     <h2 class="site-h2">Desktop und Mobile, gleichberechtigt</h2>
-    <p class="site-lead">NotionKit ist weder ein Mobile-first-Kit, das auf den Desktop gedehnt wurde, noch ein Desktop-Kit, das aufs Handy gequetscht wird. Die Layouts sind fließend, es gibt genau einen Breakpoint bei 860 px, und dasselbe Markup trägt beides. Dieselbe Seite, zwei Viewports:</p>
+    <p class="site-lead">NotionKit ist weder ein Mobile-first-Kit, das auf den Desktop gedehnt wurde, noch ein Desktop-Kit, das aufs Handy gequetscht wird. Die Layouts sind fließend, es gibt genau einen Breakpoint bei 860 px, und dasselbe Markup trägt beides. Dieselbe Seite, zwei Viewports, das Seitenmenü offen: am Desktop ein Popover, auf dem Telefon ein Sheet – ein Markup, zwei Darstellungen.</p>
     <div class="site-viewports">
       <div class="site-viewport">
         <div class="site-viewport-label">Desktop · 1280 px</div>
         <div class="site-scaler" style="--site-w:1280px;aspect-ratio:1280 / 800">
-          <iframe src="app.html" title="Desktop · 1280 px" loading="lazy" data-theme-sync
+          <iframe src="app.html#menu" title="Desktop · 1280 px" loading="lazy" data-theme-sync
                   style="width:1280px;height:800px"></iframe>
         </div>
       </div>
       <div class="site-viewport mobile">
         <div class="site-viewport-label">Mobil · 390 px</div>
         <div class="site-scaler" style="--site-w:390px;aspect-ratio:390 / 780">
-          <iframe src="app.html" title="Mobil · 390 px" loading="lazy" data-theme-sync
+          <iframe src="app.html#menu" title="Mobil · 390 px" loading="lazy" data-theme-sync
                   style="width:390px;height:780px"></iframe>
         </div>
       </div>
@@ -250,19 +250,19 @@
 <section class="site-section">
   <div class="site-wrap">
     <h2 class="site-h2">Was drin ist</h2>
-    <p class="site-lead">Rund 130 Komponenten-Klassen in elf Gruppen. Jede ist mit Live-Vorschau und ihrem Mobile-Verhalten dokumentiert.</p>
+    <p class="site-lead">Rund 140 Komponenten-Klassen in elf Gruppen. Jede ist mit Live-Vorschau und ihrem Mobile-Verhalten dokumentiert.</p>
     <table class="site-table">
       <thead><tr><th>Gruppe</th><th>Was du bekommst</th></tr></thead>
       <tbody>
-        <tr><td>App-Shell &amp; Layout</td><td><code class="nk-inline-code">nk-app</code>, Sidebar mit Workspace-Umschalter und Fußzeile, Hauptspalte, Topbar mit Breadcrumb und Aktionen, Abschnitts-Label</td></tr>
+        <tr><td>App-Shell &amp; Layout</td><td><code class="nk-inline-code">nk-app</code>, Sidebar mit Workspace-Umschalter und Fußzeile – auf dem Telefon eine Schublade hinter ☰ –, Hauptspalte, Topbar mit Breadcrumb und Aktionen, Tab-Leiste, Abschnitts-Label</td></tr>
         <tr><td>Navigation / Seitenbaum</td><td>Baum-Einträge mit Aktiv-Zustand und Hover-Aktionen, einklappbare Unterbäume, Toggle-Pfeile, Tastatur-Hinweise</td></tr>
         <tr><td>Seiten-Shell &amp; Dokument</td><td>Scroll-Container, Cover mit Verlauf oder Bild, Seitenspalte mit Notions Seitenoptionen volle Breite und kleiner Text, Seiten-Icon, editierbarer Titel, Seiteneigenschaften, Meta-Zeile, Überschriften, Lead-Absatz</td></tr>
         <tr><td>Inhalts-Elemente</td><td>Callouts, Todos mit Durchstreichung, Toggles, Trenner, Blockzitate, Erwähnungen (Person / Seite / Datum), Inline-Code, Code-Blöcke, Prosa für gerendertes Markdown, die sich auf den Pixel mit dem Editor deckt</td></tr>
-        <tr><td>Datenbank-Views</td><td>View-Reiter mit Zählern, scrollbare Tabellen mit rechtsbündigen Zahlen, Listen-Ansicht, Tags in neun Farben, Fortschrittsbalken in der Zelle oder in voller Breite, Board-Spalten und -Karten</td></tr>
+        <tr><td>Datenbank-Views</td><td>View-Reiter mit Zählern, eine Werkzeugleiste mit Filter, Sortieren, Suche und Neu, Filter-Pills, scrollbare Tabellen mit rechtsbündigen Zahlen, Listen-Ansicht, Tags in neun Farben, Fortschrittsbalken in der Zelle oder in voller Breite, Board-Spalten und -Karten</td></tr>
         <tr><td>Formulare &amp; Einstellungen</td><td>Inputs, Textareas, Selects mit eigenem Chevron, fünf Button-Varianten, Switches, Checkboxen und Radios, Slider, Feld-Zeilen, Modell-Karten, Gefahrenbereich, Mitglieder-Zeilen</td></tr>
         <tr><td>Einstellungs-Modal</td><td>Backdrop, Modal-Hülle, Einstellungs-Navigation mit Nutzerblock, Inhaltsbereich, umschaltbare Panes</td></tr>
-        <tr><td>Overlays &amp; Menüs</td><td>Popover-Basis, Emoji-Picker, Kontextmenüs mit Kürzeln, vollständige Befehlspalette, Toasts</td></tr>
-        <tr><td>Galerie &amp; Produktivität</td><td>Galerie-Raster, Panels, Reiter, Template-Buttons, Statistik-Karten mit Deltas, Synced-Blöcke, Segment-Auswahl, Banner, Avatare in vier Größen und neun Farben, Avatar-Gruppen, Skelette, Leerzustände</td></tr>
+        <tr><td>Overlays &amp; Menüs</td><td>Popover-Basis, Emoji-Picker, Kontextmenüs mit Kürzeln, die einblenden und auf dem Telefon zum Sheet werden, Bottom Sheets, vollständige Befehlspalette, Toasts</td></tr>
+        <tr><td>Galerie &amp; Produktivität</td><td>Galerie-Raster, Panels, Schritte, Reiter, Template-Buttons, Statistik-Karten mit Deltas, Synced-Blöcke, Segment-Auswahl, Banner, Avatare in vier Größen und neun Farben, Avatar-Gruppen, Skelette, Leerzustände</td></tr>
         <tr><td>Kollaboration &amp; KI</td><td>Kommentar-Fäden, Kommentar-Eingabe, KI-Nachrichtenfaden mit der grauen Chat-Blase, Nachrichten-Aktionen, KI-Eingabezeile</td></tr>
         <tr><td>Editor-Adapter</td><td><code class="nk-inline-code">nk-block-host</code> plus gestylte Überschreibungen für TipTap/ProseMirror, BlockNote und Novel, samt Slash-Menü und Bubble-Toolbar</td></tr>
       </tbody>
@@ -292,7 +292,7 @@
       <div class="site-card">
         <h3>NotionKit Elements <span class="site-status on">Jetzt verfügbar</span></h3>
         <div class="role">Web Components</div>
-        <p style="margin-top:8px">77 Vanilla-JS-Custom-Elements, die dieses Markup kapseln — Shadow DOM, native Formularteilnahme, Pixelgleichheit mit dem Klassen-Markup. Gebaut auf dem hier ausgelieferten Constructable Stylesheet.</p>
+        <p style="margin-top:8px">79 Vanilla-JS-Custom-Elements, die dieses Markup kapseln — Shadow DOM, native Formularteilnahme, Pixelgleichheit mit dem Klassen-Markup. Gebaut auf dem hier ausgelieferten Constructable Stylesheet.</p>
         <div class="links"><a href="https://notionkit-elements.jungherz.com">Website →</a><a href="https://github.com/JUNGHERZ/NotionKit-Elements">GitHub →</a></div>
       </div>
       <div class="site-card">

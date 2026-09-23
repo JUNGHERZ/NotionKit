@@ -20,7 +20,9 @@
 <div class="nk-app">
 
   <!-- ================= SIDEBAR ================= -->
-  <aside class="nk-sidebar">
+  <!-- On a phone the sidebar is a drawer: the ☰ in the topbar opens it. -->
+  <div class="nk-sidebar-backdrop" id="sidebarBackdrop"></div>
+  <aside class="nk-sidebar" id="sidebar">
     <div class="nk-workspace">
       <div class="avatar">M</div>
       <span>MonaHilft</span>
@@ -71,6 +73,7 @@
   <!-- ================= MAIN ================= -->
   <main class="nk-main">
     <div class="nk-topbar">
+      <button class="nk-topbar-btn nk-sidebar-toggle" id="sidebarToggle" aria-label="Menü" aria-expanded="false" aria-controls="sidebar">☰</button>
       <nav class="nk-breadcrumb" id="crumbs">
         <span class="crumb">📊 Projektübersicht</span>
         <span class="sep">/</span>
@@ -113,12 +116,21 @@
 
         <h2 class="nk-heading">🗃️ Projekt-Datenbank</h2>
         <div class="nk-database">
-          <div class="nk-db-tabs">
-            <span class="nk-db-tab active" data-view="table">▦ Tabelle <span class="badge">4</span></span>
-            <span class="nk-db-tab" data-view="board">▤ Board</span>
-            <span class="nk-db-tab" data-view="list">☰ Liste</span>
-            <span class="nk-db-tab" style="color:var(--nk-text-tertiary)">＋</span>
+          <div class="nk-db-toolbar">
+            <div class="nk-db-tabs">
+              <span class="nk-db-tab active" data-view="table">▦ Tabelle <span class="badge" id="rowCount">4</span></span>
+              <span class="nk-db-tab" data-view="board">▤ Board</span>
+              <span class="nk-db-tab" data-view="list">☰ Liste</span>
+              <span class="nk-db-tab add">＋</span>
+            </div>
+            <div class="tools">
+              <button class="nk-db-tool active" id="filterBtn" aria-haspopup="menu" aria-expanded="false">Filter</button>
+              <button class="nk-db-tool" id="sortBtn">Sortieren</button>
+              <button class="nk-db-tool" id="searchBtn" aria-label="Suche">🔍</button>
+              <button class="nk-btn primary small" id="newBtn">Neu</button>
+            </div>
           </div>
+          <div class="nk-filter-row" id="filterRow"></div>
 
           <!-- Table View -->
           <div class="nk-table-wrap" id="view-table">
@@ -248,10 +260,8 @@
           <!-- Segmented Control -->
           <div class="nk-g-item">
             <h4>Segment-Auswahl</h4>
-            <div class="nk-segmented" id="demoSegmented">
-              <button class="active">Woche</button>
-              <button>Monat</button>
-              <button>Quartal</button>
+            <div class="nk-segmented scroll" id="demoSegmented">
+              <button>Tag</button><button class="active">Woche</button><button>Monat</button><button>Quartal</button><button>Halbjahr</button><button>Jahr</button>
             </div>
             <div style="margin-top:10px;font-size:12.5px;color:var(--nk-text-tertiary)">Für Zeiträume, Sichtweisen oder Dichtestufen.</div>
           </div>
@@ -407,7 +417,7 @@
       <button class="nk-tab-bar-item"><span class="icon">📥</span><span class="label">Eingang</span></button>
       <button class="nk-tab-bar-item"><span class="icon">🔍</span><span class="label">Suche</span></button>
       <button class="nk-tab-bar-item"><span class="icon">⚙️</span><span class="label">Einstellungen</span></button>
-      <button class="nk-tab-bar-item"><span class="icon">☰</span><span class="label">Mehr</span></button>
+      <button class="nk-tab-bar-item" id="moreTab" aria-haspopup="dialog"><span class="icon">☰</span><span class="label">Mehr</span></button>
     </nav>
   </main>
 </div>
@@ -553,13 +563,19 @@
             <div class="m-desc">Mehr Denktiefe für komplexe Analysen und lange Dokumente. Antwortet langsamer.</div>
           </div>
         </div>
-        <div class="nk-model-card">
+        <div class="nk-model-card" data-custom>
           <div class="m-radio"></div>
           <div>
             <div class="m-name">Eigenes Modell <span class="nk-tag purple">API</span></div>
             <div class="m-desc">Verbinde deinen eigenen API-Schlüssel (OpenAI, Anthropic, Azure).</div>
           </div>
         </div>
+
+        <ol class="nk-steps" id="modelSteps" aria-label="Eigenes Modell verbinden" hidden>
+          <li class="nk-step done"><span class="st-mark">✓</span><span>Anbieter wählen<span class="st-desc">Anthropic</span></span></li>
+          <li class="nk-step current" aria-current="step"><span class="st-mark">2</span><span>API-Schlüssel eintragen</span></li>
+          <li class="nk-step"><span class="st-mark">3</span><span>Verbindung testen</span></li>
+        </ol>
 
         <h3>Antwortstil</h3>
         <label class="nk-check"><input type="radio" name="stil" checked> Ruhig &amp; knapp</label>
@@ -571,8 +587,8 @@
           <div class="f-control"><input class="nk-input" type="password" placeholder="sk-…"></div>
         </div>
         <div style="display:flex;gap:8px;margin-top:18px">
-          <button class="nk-btn primary" data-save>Speichern</button>
-          <button class="nk-btn secondary">Verbindung testen</button>
+          <button class="nk-btn primary" id="aiSave">Speichern</button>
+          <button class="nk-btn secondary" id="aiTest">Verbindung testen</button>
         </div>
       </section>
 
@@ -654,7 +670,7 @@
 </div>
 
 <!-- ================= PAGE MENU (⋯) ================= -->
-<div class="nk-pop nk-menu" id="pageMenu" role="menu" aria-label="Seitenoptionen" hidden style="position:fixed;z-index:60">
+<div class="nk-pop nk-menu floating sheet" id="pageMenu" role="menu" aria-label="Seitenoptionen" style="position:fixed">
   <div class="nk-menu-label">Seite</div>
   <div class="nk-menu-item" role="menuitemcheckbox" aria-checked="false" tabindex="-1" data-option="small"><span class="m-icon">🔡</span>Kleiner Text<span class="nk-switch" aria-hidden="true" aria-checked="false"></span></div>
   <div class="nk-menu-item" role="menuitemcheckbox" aria-checked="false" tabindex="-1" data-option="full"><span class="m-icon">↔️</span>Volle Breite<span class="nk-switch" aria-hidden="true" aria-checked="false"></span></div>
@@ -663,6 +679,30 @@
   <div class="nk-menu-item" role="menuitem" tabindex="-1"><span class="m-icon">📋</span>Duplizieren<span class="m-shortcut">⌘D</span></div>
   <div class="nk-menu-sep"></div>
   <div class="nk-menu-item danger" role="menuitem" tabindex="-1"><span class="m-icon">🗑️</span>In den Papierkorb</div>
+</div>
+
+<!-- ================= FILTER MENU ================= -->
+<div class="nk-pop nk-menu floating sheet" id="filterMenu" role="menu" aria-label="Filter" style="position:fixed">
+  <div class="nk-menu-label">Filtern nach</div>
+  <div class="nk-menu-item" role="menuitemcheckbox" tabindex="-1" data-filter="open"><span class="m-icon">◉</span>Status: Offen<span class="m-shortcut"></span></div>
+  <div class="nk-menu-item" role="menuitemcheckbox" tabindex="-1" data-filter="done"><span class="m-icon">◉</span>Status: Fertig<span class="m-shortcut"></span></div>
+  <div class="nk-menu-item" role="menuitemcheckbox" tabindex="-1" data-filter="mine"><span class="m-icon">👤</span>Verantwortlich: Marcel<span class="m-shortcut"></span></div>
+</div>
+
+<!-- ================= MORE (phone) ================= -->
+<div class="nk-sheet-backdrop" id="moreSheet">
+  <div class="nk-sheet" role="dialog" aria-modal="true" aria-label="Mehr">
+    <div class="sh-grabber"></div>
+    <div class="sh-title">Mehr</div>
+    <div class="nk-section-label">Favoriten</div>
+    <div class="nk-tree-item" data-go="page"><span class="icon">🚀</span><span class="label">NotionKit MVP</span></div>
+    <div class="nk-tree-item" data-go><span class="icon">🎙️</span><span class="label">Voice-Office-Hub</span></div>
+    <div class="nk-section-label">Workspace</div>
+    <div class="nk-tree-item" data-go><span class="icon">🧠</span><span class="label">Wissensdatenbank</span></div>
+    <div class="nk-tree-item" data-go><span class="icon">🎨</span><span class="label">Design-System</span></div>
+    <div class="nk-tree-item" data-go><span class="icon">🗓️</span><span class="label">Redaktionsplan</span></div>
+    <div class="nk-tree-item" data-go><span class="icon">🗑️</span><span class="label">Papierkorb</span></div>
+  </div>
 </div>
 
 <div class="nk-toast" id="toast">✓ <span id="toastMsg"></span></div>
@@ -676,10 +716,24 @@
     { icon: "▤",  name: "Board-View & Drag-and-Drop", status: "Geplant", tag: "orange", owner: "—",  due: "02.06.2026", progress: 0, effort: 8 },
   ];
 
+  /* ============ Filters and sort: they act on table, board and list ============ */
+  const FILTERS = {
+    open: { label: "Status: Offen", test: p => p.tag !== "green" },
+    done: { label: "Status: Fertig", test: p => p.tag === "green" },
+    mine: { label: "Verantwortlich: Marcel", test: p => p.owner === "MK" },
+  };
+  const filters = new Set(["open"]);
+  let sortByDue = false;
+  const dueKey = p => p.due.split(".").reverse().join("");
+  function rows() {
+    const shown = projects.filter(p => [...filters].every(f => FILTERS[f].test(p)));
+    return sortByDue ? [...shown].sort((a, b) => dueKey(a).localeCompare(dueKey(b))) : shown;
+  }
+
   /* ============ Table rendern ============ */
   const tbody = document.getElementById("tableBody");
   function renderTable() {
-    tbody.innerHTML = projects.map(p => `
+    tbody.innerHTML = rows().map(p => `
       <tr>
         <td><span class="row-title">${p.icon} ${p.name}</span></td>
         <td><span class="nk-tag ${p.tag}">${p.status}</span></td>
@@ -695,7 +749,7 @@
   /* ============ List rendern ============ */
   const list = document.getElementById("view-list");
   function renderList() {
-    list.innerHTML = projects.map(p => `<div class="nk-list-item">
+    list.innerHTML = rows().map(p => `<div class="nk-list-item">
       <span class="l-icon">${p.icon}</span><span class="l-title">${p.name}</span>
       <span class="l-meta">${p.due} <span class="nk-tag ${p.tag}">${p.status}</span></span>
     </div>`).join("");
@@ -710,7 +764,7 @@
       { label: "Fertig", tag: "green" },
     ];
     board.innerHTML = cols.map(c => {
-      const cards = projects.filter(p => p.status === c.label);
+      const cards = rows().filter(p => p.status === c.label);
       return `<div class="nk-board-col">
         <div class="nk-board-col-header"><span class="nk-tag ${c.tag}">${c.label}</span><span class="count">${cards.length}</span></div>
         ${cards.map(p => `<div class="nk-card" draggable="true">
@@ -721,9 +775,20 @@
       </div>`;
     }).join("");
   }
-  renderTable();
-  renderBoard();
-  renderList();
+  function renderFilters() {
+    document.getElementById("filterRow").innerHTML = [...filters].map(f => `<span class="nk-filter-pill active"><button data-edit="${f}">${FILTERS[f].label}</button><button class="fp-remove" data-remove="${f}" aria-label="Filter entfernen">×</button></span>`).join("")
+      + `<button class="nk-filter-pill add" id="addFilter" aria-haspopup="menu">＋ Filter</button>`;
+    document.getElementById("filterBtn").classList.toggle("active", filters.size > 0);
+    document.getElementById("sortBtn").classList.toggle("active", sortByDue);
+    document.querySelectorAll("#filterMenu [data-filter]").forEach(item => {
+      const on = filters.has(item.dataset.filter);
+      item.setAttribute("aria-checked", String(on));
+      item.querySelector(".m-shortcut").textContent = on ? "✓" : "";
+    });
+    document.getElementById("rowCount").textContent = rows().length;
+  }
+  function renderAll() { renderTable(); renderBoard(); renderList(); renderFilters(); }
+  renderAll();
 
   /* ============ View-Tabs ============ */
   document.querySelectorAll(".nk-db-tab[data-view]").forEach(tab => {
@@ -761,7 +826,7 @@
   let counter = 1;
   document.getElementById("newRow").addEventListener("click", () => {
     projects.push({ icon: "📄", name: "Unbenannt " + counter++, status: "Geplant", tag: "orange", owner: "—", due: "—", progress: 0, effort: null });
-    renderTable(); renderBoard(); renderList();
+    renderAll();
     showToast("Neue Seite angelegt");
   });
 
@@ -950,6 +1015,10 @@
   seg.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
     seg.querySelectorAll("button").forEach(x => x.classList.remove("active"));
     b.classList.add("active");
+    // Keep the chosen range in view: scroll the row, never the page.
+    const row = seg.getBoundingClientRect(), r = b.getBoundingClientRect();
+    const d = r.left < row.left ? r.left - row.left - 8 : r.right > row.right ? r.right - row.right + 8 : 0;
+    if (d) seg.scrollBy({ left: d, behavior: "smooth" });
   }));
 
   /* ============ Kommentar- & KI-Eingabe ============ */
@@ -973,6 +1042,22 @@
   document.getElementById("emptyNew").addEventListener("click", () => showToast("Neuer Eintrag"));
   document.getElementById("emptyImport").addEventListener("click", () => showToast("Import gestartet"));
 
+  /* ============ Sidebar drawer (phones) ============ */
+  // Below 860px the ☰ opens the sidebar over the page; the backdrop, Escape
+  // and a chosen page close it. The slide is the stylesheet's.
+  const sidebar = document.getElementById("sidebar");
+  const sidebarBackdrop = document.getElementById("sidebarBackdrop");
+  const sidebarToggle = document.getElementById("sidebarToggle");
+  function setDrawer(open) {
+    sidebar.classList.toggle("open", open);
+    sidebarBackdrop.classList.toggle("open", open);
+    sidebarToggle.setAttribute("aria-expanded", String(open));
+  }
+  sidebarToggle.addEventListener("click", () => setDrawer(!sidebar.classList.contains("open")));
+  sidebarBackdrop.addEventListener("click", () => setDrawer(false));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") setDrawer(false); });
+  sidebar.addEventListener("click", e => { if (e.target.closest(".nk-tree-item") && !e.target.closest("[data-toggle]")) setDrawer(false); });
+
   /* ============ Views: start and project page ============ */
   const crumbs = document.getElementById("crumbs");
   const pageCrumbs = crumbs.innerHTML;
@@ -982,7 +1067,7 @@
     crumbs.innerHTML = name === "home" ? '<span class="crumb current">🏠 Start</span>' : pageCrumbs;
     document.getElementById("lastEdited").hidden = name === "home";
     document.querySelectorAll(".nk-sidebar [data-view]").forEach(i => i.classList.toggle("active", i.dataset.view === name));
-    closePageMenu();
+    closeFloating();
   }
   document.querySelectorAll(".nk-sidebar [data-view], #tabBar [data-view]").forEach(el =>
     el.addEventListener("click", () => showView(el.dataset.view)));
@@ -991,9 +1076,39 @@
   }));
   document.querySelectorAll("#view-home a:not([data-open])").forEach(a => a.addEventListener("click", e => e.preventDefault()));
 
-  /* ============ Page menu: small text, full width ============ */
+  /* ============ Floating menus: page menu (⋯) and filter menu ============ */
+  // .floating opens and closes with .open, the way the palette fades in;
+  // .sheet makes it a bottom sheet on a phone. A tap outside closes it and
+  // reaches nothing else, as in Notion.
   const pageMenu = document.getElementById("pageMenu");
   const pageMenuBtn = document.getElementById("pageMenuBtn");
+  const filterMenu = document.getElementById("filterMenu");
+  const filterBtn = document.getElementById("filterBtn");
+  const floating = { menu: null, button: null };
+  function openFloating(menu, button) {
+    closeFloating();
+    const r = button.getBoundingClientRect();
+    menu.style.top = (r.bottom + 6) + "px";
+    menu.style.right = Math.max(8, window.innerWidth - r.right) + "px";
+    if (menu === pageMenu) syncPageMenu();
+    menu.classList.add("open");
+    button.setAttribute("aria-expanded", "true");
+    floating.menu = menu; floating.button = button;
+  }
+  function closeFloating() {
+    if (!floating.menu) return;
+    floating.menu.classList.remove("open");
+    floating.button.setAttribute("aria-expanded", "false");
+    floating.menu = floating.button = null;
+  }
+  document.addEventListener("click", e => {
+    if (!floating.menu || floating.menu.contains(e.target) || floating.button.contains(e.target)) return;
+    e.preventDefault(); e.stopPropagation();
+    closeFloating();
+  }, true);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeFloating(); });
+
+  /* ============ Page menu: small text, full width ============ */
   const currentPage = () => document.querySelector(".nk-page-scroll:not([hidden]) .nk-page");
   function syncPageMenu() {
     const page = currentPage();
@@ -1003,30 +1118,92 @@
       item.querySelector(".nk-switch").setAttribute("aria-checked", String(on));
     });
   }
-  function openPageMenu() {
-    const r = pageMenuBtn.getBoundingClientRect();
-    pageMenu.style.top = (r.bottom + 6) + "px";
-    pageMenu.style.right = Math.max(8, window.innerWidth - r.right) + "px";
-    syncPageMenu();
-    pageMenu.hidden = false;
-    pageMenuBtn.setAttribute("aria-expanded", "true");
-  }
-  function closePageMenu() {
-    pageMenu.hidden = true;
-    pageMenuBtn.setAttribute("aria-expanded", "false");
-  }
-  pageMenuBtn.addEventListener("click", e => { e.stopPropagation(); pageMenu.hidden ? openPageMenu() : closePageMenu(); });
+  pageMenuBtn.addEventListener("click", () => floating.menu === pageMenu ? closeFloating() : openFloating(pageMenu, pageMenuBtn));
   pageMenu.addEventListener("click", e => {
-    e.stopPropagation();
     const item = e.target.closest("[data-option]");
-    if (!item) { if (e.target.closest(".nk-menu-item")) closePageMenu(); return; }
+    if (!item) { if (e.target.closest(".nk-menu-item")) closeFloating(); return; }
     const on = currentPage().classList.toggle(item.dataset.option);
     syncPageMenu();
     const msgs = { small: ["Kleiner Text an", "Kleiner Text aus"], full: ["Volle Breite an", "Volle Breite aus"] };
     showToast(msgs[item.dataset.option][on ? 0 : 1]);
   });
-  document.addEventListener("click", () => closePageMenu());
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closePageMenu(); });
+
+  /* ============ Toolbar and filter pills ============ */
+  filterBtn.addEventListener("click", () => floating.menu === filterMenu ? closeFloating() : openFloating(filterMenu, filterBtn));
+  filterMenu.addEventListener("click", e => {
+    const item = e.target.closest("[data-filter]");
+    if (!item) return;
+    const f = item.dataset.filter;
+    filters.has(f) ? filters.delete(f) : filters.add(f);
+    renderAll();
+    showToast((filters.has(f) ? "Filter an: " : "Filter aus: ") + FILTERS[f].label);
+  });
+  document.getElementById("filterRow").addEventListener("click", e => {
+    const remove = e.target.closest("[data-remove]");
+    if (remove) { filters.delete(remove.dataset.remove); renderAll(); showToast("Filter aus: " + FILTERS[remove.dataset.remove].label); return; }
+    const pill = e.target.closest("[data-edit], #addFilter");
+    if (pill) openFloating(filterMenu, pill);
+  });
+  document.getElementById("sortBtn").addEventListener("click", () => {
+    sortByDue = !sortByDue; renderAll(); showToast(sortByDue ? "Nach Fälligkeit sortiert" : "Ursprüngliche Reihenfolge");
+  });
+  document.getElementById("searchBtn").addEventListener("click", () => showToast("Suche in dieser Datenbank"));
+  document.getElementById("newBtn").addEventListener("click", () => document.getElementById("newRow").click());
+
+  /* ============ More (phone): the rest of the sidebar as a sheet ============ */
+  const moreSheet = document.getElementById("moreSheet");
+  const moreTab = document.getElementById("moreTab");
+  function openMore() {
+    moreSheet.classList.add("open");
+    requestAnimationFrame(() => moreSheet.querySelector(".nk-tree-item").focus({ preventScroll: true }));
+  }
+  function closeMore() {
+    if (!moreSheet.classList.contains("open")) return;
+    moreSheet.classList.remove("open");
+    moreTab.focus({ preventScroll: true });
+  }
+  moreSheet.querySelectorAll(".nk-tree-item").forEach(i => i.tabIndex = 0);
+  moreTab.addEventListener("click", e => { e.stopPropagation(); openMore(); });
+  moreSheet.addEventListener("click", e => {
+    if (e.target === moreSheet) { closeMore(); return; }
+    const item = e.target.closest("[data-go]");
+    if (!item) return;
+    closeMore();
+    if (item.dataset.go) showView(item.dataset.go);
+    else showToast(item.textContent.trim());
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeMore(); });
+
+  /* ============ AI assistant: steps for your own model ============ */
+  const modelSteps = document.getElementById("modelSteps");
+  function setStep(n) {
+    modelSteps.querySelectorAll(".nk-step").forEach((li, i) => {
+      const step = i + 1;
+      li.classList.toggle("done", step < n);
+      li.classList.toggle("current", step === n);
+      li.toggleAttribute("aria-current", step === n);
+      if (step === n) li.setAttribute("aria-current", "step");
+      li.querySelector(".st-mark").textContent = step < n ? "✓" : String(step);
+    });
+  }
+  document.querySelectorAll(".nk-model-card").forEach(card => card.addEventListener("click", () => { modelSteps.hidden = !card.hasAttribute("data-custom"); }));
+  document.getElementById("aiSave").addEventListener("click", () => {
+    if (!modelSteps.hidden) { setStep(3); showToast("API-Schlüssel gespeichert"); } else showToast("Einstellungen gespeichert");
+  });
+  document.getElementById("aiTest").addEventListener("click", () => { if (!modelSteps.hidden) setStep(4); showToast("Verbindung steht"); });
+
+  /* ============ Anchors: #menu, #filter, #more, #settings open that state ============ */
+  // The landing page shows app.html#menu: a popover on the desktop, a sheet
+  // on the phone – one markup, two presentations.
+  function openFromHash() {
+    const h = location.hash;
+    if (h === "#menu") openFloating(pageMenu, pageMenuBtn);
+    if (h === "#filter") { filterBtn.scrollIntoView({ block: "center" }); openFloating(filterMenu, filterBtn); }
+    if (h === "#more") openMore();
+    if (h === "#settings") modal.classList.add("open");
+  }
+  requestAnimationFrame(openFromHash);
+  window.addEventListener("hashchange", openFromHash);
 
   /* ============ Editor: edit or read ============ */
   const editorMode = document.getElementById("editorMode");
@@ -1451,7 +1628,7 @@ if (host) {
 <!-- nk-editor-recipe:end -->
 <script>
   /* Demo tab bar: the clicked item becomes the current one. */
-  document.querySelectorAll('#tabBar .nk-tab-bar-item').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#tabBar .nk-tab-bar-item:not(#moreTab)').forEach(b => b.addEventListener('click', () => {
     document.querySelectorAll('#tabBar .nk-tab-bar-item').forEach(x => x.classList.toggle('active', x === b));
   }));
 </script>

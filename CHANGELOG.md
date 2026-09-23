@@ -4,6 +4,89 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.7.0] – 2026-09-23
+
+Mobile and filter: on a phone the surface becomes an app – menus come up
+from below, the sidebar slides in behind a ☰ – and the database gets
+Notion's toolbar with filter pills. Additive; two small changes of behaviour
+are listed under Changed.
+
+### Added
+- **Sheet: `.nk-sheet-backdrop` and `.nk-sheet`** (`sh-grabber`,
+  `sh-title`). Notion's mobile surface for menus and properties, the
+  phone's twin of the modal: the backdrop fades, the panel rises from the
+  bottom edge with its top corners rounded and a grabber, and the home
+  indicator keeps its distance. It lies above the tab bar and is at most
+  640px wide, centred on larger screens. Closed, the backdrop leaves the
+  layout once it has faded – `display` with `allow-discrete` and
+  `@starting-style`, where GlassKit 1.15.0's `.glass-sheet` needs a script
+  for it. Rows inside are 40px, a thumb's height.
+- **Menus that float in and become sheets: `.nk-pop.floating` and
+  `.nk-pop.sheet`.** `floating` opens and closes with `.open` the way the
+  palette does: it fades in and settles from 4px higher and 98 %; closed it
+  takes no clicks and no focus, and it sits at z-index 60, above the page
+  and below the dialogs. `sheet` makes the same popover a bottom sheet
+  below 860px – full width, a grabber, 40px rows, the page dimmed by a
+  spread shadow – and overrules the position a script or a positioning
+  library wrote inline. One markup, two presentations, as Notion opens
+  every menu on its mobile app.
+- **Sidebar drawer: `.nk-sidebar.open`, `.nk-sidebar-backdrop` and
+  `.nk-sidebar-toggle`.** Below 860px the ☰ at the start of the topbar
+  slides the sidebar in over the page and fades a scrim in, CSS only. Until
+  now only NotionKit Elements had the drawer, in its own element CSS; with
+  class markup the sidebar was out of reach on a phone. Auxdesk uses exactly
+  this pattern.
+- **Database toolbar: `.nk-db-toolbar`, `.tools`, `.nk-db-tool`.** View
+  tabs on the left, the view's tools on the right – Filter, Sort, search,
+  “New” – as Notion lays out a database header; a tool in effect takes
+  `.active`. On a phone the tabs scroll and the tools keep their place.
+  LearnHub and Auxdesk each built a title row with actions.
+- **Filter pills: `.nk-filter-row` and `.nk-filter-pill`** (`active`,
+  `add`, `fp-remove`). The filters in effect under the toolbar, an accent
+  tint on a set filter, a quiet “＋ Filter” at the end; with `.fp-remove`
+  a filter goes in place. GlassKit's chips became filter pills, kept apart
+  from the coloured tag.
+- **Steps: `.nk-steps` and `.nk-step`** (`st-mark`, `st-desc`, `done`,
+  `current`). Calm and vertical: numbered circles joined by a hairline,
+  done steps on the green tag with a check, the current one ringed in the
+  accent. LearnHub, Auxdesk and NotionKit Web each build one; GlassKit
+  1.15.0 has a horizontal `.glass-steps`.
+- `.nk-db-tab.add` for the quiet ＋ that adds a view, instead of an inline
+  colour.
+- SKILL.md: the workspace skeleton has the drawer, the database skeleton
+  the toolbar and pills, the onboarding skeleton the steps.
+- `test/mobile-filter.spec.mjs`, 11 tests: the menu floats in under its
+  button and takes nothing while closed, a tap outside closes it and reaches
+  nothing else, on a phone it is a sheet above the tab bar whatever its
+  inline position, “More” opens a sheet that leaves the layout when closed,
+  the drawer, filters acting on table, board and list without an inline
+  style, the steps, the scrolling segmented control, and 40px rows in a
+  sheet also inside a shadow root.
+
+### Changed
+- View tabs keep their one line and do not shrink. In the scrolling strip
+  of the toolbar they had wrapped over two lines on a phone.
+- `.nk-tree-item` and `.nk-menu-item` read their minimum height from
+  `--_nk-row`: 28px as before, 40px in a sheet. A private value that
+  inherits, not a token – so rows inside shadow roots of their own follow
+  the sheet too.
+- A top-level `<dl class="nk-props">` keeps no browser margin.
+
+### Site
+- Demo, class markup: the project database has the toolbar and the pill
+  row with “Status: Open” in effect – table, board and list follow it live,
+  and the tab's badge counts what is shown. The ⋯ page menu and the new
+  filter menu fade in like the palette and are sheets on a phone. The tab
+  bar's “More” opens a sheet with the rest of the sidebar, the ☰ the whole
+  sidebar as a drawer. Choosing your own model in “AI assistant” shows the
+  steps, and Save and Test connection move them on. The segmented control
+  has six ranges, from day to year, in one scrolling row. `#menu`,
+  `#filter`, `#more` and `#settings` open that state from the address.
+- Landing page: “Desktop and mobile, equally” opens with the page menu – a
+  popover on the left, a sheet on the right. “What is in the box” names
+  the new pieces; about 140 classes.
+- Size: 11.5 KB of 14 KB gzipped.
+
 ## [1.6.0] – 2026-09-23
 
 App views: the base layer that LearnHub and Auxdesk each built on their own –

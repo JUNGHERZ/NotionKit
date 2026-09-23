@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.6.0
+   Jungherz GmbH – v1.7.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -371,6 +371,9 @@
   color: var(--nk-text-sidebar); font-size: 14px;
 }
 .nk-sidebar-footer .nk-tree-item { min-height: 26px; }
+/* The drawer's scrim and the ☰ that opens it; both only act below 860px. */
+.nk-sidebar-backdrop { display: none; position: fixed; inset: 0; z-index: 59; background: var(--nk-scrim-soft); }
+.nk-sidebar-toggle { display: none; }
 
 /* ---- Main / Topbar ---- */
 .nk-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
@@ -475,7 +478,10 @@ a.crumb { text-decoration: none; }
   cursor: pointer; user-select: none;
   color: var(--nk-text-sidebar);
   position: relative;
-  min-height: 28px;
+  /* 28px; 40px inside a sheet, which sets --_nk-row. A private, inherited
+     value rather than a descendant rule, so it also reaches rows that sit
+     in shadow roots of their own (NotionKit Elements). Not a token. */
+  min-height: var(--_nk-row, 28px);
 }
 .nk-tree-item:hover { background: var(--nk-bg-hover); }
 .nk-tree-item.active { background: var(--nk-bg-active); color: var(--nk-text); font-weight: 500; }
@@ -576,7 +582,7 @@ a.crumb { text-decoration: none; }
    one row each, the name in a 160px column with its type icon, the value
    beside it. Both halves take the hover wash, as each opens its own editor
    in Notion. Takes the place of .nk-page-meta on a page that is a row. */
-.nk-props { display: flex; flex-direction: column; margin-bottom: 20px; font-size: 14px; line-height: 1.5; }
+.nk-props { display: flex; flex-direction: column; margin: 0 0 20px; font-size: 14px; line-height: 1.5; }
 .nk-prop { display: flex; align-items: flex-start; min-width: 0; }
 .nk-prop .p-name {
   flex: 0 0 160px; min-width: 0; min-height: 34px; padding: 0 6px;
@@ -718,14 +724,60 @@ a.crumb { text-decoration: none; }
   padding: 4px 8px; cursor: pointer; color: var(--nk-text-secondary);
   border-radius: var(--nk-radius); user-select: none; line-height: 20px;
   display: flex; align-items: center; gap: 6px;
+  /* A tab keeps its one line: in a scrolling strip it must not shrink and wrap. */
+  flex-shrink: 0; white-space: nowrap;
 }
 .nk-db-tab:hover { color: var(--nk-text); background: var(--nk-bg-hover); }
 .nk-db-tab.active { color: var(--nk-text); background: var(--nk-bg-active); font-weight: 500; }
+/* The quiet ＋ that adds a view. */
+.nk-db-tab.add { color: var(--nk-text-tertiary); }
 .nk-db-tab .badge,
 .nk-db-tab ::slotted(.badge) {
   background: var(--nk-bg-callout); border-radius: 8px;
   font-size: 11px; padding: 0 6px; color: var(--nk-text-tertiary);
 }
+
+/* The database header as Notion lays it out: the view tabs on the left, the
+   view's tools on the right – Filter, Sort, search and "New". A tool that
+   is in effect, a set filter, takes the accent. When the row gets narrow
+   the tabs scroll sideways and the tools keep their place. */
+.nk-db-toolbar { display: flex; align-items: center; gap: 8px; min-width: 0; padding-bottom: 6px; }
+.nk-db-toolbar > .nk-db-tabs { flex: 1 1 auto; min-width: 0; padding-bottom: 0; overflow-x: auto; scrollbar-width: none; }
+.nk-db-toolbar > .nk-db-tabs::-webkit-scrollbar { display: none; }
+.nk-db-toolbar .tools { flex: none; display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.nk-db-tool {
+  display: inline-flex; align-items: center; gap: 4px; height: 28px; padding: 0 8px;
+  border: none; border-radius: var(--nk-radius); background: transparent;
+  font-family: inherit; font-size: 14px; color: var(--nk-text-secondary);
+  white-space: nowrap; cursor: pointer; user-select: none;
+}
+.nk-db-tool:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
+.nk-db-tool.active { color: var(--nk-accent); }
+
+/* The filters in effect, as pills under the toolbar – Notion's
+   "Status: Open ▾". A set filter takes an accent tint; `.add` is the quiet
+   "＋ Filter" at the end. The pill is one button, or a box holding the
+   label button and a `.fp-remove` × when a filter can be removed in place. */
+.nk-filter-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 2px 0 8px; }
+.nk-filter-pill {
+  display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 8px;
+  border: 1px solid var(--nk-border-strong); border-radius: 12px; background: transparent;
+  font-family: inherit; font-size: 13px; line-height: 1; color: var(--nk-text-secondary);
+  white-space: nowrap; cursor: pointer; user-select: none;
+}
+.nk-filter-pill:hover { background: var(--nk-bg-hover); }
+.nk-filter-pill.active {
+  color: var(--nk-accent); border-color: color-mix(in srgb, var(--nk-accent) 35%, transparent);
+  background: color-mix(in srgb, var(--nk-accent) 6%, transparent);
+}
+.nk-filter-pill.add { border-color: transparent; color: var(--nk-text-tertiary); }
+.nk-filter-pill.add:hover { color: var(--nk-text-secondary); }
+.nk-filter-pill button { padding: 0; border: none; background: none; font: inherit; color: inherit; cursor: pointer; }
+.nk-filter-pill .fp-remove {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; margin-right: -4px; border-radius: 50%; font-size: 13px;
+}
+.nk-filter-pill .fp-remove:hover { background: color-mix(in srgb, currentColor 15%, transparent); }
 
 /* Horizontal scrolling instead of breaking — the mobile contract for
    wide tables (PRD 6.3a.4). */
@@ -1147,7 +1199,7 @@ a.nk-btn { text-decoration: none; }
 
 .nk-menu { padding: 5px; width: 230px; }
 .nk-menu-item {
-  display: flex; align-items: center; gap: 9px; padding: 4px 8px; min-height: 28px;
+  display: flex; align-items: center; gap: 9px; padding: 4px 8px; min-height: var(--_nk-row, 28px);
   border-radius: 5px; cursor: pointer; font-size: 14px; user-select: none;
 }
 .nk-menu-item:hover { background: var(--nk-bg-hover); }
@@ -1162,6 +1214,20 @@ a.nk-btn { text-decoration: none; }
 .nk-menu-item > .nk-switch { margin-left: auto; }
 .nk-menu-sep { border-top: 1px solid var(--nk-border); margin: 5px 4px; }
 .nk-menu-label { font-size: 12px; color: var(--nk-text-tertiary); padding: 5px 8px 2px; }
+
+/* `floating`: a popover over the page – a page menu, a filter menu – that
+   opens and closes with .open, the way the palette does: it fades in and
+   settles from 4px higher and 98 %. Closed it takes no clicks and no
+   focus. Where it sits is yours: fixed or absolute, top and left or right. */
+.nk-pop.floating {
+  z-index: 60; opacity: 0; visibility: hidden; pointer-events: none;
+  transform: translateY(-4px) scale(.98); transform-origin: top;
+  transition: opacity .15s ease, transform .15s ease, visibility 0s linear .15s;
+}
+.nk-pop.floating.open {
+  opacity: 1; visibility: visible; pointer-events: auto; transform: none;
+  transition: opacity .15s ease, transform .15s ease, visibility 0s;
+}
 
 .nk-cmdk-backdrop {
   position: fixed; inset: 0; background: var(--nk-scrim-soft);
@@ -1203,6 +1269,37 @@ a.nk-btn { text-decoration: none; }
   display: flex; gap: 14px; padding: 8px 16px; border-top: 1px solid var(--nk-border);
   font-size: 11.5px; color: var(--nk-text-tertiary);
 }
+
+/* The sheet: Notion's mobile surface for menus, properties and more, the
+   phone's twin of the modal. The backdrop fades, the panel rises from the
+   bottom edge with its top corners rounded and a grabber on top, and the
+   home indicator keeps its distance. It lies above the tab bar. Like the
+   modal it starts invisible; .open shows it. Closed, the backdrop leaves the
+   layout once it has faded – display with allow-discrete where the browser
+   has it, at once where not. Up to 640px wide, centred on larger screens. */
+.nk-sheet-backdrop {
+  position: fixed; inset: 0; z-index: 100;
+  display: none; flex-direction: column; align-items: center; justify-content: flex-end;
+  padding-top: max(24px, env(safe-area-inset-top, 0px));
+  background: var(--nk-scrim-soft); opacity: 0;
+  transition: opacity .2s ease, display .25s allow-discrete;
+}
+.nk-sheet-backdrop.open { display: flex; opacity: 1; }
+@starting-style { .nk-sheet-backdrop.open { opacity: 0; } }
+.nk-sheet {
+  --_nk-row: 40px;   /* rows a thumb can hit, see .nk-tree-item */
+  width: 100%; max-width: 640px; max-height: 100%; overflow-y: auto; overscroll-behavior: contain;
+  padding: 6px max(10px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-left, 0px));
+  background: var(--nk-bg); color: var(--nk-text);
+  border-radius: 14px 14px 0 0; box-shadow: var(--nk-shadow-menu);
+  translate: 0 100%; transition: translate .25s cubic-bezier(.2, .8, .2, 1);
+}
+.nk-sheet-backdrop.open .nk-sheet { translate: 0 0; }
+@starting-style { .nk-sheet-backdrop.open .nk-sheet { translate: 0 100%; } }
+.nk-sheet .sh-grabber,
+.nk-sheet ::slotted(.sh-grabber) { width: 36px; height: 4px; margin: 4px auto 10px; border-radius: 2px; background: var(--nk-border-strong); }
+.nk-sheet .sh-title,
+.nk-sheet ::slotted(.sh-title) { font-size: 14px; font-weight: 600; text-align: center; padding: 0 8px 10px; }
 
 /* Above every overlay – the modal is 100, the palette 110 – because a toast
    is often the answer to something done in a dialog; above the home
@@ -1410,6 +1507,28 @@ a.nk-btn { text-decoration: none; }
    Buttons written without whitespace between them used to touch. */
 .nk-empty .e-actions,
 .nk-empty ::slotted(.e-actions) { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+
+/* Steps through a short flow, calm and vertical: a numbered circle per step
+   joined by a hairline, done ones on the green tag with a check, the
+   current one ringed in the accent, the rest quiet. Not a Notion block – in
+   Notion's idiom it is a numbered list with checks – but LearnHub, Auxdesk
+   and NotionKit Web each build one. Write it as an <ol>; mark the current
+   step with aria-current="step". */
+.nk-steps { display: flex; flex-direction: column; margin: 8px 0; padding: 0; list-style: none; font-size: 14px; }
+.nk-step { position: relative; display: flex; align-items: flex-start; gap: 10px; padding-bottom: 14px; line-height: 20px; color: var(--nk-text-tertiary); }
+.nk-step:last-child { padding-bottom: 0; }
+.nk-step:not(:last-child)::after { content: ""; position: absolute; left: 10px; top: 24px; bottom: 4px; width: 1px; background: var(--nk-border); }
+.nk-step .st-mark {
+  flex: none; width: 20px; height: 20px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--nk-border-strong); background: var(--nk-bg);
+  font-size: 11px; font-weight: 600; line-height: 1;
+}
+.nk-step .st-desc { display: block; font-size: 12px; line-height: 18px; color: var(--nk-text-tertiary); font-weight: 400; }
+.nk-step.done { color: var(--nk-text-secondary); }
+.nk-step.done .st-mark { background: var(--nk-tag-green-bg); color: var(--nk-tag-green-text); border-color: transparent; }
+.nk-step.current { color: var(--nk-text); font-weight: 500; }
+.nk-step.current .st-mark { border-color: var(--nk-accent); color: var(--nk-accent); }
 
 
 /* ============================================================
@@ -1708,7 +1827,25 @@ a.nk-btn { text-decoration: none; }
    overflow-x on tables and boards, auto-fit grids in the gallery.
    ============================================================ */
 @media (max-width: 860px) {
-  .nk-sidebar { display: none; }
+  /* The sidebar steps aside; `.open` brings it back as an off-canvas drawer
+     over the page, .nk-sidebar-backdrop as its scrim, opened by the ☰
+     .nk-sidebar-toggle in the topbar or a tab bar item. It slides in and the
+     scrim fades, CSS only: display transitions with allow-discrete, so the
+     old value holds while closing, and @starting-style gives the first
+     frame its start; browsers without either switch at once. position:
+     fixed sits on the plain sidebar, not on the open state – while closing
+     it is still displayed and must not fall back into the flow. */
+  .nk-sidebar {
+    display: none; position: fixed; inset: 0 auto 0 0; z-index: 60;
+    transform: translateX(-100%);
+    transition: background .25s ease, transform .24s cubic-bezier(.2, .8, .25, 1), display .24s allow-discrete;
+  }
+  .nk-sidebar.open { display: flex; transform: none; }
+  @starting-style { .nk-sidebar.open { transform: translateX(-100%); } }
+  .nk-sidebar-backdrop { opacity: 0; transition: opacity .24s ease, display .24s allow-discrete; }
+  .nk-sidebar-backdrop.open { display: block; opacity: 1; }
+  @starting-style { .nk-sidebar-backdrop.open { opacity: 0; } }
+  .nk-sidebar-toggle { display: inline-flex; }
   .nk-tab-bar { display: flex; }
   .nk-tab-bar.fixed + .nk-tab-bar-spacer { display: block; }
   .nk-page { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); padding-bottom: 80px; }
@@ -1746,6 +1883,23 @@ a.nk-btn { text-decoration: none; }
   .nk-prop { flex-direction: column; align-items: stretch; }
   .nk-prop .p-name { flex: none; min-height: 26px; }
   .nk-prop .p-value { min-height: 30px; padding: 3px 6px 7px; }
+  /* `sheet`: a popover becomes a bottom sheet, as Notion's mobile app opens
+     every menu – full width at the bottom edge, top corners rounded, a
+     grabber, the page dimmed by a spread shadow that takes no clicks, so a
+     tap outside still reaches the page's own close handler. Position
+     written inline – by a script, by a positioning library – is overruled
+     on purpose. With `floating` it rises from the bottom edge. */
+  .nk-pop.sheet {
+    position: fixed !important; inset: auto 0 0 0 !important; width: auto !important;
+    transform: none !important; z-index: 100; --_nk-row: 40px;
+    max-height: 85dvh; overflow-y: auto; overscroll-behavior: contain;
+    border-radius: 14px 14px 0 0;
+    padding: 6px max(8px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px));
+    box-shadow: 0 0 0 100vmax var(--nk-scrim-soft), var(--nk-shadow-menu);
+  }
+  .nk-pop.sheet::before { content: ""; display: block; width: 36px; height: 4px; margin: 4px auto 8px; border-radius: 2px; background: var(--nk-border-strong); }
+  .nk-pop.sheet.floating { translate: 0 100%; transition: opacity .2s ease, translate .25s cubic-bezier(.2, .8, .2, 1), visibility 0s linear .25s; }
+  .nk-pop.sheet.floating.open { translate: 0 0; transition: opacity .2s ease, translate .25s cubic-bezier(.2, .8, .2, 1), visibility 0s; }
   /* A visible tab bar would cover the toast, so it rises 12px above the bar.
      :has() sees class markup only; <nk-toast> measures the bar itself. */
   :root:has(.nk-tab-bar:not([hidden])) .nk-toast { bottom: calc(var(--nk-tab-bar-height) + max(6px, env(safe-area-inset-bottom, 0px)) + 6px); }

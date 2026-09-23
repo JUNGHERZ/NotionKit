@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.6.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.7.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html">Docs</a>
@@ -243,6 +243,7 @@
   </aside>
   <main class="nk-main">
     <header class="nk-topbar">
+      <button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu">☰</button>
       <div class="nk-breadcrumb"><span class="crumb current">📊 Project overview</span></div>
       <div class="nk-topbar-actions"><button class="nk-topbar-btn nk-share-btn">Share</button></div>
     </header>
@@ -252,6 +253,9 @@
     </div></div>
   </main>
 </div></div>
+        <pre class="nk-code"><span class="lang">html</span>&lt;div class="nk-sidebar-backdrop open"&gt;&lt;/div&gt;   &lt;!-- phones: the drawer's scrim --&gt;
+&lt;aside class="nk-sidebar open"&gt;…&lt;/aside&gt;         &lt;!-- slides in over the page --&gt;
+&lt;button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu"&gt;☰&lt;/button&gt;</pre>
         
       </article>
       <article class="doc-entry" id="s-nk-workspace">
@@ -259,6 +263,7 @@
         <div class="doc-preview"><div class="nk-workspace" style="background:var(--nk-bg-sidebar);max-width:244px">
   <div class="avatar">A</div>Acme Inc<span class="chev">⌄</span>
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-topbar">
@@ -277,6 +282,7 @@
   </div>
 </header></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-tab-bar">
         <h3>Tab bar (mobile) <code>.nk-tab-bar</code></h3>
@@ -291,6 +297,7 @@
 </div>
 <pre class="nk-code" style="margin-top:12px"><span class="lang">html</span>&lt;nav class="nk-tab-bar fixed"&gt;…&lt;/nav&gt;&lt;div class="nk-tab-bar-spacer"&gt;&lt;/div&gt;</pre></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-breadcrumb">
         <h3>Breadcrumb <code>.nk-breadcrumb</code></h3>
@@ -300,6 +307,7 @@
   <span class="crumb current">🚀 Roadmap</span>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-section-label">
         <h3>Section label <code>.nk-section-label</code></h3>
@@ -307,6 +315,7 @@
   <div class="nk-section-label">Favourites<span class="plus">＋</span></div>
   <div class="nk-tree-item"><span class="icon">📊</span><span class="label">Project overview</span></div>
 </div></div>
+        
         
       </article>
     </section>
@@ -321,6 +330,7 @@
   <div class="nk-tree-item"><span class="icon">🎨</span><span class="label">Design system</span><span class="actions"><span>＋</span><span>⋯</span></span></div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-tree-children">
         <h3>Nested tree & toggle arrow <code>.nk-tree-children</code></h3>
@@ -334,12 +344,14 @@
   <div class="nk-tree-children collapsed"><div class="nk-tree-item"><span class="label">—</span></div></div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-kbd">
         <h3>Keyboard hint <code>.nk-kbd</code></h3>
         <div class="doc-preview"><div style="background:var(--nk-bg-sidebar);border-radius:var(--nk-radius);padding:6px 8px;max-width:244px">
   <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Search</span><span class="nk-kbd-hint"><kbd class="nk-kbd">⌘</kbd><kbd class="nk-kbd">K</kbd></span></div>
 </div></div>
+        
         
       </article>
     </section>
@@ -358,6 +370,7 @@
   </div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-props">
         <h3>Page properties <code>.nk-props</code></h3>
@@ -369,11 +382,13 @@
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Progress</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
 </dl></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-cover">
         <h3>Cover <code>.nk-cover</code></h3>
         <div class="doc-preview"><div class="nk-cover" style="border-radius:var(--nk-radius)"></div>
 <div class="nk-cover" style="height:120px;border-radius:var(--nk-radius);margin-top:12px"><img src="covers/meadow.svg" alt=""></div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-heading">
@@ -382,6 +397,7 @@
   <h2 class="nk-heading">✅ How this works</h2>
   <p class="lead">A short lead paragraph sets up the page in a calmer, larger type size before the body copy begins.</p>
 </div></div>
+        
         
       </article>
     </section>
@@ -392,6 +408,7 @@
         <h3>Callout <code>.nk-callout</code></h3>
         <div class="doc-preview"><div class="nk-callout"><span class="c-icon">💡</span><div><b>Core idea:</b> a callout carries one thought that should not be missed. Keep it to a sentence or two.</div></div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-todo">
         <h3>To-do <code>.nk-todo</code></h3>
@@ -401,6 +418,7 @@
   <label class="nk-todo"><input type="checkbox"><span>Prioritise the MVP</span></label>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-toggle">
         <h3>Toggle <code>.nk-toggle</code></h3>
@@ -409,11 +427,13 @@
   <div class="toggle-body">The text editor itself. NotionKit ships the optical shell; you mount TipTap, BlockNote or Novel inside it.</div>
 </details></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-quote">
         <h3>Quote & divider <code>.nk-quote</code></h3>
         <div class="doc-preview"><blockquote class="nk-quote">Design is not just what it looks like. Design is how it works.<cite class="q-cite">— Steve Jobs</cite></blockquote>
 <hr class="nk-divider"></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-mention">
@@ -424,6 +444,7 @@
   <span class="nk-mention date">📅 20 May</span>
 </p></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-code">
         <h3>Code <code>.nk-code</code></h3>
@@ -431,6 +452,7 @@
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"c-icon"<span class="tag">&gt;</span>💡<span class="tag">&lt;/span&gt;</span>
 <span class="tag">&lt;/div&gt;</span></div>
 <p>Inline: <code class="nk-inline-code">--nk-accent</code></p></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-prose">
@@ -442,6 +464,7 @@
   <blockquote>The editor adapter reads the same rules.</blockquote>
   <table><thead><tr><th>Class</th><th>For</th></tr></thead><tbody><tr><td><code>full</code></td><td>Full width</td></tr><tr><td><code>small</code></td><td>Small text</td></tr></tbody></table>
 </div></div></div>
+        
         <p class="doc-note doc-note--preview">Class only, on purpose: <code>::slotted()</code> reaches the slotted node and never a paragraph inside it, so a <code>&lt;nk-prose&gt;</code> element could not style its content. Put the class on a light-DOM container, also inside NotionKit Elements.</p>
       </article>
     </section>
@@ -457,6 +480,28 @@
     <div class="nk-db-tab">🖼 Gallery</div>
   </div>
 </div></div>
+        
+        
+      </article>
+      <article class="doc-entry" id="s-nk-db-toolbar">
+        <h3>Toolbar & filter pills <code>.nk-db-toolbar</code></h3>
+        <div class="doc-preview"><div class="nk-database" style="max-width:620px">
+  <div class="nk-db-toolbar">
+    <div class="nk-db-tabs">
+      <div class="nk-db-tab active">▦ Table</div><div class="nk-db-tab">▤ Board</div><div class="nk-db-tab">☰ List</div>
+    </div>
+    <div class="tools">
+      <button class="nk-db-tool active">Filter</button><button class="nk-db-tool">Sort</button><button class="nk-db-tool" aria-label="Search">🔍</button>
+      <button class="nk-btn primary small">New</button>
+    </div>
+  </div>
+  <div class="nk-filter-row">
+    <span class="nk-filter-pill active"><button>Status: Open</button><button class="fp-remove" aria-label="Remove filter">×</button></span>
+    <button class="nk-filter-pill">Owner: Marcel ▾</button>
+    <button class="nk-filter-pill add">＋ Filter</button>
+  </div>
+</div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-table">
@@ -484,6 +529,7 @@
 </table>
 <div class="nk-new-row">＋ New page</div></div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-tag">
         <h3>Tags <code>.nk-tag</code></h3>
@@ -497,12 +543,14 @@
 <span class="nk-tag pink">Idea</span>
 <span class="nk-tag red">Blocked</span></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-progress">
         <h3>Progress bar <code>.nk-progress</code></h3>
         <div class="doc-preview"><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
 <span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span>
 <div style="display:flex;align-items:center;max-width:360px;margin-top:14px"><span class="nk-progress wide"><i style="width:80%"></i></span><span class="nk-progress-label">80 %</span></div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-board">
@@ -522,6 +570,7 @@
   </div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-list">
         <h3>List view <code>.nk-list</code></h3>
@@ -530,6 +579,7 @@
   <a class="nk-list-item" href="#"><span class="l-icon">🎨</span><span class="l-title">Design system</span><span class="l-meta">20.05.2026 <span class="nk-tag blue">In progress</span></span></a>
   <a class="nk-list-item" href="#"><span class="l-icon">📣</span><span class="l-title">Launch</span><span class="l-meta">02.06.2026 <span class="nk-tag orange">Planned</span></span></a>
 </div></div>
+        
         
       </article>
     </section>
@@ -544,6 +594,7 @@
   <textarea class="nk-textarea wide" placeholder="A few words about yourself …"></textarea>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-btn">
         <h3>Buttons <code>.nk-btn</code></h3>
@@ -554,6 +605,7 @@
   <button class="nk-btn danger-solid">Delete</button>
   <button class="nk-btn secondary small">Remove</button>
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-switch">
@@ -569,6 +621,7 @@
     <label class="nk-switch-label"><button class="nk-switch" role="switch" aria-checked="true"></button><span>Done</span></label>
   </div>
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-check">
@@ -587,11 +640,13 @@
   </div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-slider">
         <h3>Slider <code>.nk-slider</code></h3>
         <div class="doc-preview"><div><input class="nk-slider" type="range" min="80" max="140" value="100">
 <div class="nk-slider-value">Text size: 100 %</div></div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-field">
@@ -605,6 +660,7 @@
     <div class="f-control"><textarea class="nk-textarea" rows="2" placeholder="A few words about yourself …"></textarea></div></div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-fields">
         <h3>Field grid <code>.nk-fields</code></h3>
@@ -613,6 +669,7 @@
   <div class="nk-field"><div><div class="f-label">Email</div></div><div class="f-control"><input class="nk-input" value="ada@acme.com"></div></div>
   <div class="nk-field"><div><div class="f-label">Status</div></div><div class="f-control"><select class="nk-select"><option>In progress</option><option>Done</option></select></div></div>
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-profile-row">
@@ -625,6 +682,7 @@
   </div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-model-card">
         <h3>Model card <code>.nk-model-card</code></h3>
@@ -635,6 +693,7 @@
   <div class="nk-model-card"><div class="m-radio"></div><div>
     <div class="m-name">Mona Deep</div><div class="m-desc">A balanced model for everyday work. Fast, calm, dependable.</div></div></div>
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-danger-zone">
@@ -647,6 +706,7 @@
   </div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-member-row">
         <h3>Member rows <code>.nk-member-row</code></h3>
@@ -658,6 +718,7 @@
     <div><div>Tom Weber</div><div class="m-mail">tom@acme.com</div></div>
     <select class="nk-select"><option>Member</option></select></div>
 </div></div>
+        
         
       </article>
     </section>
@@ -688,6 +749,7 @@
   </div>
 </div></div>
         
+        
       </article>
     </section>
     <section class="doc-group" id="overlay">
@@ -700,6 +762,7 @@
   <div class="nk-menu-item"><span class="m-icon">✏️</span>Rename</div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-emoji-grid">
         <h3>Emoji picker <code>.nk-emoji-grid</code></h3>
@@ -710,6 +773,7 @@
   </div>
   <div class="nk-emoji-cats"><span class="active">🕐</span><span>😀</span><span>🐶</span><span>🍎</span><span>⚽</span><span>🚗</span><span>💡</span></div>
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-menu">
@@ -723,7 +787,9 @@
   <div class="nk-menu-item"><span class="m-icon">🔡</span>Small text<button class="nk-switch" role="switch" aria-checked="true" aria-label="Small text"></button></div>
   <div class="nk-menu-sep"></div>
   <div class="nk-menu-item danger"><span class="m-icon">🗑</span>Move to trash</div>
-</div></div>
+</div>
+<pre class="nk-code" style="margin-top:12px"><span class="lang">html</span>&lt;div class="nk-pop nk-menu floating sheet open" style="position:fixed; top:48px; right:12px"&gt;…&lt;/div&gt;</pre></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-cmdk">
@@ -747,6 +813,7 @@
 </div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-cmdk-empty">
         <h3>Palette: no results <code>.nk-cmdk-empty</code></h3>
@@ -755,10 +822,27 @@
   <div class="nk-cmdk-list"><div class="nk-cmdk-empty">No results for “xyzzy”</div></div>
 </div></div>
         
+        
+      </article>
+      <article class="doc-entry" id="s-nk-sheet">
+        <h3>Sheet <code>.nk-sheet</code></h3>
+        <div class="doc-preview is-frame" style="height:360px;position:relative"><div class="nk-sheet-backdrop open" style="position:absolute;border-radius:var(--nk-radius)">
+  <div class="nk-sheet" role="dialog" aria-modal="true" aria-label="Page">
+    <div class="sh-grabber"></div>
+    <div class="sh-title">Page</div>
+    <div class="nk-menu-item"><span class="m-icon">🔡</span>Small text<button class="nk-switch" role="switch" aria-checked="true" aria-label="Small text"></button></div>
+    <div class="nk-menu-item"><span class="m-icon">🔗</span>Copy link</div>
+    <div class="nk-menu-item"><span class="m-icon">📄</span>Duplicate</div>
+    <div class="nk-menu-item danger"><span class="m-icon">🗑</span>Move to trash</div>
+  </div>
+</div></div>
+        
+        
       </article>
       <article class="doc-entry" id="s-nk-toast">
         <h3>Toast <code>.nk-toast</code></h3>
         <div class="doc-preview"><div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>Settings saved</span></div></div>
+        
         
       </article>
     </section>
@@ -771,6 +855,7 @@
   <div class="nk-g-item"><h4>Active pages</h4><div class="nk-stat"><div class="s-label">this week</div><div class="s-value">128</div></div></div>
   <div class="nk-g-item"><h4>Open tasks</h4><div class="nk-stat"><div class="s-label">this week</div><div class="s-value">17</div></div></div>
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-panel">
@@ -795,6 +880,7 @@
   </div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-tabs">
         <h3>Tabs <code>.nk-tabs</code></h3>
@@ -803,6 +889,7 @@
   <div class="nk-tab-panel">Panel content follows the tab strip and inherits the calm body type.</div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-template-btn">
         <h3>Template button <code>.nk-template-btn</code></h3>
@@ -810,6 +897,7 @@
   <button class="nk-template-btn">📅 Insert week plan</button>
   <button class="nk-template-btn">🤝 Insert meeting minutes</button>
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-stats">
@@ -820,6 +908,7 @@
   <div class="nk-stat"><div class="s-label">Open tasks</div><div class="s-value">17</div><div class="s-delta down">▼ 5 since yesterday</div></div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-synced">
         <h3>Synced block <code>.nk-synced</code></h3>
@@ -827,6 +916,7 @@
   <span class="synced-badge">⟳ 3 places</span>
   This text appears identically on three pages and is maintained in one place.
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-segmented">
@@ -841,6 +931,7 @@
   <button class="active">All</button><button>⚠️ Attention</button><button>Failed</button><button>Read</button><button>Ignored</button>
 </div></div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-banner">
         <h3>Banner <code>.nk-banner</code></h3>
@@ -848,6 +939,7 @@
 <div class="nk-banner success">✅ All changes have been synced.</div>
 <div class="nk-banner warning">⚠️ Your trial ends in 5 days.<span class="b-action">View</span></div>
 <div class="nk-banner danger">⛔ The connection to Notion was lost.</div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-avatar-group">
@@ -861,6 +953,7 @@
   </div>
   <span style="font-size:13px;color:var(--nk-text-tertiary)">5 people have access</span>
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-avatar">
@@ -876,6 +969,7 @@
   <span class="nk-avatar large"><img src="covers/tide.svg" alt=""></span>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-skeleton">
         <h3>Skeleton <code>.nk-skeleton</code></h3>
@@ -886,6 +980,7 @@
   <div class="nk-skeleton" style="height:13px;width:40%"></div>
 </div></div>
         
+        
       </article>
       <article class="doc-entry" id="s-nk-empty">
         <h3>Empty state <code>.nk-empty</code></h3>
@@ -895,6 +990,17 @@
   <div class="e-desc">Create the first entry or import existing data.</div>
   <div class="e-actions"><button class="nk-btn primary small">＋ New entry</button><button class="nk-btn secondary small">Import</button></div>
 </div></div>
+        
+        
+      </article>
+      <article class="doc-entry" id="s-nk-steps">
+        <h3>Steps <code>.nk-steps</code></h3>
+        <div class="doc-preview"><ol class="nk-steps" aria-label="Connect your own model">
+  <li class="nk-step done"><span class="st-mark">✓</span><span>Choose a provider<span class="st-desc">Anthropic</span></span></li>
+  <li class="nk-step current" aria-current="step"><span class="st-mark">2</span><span>Enter the API key</span></li>
+  <li class="nk-step"><span class="st-mark">3</span><span>Test the connection</span></li>
+</ol></div>
+        
         
       </article>
     </section>
@@ -912,6 +1018,7 @@
     <input class="nk-input" placeholder="Comment …"><button class="nk-btn primary small">Send</button>
   </div>
 </div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-ai-thread">
@@ -935,6 +1042,7 @@
   </div>
 </div></div>
         
+        
       </article>
     </section>
     <section class="doc-group" id="editor">
@@ -952,6 +1060,7 @@
     <div style="padding:4px 2px;color:var(--nk-text-tertiary)">Type “/” for commands …</div>
   </div>
 </div></div>
+        
         <p class="doc-note doc-note--preview">This preview is the static shell only — the ＋ / ⠿ rail here does nothing. The working version, with slash menu, drag &amp; drop and block menu, is the live editor in the <a href="docs.html#editor">docs</a>.</p>
       </article>
       <article class="doc-entry" id="s-nk-slash-menu">
@@ -967,6 +1076,7 @@
     <button class="active"><b>B</b></button><button><i>I</i></button><button><s>S</s></button><button>&lt;/&gt;</button><button>🔗</button>
   </div>
 </div></div>
+        
         <p class="doc-note doc-note--preview">Static markup for the look. The live, keyboard-driven version runs in the <a href="docs.html#editor">docs editor</a> — type <code>/</code> there.</p>
       </article>
     </section>
