@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NotionKit – The calm workspace look as a CSS design system</title>
-<meta name="description" content="NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces. ~100 components, light & dark mode, no build step, no dependencies.">
+<meta name="description" content="NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces. ~130 components, light & dark mode, no build step, no dependencies.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://notionkit.jungherz.com/index.html">
 <link rel="alternate" hreflang="en" href="https://notionkit.jungherz.com/index.html">
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="NotionKit">
 <meta property="og:title" content="NotionKit – The calm workspace look as a CSS design system">
-<meta property="og:description" content="NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces. ~100 components, light & dark mode, no build step, no dependencies.">
+<meta property="og:description" content="NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces. ~130 components, light & dark mode, no build step, no dependencies.">
 <meta property="og:url" content="https://notionkit.jungherz.com/index.html">
 <meta property="og:image" content="https://notionkit.jungherz.com/og.png">
 <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
 <meta property="og:locale:alternate" content="de_DE">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="NotionKit – The calm workspace look as a CSS design system">
-<meta name="twitter:description" content="NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces. ~100 components, light & dark mode, no build step, no dependencies.">
+<meta name="twitter:description" content="NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces. ~130 components, light & dark mode, no build step, no dependencies.">
 <meta name="twitter:image" content="https://notionkit.jungherz.com/og.png">
 <meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#202020" media="(prefers-color-scheme: dark)">
@@ -146,7 +146,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.5.3</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.6.0</span></a>
   <div class="site-nav-links">
     <a href="index.html" class="current">Start</a>
     <a href="docs.html">Docs</a>
@@ -172,7 +172,7 @@
 </nav>
 
 <header class="site-wrap site-hero">
-  <div class="site-kicker">CSS component library · v1.5.3</div>
+  <div class="site-kicker">CSS component library · v1.6.0</div>
   <h1>The calm workspace look, as a design system.</h1>
   <p class="site-lead">NotionKit gives you Notion’s quiet, document-centric surface as ready-made CSS: sidebar, page tree, callouts, database views, settings and AI threads. One stylesheet. No build step, no JavaScript, no framework lock-in.</p>
   <div class="site-badges">
@@ -199,7 +199,7 @@
 <section class="site-section">
   <div class="site-wrap">
     <h2 class="site-h2">The whole library, in one realistic screen</h2>
-    <p class="site-lead">Below is the live demo — app shell, page tree, document, database views, command palette, settings modal and AI thread. Everything you see is NotionKit markup; the interactions are ~290 lines of plain JavaScript that ship with the demo, not with the library.</p>
+    <p class="site-lead">Below is the live demo — app shell, page tree, a document with its properties, database views, command palette, settings modal and AI thread; “Home” in the sidebar opens the start view. Everything you see is NotionKit markup; the interactions are ~380 lines of plain JavaScript that ship with the demo, not with the library.</p>
   </div>
   <div class="site-wrap" style="max-width:1320px">
     <div class="site-frame">
@@ -242,7 +242,7 @@
       <div class="site-card"><div class="ico">🎛️</div><h3>Design tokens</h3><p>Every value is a <code class="nk-inline-code">--nk-*</code> custom property. Re-branding is one declaration: <code class="nk-inline-code">--nk-accent</code>. Everything else is mixed from it.</p></div>
       <div class="site-card"><div class="ico">📐</div><h3>Desktop and mobile equally</h3><p>No fixed viewport widths, no device mockups. Fluid layouts, one breakpoint, horizontal scrolling where tables and boards need it.</p></div>
       <div class="site-card"><div class="ico">🧩</div><h3>Shadow DOM ready</h3><p>Ships a constructable stylesheet split into tokens and components, plus <code class="nk-inline-code">::slotted()</code> twins — so web components can adopt it without breaking branding.</p></div>
-      <div class="site-card"><div class="ico">🤖</div><h3>AI-ready</h3><p>A structured <code class="nk-inline-code">SKILL.md</code> gives coding agents the exact markup, nesting rules and six full app skeletons.</p></div>
+      <div class="site-card"><div class="ico">🤖</div><h3>AI-ready</h3><p>A structured <code class="nk-inline-code">SKILL.md</code> gives coding agents the exact markup, nesting rules and eight full app skeletons.</p></div>
     </div>
   </div>
 </section>
@@ -250,20 +250,20 @@
 <section class="site-section">
   <div class="site-wrap">
     <h2 class="site-h2">What is in the box</h2>
-    <p class="site-lead">About 100 component classes across eleven groups. Every one of them is documented with a live preview and its mobile behaviour.</p>
+    <p class="site-lead">About 130 component classes across eleven groups. Every one of them is documented with a live preview and its mobile behaviour.</p>
     <table class="site-table">
       <thead><tr><th>Group</th><th>What you get</th></tr></thead>
       <tbody>
         <tr><td>App shell &amp; layout</td><td><code class="nk-inline-code">nk-app</code>, sidebar with workspace switcher and footer, main column, topbar with breadcrumb and actions, section labels</td></tr>
         <tr><td>Navigation / page tree</td><td>Tree items with active state and hover actions, collapsible children, toggle arrows, keyboard hints</td></tr>
-        <tr><td>Page shell &amp; document</td><td>Scroll container, cover, page column, page icon, editable title, meta row, headings, lead paragraph</td></tr>
-        <tr><td>Content elements</td><td>Callouts, todos with strike-through, toggles, dividers, block quotes, mentions (person / page / date), inline code, code blocks</td></tr>
-        <tr><td>Database views</td><td>View tabs with counts, scrollable tables, tags in nine colours, progress bars, board columns and cards</td></tr>
+        <tr><td>Page shell &amp; document</td><td>Scroll container, cover with gradient or picture, page column with Notion’s page options full width and small text, page icon, editable title, page properties, meta row, headings, lead paragraph</td></tr>
+        <tr><td>Content elements</td><td>Callouts, todos with strike-through, toggles, dividers, block quotes, mentions (person / page / date), inline code, code blocks, prose for rendered Markdown that matches the editor to the pixel</td></tr>
+        <tr><td>Database views</td><td>View tabs with counts, scrollable tables with right-aligned numbers, list view, tags in nine colours, progress bars in a cell or full width, board columns and cards</td></tr>
         <tr><td>Forms &amp; settings</td><td>Inputs, textareas, selects with custom chevron, five button variants, switches, checkboxes and radios, sliders, field rows, model cards, danger zone, member rows</td></tr>
         <tr><td>Settings modal</td><td>Backdrop, modal shell, settings nav with user block, content area, switchable panes</td></tr>
         <tr><td>Overlays &amp; menus</td><td>Popover base, emoji picker, context menus with shortcuts, full command palette, toasts</td></tr>
-        <tr><td>Gallery &amp; productivity</td><td>Gallery grid, tabs, template buttons, stat cards with deltas, synced blocks, segmented control, banners, avatar groups, skeletons, empty states</td></tr>
-        <tr><td>Collaboration &amp; AI</td><td>Comment threads, comment input, AI message thread, message actions, AI input row</td></tr>
+        <tr><td>Gallery &amp; productivity</td><td>Gallery grid, panels, tabs, template buttons, stat cards with deltas, synced blocks, segmented control, banners, avatars in four sizes and nine colours, avatar groups, skeletons, empty states</td></tr>
+        <tr><td>Collaboration &amp; AI</td><td>Comment threads, comment input, AI message thread with the grey chat bubble, message actions, AI input row</td></tr>
         <tr><td>Editor adapter</td><td><code class="nk-inline-code">nk-block-host</code> plus themed overrides for TipTap/ProseMirror, BlockNote and Novel, with slash menu and bubble toolbar</td></tr>
       </tbody>
     </table>
@@ -292,7 +292,7 @@
       <div class="site-card">
         <h3>NotionKit Elements <span class="site-status on">Available now</span></h3>
         <div class="role">Web components</div>
-        <p style="margin-top:8px">68 vanilla-JS custom elements that wrap this markup — Shadow DOM, native form participation, pixel parity with the class markup. Built on the constructable stylesheet shipped here.</p>
+        <p style="margin-top:8px">74 vanilla-JS custom elements that wrap this markup — Shadow DOM, native form participation, pixel parity with the class markup. Built on the constructable stylesheet shipped here.</p>
         <div class="links"><a href="https://notionkit-elements.jungherz.com">Website →</a><a href="https://github.com/JUNGHERZ/NotionKit-Elements">GitHub →</a></div>
       </div>
       <div class="site-card">

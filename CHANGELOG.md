@@ -4,6 +4,101 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.6.0] – 2026-09-23
+
+App views: the base layer that LearnHub and Auxdesk each built on their own –
+page properties, list view, page width and text size, panels, rendered
+Markdown – moves into the foundation, in Notion's idiom. Additive: no class
+renamed, no token changed. One deliberate change of look: the editor adapter
+now takes the page's text size (see Changed).
+
+### Added
+- **Page properties: `.nk-props` and `.nk-prop`** (`p-name`, `p-icon`,
+  `p-value`). The rows under the title of a database page, the pattern
+  Notion is known for: the name with its type icon in a 160px column, the
+  value beside it, 34px rows, both halves with the hover wash. Below 860px
+  the name stands above its value. Written as `<dl>`, `<dt>` and `<dd>` it
+  is a description list for assistive technology too. LearnHub and Auxdesk
+  each had it as `.kv`.
+- **Page options: `.nk-page.full` and `.nk-page.small`.** Notion's “Full
+  width” lifts the 760px cap; “Small text” sets the document text from 16px
+  to 14px, and headings, lead, prose and editor follow. Options of a page,
+  not app settings – in Notion they live in the page's ⋯ menu. LearnHub and
+  Auxdesk built this as `.pg` with their own safe-area padding, which the
+  page column already has.
+- **List view: `.nk-list` and `.nk-list-item`** (`l-icon`, `l-title`,
+  `l-meta`, `last`). The third database view: one line per row with icon,
+  title and a few properties on the right, hairlines between rows. On a
+  phone the title ends in an ellipsis and the properties keep their place.
+  LearnHub and Auxdesk: `.list`.
+- **Panels: `.nk-panels` and `.nk-panel`.** A neutral surface for content
+  that belongs together, like the cards on Notion's Home – a new name,
+  because `.nk-card` is the board card. The grid shares the row between
+  columns of at least 200px and falls to one on a phone. A cover as first
+  child runs to the edges and a page icon overlaps it: a page tile. LearnHub,
+  Auxdesk and NotionKit Web each had `.card` and `.cards`.
+- **Prose: `.nk-prose`.** Rendered Markdown and saved editor HTML take the
+  document look from one class on the container: headings, lists, task
+  lists, links, code, quotes, rules, pictures and tables. It reads the very
+  same rules as the TipTap adapter, so reading and editing match to the
+  pixel. A wide table scrolls in its own box; an empty paragraph keeps its
+  line. Class only, as in GlassKit 1.14.0: `::slotted()` never reaches a
+  paragraph inside a slotted node. Auxdesk styles its Markdown by hand
+  today, the LearnHub handbook will need it.
+- **Avatar: `.nk-avatar`.** Initials, an emoji or a photo in a circle, on an
+  `<img>` or a box holding one: 24px, `small` 20px, `large` 32px, `xlarge`
+  56px; without a colour the avatar gradient, the nine colour names take
+  Notion's mid-tones, `square` the workspace icon's corners. Member rows,
+  mentions and avatar groups size it as they sized `.mini-avatar`. From
+  LearnHub's `.avatar`; the demo's members no longer carry hex values.
+- **Smaller pieces:** `.nk-table .num` for right-aligned numbers in figures
+  of equal width, the header stays left as in Notion (GlassKit's `__num`,
+  LearnHub's `.num`); `.nk-progress.wide` fills its row and keeps its label
+  beside it (LearnHub's `.progress`); an `<img>` in `.nk-cover` fills the
+  band, cropped (LearnHub's `.cover`); `.nk-ai-msg.bubble` sets a message as
+  a grey bubble, with `.user` on the right as in Notion's AI chat (LearnHub
+  used the accent blue); a `.nk-switch` in a menu row sits on the right.
+- SKILL.md: the workspace skeleton shows properties and a list of
+  sub-pages; two new skeletons, “Home page” and “Sign-in page” – eight
+  instead of six. A sign-in page stays a skeleton, not a component.
+- `test/app-views.spec.mjs`, 13 tests: reading and editing match byte for
+  byte in both languages, the page menu switches small text and full width,
+  properties stack on a phone, the list keeps one line, panels fall to one
+  column, numbers align right, avatars take their sizes from classes and the
+  demo carries no inline hex colour.
+
+### Changed
+- **The editor adapter takes the page's text size.** 1.5.0 set document
+  text to 16px, but TipTap stayed at 14px/1.6, so the editor in a page was
+  smaller than the text around it and `small` could not reach it. Editor
+  and prose now inherit the size – 16px on a page, 14px with `small`,
+  whatever the container has elsewhere – with the page's line height of 1.5
+  and headings in em at Notion's ratios (1.875, 1.5, 1.25). Paragraphs
+  stand 6px apart as the adapter always meant – a more specific
+  `p { margin: 0 }` had cancelled the gap – bold is 600, and the first and
+  last block have no outer margin. In a 14px context, like the docs editor,
+  only line height, heading sizes and paragraph gaps change.
+- `.nk-heading` and `p.lead` are sized in em (1.5em, 1em), so `small` and a
+  smaller parent carry them. On a page they stay 24px and 16px.
+- `.nk-progress-label` stays on one line.
+
+### Site
+- Demo, class markup: the project page shows its properties under the
+  title – status, owner with avatar, due date, tags, a full-width progress
+  bar – visible in the landing page's large frame without scrolling. A new
+  ⋯ in the topbar opens the page menu with “Small text” and “Full width”,
+  and both switch the page at once. The project database gets “List” as a
+  third view and an “Effort” column with right-aligned hours. The editor
+  gets “Edit · Read”, where Read shows the same content as prose. The AI
+  embedding shows your own question as a grey bubble. Members use the
+  avatar component. “Home” in the sidebar and the tab bar opens a new
+  start view in full width and small text: recently visited pages as
+  panels with picture covers, what is due as a list.
+- Landing page: “What is in the box” names the new pieces, about 130
+  classes, eight skeletons. Docs and showcase document every new class;
+  the table preview no longer reads “＋ ＋ New page”.
+- Size: 10.7 KB of 14 KB gzipped.
+
 ## [1.5.3] – 2026-09-23
 
 Phone release: the topbar, the settings modal and the member list keep to a

@@ -1,4 +1,4 @@
-// The six app skeletons for SKILL.md §5. Each is a complete document.
+// The eight app skeletons for SKILL.md §5. Each is a complete document.
 const CDN = 'https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1/notionkit.min.css';
 const head = (title) => `<!DOCTYPE html>
 <html lang="en" data-theme="light">
@@ -12,7 +12,7 @@ const head = (title) => `<!DOCTYPE html>
 export const SKELETONS = [
 {
   n: 1, title: 'Workspace app',
-  when: 'The default for Notion-like document apps: a page tree on the left, one document at a time on the right, an editor mounted into the page. Pick this when *pages* are the primary object.',
+  when: 'The default for Notion-like document apps: a page tree on the left, one document at a time on the right, an editor mounted into the page. A page that is a database row shows its properties under the title and lists its sub-pages. Pick this when *pages* are the primary object.',
   html: `${head('Workspace')}
 <body class="nk-body">
 <div class="nk-app">
@@ -48,10 +48,24 @@ export const SKELETONS = [
       <div class="nk-page">
         <div class="nk-page-icon">📄</div>
         <h1 class="nk-page-title" contenteditable="true">Q3 goals</h1>
-        <div class="nk-page-meta"><span>👤 Ada Lovelace</span><span>📅 Created 12 May 2026</span></div>
+        <!-- The page is a row of a database: its properties sit under the title.
+             Page options are classes on .nk-page: "full" (full width), "small" (14px text). -->
+        <dl class="nk-props">
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In progress</span></dd></div>
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>Owner</dt><dd class="p-value"><span class="nk-avatar small">AL</span>Ada Lovelace</dd></div>
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Due</dt><dd class="p-value">30 September 2026</dd></div>
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Progress</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:40%"></i></span><span class="nk-progress-label">40 %</span></dd></div>
+        </dl>
         <div class="nk-callout"><span class="c-icon">💡</span><div><b>Core idea:</b> NotionKit draws the shell; the editor below is TipTap.</div></div>
 
-        <!-- The editor surface. Mount TipTap/BlockNote/Novel into this host (§6). -->
+        <h2 class="nk-heading">Sub-pages</h2>
+        <div class="nk-list">
+          <a class="nk-list-item" href="#"><span class="l-icon">📄</span><span class="l-title">Hiring plan</span><span class="l-meta">12 Aug <span class="nk-tag green">Done</span></span></a>
+          <a class="nk-list-item" href="#"><span class="l-icon">📄</span><span class="l-title">Budget review</span><span class="l-meta">2 Sep <span class="nk-tag">Open</span></span></a>
+        </div>
+
+        <!-- The editor surface. Mount TipTap/BlockNote/Novel into this host (§6).
+             Saved HTML shown read-only goes into <div class="nk-prose"> – same look. -->
         <div class="nk-block-host" id="editor"></div>
       </div>
     </div>
@@ -373,6 +387,133 @@ export const SKELETONS = [
   </div>
 
 </div>
+</body>
+</html>`,
+},
+{
+  n: 7, title: 'Home page',
+  when: 'The first screen after sign-in: a greeting, the pages someone comes back to, what is due next. Notion calls it Home; LearnHub builds it as “My courses”, Auxdesk as “Overview”. Full width and small text, panels with a picture cover for recent pages, a list for what is next. Pick this for an app\'s start or overview screen.',
+  html: `${head('Home')}
+<body class="nk-body">
+<div class="nk-app">
+
+  <aside class="nk-sidebar">
+    <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
+    <div class="nk-sidebar-scroll">
+      <div class="nk-tree-item active"><span class="icon">🏠</span><span class="label">Home</span></div>
+      <div class="nk-tree-item"><span class="icon">📥</span><span class="label">Inbox</span></div>
+      <div class="nk-section-label">Pages</div>
+      <div class="nk-tree-item"><span class="icon">🚀</span><span class="label">Roadmap</span></div>
+      <div class="nk-tree-item"><span class="icon">📚</span><span class="label">Knowledge base</span></div>
+    </div>
+  </aside>
+
+  <main class="nk-main">
+    <header class="nk-topbar">
+      <div class="nk-breadcrumb"><span class="crumb current">🏠 Home</span></div>
+      <div class="nk-topbar-actions"><button class="nk-topbar-btn nk-theme-toggle" id="themeToggle">🌙</button></div>
+    </header>
+    <div class="nk-page-scroll">
+      <!-- An app view, not a document: the whole width, 14px text. -->
+      <div class="nk-page full small">
+        <h1 class="nk-page-title">Good morning, Ada</h1>
+
+        <h2 class="nk-heading">🕘 Recently visited</h2>
+        <div class="nk-panels">
+          <a class="nk-panel" href="/roadmap">
+            <div class="nk-cover"><img src="covers/roadmap.jpg" alt=""></div>
+            <div class="nk-page-icon">🚀</div>
+            <h3>Roadmap</h3>
+            <p><span class="nk-avatar small">AL</span> 2 min ago</p>
+          </a>
+          <a class="nk-panel" href="/knowledge-base">
+            <div class="nk-cover"></div>
+            <div class="nk-page-icon">📚</div>
+            <h3>Knowledge base</h3>
+            <p><span class="nk-avatar small green">SL</span> Yesterday</p>
+          </a>
+          <a class="nk-panel" href="/onboarding">
+            <div class="nk-page-icon">🧭</div>
+            <h3>Onboarding</h3>
+            <p>Monday</p>
+          </a>
+        </div>
+
+        <h2 class="nk-heading">📌 Upcoming</h2>
+        <div class="nk-list">
+          <a class="nk-list-item" href="/tasks/1"><span class="l-icon">🗃️</span><span class="l-title">Table view</span><span class="l-meta">20 May <span class="nk-tag blue">In progress</span></span></a>
+          <a class="nk-list-item" href="/tasks/2"><span class="l-icon">▤</span><span class="l-title">Board with drag and drop</span><span class="l-meta">2 June <span class="nk-tag orange">Planned</span></span></a>
+        </div>
+
+        <h2 class="nk-heading">📊 This week</h2>
+        <div class="nk-panels">
+          <div class="nk-panel">
+            <h3>Open tasks</h3>
+            <p>17 open, five fewer than yesterday.</p>
+            <div style="display:flex;align-items:center"><span class="nk-progress wide"><i style="width:60%"></i></span><span class="nk-progress-label">60 %</span></div>
+          </div>
+          <div class="nk-panel">
+            <h3>Release notes</h3>
+            <div class="nk-prose"><p>Version 2.4 ships the list view. <a href="/changelog">Read more</a></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="nk-tab-bar">
+      <button class="nk-tab-bar-item active"><span class="icon">🏠</span><span class="label">Home</span></button>
+      <button class="nk-tab-bar-item"><span class="icon">📥</span><span class="label">Inbox</span></button>
+      <button class="nk-tab-bar-item"><span class="icon">🔍</span><span class="label">Search</span></button>
+    </nav>
+  </main>
+
+</div>
+
+<script>
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const r = document.documentElement;
+    r.setAttribute('data-theme', r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+</script>
+</body>
+</html>`,
+},
+{
+  n: 8, title: 'Sign-in page',
+  when: 'The page before the app: sign in with a provider or by email. A narrow centred column in a panel, no sidebar. Not a component on purpose – panel, field and buttons already are one. Pick this for sign-in, sign-up and “check your inbox” screens.',
+  html: `${head('Sign in')}
+<body class="nk-body">
+<!-- A narrow column, centred: layout is yours, so it is inline. -->
+<div class="nk-page" style="max-width:420px;padding-top:12vh">
+
+  <div style="text-align:center">
+    <span class="nk-avatar xlarge square">A</span>
+    <h1 class="nk-page-title" style="font-size:28px">Sign in to Acme</h1>
+    <p class="lead">Use your work account.</p>
+  </div>
+
+  <form class="nk-panel" id="signin">
+    <button type="button" class="nk-btn secondary" style="justify-content:center">Continue with Google</button>
+    <button type="button" class="nk-btn secondary" style="justify-content:center">Continue with Microsoft</button>
+    <hr class="nk-divider" style="margin:8px 0">
+    <div class="nk-field stacked" style="padding:0">
+      <div><label class="f-label" for="email">Email</label></div>
+      <div class="f-control"><input class="nk-input" id="email" type="email" autocomplete="email" placeholder="ada@acme.com" required></div>
+    </div>
+    <button class="nk-btn primary" style="justify-content:center">Continue with email</button>
+  </form>
+
+  <div class="nk-banner success" id="sent" hidden style="margin-top:12px">✉️ Check your inbox – we sent you a sign-in link.</div>
+  <p style="text-align:center;font-size:12px;color:var(--nk-text-tertiary);margin-top:16px">By continuing you accept the terms of use.</p>
+
+</div>
+
+<script>
+  // The link comes from your backend; the page only says it is on its way.
+  document.getElementById('signin').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('sent').hidden = false;
+  });
+</script>
 </body>
 </html>`,
 },

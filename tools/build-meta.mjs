@@ -42,7 +42,7 @@ The theme is one attribute: \`<html data-theme="dark">\`. Re-branding is one dec
 
 ## Start here
 
-- [SKILL.md](${SITE}/SKILL.md): the complete AI reference – every component with copy-paste markup, token tables for both themes, state classes, six complete app skeletons, editor and web-component contracts, common mistakes. Read this first when generating NotionKit markup.
+- [SKILL.md](${SITE}/SKILL.md): the complete AI reference – every component with copy-paste markup, token tables for both themes, state classes, eight complete app skeletons, editor and web-component contracts, common mistakes. Read this first when generating NotionKit markup.
 - [Documentation](${SITE}/docs.html): the same content with live previews and per-component mobile behaviour.
 - [notionkit.css](${SITE}/notionkit.css): the stylesheet itself – token block first, component block second, commented.
 
@@ -56,7 +56,7 @@ The theme is one attribute: \`<html data-theme="dark">\`. Re-branding is one dec
 
 ## The NotionKit family
 
-- [NotionKit Elements](https://notionkit-elements.jungherz.com/): 68 vanilla-JS web components (\`<nk-*>\`) wrapping this markup – Shadow DOM, native forms, pixel parity. npm: \`@jungherz-de/notionkit-elements\`. AI reference: https://notionkit-elements.jungherz.com/SKILL.md
+- [NotionKit Elements](https://notionkit-elements.jungherz.com/): 74 vanilla-JS web components (\`<nk-*>\`) wrapping this markup – Shadow DOM, native forms, pixel parity. npm: \`@jungherz-de/notionkit-elements\`. AI reference: https://notionkit-elements.jungherz.com/SKILL.md
 - [NotionKit Web](https://notionkit-web.jungherz.com/): the Astro template for complete websites on this foundation – docs, knowledge bases, product pages, blog; bilingual, no external requests. GitHub: https://github.com/JUNGHERZ/NotionKit-Web
 
 ## Optional

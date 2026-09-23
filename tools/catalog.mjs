@@ -187,13 +187,13 @@ export const CATALOG = [
 },
 // ============================================================ 5.3 PAGE
 {
-  id: 'nk-page', group: 'page', classes: ['nk-page-scroll', 'nk-page', 'nk-page-icon', 'nk-page-title', 'nk-page-meta', 'covered'],
-  title: { en: 'Page column', de: 'Seitenspalte' },
+  id: 'nk-page', group: 'page', classes: ['nk-page-scroll', 'nk-page', 'nk-page-icon', 'nk-page-title', 'nk-page-meta', 'covered', 'full', 'small'],
+  title: { en: 'Page column & page options', de: 'Seitenspalte & Seitenoptionen' },
   desc: {
-    en: 'The document column: <code>max-width: 760px</code> with auto margins, never a fixed width. After a cover (<code>.nk-cover + .nk-page</code>, or <code>.nk-page.covered</code>) the icon pulls itself up over it with a negative margin and the page has no top padding; without one the page keeps 24px top padding and the icon sits inside it, fully visible. The title is <code>contenteditable</code>-ready.',
-    de: 'Die Dokumentspalte: <code>max-width: 760px</code> mit Auto-Rändern, nie eine feste Breite. Nach einem Cover (<code>.nk-cover + .nk-page</code> oder <code>.nk-page.covered</code>) zieht sich das Icon per negativem Rand darüber und die Seite hat kein oberes Padding; ohne Cover behält die Seite 24px oberes Padding und das Icon sitzt darin, ganz sichtbar. Der Titel ist <code>contenteditable</code>-fähig.',
+    en: 'The document column: <code>max-width: 760px</code> with auto margins, never a fixed width. After a cover (<code>.nk-cover + .nk-page</code>, or <code>.nk-page.covered</code>) the icon pulls itself up over it with a negative margin and the page has no top padding; without one the page keeps 24px top padding and the icon sits inside it, fully visible. The title is <code>contenteditable</code>-ready. Notion\'s two page options are classes on the page: <code>full</code> lifts the 760px cap so the column fills the window, <code>small</code> sets the document text from 16px to 14px, and headings, lead, prose and editor follow because they are sized in em. Title, properties, tables and controls keep their size. In Notion these are options of the single page, in its ⋯ menu, not app settings.',
+    de: 'Die Dokumentspalte: <code>max-width: 760px</code> mit Auto-Rändern, nie eine feste Breite. Nach einem Cover (<code>.nk-cover + .nk-page</code> oder <code>.nk-page.covered</code>) zieht sich das Icon per negativem Rand darüber und die Seite hat kein oberes Padding; ohne Cover behält die Seite 24px oberes Padding und das Icon sitzt darin, ganz sichtbar. Der Titel ist <code>contenteditable</code>-fähig. Notions zwei Seitenoptionen sind Klassen an der Seite: <code>full</code> hebt die 760px-Grenze auf, die Spalte füllt das Fenster, <code>small</code> setzt den Dokumenttext von 16px auf 14px, und Überschriften, Lead, Prosa und Editor ziehen mit, weil sie in em bemessen sind. Titel, Eigenschaften, Tabellen und Bedienelemente behalten ihre Größe. In Notion sind das Optionen der einzelnen Seite, in ihrem ⋯-Menü, keine App-Einstellungen.',
   },
-  mobile: { en: 'Side padding drops from 64px to 24px below 860px. The 760px cap simply never binds.', de: 'Der Seitenabstand fällt unter 860px von 64px auf 24px. Die 760px-Grenze greift dort schlicht nicht.' },
+  mobile: { en: 'Side padding drops from 64px to 24px below 860px. The 760px cap simply never binds, so <code>full</code> changes nothing there; <code>small</code> still does.', de: 'Der Seitenabstand fällt unter 860px von 64px auf 24px. Die 760px-Grenze greift dort schlicht nicht, <code>full</code> ändert dort also nichts; <code>small</code> schon.' },
   frame: 320,
   html: W => `<div class="nk-page-scroll" style="height:100%">
   <div class="nk-cover" style="height:120px"></div>
@@ -206,14 +206,31 @@ export const CATALOG = [
 </div>`,
 },
 {
+  id: 'nk-props', group: 'page', classes: ['nk-props', 'nk-prop', 'p-name', 'p-icon', 'p-value'],
+  title: { en: 'Page properties', de: 'Seiteneigenschaften' },
+  desc: {
+    en: 'The properties under the title of a database page – the pattern Notion is known for. One <code>.nk-prop</code> per row: the name with its type icon in a 160px column, the value beside it, both 34px tall with the hover wash, as each half opens its own editor in Notion. Values are ordinary markup: tags, an avatar with a name, a date, a <code>.nk-progress.wide</code>. It replaces <code>.nk-page-meta</code> on a page that is a row. Written as <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> it is a description list for assistive technology as well; plain <code>&lt;div&gt;</code>s work the same.',
+    de: 'Die Eigenschaften unter dem Titel einer Datenbankseite – das Muster, für das Notion bekannt ist. Ein <code>.nk-prop</code> pro Zeile: der Name mit seinem Typ-Icon in einer 160px-Spalte, daneben der Wert, beide 34px hoch mit Hover-Hauch, weil in Notion jede Hälfte ihren eigenen Editor öffnet. Werte sind gewöhnliches Markup: Tags, ein Avatar mit Namen, ein Datum, ein <code>.nk-progress.wide</code>. Es ersetzt <code>.nk-page-meta</code> auf einer Seite, die eine Zeile ist. Als <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> und <code>&lt;dd&gt;</code> geschrieben ist es auch für assistive Technik eine Beschreibungsliste; schlichte <code>&lt;div&gt;</code>s funktionieren genauso.',
+  },
+  mobile: { en: 'Below 860px each property stacks: the name above its value, both flush left, so the value gets the whole width.', de: 'Unter 860px stapelt sich jede Eigenschaft: der Name über seinem Wert, beide linksbündig, damit der Wert die ganze Breite bekommt.' },
+  html: W => `<dl class="nk-props" style="max-width:520px">
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>${W.status}</dt><dd class="p-value"><span class="nk-tag blue">${W.inProgress}</span></dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>${W.owner}</dt><dd class="p-value"><span class="nk-avatar small purple">AL</span>${W.author}</dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>${W.due}</dt><dd class="p-value">${W.dueDate}</dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">🏷️</span>${W.tags}</dt><dd class="p-value"><span class="nk-tag purple">${W.designSystem}</span><span class="nk-tag">CSS</span></dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>${W.progress}</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
+</dl>`,
+},
+{
   id: 'nk-cover', group: 'page', classes: ['nk-cover'],
   title: { en: 'Cover', de: 'Cover' },
   desc: {
-    en: 'A 200px decorative band above the page. Three radial gradients mixed from the <code>--nk-decor-*</code> tokens over <code>--nk-bg-callout</code>. Swap the whole <code>background</code> for a photo.',
-    de: 'Ein 200px hohes Zierband über der Seite. Drei radiale Verläufe, gemischt aus den <code>--nk-decor-*</code>-Tokens über <code>--nk-bg-callout</code>. Für ein Foto den ganzen <code>background</code> ersetzen.',
+    en: 'A 200px decorative band above the page. Three radial gradients mixed from the <code>--nk-decor-*</code> tokens over <code>--nk-bg-callout</code>. For a picture put an <code>&lt;img&gt;</code> inside: it fills the band and is cropped, never stretched, and <code>object-position</code> moves the crop, as Notion\'s “Reposition” does. The gradient stays underneath while it loads.',
+    de: 'Ein 200px hohes Zierband über der Seite. Drei radiale Verläufe, gemischt aus den <code>--nk-decor-*</code>-Tokens über <code>--nk-bg-callout</code>. Für ein Bild ein <code>&lt;img&gt;</code> hineinsetzen: Es füllt das Band und wird beschnitten, nie verzerrt, und <code>object-position</code> verschiebt den Ausschnitt wie Notions „Neu positionieren“. Der Verlauf bleibt darunter, solange es lädt.',
   },
   mobile: { en: 'Fixed 200px height, full bleed. Reduce it yourself if it eats too much of a short screen.', de: 'Feste 200px Höhe, randlos. Auf kurzen Schirmen bei Bedarf selbst reduzieren.' },
-  html: () => `<div class="nk-cover" style="border-radius:var(--nk-radius)"></div>`,
+  html: W => `<div class="nk-cover" style="border-radius:var(--nk-radius)"></div>
+<div class="nk-cover" style="height:120px;border-radius:var(--nk-radius);margin-top:12px"><img src="${W.asset}covers/meadow.svg" alt=""></div>`,
 },
 {
   id: 'nk-heading', group: 'page', classes: ['nk-heading', 'lead'],
@@ -287,7 +304,7 @@ export const CATALOG = [
   },
   mobile: { en: '<code>white-space: nowrap</code> keeps each mention whole; the paragraph wraps around it.', de: '<code>white-space: nowrap</code> hält jede Erwähnung zusammen; der Absatz bricht darum herum.' },
   html: W => `<p style="line-height:1.9">
-  <span class="nk-mention person"><span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>${W.mentionPerson}</span>
+  <span class="nk-mention person"><span class="nk-avatar purple">SL</span>${W.mentionPerson}</span>
   <span class="nk-mention page">📄 ${W.knowledgeBase}</span>
   <span class="nk-mention date">📅 ${W.mentionDate}</span>
 </p>`,
@@ -304,6 +321,26 @@ export const CATALOG = [
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"c-icon"<span class="tag">&gt;</span>💡<span class="tag">&lt;/span&gt;</span>
 <span class="tag">&lt;/div&gt;</span></div>
 <p>Inline: <code class="nk-inline-code">--nk-accent</code></p>`,
+},
+{
+  id: 'nk-prose', group: 'content', classes: ['nk-prose'],
+  title: { en: 'Prose', de: 'Prosa' },
+  desc: {
+    en: 'Text the app did not write tag by tag – rendered Markdown, help pages, the HTML an editor saved – takes the document look from one class on its container: headings, paragraphs, lists, task lists, links, inline code, code blocks, quotes, rules, pictures and tables. It reads the very same rules as the editor adapter, so a page shown for reading and the same page in TipTap match to the pixel. Sizes are in em and follow what the text sits in: 16px on a page, 14px with <code>small</code> or in the app chrome. No outer margin on the first and last block, so it sits flush in a panel. An empty paragraph keeps its line, as it had it in the editor.',
+    de: 'Text, den die App nicht Tag für Tag geschrieben hat – gerendertes Markdown, Hilfeseiten, das HTML, das ein Editor gespeichert hat – bekommt die Dokument-Optik von einer Klasse an seinem Container: Überschriften, Absätze, Listen, Aufgabenlisten, Links, Inline-Code, Code-Blöcke, Zitate, Trenner, Bilder und Tabellen. Es liest genau dieselben Regeln wie der Editor-Adapter, eine Seite zum Lesen und dieselbe Seite in TipTap decken sich also auf den Pixel. Die Größen sind in em und folgen dem, worin der Text steht: 16px auf einer Seite, 14px mit <code>small</code> oder in der App-Oberfläche. Kein äußerer Rand am ersten und letzten Block, es sitzt also bündig in einem Panel. Ein leerer Absatz behält seine Zeile, wie er sie im Editor hatte.',
+  },
+  mobile: { en: 'Flows with the column; a wide table scrolls in its own box instead of widening the page.', de: 'Fließt mit der Spalte; eine breite Tabelle scrollt in ihrem eigenen Kasten, statt die Seite zu verbreitern.' },
+  note: {
+    en: 'Class only, on purpose: <code>::slotted()</code> reaches the slotted node and never a paragraph inside it, so a <code>&lt;nk-prose&gt;</code> element could not style its content. Put the class on a light-DOM container, also inside NotionKit Elements.',
+    de: 'Bewusst nur als Klasse: <code>::slotted()</code> erreicht den geslotteten Knoten, nie einen Absatz darin, ein <code>&lt;nk-prose&gt;</code>-Element könnte seinen Inhalt also nicht stylen. Die Klasse gehört an einen Container im Light DOM, auch in NotionKit Elements.',
+  },
+  html: W => `<div class="nk-page" style="padding:0;max-width:560px;margin:0"><div class="nk-prose">
+  <h2>${W.proseTitle}</h2>
+  <p>${W.proseBody}</p>
+  <ul><li>${W.proseItem1}</li><li>${W.proseItem2}</li></ul>
+  <blockquote>${W.proseQuote}</blockquote>
+  <table><thead><tr><th>${W.proseCol1}</th><th>${W.proseCol2}</th></tr></thead><tbody><tr><td><code>full</code></td><td>${W.fullWidth}</td></tr><tr><td><code>small</code></td><td>${W.smallText}</td></tr></tbody></table>
+</div></div>`,
 },
 // ============================================================ 5.5 DATABASE
 {
@@ -323,11 +360,11 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'wrap', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'nk-new-row'],
+  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'wrap', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'num', 'nk-new-row'],
   title: { en: 'Table view', de: 'Tabellen-Ansicht' },
   desc: {
-    en: '36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is <code>white-space: nowrap</code> so columns keep their shape; <code>.wrap</code> on the table or on a cell lets text break, like Notion\'s “wrap column”. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
-    de: '36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
+    en: '36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is <code>white-space: nowrap</code> so columns keep their shape; <code>.wrap</code> on the table or on a cell lets text break, like Notion\'s “wrap column”. <code>.num</code> on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
+    de: '36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.num</code> an einer Zelle setzt eine Zahl rechtsbündig in gleich breiten Ziffern, wie Notion eine Zahl-Eigenschaft setzt; der Kopf bleibt links. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
   },
   mobile: {
     en: 'This is the key one: <code>nk-table-wrap</code> scrolls horizontally so the table never forces the page wider. Always wrap the table.',
@@ -337,24 +374,24 @@ export const CATALOG = [
   <thead><tr>
     <th><span class="th-icon">📄</span>${W.name}</th><th><span class="th-icon">◉</span>${W.status}</th>
     <th><span class="th-icon">👤</span>${W.owner}</th><th><span class="th-icon">📅</span>${W.due}</th>
-    <th><span class="th-icon">📊</span>${W.progress}</th>
+    <th><span class="th-icon">📊</span>${W.progress}</th><th><span class="th-icon">#</span>${W.effort}</th>
   </tr></thead>
   <tbody>
     <tr><td><span class="row-title">🚀 ${W.roadmap}</span></td><td><span class="nk-tag green">${W.done}</span></td>
-        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>Sara</span></td>
+        <td><span class="person-cell"><span class="nk-avatar small purple">SL</span>Sara</span></td>
         <td class="date-cell">12.05.2026</td>
-        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td></tr>
+        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">${W.effort1}</td></tr>
     <tr><td><span class="row-title">🎨 ${W.designSystem}</span></td><td><span class="nk-tag blue">${W.inProgress}</span></td>
-        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
+        <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
-        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
+        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">${W.effort2}</td></tr>
     <tr><td><span class="row-title">📣 ${W.launch}</span></td><td><span class="nk-tag yellow">${W.planned}</span></td>
-        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-orange)">MK</span>Mia</span></td>
+        <td><span class="person-cell"><span class="nk-avatar small orange">MK</span>Mia</span></td>
         <td class="date-cell">02.06.2026</td>
-        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td></tr>
+        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">${W.effort3}</td></tr>
   </tbody>
 </table>
-<div class="nk-new-row">＋ ${W.newPage}</div></div>`,
+<div class="nk-new-row">${W.newPage}</div></div>`,
 },
 {
   id: 'nk-tag', group: 'database', classes: ['nk-tag', 'gray', 'brown', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'red'],
@@ -375,15 +412,16 @@ export const CATALOG = [
 <span class="nk-tag red">${W.tagRed}</span>`,
 },
 {
-  id: 'nk-progress', group: 'database', classes: ['nk-progress', 'nk-progress-label'],
+  id: 'nk-progress', group: 'database', classes: ['nk-progress', 'nk-progress-label', 'wide'],
   title: { en: 'Progress bar', de: 'Fortschrittsbalken' },
   desc: {
-    en: 'A 6px rail whose fill is an <code>&lt;i&gt;</code> with a percentage width. Track and fill use the blue tag pair, so a re-theme carries them along.',
-    de: 'Eine 6px-Schiene, deren Füllung ein <code>&lt;i&gt;</code> mit Prozentbreite ist. Schiene und Füllung nutzen das blaue Tag-Paar und ziehen bei einem Theme-Wechsel mit.',
+    en: 'A 6px rail whose fill is an <code>&lt;i&gt;</code> with a percentage width. Track and fill use Notion\'s blue tint and mid-tone, so a re-theme carries them along. 110px wide in a cell; <code>wide</code> fills its row – a property value, a panel, a course overview – and in a flex row the label keeps its place beside it.',
+    de: 'Eine 6px-Schiene, deren Füllung ein <code>&lt;i&gt;</code> mit Prozentbreite ist. Schiene und Füllung nutzen Notions blaue Tönung und den blauen Mittelton und ziehen bei einem Theme-Wechsel mit. 110px breit in einer Zelle; <code>wide</code> füllt seine Zeile – ein Eigenschaftswert, ein Panel, eine Kursübersicht – und in einer flex-Zeile behält das Label seinen Platz daneben.',
   },
-  mobile: { en: 'Fixed 110px width so it stays legible in a table cell. Override for full-width use.', de: 'Feste 110px Breite, damit er in einer Tabellenzelle lesbar bleibt. Für volle Breite überschreiben.' },
+  mobile: { en: 'The 110px bar stays legible in a table cell; <code>wide</code> follows its container.', de: 'Der 110px-Balken bleibt in einer Tabellenzelle lesbar; <code>wide</code> folgt seinem Container.' },
   html: () => `<span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
-<span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span>`,
+<span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span>
+<div style="display:flex;align-items:center;max-width:360px;margin-top:14px"><span class="nk-progress wide"><i style="width:80%"></i></span><span class="nk-progress-label">80 %</span></div>`,
 },
 {
   id: 'nk-board', group: 'database', classes: ['nk-board', 'nk-board-col', 'nk-board-col-header', 'count', 'nk-card', 'card-title', 'card-meta'],
@@ -396,7 +434,7 @@ export const CATALOG = [
   html: W => `<div class="nk-board active">
   <div class="nk-board-col">
     <div class="nk-board-col-header"><span class="nk-tag orange">${W.planned}</span><span class="count">1</span></div>
-    <div class="nk-card"><div class="card-title">🖥 ${W.boardView}</div><div class="card-meta"><span class="mini-avatar" style="background:var(--nk-decor-blue);width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:var(--nk-on-accent)">TW</span>28.05.</div></div>
+    <div class="nk-card"><div class="card-title">🖥 ${W.boardView}</div><div class="card-meta"><span class="nk-avatar small blue">TW</span>28.05.</div></div>
   </div>
   <div class="nk-board-col">
     <div class="nk-board-col-header"><span class="nk-tag blue">${W.inProgress}</span><span class="count">1</span></div>
@@ -406,6 +444,20 @@ export const CATALOG = [
     <div class="nk-board-col-header"><span class="nk-tag green">${W.done}</span><span class="count">1</span></div>
     <div class="nk-card"><div class="card-title">🚀 ${W.roadmap}</div><div class="card-meta">12.05.</div></div>
   </div>
+</div>`,
+},
+{
+  id: 'nk-list', group: 'database', classes: ['nk-list', 'nk-list-item', 'l-icon', 'l-title', 'l-meta', 'last'],
+  title: { en: 'List view', de: 'Listen-Ansicht' },
+  desc: {
+    en: 'The third database view: one line per row – icon, title and a few properties on the right – as Notion shows a database under “List”. Hairlines between rows and the hover wash across the whole row, like a table without columns; the last row drops its line. As an <code>&lt;a&gt;</code> each row is a real link. Put it in <code>.nk-database</code> under the view tabs, or use it on its own for any list of pages.',
+    de: 'Die dritte Datenbank-Ansicht: eine Zeile pro Eintrag – Icon, Titel und rechts ein paar Eigenschaften –, wie Notion eine Datenbank unter „Liste“ zeigt. Haarlinien zwischen den Zeilen und der Hover-Hauch über die ganze Zeile, wie eine Tabelle ohne Spalten; die letzte Zeile verliert ihre Linie. Als <code>&lt;a&gt;</code> ist jede Zeile ein echter Link. In <code>.nk-database</code> unter die View-Reiter setzen oder allein für jede Liste von Seiten nutzen.',
+  },
+  mobile: { en: 'Stays one line per row: the title gives way first and ends in an ellipsis, the properties keep their place.', de: 'Bleibt eine Zeile pro Eintrag: Der Titel gibt zuerst nach und endet mit Auslassungspunkten, die Eigenschaften behalten ihren Platz.' },
+  html: W => `<div class="nk-list" style="max-width:520px">
+  <a class="nk-list-item" href="#"><span class="l-icon">🚀</span><span class="l-title">${W.roadmap}</span><span class="l-meta">12.05.2026 <span class="nk-tag green">${W.done}</span></span></a>
+  <a class="nk-list-item" href="#"><span class="l-icon">🎨</span><span class="l-title">${W.designSystem}</span><span class="l-meta">20.05.2026 <span class="nk-tag blue">${W.inProgress}</span></span></a>
+  <a class="nk-list-item" href="#"><span class="l-icon">📣</span><span class="l-title">${W.launch}</span><span class="l-meta">02.06.2026 <span class="nk-tag orange">${W.planned}</span></span></a>
 </div>`,
 }
 ,
@@ -581,10 +633,10 @@ export const CATALOG = [
   },
   mobile: { en: 'The name column shrinks first: a long address ends in an ellipsis and the role select keeps its place.', de: 'Die Namensspalte gibt zuerst nach: Eine lange Adresse endet mit Auslassungspunkten, die Rollen-Auswahl behält ihren Platz.' },
   html: W => `<div class="nk-member-list" style="max-width:460px">
-  <div class="nk-member-row"><span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>
+  <div class="nk-member-row"><span class="nk-avatar purple">AL</span>
     <div><div>${W.author}</div><div class="m-mail">ada@acme.com</div></div>
     <select class="nk-select"><option>${W.memberAdmin}</option><option>${W.memberRole}</option></select></div>
-  <div class="nk-member-row"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>
+  <div class="nk-member-row"><span class="nk-avatar blue">TW</span>
     <div><div>Tom Weber</div><div class="m-mail">tom@acme.com</div></div>
     <select class="nk-select"><option>${W.memberRole}</option></select></div>
 </div>`,
@@ -659,8 +711,8 @@ export const CATALOG = [
   id: 'nk-menu', group: 'overlay', classes: ['nk-menu', 'nk-menu-item', 'm-icon', 'm-shortcut', 'danger', 'nk-menu-sep', 'nk-menu-label'],
   title: { en: 'Context menu', de: 'Kontextmenü' },
   desc: {
-    en: 'Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red.',
-    de: '<code>nk-pop</code> mit <code>nk-menu</code> kombinieren. Einträge nehmen links ein <code>.m-icon</code> und rechts ein <code>.m-shortcut</code>; <code>.danger</code> färbt einen Eintrag rot.',
+    en: 'Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion\'s page menu.',
+    de: '<code>nk-pop</code> mit <code>nk-menu</code> kombinieren. Einträge nehmen links ein <code>.m-icon</code> und rechts ein <code>.m-shortcut</code>; <code>.danger</code> färbt einen Eintrag rot. Ein <code>.nk-switch</code> als letztes Kind eines Eintrags sitzt rechts, wie „Kleiner Text“ und „Volle Breite“ in Notions Seitenmenü.',
   },
   mobile: { en: 'Shortcuts are meaningless on touch — hide the <code>.m-shortcut</code> spans there.', de: 'Kürzel sind auf Touch bedeutungslos – die <code>.m-shortcut</code>-Spans dort ausblenden.' },
   html: W => `<div class="nk-pop nk-menu">
@@ -668,6 +720,8 @@ export const CATALOG = [
   <div class="nk-menu-item"><span class="m-icon">✏️</span>${W.rename}<span class="m-shortcut">⌘⇧R</span></div>
   <div class="nk-menu-item"><span class="m-icon">📄</span>${W.duplicate}<span class="m-shortcut">⌘D</span></div>
   <div class="nk-menu-item"><span class="m-icon">🔗</span>${W.copyLink}<span class="m-shortcut">⌘L</span></div>
+  <div class="nk-menu-sep"></div>
+  <div class="nk-menu-item"><span class="m-icon">🔡</span>${W.smallText}<button class="nk-switch" role="switch" aria-checked="true" aria-label="${W.smallText}"></button></div>
   <div class="nk-menu-sep"></div>
   <div class="nk-menu-item danger"><span class="m-icon">🗑</span>${W.moveToTrash}</div>
 </div>`,
@@ -739,6 +793,34 @@ export const CATALOG = [
   html: W => `<div class="nk-gallery-grid">
   <div class="nk-g-item"><h4>${W.activePages}</h4><div class="nk-stat"><div class="s-label">${W.thisWeek}</div><div class="s-value">128</div></div></div>
   <div class="nk-g-item"><h4>${W.openTasks}</h4><div class="nk-stat"><div class="s-label">${W.thisWeek}</div><div class="s-value">17</div></div></div>
+</div>`,
+},
+{
+  id: 'nk-panel', group: 'gallery', classes: ['nk-panels', 'nk-panel'],
+  title: { en: 'Panels', de: 'Panels' },
+  desc: {
+    en: 'A neutral surface for content that belongs together – the cards on Notion\'s Home, the boxes in its settings. Not <code>.nk-card</code>, which is the board card. <code>.nk-panels</code> sets several in a grid of columns at least 200px wide that share the row. Inside, an <code>&lt;h3&gt;</code> is the title and a <code>&lt;p&gt;</code> the quiet text; a <code>.nk-cover</code> as first child runs to the panel\'s edges, and a <code>.nk-page-icon</code> after it overlaps the cover – a page tile, as on Home under “Recently visited”. As an <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> the panel answers the pointer.',
+    de: 'Eine neutrale Fläche für Inhalt, der zusammengehört – die Karten auf Notions Startseite, die Kästen in seinen Einstellungen. Nicht <code>.nk-card</code>, das ist die Board-Karte. <code>.nk-panels</code> setzt mehrere in ein Raster mit Spalten von mindestens 200px, die sich die Zeile teilen. Darin ist ein <code>&lt;h3&gt;</code> der Titel und ein <code>&lt;p&gt;</code> der ruhige Text; ein <code>.nk-cover</code> als erstes Kind läuft bis an die Ränder, ein <code>.nk-page-icon</code> danach überlappt das Cover – eine Seitenkachel wie auf der Startseite unter „Zuletzt besucht“. Als <code>&lt;a&gt;</code> oder <code>&lt;button&gt;</code> reagiert das Panel auf den Zeiger.',
+  },
+  mobile: { en: 'The grid falls to one column as soon as two 200px columns no longer fit – no breakpoint involved.', de: 'Das Raster fällt auf eine Spalte, sobald zwei 200px-Spalten nicht mehr passen – ganz ohne Breakpoint.' },
+  html: W => `<div class="nk-panels">
+  <a class="nk-panel" href="#">
+    <div class="nk-cover"><img src="${W.asset}covers/aurora.svg" alt=""></div>
+    <div class="nk-page-icon">🚀</div>
+    <h3>${W.roadmap}</h3>
+    <p>${W.minAgo}</p>
+  </a>
+  <a class="nk-panel" href="#">
+    <div class="nk-cover"><img src="${W.asset}covers/dunes.svg" alt=""></div>
+    <div class="nk-page-icon">📚</div>
+    <h3>${W.knowledgeBase}</h3>
+    <p>${W.yesterday}</p>
+  </a>
+  <div class="nk-panel">
+    <h3>${W.weeklyReview}</h3>
+    <p>${W.weeklyReviewText}</p>
+    <div style="display:flex;align-items:center"><span class="nk-progress wide"><i style="width:60%"></i></span><span class="nk-progress-label">60 %</span></div>
+  </div>
 </div>`,
 },
 {
@@ -829,18 +911,37 @@ export const CATALOG = [
   id: 'nk-avatar-group', group: 'gallery', classes: ['nk-avatar-group', 'mini-avatar', 'more'],
   title: { en: 'Avatar group', de: 'Avatar-Gruppe' },
   desc: {
-    en: 'Overlapping avatars with a page-coloured ring, so they read as a stack. The <code>:first-child</code> reset lives inside the group and has a <code>::slotted()</code> twin.',
-    de: 'Überlappende Avatare mit einem Ring in Seitenfarbe, damit sie als Stapel lesbar sind. Der <code>:first-child</code>-Reset liegt in der Gruppe und hat einen <code>::slotted()</code>-Zwilling.',
+    en: 'Overlapping avatars with a page-coloured ring, so they read as a stack. The group sizes each <code>.nk-avatar</code> (or the older <code>.mini-avatar</code>) to 26px; <code>.more</code> carries the remainder. The <code>:first-child</code> reset lives inside the group and has a <code>::slotted()</code> twin.',
+    de: 'Überlappende Avatare mit einem Ring in Seitenfarbe, damit sie als Stapel lesbar sind. Die Gruppe bringt jeden <code>.nk-avatar</code> (oder den älteren <code>.mini-avatar</code>) auf 26px; <code>.more</code> trägt den Rest. Der <code>:first-child</code>-Reset liegt in der Gruppe und hat einen <code>::slotted()</code>-Zwilling.',
   },
   mobile: { en: 'Unchanged. Cap the count and let <code>.more</code> carry the remainder.', de: 'Unverändert. Die Anzahl deckeln und den Rest über <code>.more</code> anzeigen.' },
   html: W => `<div style="display:flex;align-items:center;gap:10px">
   <div class="nk-avatar-group">
-    <span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>
-    <span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>
-    <span class="mini-avatar" style="background:var(--nk-tag-green-text)">SL</span>
-    <span class="mini-avatar more">+2</span>
+    <span class="nk-avatar purple">AL</span>
+    <span class="nk-avatar blue">TW</span>
+    <span class="nk-avatar green">SL</span>
+    <span class="nk-avatar more">+2</span>
   </div>
   <span style="font-size:13px;color:var(--nk-text-tertiary)">${W.peopleAccess}</span>
+</div>`,
+},
+{
+  id: 'nk-avatar', group: 'gallery', classes: ['nk-avatar', 'small', 'large', 'xlarge', 'square', 'gray', 'brown', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'red'],
+  title: { en: 'Avatar', de: 'Avatar' },
+  desc: {
+    en: 'A person or a workspace: initials, an emoji or a photo in a circle. 24px by default, <code>small</code> 20px as in cells and properties, <code>large</code> 32px, <code>xlarge</code> 56px as in a profile. Without a colour it takes the avatar gradient; the nine colour names take Notion\'s mid-tones, so no hex value ever lands in the markup. <code>square</code> gives it the corners of a workspace icon. It works on an <code>&lt;img&gt;</code> as well as on a box holding one. In a member row, a mention or an avatar group the place sizes it, as it always did.',
+    de: 'Eine Person oder ein Workspace: Initialen, ein Emoji oder ein Foto in einem Kreis. 24px als Standard, <code>small</code> 20px wie in Zellen und Eigenschaften, <code>large</code> 32px, <code>xlarge</code> 56px wie in einem Profil. Ohne Farbe nimmt er den Avatar-Verlauf; die neun Farbnamen nehmen Notions Mitteltöne, ein Hex-Wert landet also nie im Markup. <code>square</code> gibt ihm die Ecken eines Workspace-Icons. Er funktioniert an einem <code>&lt;img&gt;</code> genauso wie an einem Kasten, der eines enthält. In einer Mitgliederzeile, einer Erwähnung oder einer Avatar-Gruppe bestimmt der Ort die Größe, wie bisher.',
+  },
+  mobile: { en: 'Unchanged. A fixed size, so a row of avatars never reflows.', de: 'Unverändert. Eine feste Größe, eine Reihe von Avataren fließt also nie um.' },
+  html: W => `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+  <span class="nk-avatar small blue">TW</span>
+  <span class="nk-avatar">AL</span>
+  <span class="nk-avatar green">SL</span>
+  <span class="nk-avatar large orange">MK</span>
+  <span class="nk-avatar xlarge purple">AL</span>
+  <span class="nk-avatar large gray">🦊</span>
+  <span class="nk-avatar large square">A</span>
+  <span class="nk-avatar large"><img src="${W.asset}covers/tide.svg" alt=""></span>
 </div>`,
 },
 {
@@ -884,7 +985,7 @@ export const CATALOG = [
   mobile: { en: 'The 18px indent stays; place the thread below the paragraph rather than beside it on narrow screens.', de: 'Die 18px-Einrückung bleibt; auf schmalen Schirmen den Faden unter den Absatz setzen statt daneben.' },
   html: W => `<div class="nk-comments" style="max-width:420px">
   <div class="nk-comment">
-    <span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>
+    <span class="nk-avatar green">SL</span>
     <div><div class="c-head"><b>${W.commentAuthor}</b> ${W.commentWhen}</div><div class="c-body">${W.commentBody}</div></div>
   </div>
   <div class="nk-comment-input">
@@ -893,11 +994,11 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-ai-thread', group: 'collab', classes: ['nk-ai-thread', 'nk-ai-msg', 'user', 'a-name', 'a-body', 'nk-ai-actions', 'nk-ai-input-row', 'nk-ai-send'],
+  id: 'nk-ai-thread', group: 'collab', classes: ['nk-ai-thread', 'nk-ai-msg', 'user', 'bubble', 'a-name', 'a-body', 'nk-ai-actions', 'nk-ai-input-row', 'nk-ai-send'],
   title: { en: 'AI thread', de: 'KI-Faden' },
   desc: {
-    en: 'An assistant conversation as part of the document, not a floating widget. <code>.user</code> gives the message the gradient avatar; the assistant keeps the neutral callout circle. The input row glows on <code>:focus-within</code>.',
-    de: 'Ein Assistenten-Gespräch als Teil des Dokuments, kein schwebendes Widget. <code>.user</code> gibt der Nachricht den Verlauf-Avatar; der Assistent behält den neutralen Callout-Kreis. Die Eingabezeile leuchtet bei <code>:focus-within</code> auf.',
+    en: 'An assistant conversation as part of the document, not a floating widget. <code>.user</code> gives the message the gradient avatar; the assistant keeps the neutral callout circle. <code>bubble</code> sets a message as a grey bubble without avatar or name – with <code>.user</code> on the right, the way Notion\'s AI chat shows your own question. The input row glows on <code>:focus-within</code>.',
+    de: 'Ein Assistenten-Gespräch als Teil des Dokuments, kein schwebendes Widget. <code>.user</code> gibt der Nachricht den Verlauf-Avatar; der Assistent behält den neutralen Callout-Kreis. <code>bubble</code> setzt eine Nachricht als graue Blase ohne Avatar und Namen – mit <code>.user</code> rechts, so wie Notions KI-Chat die eigene Frage zeigt. Die Eingabezeile leuchtet bei <code>:focus-within</code> auf.',
   },
   mobile: { en: 'Flows naturally. The input row is a flex line with a fixed 26px send button.', de: 'Fließt natürlich. Die Eingabezeile ist eine flex-Zeile mit fixem 26px-Sendeknopf.' },
   html: W => `<div style="max-width:460px">
@@ -906,6 +1007,7 @@ export const CATALOG = [
       <span class="mini-avatar">AL</span>
       <div><div class="a-name">${W.you}</div><div class="a-body">${W.aiUser}</div></div>
     </div>
+    <div class="nk-ai-msg user bubble"><div class="a-body">${W.bubbleQuestion}</div></div>
     <div class="nk-ai-msg">
       <span class="mini-avatar">🤖</span>
       <div><div class="a-name">${W.ai} <span>${W.aiSuffix}</span></div>

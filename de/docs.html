@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.5.3</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.6.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Doku</a>
@@ -362,6 +362,11 @@
         <tr><td><code>.wrap</code></td><td><code>nk-segmented</code> <code>nk-table</code> <code>nk-table td</code></td><td>Lässt die Segmente in weitere Zeilen umbrechen; auf einer Tabelle oder Zelle lässt es Zellentext umbrechen statt einzeilig zu bleiben.</td></tr>
         <tr><td><code>.fixed</code></td><td><code>nk-tab-bar</code></td><td>Heftet die Tab-Bar an den unteren Viewport-Rand; ein folgender .nk-tab-bar-spacer hält ihre Höhe im Fluss frei.</td></tr>
         <tr><td><code>.covered</code></td><td><code>nk-page</code></td><td>Die Seite folgt einem Cover: kein oberes Padding, das Icon überlappt die Cover-Unterkante. Klassen-Markup bekommt das über .nk-cover + .nk-page; <nk-page cover> setzt die Klasse.</td></tr>
+        <tr><td><code>.full</code></td><td><code>nk-page</code></td><td>Seitenoption „Volle Breite“: hebt die 760px-Grenze auf, die Spalte füllt das Fenster. Pro Seite, wie in Notions ⋯-Menü.</td></tr>
+        <tr><td><code>.small</code></td><td><code>nk-page</code> <code>nk-avatar</code> <code>nk-btn</code></td><td>Seitenoption „Kleiner Text“: Dokumenttext 14px statt 16px; Überschrift, Lead, Prosa und Editor ziehen mit. An einem Avatar 20px, an einem Button 24px.</td></tr>
+        <tr><td><code>.wide</code></td><td><code>nk-progress</code> <code>nk-input</code> <code>nk-select</code> <code>nk-textarea</code></td><td>Füllt seine Zeile. Ein breiter Fortschrittsbalken wächst in einer flex-Zeile ab 60px, sein Label bleibt also daneben.</td></tr>
+        <tr><td><code>.bubble</code></td><td><code>nk-ai-msg</code></td><td>Die Nachricht als graue Blase ohne Avatar und Namen; mit .user steht sie rechts, wie die eigene Frage in Notions KI-Chat.</td></tr>
+        <tr><td><code>.last</code></td><td><code>nk-list-item</code> <code>nk-member-row</code></td><td>Nimmt der Zeile die untere Linie, wo die Liste das letzte Kind nicht sieht – eine Zeile, die in ihrem eigenen Shadow Root steht.</td></tr>
         <tr><td><code>.always</code></td><td><code>nk-tab-bar</code></td><td>Zeigt die Tab-Bar in jeder Breite, nicht nur unter 860px – für Vorschauen und Telefon-Rahmen.</td></tr>
         <tr><td><code>.show</code></td><td><code>nk-toast</code></td><td>Fährt den Toast von unten hoch und blendet ihn ein.</td></tr>
         <tr><td><code>.aria-checked="true"</code></td><td><code>nk-switch (button form)</code></td><td>Füllt die Schiene mit dem Akzent und schiebt den Knopf. Ein Attribut, keine Klasse – der Zustand wird so auch an assistive Technik gemeldet.</td></tr>
@@ -686,8 +691,8 @@ class NkCallout extends HTMLElement {
       <h2>Seiten-Shell & Dokument</h2>
       <div class="prd">PRD 5.3</div>
       <article class="doc-entry" id="nk-page">
-        <h3>Seitenspalte <code>.nk-page</code></h3>
-        <p class="doc-desc">Die Dokumentspalte: <code>max-width: 760px</code> mit Auto-Rändern, nie eine feste Breite. Nach einem Cover (<code>.nk-cover + .nk-page</code> oder <code>.nk-page.covered</code>) zieht sich das Icon per negativem Rand darüber und die Seite hat kein oberes Padding; ohne Cover behält die Seite 24px oberes Padding und das Icon sitzt darin, ganz sichtbar. Der Titel ist <code>contenteditable</code>-fähig.</p>
+        <h3>Seitenspalte & Seitenoptionen <code>.nk-page</code></h3>
+        <p class="doc-desc">Die Dokumentspalte: <code>max-width: 760px</code> mit Auto-Rändern, nie eine feste Breite. Nach einem Cover (<code>.nk-cover + .nk-page</code> oder <code>.nk-page.covered</code>) zieht sich das Icon per negativem Rand darüber und die Seite hat kein oberes Padding; ohne Cover behält die Seite 24px oberes Padding und das Icon sitzt darin, ganz sichtbar. Der Titel ist <code>contenteditable</code>-fähig. Notions zwei Seitenoptionen sind Klassen an der Seite: <code>full</code> hebt die 760px-Grenze auf, die Spalte füllt das Fenster, <code>small</code> setzt den Dokumenttext von 16px auf 14px, und Überschriften, Lead, Prosa und Editor ziehen mit, weil sie in em bemessen sind. Titel, Eigenschaften, Tabellen und Bedienelemente behalten ihre Größe. In Notion sind das Optionen der einzelnen Seite, in ihrem ⋯-Menü, keine App-Einstellungen.</p>
         <div class="doc-preview is-frame" style="height:320px"><div class="nk-page-scroll" style="height:100%">
   <div class="nk-cover" style="height:120px"></div>
   <div class="nk-page" style="padding-bottom:24px">
@@ -707,15 +712,38 @@ class NkCallout extends HTMLElement {
     <span class="tag">&lt;p</span> <span class="attr">class=</span>"lead"<span class="tag">&gt;</span>Ein kurzer Lead-Absatz führt in die Seite ein – ruhiger und etwas größer gesetzt als der Fließtext, der darunter beginnt.<span class="tag">&lt;/p</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Der Seitenabstand fällt unter 860px von 64px auf 24px. Die 760px-Grenze greift dort schlicht nicht.</span></div>
-        <div class="doc-classes"><code>.nk-page-scroll</code><code>.nk-page</code><code>.nk-page-icon</code><code>.nk-page-title</code><code>.nk-page-meta</code><code>.covered</code></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Der Seitenabstand fällt unter 860px von 64px auf 24px. Die 760px-Grenze greift dort schlicht nicht, <code>full</code> ändert dort also nichts; <code>small</code> schon.</span></div>
+        <div class="doc-classes"><code>.nk-page-scroll</code><code>.nk-page</code><code>.nk-page-icon</code><code>.nk-page-title</code><code>.nk-page-meta</code><code>.covered</code><code>.full</code><code>.small</code></div>
+      </article>
+      <article class="doc-entry" id="nk-props">
+        <h3>Seiteneigenschaften <code>.nk-props</code></h3>
+        <p class="doc-desc">Die Eigenschaften unter dem Titel einer Datenbankseite – das Muster, für das Notion bekannt ist. Ein <code>.nk-prop</code> pro Zeile: der Name mit seinem Typ-Icon in einer 160px-Spalte, daneben der Wert, beide 34px hoch mit Hover-Hauch, weil in Notion jede Hälfte ihren eigenen Editor öffnet. Werte sind gewöhnliches Markup: Tags, ein Avatar mit Namen, ein Datum, ein <code>.nk-progress.wide</code>. Es ersetzt <code>.nk-page-meta</code> auf einer Seite, die eine Zeile ist. Als <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> und <code>&lt;dd&gt;</code> geschrieben ist es auch für assistive Technik eine Beschreibungsliste; schlichte <code>&lt;div&gt;</code>s funktionieren genauso.</p>
+        <div class="doc-preview"><dl class="nk-props" style="max-width:520px">
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In Arbeit</span></dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>Verantwortlich</dt><dd class="p-value"><span class="nk-avatar small purple">AL</span>Ada Lovelace</dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Fällig</dt><dd class="p-value">2. Juni 2026</dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">🏷️</span>Tags</dt><dd class="p-value"><span class="nk-tag purple">Design-System</span><span class="nk-tag">CSS</span></dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Fortschritt</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
+</dl></div>
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;dl</span> <span class="attr">class=</span>"nk-props" <span class="attr">style=</span>"max-width:520px"<span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prop"<span class="tag">&gt;</span><span class="tag">&lt;dt</span> <span class="attr">class=</span>"p-name"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"p-icon"<span class="tag">&gt;</span>◉<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Status<span class="tag">&lt;/dt</span><span class="tag">&gt;</span><span class="tag">&lt;dd</span> <span class="attr">class=</span>"p-value"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag blue"<span class="tag">&gt;</span>In Arbeit<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/dd</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prop"<span class="tag">&gt;</span><span class="tag">&lt;dt</span> <span class="attr">class=</span>"p-name"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"p-icon"<span class="tag">&gt;</span>👤<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Verantwortlich<span class="tag">&lt;/dt</span><span class="tag">&gt;</span><span class="tag">&lt;dd</span> <span class="attr">class=</span>"p-value"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar small purple"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Ada Lovelace<span class="tag">&lt;/dd</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prop"<span class="tag">&gt;</span><span class="tag">&lt;dt</span> <span class="attr">class=</span>"p-name"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"p-icon"<span class="tag">&gt;</span>📅<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Fällig<span class="tag">&lt;/dt</span><span class="tag">&gt;</span><span class="tag">&lt;dd</span> <span class="attr">class=</span>"p-value"<span class="tag">&gt;</span>2. Juni 2026<span class="tag">&lt;/dd</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prop"<span class="tag">&gt;</span><span class="tag">&lt;dt</span> <span class="attr">class=</span>"p-name"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"p-icon"<span class="tag">&gt;</span>🏷️<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Tags<span class="tag">&lt;/dt</span><span class="tag">&gt;</span><span class="tag">&lt;dd</span> <span class="attr">class=</span>"p-value"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag purple"<span class="tag">&gt;</span>Design-System<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag"<span class="tag">&gt;</span>CSS<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/dd</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prop"<span class="tag">&gt;</span><span class="tag">&lt;dt</span> <span class="attr">class=</span>"p-name"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"p-icon"<span class="tag">&gt;</span>▰<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Fortschritt<span class="tag">&lt;/dt</span><span class="tag">&gt;</span><span class="tag">&lt;dd</span> <span class="attr">class=</span>"p-value"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress wide"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:65%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>65 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/dd</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/dl</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Unter 860px stapelt sich jede Eigenschaft: der Name über seinem Wert, beide linksbündig, damit der Wert die ganze Breite bekommt.</span></div>
+        <div class="doc-classes"><code>.nk-props</code><code>.nk-prop</code><code>.p-name</code><code>.p-icon</code><code>.p-value</code></div>
       </article>
       <article class="doc-entry" id="nk-cover">
         <h3>Cover <code>.nk-cover</code></h3>
-        <p class="doc-desc">Ein 200px hohes Zierband über der Seite. Drei radiale Verläufe, gemischt aus den <code>--nk-decor-*</code>-Tokens über <code>--nk-bg-callout</code>. Für ein Foto den ganzen <code>background</code> ersetzen.</p>
-        <div class="doc-preview"><div class="nk-cover" style="border-radius:var(--nk-radius)"></div></div>
+        <p class="doc-desc">Ein 200px hohes Zierband über der Seite. Drei radiale Verläufe, gemischt aus den <code>--nk-decor-*</code>-Tokens über <code>--nk-bg-callout</code>. Für ein Bild ein <code>&lt;img&gt;</code> hineinsetzen: Es füllt das Band und wird beschnitten, nie verzerrt, und <code>object-position</code> verschiebt den Ausschnitt wie Notions „Neu positionieren“. Der Verlauf bleibt darunter, solange es lädt.</p>
+        <div class="doc-preview"><div class="nk-cover" style="border-radius:var(--nk-radius)"></div>
+<div class="nk-cover" style="height:120px;border-radius:var(--nk-radius);margin-top:12px"><img src="../covers/meadow.svg" alt=""></div></div>
         
-        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover" <span class="attr">style=</span>"border-radius:var(--nk-radius)"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover" <span class="attr">style=</span>"border-radius:var(--nk-radius)"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover" <span class="attr">style=</span>"height:120px;border-radius:var(--nk-radius);margin-top:12px"<span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attr">src=</span>"../covers/meadow.svg" <span class="attr">alt=</span>""<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Feste 200px Höhe, randlos. Auf kurzen Schirmen bei Bedarf selbst reduzieren.</span></div>
         <div class="doc-classes"><code>.nk-cover</code></div>
       </article>
@@ -794,13 +822,13 @@ class NkCallout extends HTMLElement {
         <h3>Inline-Erwähnungen <code>.nk-mention</code></h3>
         <p class="doc-desc">Drei Varianten im Fließtext: <code>.person</code> mit Mini-Avatar, <code>.page</code> haarfein unterstrichen, <code>.date</code> in der orangen Tag-Farbe. Alle sind <code>inline-flex</code> und brechen nie mitten in der Erwähnung.</p>
         <div class="doc-preview"><p style="line-height:1.9">
-  <span class="nk-mention person"><span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>Sara Lindt</span>
+  <span class="nk-mention person"><span class="nk-avatar purple">SL</span>Sara Lindt</span>
   <span class="nk-mention page">📄 Wissensdatenbank</span>
   <span class="nk-mention date">📅 20. Mai</span>
 </p></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;p</span> <span class="attr">style=</span>"line-height:1.9"<span class="tag">&gt;</span>
-  <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-mention person"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-purple)"<span class="tag">&gt;</span>SL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Sara Lindt<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-mention person"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar purple"<span class="tag">&gt;</span>SL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Sara Lindt<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-mention page"<span class="tag">&gt;</span>📄 Wissensdatenbank<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
   <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-mention date"<span class="tag">&gt;</span>📅 20. Mai<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/p</span><span class="tag">&gt;</span></div>
@@ -821,6 +849,27 @@ class NkCallout extends HTMLElement {
 <span class="tag">&lt;p</span><span class="tag">&gt;</span>Inline: <span class="tag">&lt;code</span> <span class="attr">class=</span>"nk-inline-code"<span class="tag">&gt;</span>--nk-accent<span class="tag">&lt;/code</span><span class="tag">&gt;</span><span class="tag">&lt;/p</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span><code>white-space: pre</code> plus <code>overflow-x: auto</code>: Lange Zeilen scrollen im Block, statt die Seite zu verschieben.</span></div>
         <div class="doc-classes"><code>.nk-code</code><code>.lang</code><code>.tag</code><code>.attr</code><code>.nk-inline-code</code></div>
+      </article>
+      <article class="doc-entry" id="nk-prose">
+        <h3>Prosa <code>.nk-prose</code></h3>
+        <p class="doc-desc">Text, den die App nicht Tag für Tag geschrieben hat – gerendertes Markdown, Hilfeseiten, das HTML, das ein Editor gespeichert hat – bekommt die Dokument-Optik von einer Klasse an seinem Container: Überschriften, Absätze, Listen, Aufgabenlisten, Links, Inline-Code, Code-Blöcke, Zitate, Trenner, Bilder und Tabellen. Es liest genau dieselben Regeln wie der Editor-Adapter, eine Seite zum Lesen und dieselbe Seite in TipTap decken sich also auf den Pixel. Die Größen sind in em und folgen dem, worin der Text steht: 16px auf einer Seite, 14px mit <code>small</code> oder in der App-Oberfläche. Kein äußerer Rand am ersten und letzten Block, es sitzt also bündig in einem Panel. Ein leerer Absatz behält seine Zeile, wie er sie im Editor hatte.</p>
+        <div class="doc-preview"><div class="nk-page" style="padding:0;max-width:560px;margin:0"><div class="nk-prose">
+  <h2>Versionshinweise</h2>
+  <p>Gerendertes Markdown bekommt die Dokument-Optik von <strong>einer Klasse</strong>: Überschriften, Listen, <a href="#">Links</a>, <code>Code</code>, Zitate und Tabellen.</p>
+  <ul><li>Absätze und Listen halten Notions Abstände</li><li>Die Größen folgen der Seite – 16px, oder 14px mit <code>small</code></li></ul>
+  <blockquote>Der Editor-Adapter liest dieselben Regeln.</blockquote>
+  <table><thead><tr><th>Klasse</th><th>Für</th></tr></thead><tbody><tr><td><code>full</code></td><td>Volle Breite</td></tr><tr><td><code>small</code></td><td>Kleiner Text</td></tr></tbody></table>
+</div></div></div>
+        <p class="doc-note doc-note--preview">Bewusst nur als Klasse: <code>::slotted()</code> erreicht den geslotteten Knoten, nie einen Absatz darin, ein <code>&lt;nk-prose&gt;</code>-Element könnte seinen Inhalt also nicht stylen. Die Klasse gehört an einen Container im Light DOM, auch in NotionKit Elements.</p>
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-page" <span class="attr">style=</span>"padding:0;max-width:560px;margin:0"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prose"<span class="tag">&gt;</span>
+  <span class="tag">&lt;h2</span><span class="tag">&gt;</span>Versionshinweise<span class="tag">&lt;/h2</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;p</span><span class="tag">&gt;</span>Gerendertes Markdown bekommt die Dokument-Optik von <span class="tag">&lt;strong</span><span class="tag">&gt;</span>einer Klasse<span class="tag">&lt;/strong</span><span class="tag">&gt;</span>: Überschriften, Listen, <span class="tag">&lt;a</span> <span class="attr">href=</span>"#"<span class="tag">&gt;</span>Links<span class="tag">&lt;/a</span><span class="tag">&gt;</span>, <span class="tag">&lt;code</span><span class="tag">&gt;</span>Code<span class="tag">&lt;/code</span><span class="tag">&gt;</span>, Zitate und Tabellen.<span class="tag">&lt;/p</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;ul</span><span class="tag">&gt;</span><span class="tag">&lt;li</span><span class="tag">&gt;</span>Absätze und Listen halten Notions Abstände<span class="tag">&lt;/li</span><span class="tag">&gt;</span><span class="tag">&lt;li</span><span class="tag">&gt;</span>Die Größen folgen der Seite – 16px, oder 14px mit <span class="tag">&lt;code</span><span class="tag">&gt;</span>small<span class="tag">&lt;/code</span><span class="tag">&gt;</span><span class="tag">&lt;/li</span><span class="tag">&gt;</span><span class="tag">&lt;/ul</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;blockquote</span><span class="tag">&gt;</span>Der Editor-Adapter liest dieselben Regeln.<span class="tag">&lt;/blockquote</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;table</span><span class="tag">&gt;</span><span class="tag">&lt;thead</span><span class="tag">&gt;</span><span class="tag">&lt;tr</span><span class="tag">&gt;</span><span class="tag">&lt;th</span><span class="tag">&gt;</span>Klasse<span class="tag">&lt;/th</span><span class="tag">&gt;</span><span class="tag">&lt;th</span><span class="tag">&gt;</span>Für<span class="tag">&lt;/th</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span><span class="tag">&lt;/thead</span><span class="tag">&gt;</span><span class="tag">&lt;tbody</span><span class="tag">&gt;</span><span class="tag">&lt;tr</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;code</span><span class="tag">&gt;</span>full<span class="tag">&lt;/code</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span>Volle Breite<span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span><span class="tag">&lt;tr</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;code</span><span class="tag">&gt;</span>small<span class="tag">&lt;/code</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span>Kleiner Text<span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span><span class="tag">&lt;/tbody</span><span class="tag">&gt;</span><span class="tag">&lt;/table</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Fließt mit der Spalte; eine breite Tabelle scrollt in ihrem eigenen Kasten, statt die Seite zu verbreitern.</span></div>
+        <div class="doc-classes"><code>.nk-prose</code></div>
       </article>
     </section>
     <section class="doc-group" id="database">
@@ -849,54 +898,54 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-table">
         <h3>Tabellen-Ansicht <code>.nk-table</code></h3>
-        <p class="doc-desc">36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).</p>
+        <p class="doc-desc">36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.num</code> an einer Zelle setzt eine Zahl rechtsbündig in gleich breiten Ziffern, wie Notion eine Zahl-Eigenschaft setzt; der Kopf bleibt links. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).</p>
         <div class="doc-preview"><div class="nk-table-wrap"><table class="nk-table">
   <thead><tr>
     <th><span class="th-icon">📄</span>Name</th><th><span class="th-icon">◉</span>Status</th>
     <th><span class="th-icon">👤</span>Verantwortlich</th><th><span class="th-icon">📅</span>Fällig</th>
-    <th><span class="th-icon">📊</span>Fortschritt</th>
+    <th><span class="th-icon">📊</span>Fortschritt</th><th><span class="th-icon">#</span>Aufwand (h)</th>
   </tr></thead>
   <tbody>
     <tr><td><span class="row-title">🚀 Roadmap</span></td><td><span class="nk-tag green">Fertig</span></td>
-        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>Sara</span></td>
+        <td><span class="person-cell"><span class="nk-avatar small purple">SL</span>Sara</span></td>
         <td class="date-cell">12.05.2026</td>
-        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td></tr>
+        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">6,0</td></tr>
     <tr><td><span class="row-title">🎨 Design-System</span></td><td><span class="nk-tag blue">In Arbeit</span></td>
-        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
+        <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
-        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
+        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">12,5</td></tr>
     <tr><td><span class="row-title">📣 Launch</span></td><td><span class="nk-tag yellow">Geplant</span></td>
-        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-orange)">MK</span>Mia</span></td>
+        <td><span class="person-cell"><span class="nk-avatar small orange">MK</span>Mia</span></td>
         <td class="date-cell">02.06.2026</td>
-        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td></tr>
+        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">3,25</td></tr>
   </tbody>
 </table>
-<div class="nk-new-row">＋ ＋ Neue Seite</div></div></div>
+<div class="nk-new-row">＋ Neue Seite</div></div></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-table-wrap"<span class="tag">&gt;</span><span class="tag">&lt;table</span> <span class="attr">class=</span>"nk-table"<span class="tag">&gt;</span>
   <span class="tag">&lt;thead</span><span class="tag">&gt;</span><span class="tag">&lt;tr</span><span class="tag">&gt;</span>
     <span class="tag">&lt;th</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"th-icon"<span class="tag">&gt;</span>📄<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Name<span class="tag">&lt;/th</span><span class="tag">&gt;</span><span class="tag">&lt;th</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"th-icon"<span class="tag">&gt;</span>◉<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Status<span class="tag">&lt;/th</span><span class="tag">&gt;</span>
     <span class="tag">&lt;th</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"th-icon"<span class="tag">&gt;</span>👤<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Verantwortlich<span class="tag">&lt;/th</span><span class="tag">&gt;</span><span class="tag">&lt;th</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"th-icon"<span class="tag">&gt;</span>📅<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Fällig<span class="tag">&lt;/th</span><span class="tag">&gt;</span>
-    <span class="tag">&lt;th</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"th-icon"<span class="tag">&gt;</span>📊<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Fortschritt<span class="tag">&lt;/th</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;th</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"th-icon"<span class="tag">&gt;</span>📊<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Fortschritt<span class="tag">&lt;/th</span><span class="tag">&gt;</span><span class="tag">&lt;th</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"th-icon"<span class="tag">&gt;</span>#<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Aufwand (h)<span class="tag">&lt;/th</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/tr</span><span class="tag">&gt;</span><span class="tag">&lt;/thead</span><span class="tag">&gt;</span>
   <span class="tag">&lt;tbody</span><span class="tag">&gt;</span>
     <span class="tag">&lt;tr</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"row-title"<span class="tag">&gt;</span>🚀 Roadmap<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag green"<span class="tag">&gt;</span>Fertig<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
-        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"person-cell"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-purple)"<span class="tag">&gt;</span>SL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Sara<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"person-cell"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar small purple"<span class="tag">&gt;</span>SL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Sara<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
         <span class="tag">&lt;td</span> <span class="attr">class=</span>"date-cell"<span class="tag">&gt;</span>12.05.2026<span class="tag">&lt;/td</span><span class="tag">&gt;</span>
-        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:100%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>100 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:100%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>100 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;td</span> <span class="attr">class=</span>"num"<span class="tag">&gt;</span>6,0<span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span>
     <span class="tag">&lt;tr</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"row-title"<span class="tag">&gt;</span>🎨 Design-System<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag blue"<span class="tag">&gt;</span>In Arbeit<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
-        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"person-cell"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-blue)"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Tom<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"person-cell"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar small blue"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Tom<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
         <span class="tag">&lt;td</span> <span class="attr">class=</span>"date-cell"<span class="tag">&gt;</span>20.05.2026<span class="tag">&lt;/td</span><span class="tag">&gt;</span>
-        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:65%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>65 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:65%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>65 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;td</span> <span class="attr">class=</span>"num"<span class="tag">&gt;</span>12,5<span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span>
     <span class="tag">&lt;tr</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"row-title"<span class="tag">&gt;</span>📣 Launch<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag yellow"<span class="tag">&gt;</span>Geplant<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
-        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"person-cell"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-orange)"<span class="tag">&gt;</span>MK<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Mia<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"person-cell"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar small orange"<span class="tag">&gt;</span>MK<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Mia<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span>
         <span class="tag">&lt;td</span> <span class="attr">class=</span>"date-cell"<span class="tag">&gt;</span>02.06.2026<span class="tag">&lt;/td</span><span class="tag">&gt;</span>
-        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:10%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>10 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;td</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:10%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>10 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;td</span> <span class="attr">class=</span>"num"<span class="tag">&gt;</span>3,25<span class="tag">&lt;/td</span><span class="tag">&gt;</span><span class="tag">&lt;/tr</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/tbody</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/table</span><span class="tag">&gt;</span>
-<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-new-row"<span class="tag">&gt;</span>＋ ＋ Neue Seite<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-new-row"<span class="tag">&gt;</span>＋ Neue Seite<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Das ist der entscheidende Fall: <code>nk-table-wrap</code> scrollt horizontal, damit die Tabelle die Seite nie breiter macht. Die Tabelle immer einwickeln.</span></div>
-        <div class="doc-classes"><code>.nk-table-wrap</code><code>.nk-table</code><code>.wrap</code><code>.th-icon</code><code>.row-title</code><code>.date-cell</code><code>.person-cell</code><code>.nk-new-row</code></div>
+        <div class="doc-classes"><code>.nk-table-wrap</code><code>.nk-table</code><code>.wrap</code><code>.th-icon</code><code>.row-title</code><code>.date-cell</code><code>.person-cell</code><code>.num</code><code>.nk-new-row</code></div>
       </article>
       <article class="doc-entry" id="nk-tag">
         <h3>Tags <code>.nk-tag</code></h3>
@@ -925,14 +974,16 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-progress">
         <h3>Fortschrittsbalken <code>.nk-progress</code></h3>
-        <p class="doc-desc">Eine 6px-Schiene, deren Füllung ein <code>&lt;i&gt;</code> mit Prozentbreite ist. Schiene und Füllung nutzen das blaue Tag-Paar und ziehen bei einem Theme-Wechsel mit.</p>
+        <p class="doc-desc">Eine 6px-Schiene, deren Füllung ein <code>&lt;i&gt;</code> mit Prozentbreite ist. Schiene und Füllung nutzen Notions blaue Tönung und den blauen Mittelton und ziehen bei einem Theme-Wechsel mit. 110px breit in einer Zelle; <code>wide</code> füllt seine Zeile – ein Eigenschaftswert, ein Panel, eine Kursübersicht – und in einer flex-Zeile behält das Label seinen Platz daneben.</p>
         <div class="doc-preview"><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
-<span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span></div>
+<span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span>
+<div style="display:flex;align-items:center;max-width:360px;margin-top:14px"><span class="nk-progress wide"><i style="width:80%"></i></span><span class="nk-progress-label">80 %</span></div></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:65%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>65 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;br</span><span class="tag">&gt;</span><span class="tag">&lt;br</span><span class="tag">&gt;</span>
-<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:20%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>20 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Feste 110px Breite, damit er in einer Tabellenzelle lesbar bleibt. Für volle Breite überschreiben.</span></div>
-        <div class="doc-classes"><code>.nk-progress</code><code>.nk-progress-label</code></div>
+<span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:20%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>20 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;align-items:center;max-width:360px;margin-top:14px"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress wide"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:80%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>80 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Der 110px-Balken bleibt in einer Tabellenzelle lesbar; <code>wide</code> folgt seinem Container.</span></div>
+        <div class="doc-classes"><code>.nk-progress</code><code>.nk-progress-label</code><code>.wide</code></div>
       </article>
       <article class="doc-entry" id="nk-board">
         <h3>Board-Ansicht <code>.nk-board</code></h3>
@@ -940,7 +991,7 @@ class NkCallout extends HTMLElement {
         <div class="doc-preview"><div class="nk-board active">
   <div class="nk-board-col">
     <div class="nk-board-col-header"><span class="nk-tag orange">Geplant</span><span class="count">1</span></div>
-    <div class="nk-card"><div class="card-title">🖥 Board-Ansicht</div><div class="card-meta"><span class="mini-avatar" style="background:var(--nk-decor-blue);width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:var(--nk-on-accent)">TW</span>28.05.</div></div>
+    <div class="nk-card"><div class="card-title">🖥 Board-Ansicht</div><div class="card-meta"><span class="nk-avatar small blue">TW</span>28.05.</div></div>
   </div>
   <div class="nk-board-col">
     <div class="nk-board-col-header"><span class="nk-tag blue">In Arbeit</span><span class="count">1</span></div>
@@ -955,7 +1006,7 @@ class NkCallout extends HTMLElement {
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-board active"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-board-col"<span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-board-col-header"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag orange"<span class="tag">&gt;</span>Geplant<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"count"<span class="tag">&gt;</span>1<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
-    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-card"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"card-title"<span class="tag">&gt;</span>🖥 Board-Ansicht<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"card-meta"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-blue);width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:var(--nk-on-accent)"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>28.05.<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-card"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"card-title"<span class="tag">&gt;</span>🖥 Board-Ansicht<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"card-meta"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar small blue"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>28.05.<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-board-col"<span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-board-col-header"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag blue"<span class="tag">&gt;</span>In Arbeit<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"count"<span class="tag">&gt;</span>1<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -968,6 +1019,23 @@ class NkCallout extends HTMLElement {
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Die Spalten scrollen horizontal, statt zu stapeln – das Board bleibt ein Board.</span></div>
         <div class="doc-classes"><code>.nk-board</code><code>.nk-board-col</code><code>.nk-board-col-header</code><code>.count</code><code>.nk-card</code><code>.card-title</code><code>.card-meta</code></div>
+      </article>
+      <article class="doc-entry" id="nk-list">
+        <h3>Listen-Ansicht <code>.nk-list</code></h3>
+        <p class="doc-desc">Die dritte Datenbank-Ansicht: eine Zeile pro Eintrag – Icon, Titel und rechts ein paar Eigenschaften –, wie Notion eine Datenbank unter „Liste“ zeigt. Haarlinien zwischen den Zeilen und der Hover-Hauch über die ganze Zeile, wie eine Tabelle ohne Spalten; die letzte Zeile verliert ihre Linie. Als <code>&lt;a&gt;</code> ist jede Zeile ein echter Link. In <code>.nk-database</code> unter die View-Reiter setzen oder allein für jede Liste von Seiten nutzen.</p>
+        <div class="doc-preview"><div class="nk-list" style="max-width:520px">
+  <a class="nk-list-item" href="#"><span class="l-icon">🚀</span><span class="l-title">Roadmap</span><span class="l-meta">12.05.2026 <span class="nk-tag green">Fertig</span></span></a>
+  <a class="nk-list-item" href="#"><span class="l-icon">🎨</span><span class="l-title">Design-System</span><span class="l-meta">20.05.2026 <span class="nk-tag blue">In Arbeit</span></span></a>
+  <a class="nk-list-item" href="#"><span class="l-icon">📣</span><span class="l-title">Launch</span><span class="l-meta">02.06.2026 <span class="nk-tag orange">Geplant</span></span></a>
+</div></div>
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-list" <span class="attr">style=</span>"max-width:520px"<span class="tag">&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-list-item" <span class="attr">href=</span>"#"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-icon"<span class="tag">&gt;</span>🚀<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-title"<span class="tag">&gt;</span>Roadmap<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-meta"<span class="tag">&gt;</span>12.05.2026 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag green"<span class="tag">&gt;</span>Fertig<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/a</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-list-item" <span class="attr">href=</span>"#"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-icon"<span class="tag">&gt;</span>🎨<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-title"<span class="tag">&gt;</span>Design-System<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-meta"<span class="tag">&gt;</span>20.05.2026 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag blue"<span class="tag">&gt;</span>In Arbeit<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/a</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-list-item" <span class="attr">href=</span>"#"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-icon"<span class="tag">&gt;</span>📣<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-title"<span class="tag">&gt;</span>Launch<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-meta"<span class="tag">&gt;</span>02.06.2026 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag orange"<span class="tag">&gt;</span>Geplant<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/a</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Bleibt eine Zeile pro Eintrag: Der Titel gibt zuerst nach und endet mit Auslassungspunkten, die Eigenschaften behalten ihren Platz.</span></div>
+        <div class="doc-classes"><code>.nk-list</code><code>.nk-list-item</code><code>.l-icon</code><code>.l-title</code><code>.l-meta</code><code>.last</code></div>
       </article>
     </section>
     <section class="doc-group" id="forms">
@@ -1191,19 +1259,19 @@ class NkCallout extends HTMLElement {
         <h3>Mitglieder-Zeilen <code>.nk-member-row</code></h3>
         <p class="doc-desc">Zeilen, getrennt durch eine Haarlinie. Die Regel „letzte Zeile ohne Rahmen“ hängt am Container <code>nk-member-list</code> und hat einen <code>::slotted()</code>-Zwilling – sie funktioniert also weiter, wenn ein künftiges Element die Zeilen projiziert.</p>
         <div class="doc-preview"><div class="nk-member-list" style="max-width:460px">
-  <div class="nk-member-row"><span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>
+  <div class="nk-member-row"><span class="nk-avatar purple">AL</span>
     <div><div>Ada Lovelace</div><div class="m-mail">ada@acme.com</div></div>
     <select class="nk-select"><option>Admin</option><option>Mitglied</option></select></div>
-  <div class="nk-member-row"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>
+  <div class="nk-member-row"><span class="nk-avatar blue">TW</span>
     <div><div>Tom Weber</div><div class="m-mail">tom@acme.com</div></div>
     <select class="nk-select"><option>Mitglied</option></select></div>
 </div></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-member-list" <span class="attr">style=</span>"max-width:460px"<span class="tag">&gt;</span>
-  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-member-row"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-purple)"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-member-row"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar purple"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
     <span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span>Ada Lovelace<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"m-mail"<span class="tag">&gt;</span>ada@acme.com<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;select</span> <span class="attr">class=</span>"nk-select"<span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>Admin<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>Mitglied<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;/select</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
-  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-member-row"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-blue)"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-member-row"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar blue"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
     <span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span>Tom Weber<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"m-mail"<span class="tag">&gt;</span>tom@acme.com<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;select</span> <span class="attr">class=</span>"nk-select"<span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>Mitglied<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;/select</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
@@ -1305,12 +1373,14 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-menu">
         <h3>Kontextmenü <code>.nk-menu</code></h3>
-        <p class="doc-desc"><code>nk-pop</code> mit <code>nk-menu</code> kombinieren. Einträge nehmen links ein <code>.m-icon</code> und rechts ein <code>.m-shortcut</code>; <code>.danger</code> färbt einen Eintrag rot.</p>
+        <p class="doc-desc"><code>nk-pop</code> mit <code>nk-menu</code> kombinieren. Einträge nehmen links ein <code>.m-icon</code> und rechts ein <code>.m-shortcut</code>; <code>.danger</code> färbt einen Eintrag rot. Ein <code>.nk-switch</code> als letztes Kind eines Eintrags sitzt rechts, wie „Kleiner Text“ und „Volle Breite“ in Notions Seitenmenü.</p>
         <div class="doc-preview"><div class="nk-pop nk-menu">
   <div class="nk-menu-label">Seiten</div>
   <div class="nk-menu-item"><span class="m-icon">✏️</span>Umbenennen<span class="m-shortcut">⌘⇧R</span></div>
   <div class="nk-menu-item"><span class="m-icon">📄</span>Duplizieren<span class="m-shortcut">⌘D</span></div>
   <div class="nk-menu-item"><span class="m-icon">🔗</span>Link kopieren<span class="m-shortcut">⌘L</span></div>
+  <div class="nk-menu-sep"></div>
+  <div class="nk-menu-item"><span class="m-icon">🔡</span>Kleiner Text<button class="nk-switch" role="switch" aria-checked="true" aria-label="Kleiner Text"></button></div>
   <div class="nk-menu-sep"></div>
   <div class="nk-menu-item danger"><span class="m-icon">🗑</span>In den Papierkorb</div>
 </div></div>
@@ -1320,6 +1390,8 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>✏️<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Umbenennen<span class="tag">&lt;span</span> <span class="attr">class=</span>"m-shortcut"<span class="tag">&gt;</span>⌘⇧R<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>📄<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Duplizieren<span class="tag">&lt;span</span> <span class="attr">class=</span>"m-shortcut"<span class="tag">&gt;</span>⌘D<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>🔗<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Link kopieren<span class="tag">&lt;span</span> <span class="attr">class=</span>"m-shortcut"<span class="tag">&gt;</span>⌘L<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-sep"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>🔡<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Kleiner Text<span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-switch" <span class="attr">role=</span>"switch" <span class="attr">aria-checked=</span>"true" <span class="attr">aria-label=</span>"Kleiner Text"<span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-sep"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-menu-item danger"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"m-icon"<span class="tag">&gt;</span>🗑<span class="tag">&lt;/span</span><span class="tag">&gt;</span>In den Papierkorb<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
@@ -1411,6 +1483,51 @@ class NkCallout extends HTMLElement {
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Fällt auf eine Spalte, sobald der Container unter ~600px rutscht – ganz ohne Media Query.</span></div>
         <div class="doc-classes"><code>.nk-gallery-grid</code><code>.nk-g-item</code></div>
+      </article>
+      <article class="doc-entry" id="nk-panel">
+        <h3>Panels <code>.nk-panel</code></h3>
+        <p class="doc-desc">Eine neutrale Fläche für Inhalt, der zusammengehört – die Karten auf Notions Startseite, die Kästen in seinen Einstellungen. Nicht <code>.nk-card</code>, das ist die Board-Karte. <code>.nk-panels</code> setzt mehrere in ein Raster mit Spalten von mindestens 200px, die sich die Zeile teilen. Darin ist ein <code>&lt;h3&gt;</code> der Titel und ein <code>&lt;p&gt;</code> der ruhige Text; ein <code>.nk-cover</code> als erstes Kind läuft bis an die Ränder, ein <code>.nk-page-icon</code> danach überlappt das Cover – eine Seitenkachel wie auf der Startseite unter „Zuletzt besucht“. Als <code>&lt;a&gt;</code> oder <code>&lt;button&gt;</code> reagiert das Panel auf den Zeiger.</p>
+        <div class="doc-preview"><div class="nk-panels">
+  <a class="nk-panel" href="#">
+    <div class="nk-cover"><img src="../covers/aurora.svg" alt=""></div>
+    <div class="nk-page-icon">🚀</div>
+    <h3>Roadmap</h3>
+    <p>vor 2 Min.</p>
+  </a>
+  <a class="nk-panel" href="#">
+    <div class="nk-cover"><img src="../covers/dunes.svg" alt=""></div>
+    <div class="nk-page-icon">📚</div>
+    <h3>Wissensdatenbank</h3>
+    <p>Gestern</p>
+  </a>
+  <div class="nk-panel">
+    <h3>Wochenrückblick</h3>
+    <p>Drei Seiten haben sich geändert, ein Kommentar wartet auf Antwort.</p>
+    <div style="display:flex;align-items:center"><span class="nk-progress wide"><i style="width:60%"></i></span><span class="nk-progress-label">60 %</span></div>
+  </div>
+</div></div>
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-panels"<span class="tag">&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-panel" <span class="attr">href=</span>"#"<span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover"<span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attr">src=</span>"../covers/aurora.svg" <span class="attr">alt=</span>""<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-page-icon"<span class="tag">&gt;</span>🚀<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h3</span><span class="tag">&gt;</span>Roadmap<span class="tag">&lt;/h3</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;p</span><span class="tag">&gt;</span>vor 2 Min.<span class="tag">&lt;/p</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/a</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-panel" <span class="attr">href=</span>"#"<span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover"<span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attr">src=</span>"../covers/dunes.svg" <span class="attr">alt=</span>""<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-page-icon"<span class="tag">&gt;</span>📚<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h3</span><span class="tag">&gt;</span>Wissensdatenbank<span class="tag">&lt;/h3</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;p</span><span class="tag">&gt;</span>Gestern<span class="tag">&lt;/p</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/a</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-panel"<span class="tag">&gt;</span>
+    <span class="tag">&lt;h3</span><span class="tag">&gt;</span>Wochenrückblick<span class="tag">&lt;/h3</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;p</span><span class="tag">&gt;</span>Drei Seiten haben sich geändert, ein Kommentar wartet auf Antwort.<span class="tag">&lt;/p</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;align-items:center"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress wide"<span class="tag">&gt;</span><span class="tag">&lt;i</span> <span class="attr">style=</span>"width:60%"<span class="tag">&gt;</span><span class="tag">&lt;/i</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-progress-label"<span class="tag">&gt;</span>60 %<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Das Raster fällt auf eine Spalte, sobald zwei 200px-Spalten nicht mehr passen – ganz ohne Breakpoint.</span></div>
+        <div class="doc-classes"><code>.nk-panels</code><code>.nk-panel</code></div>
       </article>
       <article class="doc-entry" id="nk-tabs">
         <h3>Reiter <code>.nk-tabs</code></h3>
@@ -1516,28 +1633,55 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-avatar-group">
         <h3>Avatar-Gruppe <code>.nk-avatar-group</code></h3>
-        <p class="doc-desc">Überlappende Avatare mit einem Ring in Seitenfarbe, damit sie als Stapel lesbar sind. Der <code>:first-child</code>-Reset liegt in der Gruppe und hat einen <code>::slotted()</code>-Zwilling.</p>
+        <p class="doc-desc">Überlappende Avatare mit einem Ring in Seitenfarbe, damit sie als Stapel lesbar sind. Die Gruppe bringt jeden <code>.nk-avatar</code> (oder den älteren <code>.mini-avatar</code>) auf 26px; <code>.more</code> trägt den Rest. Der <code>:first-child</code>-Reset liegt in der Gruppe und hat einen <code>::slotted()</code>-Zwilling.</p>
         <div class="doc-preview"><div style="display:flex;align-items:center;gap:10px">
   <div class="nk-avatar-group">
-    <span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>
-    <span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>
-    <span class="mini-avatar" style="background:var(--nk-tag-green-text)">SL</span>
-    <span class="mini-avatar more">+2</span>
+    <span class="nk-avatar purple">AL</span>
+    <span class="nk-avatar blue">TW</span>
+    <span class="nk-avatar green">SL</span>
+    <span class="nk-avatar more">+2</span>
   </div>
   <span style="font-size:13px;color:var(--nk-text-tertiary)">5 Personen haben Zugriff</span>
 </div></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;align-items:center;gap:10px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-avatar-group"<span class="tag">&gt;</span>
-    <span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-purple)"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
-    <span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-blue)"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
-    <span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-tag-green-text)"<span class="tag">&gt;</span>SL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
-    <span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar more"<span class="tag">&gt;</span>+2<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar purple"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar blue"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar green"<span class="tag">&gt;</span>SL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar more"<span class="tag">&gt;</span>+2<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;span</span> <span class="attr">style=</span>"font-size:13px;color:var(--nk-text-tertiary)"<span class="tag">&gt;</span>5 Personen haben Zugriff<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Unverändert. Die Anzahl deckeln und den Rest über <code>.more</code> anzeigen.</span></div>
         <div class="doc-classes"><code>.nk-avatar-group</code><code>.mini-avatar</code><code>.more</code></div>
+      </article>
+      <article class="doc-entry" id="nk-avatar">
+        <h3>Avatar <code>.nk-avatar</code></h3>
+        <p class="doc-desc">Eine Person oder ein Workspace: Initialen, ein Emoji oder ein Foto in einem Kreis. 24px als Standard, <code>small</code> 20px wie in Zellen und Eigenschaften, <code>large</code> 32px, <code>xlarge</code> 56px wie in einem Profil. Ohne Farbe nimmt er den Avatar-Verlauf; die neun Farbnamen nehmen Notions Mitteltöne, ein Hex-Wert landet also nie im Markup. <code>square</code> gibt ihm die Ecken eines Workspace-Icons. Er funktioniert an einem <code>&lt;img&gt;</code> genauso wie an einem Kasten, der eines enthält. In einer Mitgliederzeile, einer Erwähnung oder einer Avatar-Gruppe bestimmt der Ort die Größe, wie bisher.</p>
+        <div class="doc-preview"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+  <span class="nk-avatar small blue">TW</span>
+  <span class="nk-avatar">AL</span>
+  <span class="nk-avatar green">SL</span>
+  <span class="nk-avatar large orange">MK</span>
+  <span class="nk-avatar xlarge purple">AL</span>
+  <span class="nk-avatar large gray">🦊</span>
+  <span class="nk-avatar large square">A</span>
+  <span class="nk-avatar large"><img src="../covers/tide.svg" alt=""></span>
+</div></div>
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;align-items:center;gap:10px;flex-wrap:wrap"<span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar small blue"<span class="tag">&gt;</span>TW<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar green"<span class="tag">&gt;</span>SL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar large orange"<span class="tag">&gt;</span>MK<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar xlarge purple"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar large gray"<span class="tag">&gt;</span>🦊<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar large square"<span class="tag">&gt;</span>A<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar large"<span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attr">src=</span>"../covers/tide.svg" <span class="attr">alt=</span>""<span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Unverändert. Eine feste Größe, eine Reihe von Avataren fließt also nie um.</span></div>
+        <div class="doc-classes"><code>.nk-avatar</code><code>.small</code><code>.large</code><code>.xlarge</code><code>.square</code><code>.gray</code><code>.brown</code><code>.orange</code><code>.yellow</code><code>.green</code><code>.blue</code><code>.purple</code><code>.pink</code><code>.red</code></div>
       </article>
       <article class="doc-entry" id="nk-skeleton">
         <h3>Skelett <code>.nk-skeleton</code></h3>
@@ -1586,7 +1730,7 @@ class NkCallout extends HTMLElement {
         <p class="doc-desc">Ein Faden an einer linken Linie, wie er neben einem Absatz stehen würde. Jeder Kommentar besteht aus Avatar, Kopf (Name und Zeit) und Rumpf.</p>
         <div class="doc-preview"><div class="nk-comments" style="max-width:420px">
   <div class="nk-comment">
-    <span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>
+    <span class="nk-avatar green">SL</span>
     <div><div class="c-head"><b>Sara Lindt</b> · vor 1 Std.</div><div class="c-body">Die Board-Ansicht fühlt sich schon sehr nah am Original an. 👍</div></div>
   </div>
   <div class="nk-comment-input">
@@ -1596,7 +1740,7 @@ class NkCallout extends HTMLElement {
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-comments" <span class="attr">style=</span>"max-width:420px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-comment"<span class="tag">&gt;</span>
-    <span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar" <span class="attr">style=</span>"background:var(--nk-decor-purple)"<span class="tag">&gt;</span>SL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-avatar green"<span class="tag">&gt;</span>SL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
     <span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"c-head"<span class="tag">&gt;</span><span class="tag">&lt;b</span><span class="tag">&gt;</span>Sara Lindt<span class="tag">&lt;/b</span><span class="tag">&gt;</span> · vor 1 Std.<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"c-body"<span class="tag">&gt;</span>Die Board-Ansicht fühlt sich schon sehr nah am Original an. 👍<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-comment-input"<span class="tag">&gt;</span>
@@ -1608,13 +1752,14 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-ai-thread">
         <h3>KI-Faden <code>.nk-ai-thread</code></h3>
-        <p class="doc-desc">Ein Assistenten-Gespräch als Teil des Dokuments, kein schwebendes Widget. <code>.user</code> gibt der Nachricht den Verlauf-Avatar; der Assistent behält den neutralen Callout-Kreis. Die Eingabezeile leuchtet bei <code>:focus-within</code> auf.</p>
+        <p class="doc-desc">Ein Assistenten-Gespräch als Teil des Dokuments, kein schwebendes Widget. <code>.user</code> gibt der Nachricht den Verlauf-Avatar; der Assistent behält den neutralen Callout-Kreis. <code>bubble</code> setzt eine Nachricht als graue Blase ohne Avatar und Namen – mit <code>.user</code> rechts, so wie Notions KI-Chat die eigene Frage zeigt. Die Eingabezeile leuchtet bei <code>:focus-within</code> auf.</p>
         <div class="doc-preview"><div style="max-width:460px">
   <div class="nk-ai-thread">
     <div class="nk-ai-msg user">
       <span class="mini-avatar">AL</span>
       <div><div class="a-name">Du</div><div class="a-body">Fasse die offenen Aufgaben dieses Projekts zusammen.</div></div>
     </div>
+    <div class="nk-ai-msg user bubble"><div class="a-body">Was ist auf dieser Seite noch offen?</div></div>
     <div class="nk-ai-msg">
       <span class="mini-avatar">🤖</span>
       <div><div class="a-name">Mona <span>· KI</span></div>
@@ -1633,6 +1778,7 @@ class NkCallout extends HTMLElement {
       <span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar"<span class="tag">&gt;</span>AL<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
       <span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"a-name"<span class="tag">&gt;</span>Du<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"a-body"<span class="tag">&gt;</span>Fasse die offenen Aufgaben dieses Projekts zusammen.<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-ai-msg user bubble"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"a-body"<span class="tag">&gt;</span>Was ist auf dieser Seite noch offen?<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-ai-msg"<span class="tag">&gt;</span>
       <span class="tag">&lt;span</span> <span class="attr">class=</span>"mini-avatar"<span class="tag">&gt;</span>🤖<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
       <span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"a-name"<span class="tag">&gt;</span>Mona <span class="tag">&lt;span</span><span class="tag">&gt;</span>· KI<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -1645,7 +1791,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Fließt natürlich. Die Eingabezeile ist eine flex-Zeile mit fixem 26px-Sendeknopf.</span></div>
-        <div class="doc-classes"><code>.nk-ai-thread</code><code>.nk-ai-msg</code><code>.user</code><code>.a-name</code><code>.a-body</code><code>.nk-ai-actions</code><code>.nk-ai-input-row</code><code>.nk-ai-send</code></div>
+        <div class="doc-classes"><code>.nk-ai-thread</code><code>.nk-ai-msg</code><code>.user</code><code>.bubble</code><code>.a-name</code><code>.a-body</code><code>.nk-ai-actions</code><code>.nk-ai-input-row</code><code>.nk-ai-send</code></div>
       </article>
     </section>
     <section class="doc-group" id="editor">

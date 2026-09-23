@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.5.3</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.6.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html">Docs</a>
@@ -347,7 +347,7 @@
       <h2>Page shell & document</h2>
       <div class="prd">PRD 5.3</div>
       <article class="doc-entry" id="s-nk-page">
-        <h3>Page column <code>.nk-page</code></h3>
+        <h3>Page column & page options <code>.nk-page</code></h3>
         <div class="doc-preview is-frame" style="height:320px"><div class="nk-page-scroll" style="height:100%">
   <div class="nk-cover" style="height:120px"></div>
   <div class="nk-page" style="padding-bottom:24px">
@@ -359,9 +359,21 @@
 </div></div>
         
       </article>
+      <article class="doc-entry" id="s-nk-props">
+        <h3>Page properties <code>.nk-props</code></h3>
+        <div class="doc-preview"><dl class="nk-props" style="max-width:520px">
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In progress</span></dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>Owner</dt><dd class="p-value"><span class="nk-avatar small purple">AL</span>Ada Lovelace</dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Due</dt><dd class="p-value">2 June 2026</dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">🏷️</span>Tags</dt><dd class="p-value"><span class="nk-tag purple">Design system</span><span class="nk-tag">CSS</span></dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Progress</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
+</dl></div>
+        
+      </article>
       <article class="doc-entry" id="s-nk-cover">
         <h3>Cover <code>.nk-cover</code></h3>
-        <div class="doc-preview"><div class="nk-cover" style="border-radius:var(--nk-radius)"></div></div>
+        <div class="doc-preview"><div class="nk-cover" style="border-radius:var(--nk-radius)"></div>
+<div class="nk-cover" style="height:120px;border-radius:var(--nk-radius);margin-top:12px"><img src="covers/meadow.svg" alt=""></div></div>
         
       </article>
       <article class="doc-entry" id="s-nk-heading">
@@ -407,7 +419,7 @@
       <article class="doc-entry" id="s-nk-mention">
         <h3>Inline mentions <code>.nk-mention</code></h3>
         <div class="doc-preview"><p style="line-height:1.9">
-  <span class="nk-mention person"><span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>Sara Lindt</span>
+  <span class="nk-mention person"><span class="nk-avatar purple">SL</span>Sara Lindt</span>
   <span class="nk-mention page">📄 Knowledge base</span>
   <span class="nk-mention date">📅 20 May</span>
 </p></div>
@@ -420,6 +432,17 @@
 <span class="tag">&lt;/div&gt;</span></div>
 <p>Inline: <code class="nk-inline-code">--nk-accent</code></p></div>
         
+      </article>
+      <article class="doc-entry" id="s-nk-prose">
+        <h3>Prose <code>.nk-prose</code></h3>
+        <div class="doc-preview"><div class="nk-page" style="padding:0;max-width:560px;margin:0"><div class="nk-prose">
+  <h2>Release notes</h2>
+  <p>Rendered Markdown takes the document look from <strong>one class</strong>: headings, lists, <a href="#">links</a>, <code>code</code>, quotes and tables.</p>
+  <ul><li>Paragraphs and lists keep Notion’s spacing</li><li>Sizes follow the page – 16px, or 14px with <code>small</code></li></ul>
+  <blockquote>The editor adapter reads the same rules.</blockquote>
+  <table><thead><tr><th>Class</th><th>For</th></tr></thead><tbody><tr><td><code>full</code></td><td>Full width</td></tr><tr><td><code>small</code></td><td>Small text</td></tr></tbody></table>
+</div></div></div>
+        <p class="doc-note doc-note--preview">Class only, on purpose: <code>::slotted()</code> reaches the slotted node and never a paragraph inside it, so a <code>&lt;nk-prose&gt;</code> element could not style its content. Put the class on a light-DOM container, also inside NotionKit Elements.</p>
       </article>
     </section>
     <section class="doc-group" id="database">
@@ -442,24 +465,24 @@
   <thead><tr>
     <th><span class="th-icon">📄</span>Name</th><th><span class="th-icon">◉</span>Status</th>
     <th><span class="th-icon">👤</span>Owner</th><th><span class="th-icon">📅</span>Due</th>
-    <th><span class="th-icon">📊</span>Progress</th>
+    <th><span class="th-icon">📊</span>Progress</th><th><span class="th-icon">#</span>Effort (h)</th>
   </tr></thead>
   <tbody>
     <tr><td><span class="row-title">🚀 Roadmap</span></td><td><span class="nk-tag green">Done</span></td>
-        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>Sara</span></td>
+        <td><span class="person-cell"><span class="nk-avatar small purple">SL</span>Sara</span></td>
         <td class="date-cell">12.05.2026</td>
-        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td></tr>
+        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">6.0</td></tr>
     <tr><td><span class="row-title">🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
-        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>Tom</span></td>
+        <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
-        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
+        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">12.5</td></tr>
     <tr><td><span class="row-title">📣 Launch</span></td><td><span class="nk-tag yellow">Planned</span></td>
-        <td><span class="person-cell"><span class="mini-avatar" style="background:var(--nk-decor-orange)">MK</span>Mia</span></td>
+        <td><span class="person-cell"><span class="nk-avatar small orange">MK</span>Mia</span></td>
         <td class="date-cell">02.06.2026</td>
-        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td></tr>
+        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">3.25</td></tr>
   </tbody>
 </table>
-<div class="nk-new-row">＋ ＋ New page</div></div></div>
+<div class="nk-new-row">＋ New page</div></div></div>
         
       </article>
       <article class="doc-entry" id="s-nk-tag">
@@ -478,7 +501,8 @@
       <article class="doc-entry" id="s-nk-progress">
         <h3>Progress bar <code>.nk-progress</code></h3>
         <div class="doc-preview"><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
-<span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span></div>
+<span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span>
+<div style="display:flex;align-items:center;max-width:360px;margin-top:14px"><span class="nk-progress wide"><i style="width:80%"></i></span><span class="nk-progress-label">80 %</span></div></div>
         
       </article>
       <article class="doc-entry" id="s-nk-board">
@@ -486,7 +510,7 @@
         <div class="doc-preview"><div class="nk-board active">
   <div class="nk-board-col">
     <div class="nk-board-col-header"><span class="nk-tag orange">Planned</span><span class="count">1</span></div>
-    <div class="nk-card"><div class="card-title">🖥 Board view</div><div class="card-meta"><span class="mini-avatar" style="background:var(--nk-decor-blue);width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:var(--nk-on-accent)">TW</span>28.05.</div></div>
+    <div class="nk-card"><div class="card-title">🖥 Board view</div><div class="card-meta"><span class="nk-avatar small blue">TW</span>28.05.</div></div>
   </div>
   <div class="nk-board-col">
     <div class="nk-board-col-header"><span class="nk-tag blue">In progress</span><span class="count">1</span></div>
@@ -496,6 +520,15 @@
     <div class="nk-board-col-header"><span class="nk-tag green">Done</span><span class="count">1</span></div>
     <div class="nk-card"><div class="card-title">🚀 Roadmap</div><div class="card-meta">12.05.</div></div>
   </div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-list">
+        <h3>List view <code>.nk-list</code></h3>
+        <div class="doc-preview"><div class="nk-list" style="max-width:520px">
+  <a class="nk-list-item" href="#"><span class="l-icon">🚀</span><span class="l-title">Roadmap</span><span class="l-meta">12.05.2026 <span class="nk-tag green">Done</span></span></a>
+  <a class="nk-list-item" href="#"><span class="l-icon">🎨</span><span class="l-title">Design system</span><span class="l-meta">20.05.2026 <span class="nk-tag blue">In progress</span></span></a>
+  <a class="nk-list-item" href="#"><span class="l-icon">📣</span><span class="l-title">Launch</span><span class="l-meta">02.06.2026 <span class="nk-tag orange">Planned</span></span></a>
 </div></div>
         
       </article>
@@ -618,10 +651,10 @@
       <article class="doc-entry" id="s-nk-member-row">
         <h3>Member rows <code>.nk-member-row</code></h3>
         <div class="doc-preview"><div class="nk-member-list" style="max-width:460px">
-  <div class="nk-member-row"><span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>
+  <div class="nk-member-row"><span class="nk-avatar purple">AL</span>
     <div><div>Ada Lovelace</div><div class="m-mail">ada@acme.com</div></div>
     <select class="nk-select"><option>Admin</option><option>Member</option></select></div>
-  <div class="nk-member-row"><span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>
+  <div class="nk-member-row"><span class="nk-avatar blue">TW</span>
     <div><div>Tom Weber</div><div class="m-mail">tom@acme.com</div></div>
     <select class="nk-select"><option>Member</option></select></div>
 </div></div>
@@ -687,6 +720,8 @@
   <div class="nk-menu-item"><span class="m-icon">📄</span>Duplicate<span class="m-shortcut">⌘D</span></div>
   <div class="nk-menu-item"><span class="m-icon">🔗</span>Copy link<span class="m-shortcut">⌘L</span></div>
   <div class="nk-menu-sep"></div>
+  <div class="nk-menu-item"><span class="m-icon">🔡</span>Small text<button class="nk-switch" role="switch" aria-checked="true" aria-label="Small text"></button></div>
+  <div class="nk-menu-sep"></div>
   <div class="nk-menu-item danger"><span class="m-icon">🗑</span>Move to trash</div>
 </div></div>
         
@@ -735,6 +770,29 @@
         <div class="doc-preview"><div class="nk-gallery-grid">
   <div class="nk-g-item"><h4>Active pages</h4><div class="nk-stat"><div class="s-label">this week</div><div class="s-value">128</div></div></div>
   <div class="nk-g-item"><h4>Open tasks</h4><div class="nk-stat"><div class="s-label">this week</div><div class="s-value">17</div></div></div>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-panel">
+        <h3>Panels <code>.nk-panel</code></h3>
+        <div class="doc-preview"><div class="nk-panels">
+  <a class="nk-panel" href="#">
+    <div class="nk-cover"><img src="covers/aurora.svg" alt=""></div>
+    <div class="nk-page-icon">🚀</div>
+    <h3>Roadmap</h3>
+    <p>2 min ago</p>
+  </a>
+  <a class="nk-panel" href="#">
+    <div class="nk-cover"><img src="covers/dunes.svg" alt=""></div>
+    <div class="nk-page-icon">📚</div>
+    <h3>Knowledge base</h3>
+    <p>Yesterday</p>
+  </a>
+  <div class="nk-panel">
+    <h3>Weekly review</h3>
+    <p>Three pages changed, one comment is waiting for an answer.</p>
+    <div style="display:flex;align-items:center"><span class="nk-progress wide"><i style="width:60%"></i></span><span class="nk-progress-label">60 %</span></div>
+  </div>
 </div></div>
         
       </article>
@@ -796,12 +854,26 @@
         <h3>Avatar group <code>.nk-avatar-group</code></h3>
         <div class="doc-preview"><div style="display:flex;align-items:center;gap:10px">
   <div class="nk-avatar-group">
-    <span class="mini-avatar" style="background:var(--nk-decor-purple)">AL</span>
-    <span class="mini-avatar" style="background:var(--nk-decor-blue)">TW</span>
-    <span class="mini-avatar" style="background:var(--nk-tag-green-text)">SL</span>
-    <span class="mini-avatar more">+2</span>
+    <span class="nk-avatar purple">AL</span>
+    <span class="nk-avatar blue">TW</span>
+    <span class="nk-avatar green">SL</span>
+    <span class="nk-avatar more">+2</span>
   </div>
   <span style="font-size:13px;color:var(--nk-text-tertiary)">5 people have access</span>
+</div></div>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-avatar">
+        <h3>Avatar <code>.nk-avatar</code></h3>
+        <div class="doc-preview"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+  <span class="nk-avatar small blue">TW</span>
+  <span class="nk-avatar">AL</span>
+  <span class="nk-avatar green">SL</span>
+  <span class="nk-avatar large orange">MK</span>
+  <span class="nk-avatar xlarge purple">AL</span>
+  <span class="nk-avatar large gray">🦊</span>
+  <span class="nk-avatar large square">A</span>
+  <span class="nk-avatar large"><img src="covers/tide.svg" alt=""></span>
 </div></div>
         
       </article>
@@ -833,7 +905,7 @@
         <h3>Comment thread <code>.nk-comments</code></h3>
         <div class="doc-preview"><div class="nk-comments" style="max-width:420px">
   <div class="nk-comment">
-    <span class="mini-avatar" style="background:var(--nk-decor-purple)">SL</span>
+    <span class="nk-avatar green">SL</span>
     <div><div class="c-head"><b>Sara Lindt</b> · 1 hr ago</div><div class="c-body">The board view already feels very close to the original. 👍</div></div>
   </div>
   <div class="nk-comment-input">
@@ -850,6 +922,7 @@
       <span class="mini-avatar">AL</span>
       <div><div class="a-name">You</div><div class="a-body">Summarise the open tasks for this project.</div></div>
     </div>
+    <div class="nk-ai-msg user bubble"><div class="a-body">What is still open on this page?</div></div>
     <div class="nk-ai-msg">
       <span class="mini-avatar">🤖</span>
       <div><div class="a-name">Mona <span>· AI</span></div>

@@ -1,12 +1,12 @@
 # NotionKit
 
-> A pure CSS component library (v1.5.3) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 `nk-*` classes, `--nk-*` design tokens, light & dark mode, no JavaScript, no build step. npm: `@jungherz-de/notionkit`.
+> A pure CSS component library (v1.6.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 `nk-*` classes, `--nk-*` design tokens, light & dark mode, no JavaScript, no build step. npm: `@jungherz-de/notionkit`.
 
 The theme is one attribute: `<html data-theme="dark">`. Re-branding is one declaration: `:root { --nk-accent: … }`. The library ships state classes (`active`, `open`, `collapsed`, `selected`, `show`, `aria-checked`) but no behaviour. It ships no editor: mount TipTap, BlockNote or Novel into `.nk-block-host`.
 
 ## Start here
 
-- [SKILL.md](https://notionkit.jungherz.com/SKILL.md): the complete AI reference – every component with copy-paste markup, token tables for both themes, state classes, six complete app skeletons, editor and web-component contracts, common mistakes. Read this first when generating NotionKit markup.
+- [SKILL.md](https://notionkit.jungherz.com/SKILL.md): the complete AI reference – every component with copy-paste markup, token tables for both themes, state classes, eight complete app skeletons, editor and web-component contracts, common mistakes. Read this first when generating NotionKit markup.
 - [Documentation](https://notionkit.jungherz.com/docs.html): the same content with live previews and per-component mobile behaviour.
 - [notionkit.css](https://notionkit.jungherz.com/notionkit.css): the stylesheet itself – token block first, component block second, commented.
 
@@ -20,7 +20,7 @@ The theme is one attribute: `<html data-theme="dark">`. Re-branding is one decla
 
 ## The NotionKit family
 
-- [NotionKit Elements](https://notionkit-elements.jungherz.com/): 68 vanilla-JS web components (`<nk-*>`) wrapping this markup – Shadow DOM, native forms, pixel parity. npm: `@jungherz-de/notionkit-elements`. AI reference: https://notionkit-elements.jungherz.com/SKILL.md
+- [NotionKit Elements](https://notionkit-elements.jungherz.com/): 74 vanilla-JS web components (`<nk-*>`) wrapping this markup – Shadow DOM, native forms, pixel parity. npm: `@jungherz-de/notionkit-elements`. AI reference: https://notionkit-elements.jungherz.com/SKILL.md
 - [NotionKit Web](https://notionkit-web.jungherz.com/): the Astro template for complete websites on this foundation – docs, knowledge bases, product pages, blog; bilingual, no external requests. GitHub: https://github.com/JUNGHERZ/NotionKit-Web
 
 ## Optional

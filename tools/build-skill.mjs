@@ -58,7 +58,7 @@ description: NotionKit is a pure CSS component library (v${pkg.version}) in the 
 
 # NotionKit CSS – AI Component Reference
 
-> **Purpose:** An AI-optimised reference for generating correct NotionKit markup. It replaces reading \`docs.html\` and gives you copy-paste structures, nesting rules, state classes, six complete app skeletons and the editor and web-component integration contracts.
+> **Purpose:** An AI-optimised reference for generating correct NotionKit markup. It replaces reading \`docs.html\` and gives you copy-paste structures, nesting rules, state classes, eight complete app skeletons and the editor and web-component integration contracts.
 >
 > Generated from the same sources as the documentation (\`tools/build-skill.mjs\`) – the token tables below are read straight out of \`notionkit.css\`.
 
@@ -171,7 +171,7 @@ Rules of thumb:
 
 ## 5. App Skeletons (composition patterns)
 
-Six complete, runnable documents. Each starts with a decision block. Copy one, delete what you do not need.
+Eight complete, runnable documents. Each starts with a decision block. Copy one, delete what you do not need.
 
 ${SKELETONS.map(s => `### 5.${s.n} ${s.title}
 
@@ -294,7 +294,7 @@ customElements.define('nk-callout', NkCallout);`, 'js')}
 
 ## 10. NotionKit Elements
 
-The web-component layer on top of this CSS ships as \`@jungherz-de/notionkit-elements\` (68 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
+The web-component layer on top of this CSS ships as \`@jungherz-de/notionkit-elements\` (74 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
 
 | CSS class markup | Element markup |
 |---|---|

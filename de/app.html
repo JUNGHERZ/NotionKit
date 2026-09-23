@@ -29,7 +29,7 @@
 
     <div class="nk-sidebar-scroll">
       <div class="nk-tree-item" id="searchEntry"><span class="icon">🔍</span><span class="label">Suche</span><span class="nk-kbd-hint"><kbd class="nk-kbd">⌘</kbd><kbd class="nk-kbd">K</kbd></span></div>
-      <div class="nk-tree-item"><span class="icon">🏠</span><span class="label">Start</span></div>
+      <div class="nk-tree-item" data-view="home"><span class="icon">🏠</span><span class="label">Start</span></div>
       <div class="nk-tree-item"><span class="icon">📥</span><span class="label">Posteingang</span></div>
 
       <div class="nk-section-label">Favoriten <span class="plus">＋</span></div>
@@ -39,7 +39,7 @@
         <span class="actions"><span>＋</span><span>⋯</span></span>
       </div>
       <div class="nk-tree-children">
-        <div class="nk-tree-item active"><span class="icon">🚀</span><span class="label">NotionKit MVP</span></div>
+        <div class="nk-tree-item active" data-view="page"><span class="icon">🚀</span><span class="label">NotionKit MVP</span></div>
         <div class="nk-tree-item"><span class="icon">🎙️</span><span class="label">Voice-Office-Hub</span></div>
       </div>
 
@@ -71,29 +71,32 @@
   <!-- ================= MAIN ================= -->
   <main class="nk-main">
     <div class="nk-topbar">
-      <nav class="nk-breadcrumb">
+      <nav class="nk-breadcrumb" id="crumbs">
         <span class="crumb">📊 Projektübersicht</span>
         <span class="sep">/</span>
         <span class="crumb current">🚀 NotionKit MVP</span>
       </nav>
       <div class="nk-topbar-actions">
-        <span class="nk-topbar-meta">Zuletzt bearbeitet: vor 2 Min.</span>
+        <span class="nk-topbar-meta" id="lastEdited">Zuletzt bearbeitet: vor 2 Min.</span>
         <button class="nk-topbar-btn nk-share-btn">Teilen</button>
         <button class="nk-topbar-btn">⭐</button>
         <button class="nk-topbar-btn nk-theme-toggle" id="themeToggle" title="Light / Dark wechseln">🌙</button>
+        <button class="nk-topbar-btn" id="pageMenuBtn" aria-haspopup="menu" aria-expanded="false" title="Seitenoptionen">⋯</button>
       </div>
     </div>
 
-    <div class="nk-page-scroll">
+    <div class="nk-page-scroll" id="view-page">
       <div class="nk-cover"></div>
       <div class="nk-page">
         <div class="nk-page-icon">🚀</div>
         <h1 class="nk-page-title" contenteditable="true" spellcheck="false">NotionKit MVP</h1>
-        <div class="nk-page-meta">
-          <span>👤 Marcel Karas</span>
-          <span>📅 Erstellt am 12. Mai 2026</span>
-          <span>🏷️ <span class="nk-tag purple">Design-System</span></span>
-        </div>
+        <dl class="nk-props">
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In Arbeit</span></dd></div>
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>Verantwortlich</dt><dd class="p-value"><span class="nk-avatar small">MK</span>Marcel Karas</dd></div>
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Fällig</dt><dd class="p-value">2. Juni 2026</dd></div>
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">🏷️</span>Tags</dt><dd class="p-value"><span class="nk-tag purple">Design-System</span><span class="nk-tag">CSS</span></dd></div>
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Fortschritt</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
+        </dl>
 
         <p class="lead">Ein ruhiges UI-Framework im Notion-Look – als Web Components, ohne Build-Step. Diese Seite ist die lebende Preview: Sidebar, Seitenbaum, Callouts, Todos, Toggles und Datenbank-Views in einem Gerüst.</p>
 
@@ -113,6 +116,7 @@
           <div class="nk-db-tabs">
             <span class="nk-db-tab active" data-view="table">▦ Tabelle <span class="badge">4</span></span>
             <span class="nk-db-tab" data-view="board">▤ Board</span>
+            <span class="nk-db-tab" data-view="list">☰ Liste</span>
             <span class="nk-db-tab" style="color:var(--nk-text-tertiary)">＋</span>
           </div>
 
@@ -126,6 +130,7 @@
                   <th><span class="th-icon">👤</span>Verantwortlich</th>
                   <th><span class="th-icon">📅</span>Fällig</th>
                   <th><span class="th-icon">▰</span>Fortschritt</th>
+                  <th><span class="th-icon">#</span>Aufwand (h)</th>
                 </tr>
               </thead>
               <tbody id="tableBody"></tbody>
@@ -135,6 +140,9 @@
 
           <!-- Board View -->
           <div class="nk-board" id="view-board"></div>
+
+          <!-- List View -->
+          <div class="nk-list" id="view-list" hidden></div>
         </div>
 
         <hr class="nk-divider">
@@ -152,7 +160,7 @@
           <div class="nk-g-item">
             <h4>Inline-Elemente</h4>
             <p style="line-height:1.7;color:var(--nk-text-secondary);font-size:14px">
-              Im Fließtext lassen sich <span class="nk-mention person"><span class="mini-avatar" style="background:#448361">SL</span> Sara Lindt</span>,
+              Im Fließtext lassen sich <span class="nk-mention person"><span class="nk-avatar green">SL</span> Sara Lindt</span>,
               Seiten wie <span class="nk-mention page">📄 Wissensdatenbank</span> und Daten wie
               <span class="nk-mention date">📅 20. Mai</span> verlinken – ebenso <span class="nk-inline-code">nk-database</span> als Code.
             </p>
@@ -253,10 +261,10 @@
             <h4>Avatar-Gruppe &amp; Anwesenheit</h4>
             <div style="display:flex;align-items:center;gap:12px">
               <div class="nk-avatar-group">
-                <span class="mini-avatar" style="background:linear-gradient(135deg,#9065b0,#529cca)">MK</span>
-                <span class="mini-avatar" style="background:#448361">SL</span>
-                <span class="mini-avatar" style="background:#d9730d">TW</span>
-                <span class="mini-avatar more">+2</span>
+                <span class="nk-avatar">MK</span>
+                <span class="nk-avatar green">SL</span>
+                <span class="nk-avatar orange">TW</span>
+                <span class="nk-avatar more">+2</span>
               </div>
               <span style="font-size:12.5px;color:var(--nk-text-tertiary)">5 Personen haben Zugriff</span>
             </div>
@@ -287,14 +295,14 @@
             <h4>Kommentar-Faden</h4>
             <div class="nk-comments">
               <div class="nk-comment">
-                <span class="mini-avatar" style="background:#448361">SL</span>
+                <span class="nk-avatar green">SL</span>
                 <div>
                   <div class="c-head"><b>Sara Lindt</b> · vor 1 Std.</div>
                   <div class="c-body">Die Board-Ansicht fühlt sich schon sehr nah am Original an. 👍</div>
                 </div>
               </div>
               <div class="nk-comment">
-                <span class="mini-avatar" style="background:var(--nk-text-tertiary)">✨</span>
+                <span class="nk-avatar gray">✨</span>
                 <div>
                   <div class="c-head"><b>Mona</b> <span class="nk-tag blue" style="font-size:10.5px;padding:0 6px">KI</span> · vor 20 Min.</div>
                   <div class="c-body">Ich habe die überfälligen Einträge markiert und eine Zusammenfassung vorbereitet.</div>
@@ -310,10 +318,9 @@
           <!-- KI-Chat -->
           <div class="nk-g-item">
             <h4>KI-Assistenten-Einbettung</h4>
-            <div class="nk-ai-thread">
-              <div class="nk-ai-msg user">
-                <span class="mini-avatar">MK</span>
-                <div class="a-body"><div class="a-name">Du</div>Fasse die offenen Aufgaben dieses Projekts zusammen.</div>
+            <div class="nk-ai-thread" id="aiThread">
+              <div class="nk-ai-msg user bubble">
+                <div class="a-body">Fasse die offenen Aufgaben dieses Projekts zusammen.</div>
               </div>
               <div class="nk-ai-msg">
                 <span class="mini-avatar">✨</span>
@@ -359,19 +366,44 @@
         <section id="nk-editor-section">
           <h2 class="nk-heading">✍️ Editor-Fläche</h2>
           <p style="color:var(--nk-text-secondary);line-height:1.55;margin-bottom:10px">Ab hier tippst du in echtem <b>TipTap</b>, eingehängt in einen <code class="nk-inline-code">nk-block-host</code> – ohne editor-eigenes CSS. Fahre über einen Block für ＋ / ⠿, zieh ihn, markiere Text, oder tippe <kbd class="nk-kbd">/</kbd>.</p>
+          <div class="nk-segmented" id="editorMode" role="group" aria-label="Modus"><button class="active" data-mode="edit" aria-pressed="true">Bearbeiten</button><button data-mode="read" aria-pressed="false">Lesen</button></div>
           <div class="nk-block-host" id="tiptap-demo" style="margin-left:-2px">
             <p>Das ist keine Vorschau mehr: Dieser Absatz ist editierbar. Die Überschrift oben, das Callout, die Todos und die Datenbank sind NotionKit-Markup – und dieser Block ist derselbe Look, nur lebendig.</p>
             <ul data-type="taskList"><li data-type="taskItem" data-checked="true">Editor in einen Block-Host hängen</li><li data-type="taskItem" data-checked="false">Einen Block mit ⠿ verschieben</li><li data-type="taskItem" data-checked="false">Mit <code>/</code> einen neuen Block wählen</li></ul>
             <blockquote>Optik und Gerüst liefert NotionKit, das Verhalten der Editor. Drei Ebenen, sauber getrennt.</blockquote>
             <p></p>
           </div>
+          <!-- Read mode: the same content as prose. Margin and padding put the
+               text where the editor's host and ProseMirror paddings put it. -->
+          <div class="nk-prose" id="prose-demo" hidden style="margin:8px 0 8px -2px;padding:6px 2px 6px 4px"></div>
         </section>
         <!-- nk-editor-section:end -->
 
       </div>
     </div>
+
+    <!-- Start view: full width and small text, recently visited pages as
+         panels with a picture cover, what is due as a list. -->
+    <div class="nk-page-scroll" id="view-home" hidden>
+      <div class="nk-page full small">
+        <h1 class="nk-page-title">Guten Morgen, Marcel</h1>
+        <h2 class="nk-heading">🕘 Zuletzt besucht</h2>
+        <div class="nk-panels">
+          <a class="nk-panel" href="#" data-open="page"><div class="nk-cover"><img src="../covers/aurora.svg" alt=""></div><div class="nk-page-icon">🚀</div><h3>NotionKit MVP</h3><p><span class="nk-avatar small">MK</span> vor 2 Min.</p></a>
+          <a class="nk-panel" href="#" data-open="page"><div class="nk-cover"><img src="../covers/dunes.svg" alt=""></div><div class="nk-page-icon">📊</div><h3>Projektübersicht</h3><p><span class="nk-avatar small green">SL</span> vor 1 Std.</p></a>
+          <a class="nk-panel" href="#"><div class="nk-cover"><img src="../covers/meadow.svg" alt=""></div><div class="nk-page-icon">📚</div><h3>Wissensdatenbank</h3><p><span class="nk-avatar small">MK</span> Gestern</p></a>
+          <a class="nk-panel" href="#"><div class="nk-cover"><img src="../covers/tide.svg" alt=""></div><div class="nk-page-icon">🧭</div><h3>Onboarding</h3><p><span class="nk-avatar small orange">TW</span> Montag</p></a>
+        </div>
+        <h2 class="nk-heading">📌 Anstehend</h2>
+        <div class="nk-list">
+          <a class="nk-list-item" href="#" data-open="page"><span class="l-icon">🗃️</span><span class="l-title">Database Table-View</span><span class="l-meta">20. Mai <span class="nk-tag blue">In Arbeit</span></span></a>
+          <a class="nk-list-item" href="#" data-open="page"><span class="l-icon">▤</span><span class="l-title">Board-View &amp; Drag-and-Drop</span><span class="l-meta">2. Juni <span class="nk-tag orange">Geplant</span></span></a>
+          <a class="nk-list-item" href="#" data-open="page"><span class="l-icon">📄</span><span class="l-title">Datenmodell für Tree &amp; Database</span><span class="l-meta">5. Juni <span class="nk-tag">Offen</span></span></a>
+        </div>
+      </div>
+    </div>
     <nav class="nk-tab-bar" id="tabBar">
-      <button class="nk-tab-bar-item active"><span class="icon">🏠</span><span class="label">Start</span></button>
+      <button class="nk-tab-bar-item active" data-view="home"><span class="icon">🏠</span><span class="label">Start</span></button>
       <button class="nk-tab-bar-item"><span class="icon">📥</span><span class="label">Eingang</span></button>
       <button class="nk-tab-bar-item"><span class="icon">🔍</span><span class="label">Suche</span></button>
       <button class="nk-tab-bar-item"><span class="icon">⚙️</span><span class="label">Einstellungen</span></button>
@@ -579,22 +611,22 @@
           </div>
         </div>
         <div class="nk-member-row">
-          <div class="mini-avatar" style="background:linear-gradient(135deg,#9065b0,#529cca)">MK</div>
+          <span class="nk-avatar">MK</span>
           <div><div style="font-weight:500">Marcel Karas</div><div class="m-mail">marcel@monahilft.de</div></div>
           <select class="nk-select"><option>Inhaber</option></select>
         </div>
         <div class="nk-member-row">
-          <div class="mini-avatar" style="background:#448361">SL</div>
+          <span class="nk-avatar green">SL</span>
           <div><div style="font-weight:500">Sara Lindt</div><div class="m-mail">sara@monahilft.de</div></div>
           <select class="nk-select"><option>Admin</option><option>Mitglied</option><option>Betrachter</option></select>
         </div>
         <div class="nk-member-row">
-          <div class="mini-avatar" style="background:#d9730d">TW</div>
+          <span class="nk-avatar orange">TW</span>
           <div><div style="font-weight:500">Tom Weber</div><div class="m-mail">tom@agentur-x.de</div></div>
           <select class="nk-select"><option>Mitglied</option><option>Admin</option><option>Betrachter</option></select>
         </div>
         <div class="nk-member-row">
-          <div class="mini-avatar" style="background:var(--nk-text-tertiary)">✨</div>
+          <span class="nk-avatar gray">✨</span>
           <div><div style="font-weight:500">Mona <span class="nk-tag blue" style="margin-left:4px">KI</span></div><div class="m-mail">Virtuelle Co-Founderin</div></div>
           <select class="nk-select"><option>Vollzugriff</option><option>Eingeschränkt</option></select>
         </div>
@@ -621,15 +653,27 @@
   </div>
 </div>
 
+<!-- ================= PAGE MENU (⋯) ================= -->
+<div class="nk-pop nk-menu" id="pageMenu" role="menu" aria-label="Seitenoptionen" hidden style="position:fixed;z-index:60">
+  <div class="nk-menu-label">Seite</div>
+  <div class="nk-menu-item" role="menuitemcheckbox" aria-checked="false" tabindex="-1" data-option="small"><span class="m-icon">🔡</span>Kleiner Text<span class="nk-switch" aria-hidden="true" aria-checked="false"></span></div>
+  <div class="nk-menu-item" role="menuitemcheckbox" aria-checked="false" tabindex="-1" data-option="full"><span class="m-icon">↔️</span>Volle Breite<span class="nk-switch" aria-hidden="true" aria-checked="false"></span></div>
+  <div class="nk-menu-sep"></div>
+  <div class="nk-menu-item" role="menuitem" tabindex="-1"><span class="m-icon">🔗</span>Link kopieren<span class="m-shortcut">⌘L</span></div>
+  <div class="nk-menu-item" role="menuitem" tabindex="-1"><span class="m-icon">📋</span>Duplizieren<span class="m-shortcut">⌘D</span></div>
+  <div class="nk-menu-sep"></div>
+  <div class="nk-menu-item danger" role="menuitem" tabindex="-1"><span class="m-icon">🗑️</span>In den Papierkorb</div>
+</div>
+
 <div class="nk-toast" id="toast">✓ <span id="toastMsg"></span></div>
 
 <script>
   /* ============ Daten ============ */
   const projects = [
-    { icon: "🧭", name: "App-Shell & Sidebar", status: "Fertig",       tag: "green",  owner: "MK", color: "#9065b0", due: "08.05.2026", progress: 100 },
-    { icon: "📄", name: "Page-Shell & Typografie", status: "Fertig",    tag: "green",  owner: "MK", color: "#9065b0", due: "10.05.2026", progress: 100 },
-    { icon: "🗃️", name: "Database Table-View", status: "In Arbeit",    tag: "blue",   owner: "MK", color: "#9065b0", due: "20.05.2026", progress: 65 },
-    { icon: "▤",  name: "Board-View & Drag-and-Drop", status: "Geplant", tag: "orange", owner: "—",  color: "#999",    due: "02.06.2026", progress: 0 },
+    { icon: "🧭", name: "App-Shell & Sidebar", status: "Fertig",       tag: "green",  owner: "MK", due: "08.05.2026", progress: 100, effort: 6 },
+    { icon: "📄", name: "Page-Shell & Typografie", status: "Fertig",    tag: "green",  owner: "MK", due: "10.05.2026", progress: 100, effort: 4.5 },
+    { icon: "🗃️", name: "Database Table-View", status: "In Arbeit",    tag: "blue",   owner: "MK", due: "20.05.2026", progress: 65, effort: 12.5 },
+    { icon: "▤",  name: "Board-View & Drag-and-Drop", status: "Geplant", tag: "orange", owner: "—",  due: "02.06.2026", progress: 0, effort: 8 },
   ];
 
   /* ============ Table rendern ============ */
@@ -640,11 +684,21 @@
         <td><span class="row-title">${p.icon} ${p.name}</span></td>
         <td><span class="nk-tag ${p.tag}">${p.status}</span></td>
         <td><span class="person-cell">${p.owner !== "—"
-            ? `<span class="mini-avatar" style="background:${p.color}">${p.owner}</span> Marcel`
+            ? `<span class="nk-avatar small">${p.owner}</span> Marcel`
             : "—"}</span></td>
         <td class="date-cell">${p.due}</td>
         <td><span class="nk-progress"><i style="width:${p.progress}%"></i></span><span class="nk-progress-label">${p.progress}%</span></td>
+        <td class="num">${p.effort == null ? "—" : p.effort.toLocaleString("de", { minimumFractionDigits: 1 })}</td>
       </tr>`).join("");
+  }
+
+  /* ============ List rendern ============ */
+  const list = document.getElementById("view-list");
+  function renderList() {
+    list.innerHTML = projects.map(p => `<div class="nk-list-item">
+      <span class="l-icon">${p.icon}</span><span class="l-title">${p.name}</span>
+      <span class="l-meta">${p.due} <span class="nk-tag ${p.tag}">${p.status}</span></span>
+    </div>`).join("");
   }
 
   /* ============ Board rendern ============ */
@@ -669,15 +723,17 @@
   }
   renderTable();
   renderBoard();
+  renderList();
 
   /* ============ View-Tabs ============ */
   document.querySelectorAll(".nk-db-tab[data-view]").forEach(tab => {
     tab.addEventListener("click", () => {
       document.querySelectorAll(".nk-db-tab").forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
-      const isTable = tab.dataset.view === "table";
-      document.getElementById("view-table").style.display = isTable ? "block" : "none";
-      document.getElementById("view-board").style.display = isTable ? "none" : "flex";
+      const view = tab.dataset.view;
+      document.getElementById("view-table").hidden = view !== "table";
+      document.getElementById("view-list").hidden = view !== "list";
+      document.getElementById("view-board").classList.toggle("active", view === "board");
     });
   });
 
@@ -704,8 +760,8 @@
   /* ============ Neue Zeile ============ */
   let counter = 1;
   document.getElementById("newRow").addEventListener("click", () => {
-    projects.push({ icon: "📄", name: "Unbenannt " + counter++, status: "Geplant", tag: "orange", owner: "—", color: "#999", due: "—", progress: 0 });
-    renderTable(); renderBoard();
+    projects.push({ icon: "📄", name: "Unbenannt " + counter++, status: "Geplant", tag: "orange", owner: "—", due: "—", progress: 0, effort: null });
+    renderTable(); renderBoard(); renderList();
     showToast("Neue Seite angelegt");
   });
 
@@ -903,12 +959,88 @@
   });
   document.getElementById("aiSend").addEventListener("click", () => {
     const inp = document.getElementById("aiInput");
-    if (inp.value.trim()) { showToast("Mona denkt nach …"); inp.value = ""; }
+    if (inp.value.trim()) {
+      const msg = document.createElement("div");
+      msg.className = "nk-ai-msg user bubble";
+      msg.innerHTML = '<div class="a-body"></div>';
+      msg.firstChild.textContent = inp.value.trim();
+      document.getElementById("aiThread").appendChild(msg);
+      showToast("Mona denkt nach …"); inp.value = "";
+    }
   });
 
   /* ============ Leerzustand ============ */
   document.getElementById("emptyNew").addEventListener("click", () => showToast("Neuer Eintrag"));
   document.getElementById("emptyImport").addEventListener("click", () => showToast("Import gestartet"));
+
+  /* ============ Views: start and project page ============ */
+  const crumbs = document.getElementById("crumbs");
+  const pageCrumbs = crumbs.innerHTML;
+  function showView(name) {
+    document.getElementById("view-page").hidden = name !== "page";
+    document.getElementById("view-home").hidden = name !== "home";
+    crumbs.innerHTML = name === "home" ? '<span class="crumb current">🏠 Start</span>' : pageCrumbs;
+    document.getElementById("lastEdited").hidden = name === "home";
+    document.querySelectorAll(".nk-sidebar [data-view]").forEach(i => i.classList.toggle("active", i.dataset.view === name));
+    closePageMenu();
+  }
+  document.querySelectorAll(".nk-sidebar [data-view], #tabBar [data-view]").forEach(el =>
+    el.addEventListener("click", () => showView(el.dataset.view)));
+  document.querySelectorAll("[data-open]").forEach(el => el.addEventListener("click", e => {
+    e.preventDefault(); showView(el.dataset.open);
+  }));
+  document.querySelectorAll("#view-home a:not([data-open])").forEach(a => a.addEventListener("click", e => e.preventDefault()));
+
+  /* ============ Page menu: small text, full width ============ */
+  const pageMenu = document.getElementById("pageMenu");
+  const pageMenuBtn = document.getElementById("pageMenuBtn");
+  const currentPage = () => document.querySelector(".nk-page-scroll:not([hidden]) .nk-page");
+  function syncPageMenu() {
+    const page = currentPage();
+    pageMenu.querySelectorAll("[data-option]").forEach(item => {
+      const on = page.classList.contains(item.dataset.option);
+      item.setAttribute("aria-checked", String(on));
+      item.querySelector(".nk-switch").setAttribute("aria-checked", String(on));
+    });
+  }
+  function openPageMenu() {
+    const r = pageMenuBtn.getBoundingClientRect();
+    pageMenu.style.top = (r.bottom + 6) + "px";
+    pageMenu.style.right = Math.max(8, window.innerWidth - r.right) + "px";
+    syncPageMenu();
+    pageMenu.hidden = false;
+    pageMenuBtn.setAttribute("aria-expanded", "true");
+  }
+  function closePageMenu() {
+    pageMenu.hidden = true;
+    pageMenuBtn.setAttribute("aria-expanded", "false");
+  }
+  pageMenuBtn.addEventListener("click", e => { e.stopPropagation(); pageMenu.hidden ? openPageMenu() : closePageMenu(); });
+  pageMenu.addEventListener("click", e => {
+    e.stopPropagation();
+    const item = e.target.closest("[data-option]");
+    if (!item) { if (e.target.closest(".nk-menu-item")) closePageMenu(); return; }
+    const on = currentPage().classList.toggle(item.dataset.option);
+    syncPageMenu();
+    const msgs = { small: ["Kleiner Text an", "Kleiner Text aus"], full: ["Volle Breite an", "Volle Breite aus"] };
+    showToast(msgs[item.dataset.option][on ? 0 : 1]);
+  });
+  document.addEventListener("click", () => closePageMenu());
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closePageMenu(); });
+
+  /* ============ Editor: edit or read ============ */
+  const editorMode = document.getElementById("editorMode");
+  const editorHost = document.getElementById("tiptap-demo");
+  const proseDemo = document.getElementById("prose-demo");
+  editorMode.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    const read = b.dataset.mode === "read";
+    editorMode.querySelectorAll("button").forEach(x => { x.classList.toggle("active", x === b); x.setAttribute("aria-pressed", String(x === b)); });
+    // Read: what the editor holds, as prose – the HTML TipTap would save.
+    if (read) proseDemo.innerHTML = window.nkEditor ? window.nkEditor.getHTML() : editorHost.innerHTML;
+    proseDemo.hidden = !read;
+    editorHost.hidden = read;
+  }));
+  proseDemo.addEventListener("click", e => { if (e.target.matches("input")) e.preventDefault(); });
 
   /* ============ Toast ============ */
   let toastTimer;

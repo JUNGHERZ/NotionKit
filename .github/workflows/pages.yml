@@ -45,6 +45,7 @@ jobs:
              nk-callout.js docs-editor.js favicon.svg favicon.png apple-touch-icon.png og.png \
              CNAME README.md SKILL.md LICENSE sitemap.xml robots.txt llms.txt _site/
           cp de/*.html _site/de/
+          cp -r covers _site/
           touch _site/.nojekyll
           ls -la _site
       - uses: actions/configure-pages@v6

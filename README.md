@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.5.3-2383e2?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.6.0-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
-  <img src="https://img.shields.io/badge/components-~100-448361?style=flat-square" alt="Components">
-  <img src="https://img.shields.io/badge/gzip-9.6%20KB-d9730d?style=flat-square" alt="Size">
+  <img src="https://img.shields.io/badge/components-~130-448361?style=flat-square" alt="Components">
+  <img src="https://img.shields.io/badge/gzip-10.7%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.5.3-9065b0?style=flat-square" alt="Changelog"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.6.0-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
   <a href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit/"><img src="https://img.shields.io/badge/CDN-jsDelivr-blue?style=flat-square" alt="jsDelivr"></a>
 </p>
@@ -17,7 +17,7 @@
 
 <p align="center">
   <strong>The calm workspace look, as a CSS design system.</strong><br>
-  ~100 Components · Light &amp; Dark Mode · Design Tokens · No Dependencies · No Build Step
+  ~130 Components · Light &amp; Dark Mode · Design Tokens · No Dependencies · No Build Step
 </p>
 
 <p align="center">
@@ -48,7 +48,7 @@ NotionKit is a **pure CSS component library** in the idiom of Notion: the quiet,
 
 There is no established UI framework that ships the Notion look *as a system*. What exists are editors (BlockNote, Novel), generic component kits (shadcn/ui) or full clones. NotionKit fills the middle: an opinionated design system with a clear optical signature that lets you build your own product in that ecosystem – familiar feel, own application.
 
-NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements](https://notionkit-elements.jungherz.com) wraps this markup in 68 vanilla web components for application UIs, and [NotionKit Web](https://notionkit-web.jungherz.com) is the official Astro template for complete websites on the same foundation – three layers, one design language.
+NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements](https://notionkit-elements.jungherz.com) wraps this markup in 74 vanilla web components for application UIs, and [NotionKit Web](https://notionkit-web.jungherz.com) is the official Astro template for complete websites on the same foundation – three layers, one design language.
 
 <br>
 
@@ -60,8 +60,8 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 - 📐 **Desktop and mobile equally** – fluid layouts, exactly one breakpoint (860px), horizontal scrolling where tables and boards need it; no device mockups, no fixed viewport widths
 - 🧩 **Shadow DOM ready** – ships a constructable stylesheet split into tokens and components, plus `::slotted()` twins, so web components adopt it without breaking branding
 - ✍️ **Editor adapter** – no editor of its own; a themed adapter layer for TipTap, BlockNote and Novel inside `.nk-block-host`
-- 🤖 **AI-ready** – ships with [`SKILL.md`](SKILL.md), a structured reference for LLMs and coding agents, including six complete app skeletons
-- 🪶 **Lightweight** – 76 KB raw / 51 KB minified / 9.6 KB gzipped, no dependencies. The budget is 14 KB gzipped, what a new connection delivers in its first round trip; CI keeps to it
+- 🤖 **AI-ready** – ships with [`SKILL.md`](SKILL.md), a structured reference for LLMs and coding agents, including eight complete app skeletons
+- 🪶 **Lightweight** – 87 KB raw / 57 KB minified / 10.7 KB gzipped, no dependencies. The budget is 14 KB gzipped, what a new connection delivers in its first round trip; CI keeps to it
 - 🎯 **Prefixed naming** – `nk-*` classes, `--nk-*` tokens, no unprefixed global rules
 
 ---
@@ -77,7 +77,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 Pin a version for production:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.5.3/notionkit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.6.0/notionkit.min.css">
 ```
 
 ### npm / yarn / pnpm
@@ -158,7 +158,7 @@ document.documentElement.setAttribute('data-theme', 'dark');
 
 ## 📦 Components
 
-About 100 component classes across eleven groups. Every one of them is documented with a live preview, copy-paste markup and its behaviour on a small screen.
+About 130 component classes across eleven groups. Every one of them is documented with a live preview, copy-paste markup and its behaviour on a small screen.
 
 ### App shell & navigation
 | Class | Description |
@@ -176,7 +176,9 @@ About 100 component classes across eleven groups. Every one of them is documente
 ### Page & content
 | Class | Description |
 |---|---|
-| `nk-page-scroll`, `nk-cover`, `nk-page`, `nk-page-icon`, `nk-page-title`, `nk-page-meta` | Document shell: 760px column with auto margins |
+| `nk-page-scroll`, `nk-cover`, `nk-page`, `nk-page-icon`, `nk-page-title`, `nk-page-meta` | Document shell: 760px column with auto margins; an `<img>` in the cover is cropped to fill it |
+| `nk-page` (`full`, `small`) | Notion's page options: full width, small text (14px) – per page |
+| `nk-props`, `nk-prop` (`p-name`, `p-icon`, `p-value`) | Page properties under the title, name beside value |
 | `nk-heading`, `p.lead` | Section heading, intro paragraph |
 | `nk-callout` (`c-icon`) | Tinted block with icon |
 | `nk-todo` | Checkbox with custom mark and strike-through |
@@ -184,14 +186,16 @@ About 100 component classes across eleven groups. Every one of them is documente
 | `nk-divider`, `nk-quote` (`q-cite`) | Horizontal rule, block quote |
 | `nk-mention` (`person`, `page`, `date`) | Inline mentions |
 | `nk-inline-code`, `nk-code` (`lang`, `tag`, `attr`) | Inline and block code |
+| `nk-prose` | Rendered Markdown and saved editor HTML – the editor adapter's rules, one class on the container |
 
 ### Database views
 | Class | Description |
 |---|---|
 | `nk-database`, `nk-db-tabs`, `nk-db-tab` (`active`, `badge`) | View tabs with counts |
-| `nk-table-wrap`, `nk-table` (`th-icon`, `row-title`, `date-cell`, `person-cell`), `nk-new-row` | Horizontally scrolling table with add row |
-| `nk-tag` (`blue`, `green`, `orange`, `purple`) | Semantic tags, tuned per theme |
-| `nk-progress`, `nk-progress-label` | Progress bar |
+| `nk-table-wrap`, `nk-table` (`th-icon`, `row-title`, `date-cell`, `person-cell`, `num`), `nk-new-row` | Horizontally scrolling table with add row and right-aligned numbers |
+| `nk-list`, `nk-list-item` (`l-icon`, `l-title`, `l-meta`) | List view: one line per row |
+| `nk-tag` (nine colours) | Notion's select options, tuned per theme |
+| `nk-progress` (`wide`), `nk-progress-label` | Progress bar in a cell or across its row |
 | `nk-board` (`active`), `nk-board-col`, `nk-board-col-header`, `nk-card` | Board view with scrolling columns |
 
 ### Forms & settings
@@ -209,21 +213,23 @@ About 100 component classes across eleven groups. Every one of them is documente
 ### Overlays, productivity, collaboration
 | Class | Description |
 |---|---|
-| `nk-pop`, `nk-menu`, `nk-menu-item` (`m-icon`, `m-shortcut`, `danger`), `nk-menu-sep`, `nk-menu-label` | Popover and context menu |
+| `nk-pop`, `nk-menu`, `nk-menu-item` (`m-icon`, `m-shortcut`, `danger`), `nk-menu-sep`, `nk-menu-label` | Popover and context menu, a switch in a row sits on the right |
 | `nk-emoji-search`, `nk-emoji-grid`, `nk-emoji-cats` | Emoji picker |
 | `nk-cmdk-backdrop` (`open`), `nk-cmdk`, `nk-cmdk-input-row`, `nk-cmdk-list`, `nk-cmdk-group`, `nk-cmdk-item` (`selected`), `nk-cmdk-empty`, `nk-cmdk-footer` | Command palette |
 | `nk-toast` (`show`) | Toast |
 | `nk-gallery-grid`, `nk-g-item`, `nk-tabs`, `nk-tab`, `nk-tab-panel`, `nk-template-btn` | Gallery grid, tabs, template buttons |
+| `nk-panels`, `nk-panel` | Neutral surfaces in a grid; with cover and page icon a page tile |
+| `nk-avatar` (`small`, `large`, `xlarge`, `square`, nine colours) | Initials, emoji or photo in a circle |
 | `nk-stats`, `nk-stat` (`up`, `down`), `nk-synced`, `nk-segmented` (`scroll`, `wrap`), `nk-banner` (`info`, `success`, `warning`), `nk-avatar-group`, `nk-skeleton`, `nk-empty` | Productivity blocks |
 | `nk-comments`, `nk-comment`, `nk-comment-input` | Comment thread |
-| `nk-ai-thread`, `nk-ai-msg` (`user`), `nk-ai-actions`, `nk-ai-input-row`, `nk-ai-send` | AI conversation |
+| `nk-ai-thread`, `nk-ai-msg` (`user`, `bubble`), `nk-ai-actions`, `nk-ai-input-row`, `nk-ai-send` | AI conversation, your own question as a grey bubble |
 
 ### Editor adapter
 | Class | Description |
 |---|---|
 | `nk-block-host` (`nk-block-actions`, `nk-block-handle`, `nk-drop-target`) | Optical shell an editor is mounted into |
 | `nk-slash-menu`, `nk-slash-item`, `nk-bubble-menu` | Slash menu and bubble toolbar in the popover look |
-| *(scoped inside the host)* `.ProseMirror`, `.bn-*`, `.novel-*` | Themed overrides for TipTap, BlockNote, Novel |
+| *(scoped inside the host)* `.ProseMirror`, `.bn-*`, `.novel-*` | Themed overrides for TipTap, BlockNote, Novel; `.ProseMirror` shares every rule with `.nk-prose` |
 
 ---
 
@@ -293,7 +299,7 @@ NotionKit ships **no editor** – a block editor is its own product, and half an
 </script>
 ```
 
-TipTap/ProseMirror is the vanilla-JS path; BlockNote (React) and Novel (Next.js) are covered by the same adapter. The full recipe with slash menu, bubble toolbar and a Notion-style ＋ / ⠿ block handle with drag & drop is [`docs-editor.js`](docs-editor.js) – about 300 lines of plain JavaScript that only put NotionKit classes on their DOM. See it running in the [docs](https://notionkit.jungherz.com/docs.html#editor) and the [demo](https://notionkit.jungherz.com/app.html).
+TipTap/ProseMirror is the vanilla-JS path; BlockNote (React) and Novel (Next.js) are covered by the same adapter. What the editor saves shows read-only in `<div class="nk-prose">`: prose and editor read the same rules, so a page looks the same in both – the demo's “Edit · Read” switch proves it to the pixel. The full recipe with slash menu, bubble toolbar and a Notion-style ＋ / ⠿ block handle with drag & drop is [`docs-editor.js`](docs-editor.js) – about 300 lines of plain JavaScript that only put NotionKit classes on their DOM. See it running in the [docs](https://notionkit.jungherz.com/docs.html#editor) and the [demo](https://notionkit.jungherz.com/app.html).
 
 ---
 
@@ -357,6 +363,7 @@ notionkit/
 ├── showcase.html            # Every component, isolated (de/showcase.html)
 ├── docs.html                # Documentation            (de/docs.html)
 ├── docs-editor.js           # TipTap recipe used by docs and demo
+├── covers/                  # Cover pictures of the demo's start view
 ├── elements-poc.html        # Web-components proof of concept
 ├── nk-callout.js            #   … its two elements
 ├── tools/                   # Page/SKILL generators, catalog, contrast helper
@@ -394,7 +401,7 @@ NotionKit is the CSS foundation of a three-layer family. The layers share one de
 
 ### NotionKit Elements – the app layer
 
-If you want to use NotionKit through **drop-in web components** instead of writing the class markup yourself, take a look at **NotionKit Elements**: 68 vanilla-JS custom elements (`<nk-app>`, `<nk-sidebar>`, `<nk-tree-item>`, `<nk-callout>`, `<nk-database>`, `<nk-cmdk>`, `<nk-block-host>` …) with Shadow DOM, native form participation and pixel parity with the class markup – built on the constructable stylesheet shipped here. The [proof of concept](elements-poc.html) in this repository is its seed.
+If you want to use NotionKit through **drop-in web components** instead of writing the class markup yourself, take a look at **NotionKit Elements**: 74 vanilla-JS custom elements (`<nk-app>`, `<nk-sidebar>`, `<nk-tree-item>`, `<nk-callout>`, `<nk-database>`, `<nk-cmdk>`, `<nk-block-host>` …) with Shadow DOM, native form participation and pixel parity with the class markup – built on the constructable stylesheet shipped here. The [proof of concept](elements-poc.html) in this repository is its seed.
 
 Useful links:
 - GitHub: https://github.com/JUNGHERZ/NotionKit-Elements
@@ -420,7 +427,7 @@ Useful links:
 - copy-paste markup for every component with nesting rules and classes
 - complete token tables for both themes, read straight from the stylesheet
 - the state-class contract
-- **six complete app skeletons** – workspace app, database app, settings modal, AI chat page, form/onboarding page, landing/docs page – each with a "When to use this skeleton?" block
+- **eight complete app skeletons** – workspace app, database app, settings modal, AI chat page, form/onboarding page, landing/docs page, home page, sign-in page – each with a "When to use this skeleton?" block
 - editor recipes, rules and common mistakes, the web-component contract, the CSS-to-Elements mapping
 
 Point your assistant at it: *"Use NotionKit classes as documented in SKILL.md."* It has been validated blind – an agent given nothing but the file produced a working app whose 61 classes all existed.
@@ -450,8 +457,10 @@ The floor is set by `color-mix()` and constructable stylesheets. `:where()`, `in
 | `.selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item` | Transient highlight or chosen option |
 | `.show` | `nk-toast` | Toast slides in |
 | `aria-checked="true"` | `nk-switch` (button form) | Switch on |
+| `.full` `.small` | `nk-page` | Page options: full width, small text |
 | `.primary` `.secondary` `.danger` `.danger-solid` `.small` | `nk-btn` | Button variants |
-| `.gray` `.brown` `.orange` `.yellow` `.green` `.blue` `.purple` `.pink` `.red` | `nk-tag` | Notion's nine select colours; gray is also the default |
+| `.gray` `.brown` `.orange` `.yellow` `.green` `.blue` `.purple` `.pink` `.red` | `nk-tag`, `nk-avatar` | Notion's nine colours; a tag without one is gray, an avatar the gradient |
+| `.small` `.large` `.xlarge` `.square` | `nk-avatar` | 20 / 32 / 56px instead of 24px; workspace-icon corners |
 | `.info` `.success` `.warning` `.danger` | `nk-banner` | Banner tones |
 
 NotionKit ships states, not behaviour: toggle these yourself. The demo pages contain reference implementations in plain JavaScript.
