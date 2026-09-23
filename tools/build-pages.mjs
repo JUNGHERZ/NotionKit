@@ -209,7 +209,7 @@ ${nav(t, 'docs')}
       <p class="doc-note">${t.statesLead}</p>
       <div class="doc-table-wrap"><table class="doc-table">
         <thead><tr><th>${t.colClass}</th><th>${t.colAppliesTo}</th><th>${t.colEffect}</th></tr></thead>
-        <tbody>${STATES.map(s => `<tr><td><code>.${esc(s.cls)}</code></td><td>${s.on.split(', ').map(x => `<code>${x}</code>`).join(' ')}</td><td>${s[lang]}</td></tr>`).join('\n        ')}</tbody>
+        <tbody>${STATES.map(s => `<tr><td><code>${s.cls.startsWith('[') ? '' : '.'}${esc(s.cls)}</code></td><td>${s.on.split(', ').map(x => `<code>${x}</code>`).join(' ')}</td><td>${s[lang]}</td></tr>`).join('\n        ')}</tbody>
       </table></div>
     </section>
 

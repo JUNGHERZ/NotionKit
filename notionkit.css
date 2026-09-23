@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.5.1
+   Jungherz GmbH – v1.5.2
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -121,6 +121,16 @@
   margin: 0;
   padding: 0;
 }
+
+/* `hidden` hides. The attribute is only a user-agent rule, and every
+   component that sets its own display beat it: a hidden button, tag or
+   banner stayed on screen. !important gives the attribute its platform
+   meaning back, for nk- elements and for slotted nodes in a shadow root;
+   hidden="until-found" keeps the browser's own content-visibility. Two
+   rules, not one list: a browser that rejects ::slotted() outside a shadow
+   root would otherwise drop the document half with it. */
+[class*="nk-"][hidden]:not([hidden="until-found" i]) { display: none !important; }
+::slotted([hidden]:not([hidden="until-found" i])) { display: none !important; }
 
 
 /* ============================================================
@@ -820,6 +830,18 @@ a.crumb { text-decoration: none; }
 }
 .nk-input::placeholder, .nk-textarea::placeholder { color: var(--nk-text-tertiary); }
 .nk-input.wide, .nk-textarea.wide, .nk-select.wide { width: 100%; min-width: 0; }
+/* iOS draws date and time fields as native controls with a width of their
+   own: a wide field ran 21px past its column, two in a .nk-fields row
+   overlapped, and the value sat centred. Without the native appearance they
+   size like every other field; desktop browsers keep their picker. */
+.nk-input[type="date"],
+.nk-input[type="time"],
+.nk-input[type="datetime-local"],
+.nk-input[type="month"] { appearance: none; }
+/* A rule of its own: a browser that does not know the pseudo-element
+   drops only this one. Without the native control an empty field has no
+   value box and collapsed to 12px on iOS; one line keeps it 32px tall. */
+.nk-input::-webkit-date-and-time-value { text-align: start; min-height: 1lh; }
 .nk-select.compact { min-width: 120px; }
 .nk-textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
 .nk-select {
@@ -876,14 +898,23 @@ a.nk-btn { text-decoration: none; }
 .nk-switch:disabled { opacity: .5; cursor: not-allowed; }
 /* A switch with visible text: the label makes the text part of the hit area
    (a button is a labelable element), for several switches in one row. */
-.nk-switch-label { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+.nk-switch-label { display: inline-flex; align-items: flex-start; gap: 8px; font-size: 14px; cursor: pointer; }
+/* Control and text meet on the first line, as in Notion: a label that wraps
+   keeps the control beside its first line, not the middle of the block.
+   Whichever of the two is shorter is nudged by half the difference, so a
+   one-line label sits exactly where it did. 1lh reads the label's line
+   height through `inherit`; where lh is unknown the control sits at the top. */
+.nk-switch-label > .nk-switch { font-size: inherit; line-height: inherit; margin-top: max(0px, calc((1lh - 20px) / 2)); }
+.nk-switch-label > span { padding-top: max(0px, calc((20px - 1lh) / 2)); }
 .nk-switch-label:has(.nk-switch:disabled) { cursor: not-allowed; color: var(--nk-text-tertiary); }
 
-.nk-check { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 14px; cursor: pointer; }
+.nk-check { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; font-size: 14px; cursor: pointer; }
 .nk-check input {
   appearance: none; width: 16px; height: 16px; flex-shrink: 0;
   border: 1.4px solid var(--nk-border-strong); border-radius: 3px;
   cursor: pointer; position: relative; background: var(--nk-bg);
+  /* First line, as with the switch label above. */
+  font-size: inherit; line-height: inherit; margin-top: max(0px, calc((1lh - 16px) / 2));
 }
 .nk-check input[type="radio"] { border-radius: 50%; }
 .nk-check input:checked { background: var(--nk-accent); border-color: var(--nk-accent); }
@@ -1096,8 +1127,16 @@ a.nk-btn { text-decoration: none; }
   font-size: 11.5px; color: var(--nk-text-tertiary);
 }
 
+/* Above every overlay – the modal is 100, the palette 110 – because a toast
+   is often the answer to something done in a dialog; above the home
+   indicator on a phone. */
 .nk-toast {
-  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px);
+  position: fixed; bottom: max(20px, calc(env(safe-area-inset-bottom, 0px) + 12px)); left: 50%; transform: translateX(-50%) translateY(80px);
+  z-index: 120;
+  /* left: 50% leaves the toast only half the viewport to shrink into, so on a
+     phone a short message broke over two lines. It takes its own width now,
+     up to the viewport minus a 16px margin on each side. */
+  width: max-content; max-width: calc(100% - 32px);
   background: var(--nk-text); color: var(--nk-bg);
   padding: 8px 16px; border-radius: 8px; font-size: 14px;
   opacity: 0; transition: all .3s ease; pointer-events: none;
@@ -1233,6 +1272,10 @@ a.nk-btn { text-decoration: none; }
 .nk-empty .e-desc,
 .nk-empty ::slotted(.e-desc),
 .nk-empty ::slotted([slot="desc"]) { font-size: 13px; margin-bottom: 12px; }
+/* Several actions: a centred row that wraps, 8px apart in both directions.
+   Buttons written without whitespace between them used to touch. */
+.nk-empty .e-actions,
+.nk-empty ::slotted(.e-actions) { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 
 
 /* ============================================================
@@ -1500,6 +1543,10 @@ a.nk-btn { text-decoration: none; }
   .nk-cmdk-backdrop { padding-top: max(6vh, env(safe-area-inset-top, 0px)); }
   .nk-cmdk { width: min(560px, 96vw); }
   .nk-stats { flex-wrap: wrap; }
+  /* A visible tab bar would cover the toast, so it rises 12px above the bar.
+     :has() sees class markup only; <nk-toast> measures the bar itself. */
+  :root:has(.nk-tab-bar:not([hidden])) .nk-toast { bottom: calc(var(--nk-tab-bar-height) + max(6px, env(safe-area-inset-bottom, 0px)) + 6px); }
+  :root:has(.nk-tab-bar.floating:not([hidden])) .nk-toast { bottom: calc(var(--nk-tab-bar-height) + 24px + env(safe-area-inset-bottom, 0px)); }
 }
 
 

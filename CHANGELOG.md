@@ -4,6 +4,71 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.5.2] – 2026-09-23
+
+Fix release: five defects that GlassKit fixed in its 1.11–1.17 line and that
+NotionKit had as well. Each was confirmed before the change and is guarded
+by a regression test from now on. No class renamed, no token changed; on
+the desktop every page renders pixel for pixel as before, in both themes.
+
+### Fixed
+- **`hidden` did not hide.** The attribute is only a user-agent rule, and
+  every component that sets its own `display` beat it: `.nk-btn`,
+  `.nk-callout`, `.nk-tag`, `.nk-banner`, `.nk-field` and
+  `.nk-tab-bar-item` stayed on screen with `hidden`. One rule in the
+  scoped reset gives the attribute its platform meaning back for every nk-
+  element and, through `::slotted()`, for slotted nodes a twin would
+  display. `hidden="until-found"` keeps the browser's own behaviour.
+  (GlassKit 1.16.0 fixed the same for its button.)
+- **The toast sat under the dialog and behind the tab bar.** `.nk-toast`
+  had no `z-index`: with the settings dialog open it painted dimmed under
+  the scrim, and on a phone it lay entirely behind the tab bar. It is now
+  `z-index: 120`, above the modal (100) and the command palette (110). On
+  phones it rises 12px above a visible tab bar, the floating one included
+  (`:has()`, class markup; `<nk-toast>` in NotionKit Elements measures
+  the bar itself), and its bottom offset clears the home indicator:
+  `max(20px, inset + 12px)`. A short message also stays on one line on a
+  phone – `left: 50%` had left the toast half the viewport to shrink into;
+  it now takes its own width, up to the viewport minus 32px.
+  (GlassKit 1.15.1 fixed the stacking of its overlays.)
+- **Date and time fields ran out of their column on iOS.** iOS draws
+  `input[type="date"]`, `time`, `datetime-local` and `month` as native
+  controls with a width of their own. Measured in the iOS 26.3 and 27.0
+  simulators at 402px: a wide field ran 21px past its column, two fields in
+  a `.nk-fields` row overlapped by 10px, the value sat centred, and the
+  fields were 37px tall against 32px for a text field. `.nk-input` of
+  those types now drops the native appearance, the value starts at the
+  left, and an empty field keeps one line – without that it collapsed to
+  12px. After: flush with the column, 12px apart in the row, 32px tall,
+  filled or empty, on both iOS versions. Chromium on the desktop renders
+  the fields pixel for pixel as before. (GlassKit 1.17.0.)
+- **Checkboxes and switches centred on multi-line labels.** `.nk-check`
+  and `.nk-switch-label` used `align-items: center`, so beside a consent
+  text over three lines the box sat level with the middle line. Both now
+  meet the first line, as in Notion: the shorter of control and text is
+  nudged by half the difference to the line height (`1lh`), so a one-line
+  label sits exactly where it did. Where `lh` is unknown the control sits
+  at the top. (GlassKit 1.11.0.)
+- **Several actions in an empty state touched.** `.nk-empty` had no place
+  for more than one action, and buttons written without whitespace between
+  them stood without a gap. `.e-actions` is a centred row that wraps, 8px
+  apart in both directions. A single action directly in `.nk-empty`
+  renders as before. (GlassKit 1.17.0.)
+
+### Added
+- `test/`: Playwright regression tests for all five fixes, run by Verify
+  Build in Chromium (`npm test`). Against the 1.5.1 stylesheet nine of the
+  eleven tests fail; the other two guard behaviour that must not change.
+- Demo app: the empty state in "More building blocks" offers "Import"
+  next to "New entry", and the product-news checkbox in the notification
+  settings carries a two-line label.
+
+### Docs
+- README cheat sheet and the docs' state table list the `hidden`
+  attribute. The cheat sheet now names all nine tag colours and the danger
+  banner, and the landing page no longer speaks of four tag colours – all
+  three were stale since 1.5.0.
+
 ## [1.5.1] – 2026-09-14
 
 ### Fixed

@@ -25,6 +25,8 @@ desktop.ini
 
 # Playwright
 .playwright-cli/
+test/.artifacts/
+test-results/
 
 # Logs
 *.log

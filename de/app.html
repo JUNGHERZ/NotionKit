@@ -278,7 +278,7 @@
               <div class="e-icon">🗂️</div>
               <div class="e-title">Noch keine Einträge</div>
               <div class="e-desc">Lege den ersten Eintrag an oder importiere vorhandene Daten.</div>
-              <button class="nk-btn primary small">＋ Neuer Eintrag</button>
+              <div class="e-actions"><button class="nk-btn primary small" id="emptyNew">＋ Neuer Eintrag</button><button class="nk-btn secondary small" id="emptyImport">Importieren</button></div>
             </div>
           </div>
 
@@ -486,7 +486,7 @@
         <h3>Per E-Mail</h3>
         <label class="nk-check"><input type="checkbox" checked> Erwähnungen und Kommentare</label>
         <label class="nk-check"><input type="checkbox" checked> Wöchentliche Zusammenfassung</label>
-        <label class="nk-check"><input type="checkbox"> Produktneuheiten</label>
+        <label class="nk-check"><input type="checkbox"> Produktneuheiten und Einladungen zu Beta-Programmen – höchstens einmal im Monat, jederzeit mit einem Klick abbestellbar</label>
         <h3>Push</h3>
         <div class="nk-field">
           <div><div class="f-label">Push-Benachrichtigungen</div><div class="f-desc">Direkt im Browser bei Aktivität in geteilten Seiten.</div></div>
@@ -905,6 +905,10 @@
     const inp = document.getElementById("aiInput");
     if (inp.value.trim()) { showToast("Mona denkt nach …"); inp.value = ""; }
   });
+
+  /* ============ Leerzustand ============ */
+  document.getElementById("emptyNew").addEventListener("click", () => showToast("Neuer Eintrag"));
+  document.getElementById("emptyImport").addEventListener("click", () => showToast("Import gestartet"));
 
   /* ============ Toast ============ */
   let toastTimer;

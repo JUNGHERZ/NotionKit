@@ -7,10 +7,10 @@
 #           notionkit.css, or a token declaration leaking into the
 #           component block, would otherwise surface at tag time. This
 #           job builds on every push and runs the split checks, the
-#           documentation coverage check and the version consistency
-#           check.
+#           documentation coverage check, the version consistency
+#           check and the regression tests in test/ (Chromium).
 #
-# Locally:  npm run build && npm run check:coverage
+# Locally:  npm run build && npm run check:coverage && npm test
 # ============================================================
 
 name: Verify Build
@@ -74,3 +74,17 @@ jobs:
           echo "minified: ${RAW} B · gzip: ${GZ} B"
           test "$RAW" -le 61440 || { echo "::error::notionkit.min.css exceeds 60 KB"; exit 1; }
           test "$GZ"  -le 10240 || { echo "::error::gzipped size exceeds 10 KB"; exit 1; }
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Regression tests
+        run: npm test
+
+      - name: Upload test artefacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts
+          path: test/.artifacts/
+          retention-days: 7

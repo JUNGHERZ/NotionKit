@@ -170,7 +170,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.5.1</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.5.2</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Doku</a>
@@ -341,7 +341,8 @@
       <p class="doc-note">NotionKit liefert Zustände, kein Verhalten. Diese Klassen setzt und entfernst du selbst; in der Library steckt kein JavaScript.</p>
       <div class="doc-table-wrap"><table class="doc-table">
         <thead><tr><th>Klasse</th><th>Gilt für</th><th>Wirkung</th></tr></thead>
-        <tbody><tr><td><code>.active</code></td><td><code>nk-tree-item</code> <code>nk-db-tab</code> <code>nk-tab</code> <code>nk-tab-bar-item</code> <code>nk-settings-pane</code> <code>nk-segmented button</code> <code>nk-emoji-cats span</code> <code>nk-board</code> <code>nk-bubble-menu button</code></td><td>Markiert das aktuelle Element. Baum-Einträge und View-Reiter bekommen den Aktiv-Hintergrund, .nk-tab die Unterlinie, Panes werden sichtbar.</td></tr>
+        <tbody><tr><td><code>[hidden]</code></td><td><code>[class*="nk-"]</code> <code>::slotted(*)</code></td><td>Blendet aus, immer – auch Komponenten mit eigenem display, die vor 1.5.2 die Browser-Regel schlugen. hidden="until-found" behält das Aufdecken per Seitensuche des Browsers.</td></tr>
+        <tr><td><code>.active</code></td><td><code>nk-tree-item</code> <code>nk-db-tab</code> <code>nk-tab</code> <code>nk-tab-bar-item</code> <code>nk-settings-pane</code> <code>nk-segmented button</code> <code>nk-emoji-cats span</code> <code>nk-board</code> <code>nk-bubble-menu button</code></td><td>Markiert das aktuelle Element. Baum-Einträge und View-Reiter bekommen den Aktiv-Hintergrund, .nk-tab die Unterlinie, Panes werden sichtbar.</td></tr>
         <tr><td><code>.open</code></td><td><code>nk-modal-backdrop</code> <code>nk-cmdk-backdrop</code> <code>nk-toggle-arrow</code></td><td>Blendet das Overlay ein und macht es bedienbar; dreht den Toggle-Pfeil um 90°.</td></tr>
         <tr><td><code>.collapsed</code></td><td><code>nk-tree-children</code></td><td>Klappt einen Unterbaum per display: none weg.</td></tr>
         <tr><td><code>.selected</code></td><td><code>nk-cmdk-item</code> <code>nk-model-card</code> <code>nk-slash-item</code></td><td>Die per Tastatur hervorgehobene oder gewählte Option. Anders als active: Auswahl ist flüchtig, active ist der Ort, an dem du bist.</td></tr>
@@ -1029,7 +1030,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-check">
         <h3>Checkbox & Radio <code>.nk-check</code></h3>
-        <p class="doc-desc">Dieselbe 16px-Box für beides; die Radio-Variante wird über <code>[type="radio"]</code> erkannt und wird zum Kreis mit Punkt. Die Marken sind <code>::after</code>-Inhalte, keine Bilder.</p>
+        <p class="doc-desc">Dieselbe 16px-Box für beides; die Radio-Variante wird über <code>[type="radio"]</code> erkannt und wird zum Kreis mit Punkt. Die Marken sind <code>::after</code>-Inhalte, keine Bilder. Bricht ein Label um, bleibt die Box neben seiner ersten Zeile, wie in Notion.</p>
         <div class="doc-preview"><div style="display:flex;gap:32px;flex-wrap:wrap">
   <div>
     <label class="nk-check"><input type="checkbox" checked>Hell</label>
@@ -1038,6 +1039,9 @@ class NkCallout extends HTMLElement {
   <div>
     <label class="nk-check"><input type="radio" name="nkdemo" checked>Hell</label>
     <label class="nk-check"><input type="radio" name="nkdemo">System</label>
+  </div>
+  <div style="max-width:260px">
+    <label class="nk-check"><input type="checkbox" checked>Produktneuheiten und Einladungen zu Beta-Programmen, höchstens einmal im Monat – mit einem Klick abbestellbar.</label>
   </div>
 </div></div>
         
@@ -1049,6 +1053,9 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;label</span> <span class="attr">class=</span>"nk-check"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">type=</span>"radio" <span class="attr">name=</span>"nkdemo" checked<span class="tag">&gt;</span>Hell<span class="tag">&lt;/label</span><span class="tag">&gt;</span>
     <span class="tag">&lt;label</span> <span class="attr">class=</span>"nk-check"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">type=</span>"radio" <span class="attr">name=</span>"nkdemo"<span class="tag">&gt;</span>System<span class="tag">&lt;/label</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">style=</span>"max-width:260px"<span class="tag">&gt;</span>
+    <span class="tag">&lt;label</span> <span class="attr">class=</span>"nk-check"<span class="tag">&gt;</span><span class="tag">&lt;input</span> <span class="attr">type=</span>"checkbox" checked<span class="tag">&gt;</span>Produktneuheiten und Einladungen zu Beta-Programmen, höchstens einmal im Monat – mit einem Klick abbestellbar.<span class="tag">&lt;/label</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Das Label umschließt das Input, die ganze Zeile ist also die Trefferfläche.</span></div>
@@ -1368,9 +1375,9 @@ class NkCallout extends HTMLElement {
       <article class="doc-entry" id="nk-toast">
         <h3>Toast <code>.nk-toast</code></h3>
         <p class="doc-desc">Unten mittig fixiert, invertiert (Textfarbe als Hintergrund). Er sitzt außerhalb des Bildes, bis <code>.show</code> ergänzt wird, und fährt dann hoch. <code>pointer-events: none</code> verhindert, dass er Klicks abfängt.</p>
-        <div class="doc-preview"><div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex">✓ <span>Einstellungen gespeichert</span></div></div>
+        <div class="doc-preview"><div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>Einstellungen gespeichert</span></div></div>
         
-        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-toast show" <span class="attr">style=</span>"position:relative;bottom:auto;left:auto;transform:none;display:inline-flex"<span class="tag">&gt;</span>✓ <span class="tag">&lt;span</span><span class="tag">&gt;</span>Einstellungen gespeichert<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-toast show" <span class="attr">style=</span>"position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto"<span class="tag">&gt;</span>✓ <span class="tag">&lt;span</span><span class="tag">&gt;</span>Einstellungen gespeichert<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Per <code>translateX(-50%)</code> zentriert und bleibt es in jeder Breite.</span></div>
         <div class="doc-classes"><code>.nk-toast</code><code>.show</code></div>
       </article>
@@ -1541,22 +1548,22 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-empty">
         <h3>Leerzustand <code>.nk-empty</code></h3>
-        <p class="doc-desc">Ein gestrichelter Rahmen mit Icon, Titel und einer erklärenden Zeile. Gedacht für genau eine Aktion – den Weg aus dem Leerzustand heraus.</p>
+        <p class="doc-desc">Ein gestrichelter Rahmen mit Icon, Titel und einer erklärenden Zeile, darunter der Weg aus dem Leerzustand. Eine Aktion darf allein stehen; mehrere kommen in <code>.e-actions</code>, eine zentrierte Zeile, die mit 8px Abstand zwischen den Knöpfen umbricht.</p>
         <div class="doc-preview"><div class="nk-empty" style="max-width:420px">
   <div class="e-icon">🗂️</div>
   <div class="e-title">Noch keine Einträge</div>
   <div class="e-desc">Lege den ersten Eintrag an oder importiere vorhandene Daten.</div>
-  <button class="nk-btn secondary small">＋ Neuer Eintrag</button>
+  <div class="e-actions"><button class="nk-btn primary small">＋ Neuer Eintrag</button><button class="nk-btn secondary small">Importieren</button></div>
 </div></div>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-empty" <span class="attr">style=</span>"max-width:420px"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"e-icon"<span class="tag">&gt;</span>🗂️<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"e-title"<span class="tag">&gt;</span>Noch keine Einträge<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"e-desc"<span class="tag">&gt;</span>Lege den ersten Eintrag an oder importiere vorhandene Daten.<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
-  <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn secondary small"<span class="tag">&gt;</span>＋ Neuer Eintrag<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"e-actions"<span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn primary small"<span class="tag">&gt;</span>＋ Neuer Eintrag<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn secondary small"<span class="tag">&gt;</span>Importieren<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Zentriert und fließend; das Padding folgt dem Container.</span></div>
-        <div class="doc-classes"><code>.nk-empty</code><code>.e-icon</code><code>.e-title</code><code>.e-desc</code></div>
+        <div class="doc-classes"><code>.nk-empty</code><code>.e-icon</code><code>.e-title</code><code>.e-desc</code><code>.e-actions</code></div>
       </article>
     </section>
     <section class="doc-group" id="collab">

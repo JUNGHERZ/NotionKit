@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.5.1) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.5.2) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -648,7 +648,7 @@ Works two ways: as an `<input type="checkbox">` via `:checked`, or as a `<button
 
 ### Checkbox & radio — `.nk-check`
 
-The same 16px box for both; the radio variant is detected by `[type="radio"]` and becomes a circle with a dot. Marks are `::after` content, not images.
+The same 16px box for both; the radio variant is detected by `[type="radio"]` and becomes a circle with a dot. Marks are `::after` content, not images. A label that wraps keeps the box beside its first line, as Notion does.
 
 ```html
 <div>
@@ -659,6 +659,9 @@ The same 16px box for both; the radio variant is detected by `[type="radio"]` an
   <div>
     <label class="nk-check"><input type="radio" name="nkdemo" checked>Light</label>
     <label class="nk-check"><input type="radio" name="nkdemo">System</label>
+  </div>
+  <div>
+    <label class="nk-check"><input type="checkbox" checked>Product news and invitations to beta programmes, at most once a month – unsubscribe with one click.</label>
   </div>
 </div>
 ```
@@ -1060,18 +1063,18 @@ A shimmering placeholder. Set width and height yourself. Under `prefers-reduced-
 
 ### Empty state — `.nk-empty`
 
-A dashed frame with icon, title and one explanatory line. Meant to hold exactly one action — the way out of the empty state.
+A dashed frame with icon, title and one explanatory line, then the way out of the empty state. One action can stand on its own; several go into `.e-actions`, a centred row that wraps with 8px between the buttons.
 
 ```html
 <div class="nk-empty">
   <div class="e-icon">🗂️</div>
   <div class="e-title">No entries yet</div>
   <div class="e-desc">Create the first entry or import existing data.</div>
-  <button class="nk-btn secondary small">＋ New entry</button>
+  <div class="e-actions"><button class="nk-btn primary small">＋ New entry</button><button class="nk-btn secondary small">Import</button></div>
 </div>
 ```
 
-- **Classes:** `.nk-empty`, `.e-icon`, `.e-title`, `.e-desc`
+- **Classes:** `.nk-empty`, `.e-icon`, `.e-title`, `.e-desc`, `.e-actions`
 - **On a small screen:** Centred and fluid; padding drops naturally with the container.
 
 ## Collaboration & AI (PRD 5.10)
@@ -1176,6 +1179,7 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 
 | Class / attribute | Applies to | Effect |
 |---|---|---|
+| `[hidden]` | `[class*="nk-"]`, `::slotted(*)` | Hides, always – also on components that set their own display, which beat the browser rule before 1.5.2. hidden="until-found" keeps the browser’s find-in-page reveal. |
 | `active` | `nk-tree-item`, `nk-db-tab`, `nk-tab`, `nk-tab-bar-item`, `nk-settings-pane`, `nk-segmented button`, `nk-emoji-cats span`, `nk-board`, `nk-bubble-menu button` | Marks the current item. Tree items and view tabs get the active background, .nk-tab gets the underline, panes become visible. |
 | `open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-toggle-arrow` | Fades the overlay in and makes it interactive; rotates the toggle arrow by 90°. |
 | `collapsed` | `nk-tree-children` | Folds a subtree away with display: none. |
@@ -1724,7 +1728,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-toast` `show` |
-| Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` |
+| Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` |
 | Collaboration & AI | `nk-comments` `nk-comment` `c-head` `c-body` `nk-comment-input` `nk-ai-thread` `nk-ai-msg` `user` `a-name` `a-body` `nk-ai-actions` `nk-ai-input-row` `nk-ai-send` |
 | Editor adapter | `nk-block-host` `nk-block-handle` `nk-block-actions` `nk-drop-target` `nk-slash-menu` `nk-slash-menu-label` `nk-slash-item` `selected` `nk-bubble-menu` |
 
@@ -1783,4 +1787,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.5.1 · MIT · Jungherz GmbH*
+*NotionKit v1.5.2 · MIT · Jungherz GmbH*

@@ -463,8 +463,8 @@ export const CATALOG = [
   id: 'nk-check', group: 'forms', classes: ['nk-check'],
   title: { en: 'Checkbox & radio', de: 'Checkbox & Radio' },
   desc: {
-    en: 'The same 16px box for both; the radio variant is detected by <code>[type="radio"]</code> and becomes a circle with a dot. Marks are <code>::after</code> content, not images.',
-    de: 'Dieselbe 16px-Box für beides; die Radio-Variante wird über <code>[type="radio"]</code> erkannt und wird zum Kreis mit Punkt. Die Marken sind <code>::after</code>-Inhalte, keine Bilder.',
+    en: 'The same 16px box for both; the radio variant is detected by <code>[type="radio"]</code> and becomes a circle with a dot. Marks are <code>::after</code> content, not images. A label that wraps keeps the box beside its first line, as Notion does.',
+    de: 'Dieselbe 16px-Box für beides; die Radio-Variante wird über <code>[type="radio"]</code> erkannt und wird zum Kreis mit Punkt. Die Marken sind <code>::after</code>-Inhalte, keine Bilder. Bricht ein Label um, bleibt die Box neben seiner ersten Zeile, wie in Notion.',
   },
   mobile: { en: 'The label wraps the input, so the whole row is the tap target.', de: 'Das Label umschließt das Input, die ganze Zeile ist also die Trefferfläche.' },
   html: W => `<div style="display:flex;gap:32px;flex-wrap:wrap">
@@ -475,6 +475,9 @@ export const CATALOG = [
   <div>
     <label class="nk-check"><input type="radio" name="nkdemo" checked>${W.option1}</label>
     <label class="nk-check"><input type="radio" name="nkdemo">${W.option3}</label>
+  </div>
+  <div style="max-width:260px">
+    <label class="nk-check"><input type="checkbox" checked>${W.consentLong}</label>
   </div>
 </div>`,
 },
@@ -720,7 +723,7 @@ export const CATALOG = [
     de: 'Unten mittig fixiert, invertiert (Textfarbe als Hintergrund). Er sitzt außerhalb des Bildes, bis <code>.show</code> ergänzt wird, und fährt dann hoch. <code>pointer-events: none</code> verhindert, dass er Klicks abfängt.',
   },
   mobile: { en: 'Centred by <code>translateX(-50%)</code>, so it stays centred at any width.', de: 'Per <code>translateX(-50%)</code> zentriert und bleibt es in jeder Breite.' },
-  html: W => `<div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex">✓ <span>${W.toastMsg}</span></div>`,
+  html: W => `<div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>${W.toastMsg}</span></div>`,
 }
 ,
 // ============================================================ 5.9 GALLERY
@@ -855,18 +858,18 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-empty', group: 'gallery', classes: ['nk-empty', 'e-icon', 'e-title', 'e-desc'],
+  id: 'nk-empty', group: 'gallery', classes: ['nk-empty', 'e-icon', 'e-title', 'e-desc', 'e-actions'],
   title: { en: 'Empty state', de: 'Leerzustand' },
   desc: {
-    en: 'A dashed frame with icon, title and one explanatory line. Meant to hold exactly one action — the way out of the empty state.',
-    de: 'Ein gestrichelter Rahmen mit Icon, Titel und einer erklärenden Zeile. Gedacht für genau eine Aktion – den Weg aus dem Leerzustand heraus.',
+    en: 'A dashed frame with icon, title and one explanatory line, then the way out of the empty state. One action can stand on its own; several go into <code>.e-actions</code>, a centred row that wraps with 8px between the buttons.',
+    de: 'Ein gestrichelter Rahmen mit Icon, Titel und einer erklärenden Zeile, darunter der Weg aus dem Leerzustand. Eine Aktion darf allein stehen; mehrere kommen in <code>.e-actions</code>, eine zentrierte Zeile, die mit 8px Abstand zwischen den Knöpfen umbricht.',
   },
   mobile: { en: 'Centred and fluid; padding drops naturally with the container.', de: 'Zentriert und fließend; das Padding folgt dem Container.' },
   html: W => `<div class="nk-empty" style="max-width:420px">
   <div class="e-icon">🗂️</div>
   <div class="e-title">${W.emptyTitle}</div>
   <div class="e-desc">${W.emptyDesc}</div>
-  <button class="nk-btn secondary small">${W.emptyBtn}</button>
+  <div class="e-actions"><button class="nk-btn primary small">${W.emptyBtn}</button><button class="nk-btn secondary small">${W.importBtn}</button></div>
 </div>`,
 },
 // ============================================================ 5.10 COLLAB & AI

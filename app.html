@@ -278,7 +278,7 @@
               <div class="e-icon">🗂️</div>
               <div class="e-title">No entries yet</div>
               <div class="e-desc">Create the first entry or import existing data.</div>
-              <button class="nk-btn primary small">＋ New entry</button>
+              <div class="e-actions"><button class="nk-btn primary small" id="emptyNew">＋ New entry</button><button class="nk-btn secondary small" id="emptyImport">Import</button></div>
             </div>
           </div>
 
@@ -486,7 +486,7 @@
         <h3>By email</h3>
         <label class="nk-check"><input type="checkbox" checked> Mentions and comments</label>
         <label class="nk-check"><input type="checkbox" checked> Weekly digest</label>
-        <label class="nk-check"><input type="checkbox"> Product news</label>
+        <label class="nk-check"><input type="checkbox"> Product news and invitations to beta programmes – at most once a month, and you can unsubscribe with a single click at any time</label>
         <h3>Push</h3>
         <div class="nk-field">
           <div><div class="f-label">Push notifications</div><div class="f-desc">Straight in the browser when shared pages see activity.</div></div>
@@ -905,6 +905,10 @@
     const inp = document.getElementById("aiInput");
     if (inp.value.trim()) { showToast("Mona is thinking …"); inp.value = ""; }
   });
+
+  /* ============ Empty state ============ */
+  document.getElementById("emptyNew").addEventListener("click", () => showToast("New entry"));
+  document.getElementById("emptyImport").addEventListener("click", () => showToast("Import started"));
 
   /* ============ Toast ============ */
   let toastTimer;

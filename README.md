@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.5.1-2383e2?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.5.2-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
   <img src="https://img.shields.io/badge/components-~100-448361?style=flat-square" alt="Components">
   <img src="https://img.shields.io/badge/gzip-9.1%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.5.1-9065b0?style=flat-square" alt="Changelog"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.5.2-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
   <a href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit/"><img src="https://img.shields.io/badge/CDN-jsDelivr-blue?style=flat-square" alt="jsDelivr"></a>
 </p>
@@ -77,7 +77,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 Pin a version for production:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.5.1/notionkit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.5.2/notionkit.min.css">
 ```
 
 ### npm / yarn / pnpm
@@ -360,6 +360,7 @@ notionkit/
 ├── elements-poc.html        # Web-components proof of concept
 ├── nk-callout.js            #   … its two elements
 ├── tools/                   # Page/SKILL generators, catalog, contrast helper
+├── test/                    # Playwright regression tests for the stylesheet
 └── .github/workflows/       # verify-build · release · pages
 ```
 
@@ -369,6 +370,7 @@ notionkit/
 npm install
 npm run build            # minify, split, pages, SKILL.md
 npm run check:coverage   # every class documented?
+npm test                 # regression tests (once: npx playwright install chromium)
 npx http-server -p 8080 -c-1
 ```
 
@@ -441,6 +443,7 @@ The floor is set by `color-mix()` and constructable stylesheets. `:where()`, `in
 
 | Class / attribute | Applies to | Effect |
 |---|---|---|
+| `hidden` (attribute) | every nk- element and slotted node | Hidden, always – even where a component sets its own `display` |
 | `.active` | `nk-tree-item`, `nk-db-tab`, `nk-tab`, `nk-settings-pane`, `nk-segmented button`, `nk-board` | Where the user is |
 | `.open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-toggle-arrow` | Overlay visible / arrow rotated |
 | `.collapsed` | `nk-tree-children` | Subtree folded |
@@ -448,8 +451,8 @@ The floor is set by `color-mix()` and constructable stylesheets. `:where()`, `in
 | `.show` | `nk-toast` | Toast slides in |
 | `aria-checked="true"` | `nk-switch` (button form) | Switch on |
 | `.primary` `.secondary` `.danger` `.danger-solid` `.small` | `nk-btn` | Button variants |
-| `.blue` `.green` `.orange` `.purple` | `nk-tag` | Tag colours |
-| `.info` `.success` `.warning` | `nk-banner` | Banner tones |
+| `.gray` `.brown` `.orange` `.yellow` `.green` `.blue` `.purple` `.pink` `.red` | `nk-tag` | Notion's nine select colours; gray is also the default |
+| `.info` `.success` `.warning` `.danger` | `nk-banner` | Banner tones |
 
 NotionKit ships states, not behaviour: toggle these yourself. The demo pages contain reference implementations in plain JavaScript.
 

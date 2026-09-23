@@ -97,6 +97,9 @@ export const TOKEN_MEANING = {
 };
 
 export const STATES = [
+  { cls: '[hidden]', on: '[class*="nk-"], ::slotted(*)',
+    en: 'Hides, always – also on components that set their own display, which beat the browser rule before 1.5.2. hidden="until-found" keeps the browser’s find-in-page reveal.',
+    de: 'Blendet aus, immer – auch Komponenten mit eigenem display, die vor 1.5.2 die Browser-Regel schlugen. hidden="until-found" behält das Aufdecken per Seitensuche des Browsers.' },
   { cls: 'active', on: 'nk-tree-item, nk-db-tab, nk-tab, nk-tab-bar-item, nk-settings-pane, nk-segmented button, nk-emoji-cats span, nk-board, nk-bubble-menu button',
     en: 'Marks the current item. Tree items and view tabs get the active background, .nk-tab gets the underline, panes become visible.',
     de: 'Markiert das aktuelle Element. Baum-Einträge und View-Reiter bekommen den Aktiv-Hintergrund, .nk-tab die Unterlinie, Panes werden sichtbar.' },
