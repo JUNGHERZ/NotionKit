@@ -4,6 +4,36 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.7.1] – 2026-09-24
+
+A fix for the minified files. `notionkit.css` was right; `notionkit.min.css`
+and `notionkit-styles.js` – what the CDN link in the docs and NotionKit
+Elements load – were not.
+
+### Fixed
+- **Phone rules applied on every screen in the minified files.** clean-css
+  did not know `@starting-style`, new in 1.7.0: it closed the 860px block at
+  the sidebar drawer, so every phone rule after it – the tab bar, the page's
+  side padding, the collapsed breadcrumb, stacked properties and fields, the
+  sheet presentation of menus – applied on the desktop too. It also dropped
+  the four `@starting-style` blocks and the transitions with
+  `allow-discrete`. Only 1.7.0 is affected.
+- **Reduced motion in the minified files.** Since 1.0.0 clean-css wrote the
+  `.01ms` durations of the reduced-motion block as `NaNs`, which browsers
+  discard: with `notionkit.min.css`, and in NotionKit Elements, transitions
+  kept their full length for people who asked for less motion.
+
+### Changed
+- **esbuild minifies instead of clean-css.** It keeps every rule where it
+  stands and only writes numbers and spaces shorter. Gzipped the file is
+  11.7 KB, 84 % of the budget; the 11.5 KB of 1.7.0 was the broken output.
+- **The build checks the minifier.** `build-styles-js.mjs` counts the
+  at-rules, `!important` and `allow-discrete` in the source and in the
+  output and refuses `NaN`; `test/minified.spec.mjs` parses both in
+  Chromium and compares every declaration with its selector and at-rules,
+  and checks that the tokens and components of `notionkit-styles.js`
+  together are the source. Either would have stopped 1.7.0.
+
 ## [1.7.0] – 2026-09-23
 
 Mobile and filter: on a phone the surface becomes an app – menus come up

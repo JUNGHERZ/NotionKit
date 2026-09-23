@@ -27,6 +27,26 @@ import { readFileSync, writeFileSync } from 'fs';
 const pkg = JSON.parse(readFileSync('package.json', 'utf-8'));
 const css = readFileSync('notionkit.min.css', 'utf-8');
 
+// ---- The minifier kept everything -----------------------------------------
+// clean-css, used up to 1.7.0, did not know @starting-style: it closed the
+// 860px block early, so the phone rules after it applied everywhere, and it
+// turned the reduced-motion durations into `NaNs`. Count what a minifier
+// must never lose – at-rules, !important, allow-discrete – in the source
+// (comments stripped) and in the output. test/minified.spec.mjs compares
+// every declaration in a browser.
+const source = readFileSync('notionkit.css', 'utf-8').replace(/\/\*[\s\S]*?\*\//g, '');
+const minified = css.replace(/\/\*[\s\S]*?\*\//g, '');
+const count = (text, re) => (text.match(re) || []).length;
+for (const [what, re] of [
+  ['@media', /@media\b/g], ['@starting-style', /@starting-style\b/g], ['@keyframes', /@keyframes\b/g],
+  ['@supports', /@supports\b/g], ['@layer', /@layer\b/g], ['@container', /@container\b/g],
+  ['!important', /!\s*important\b/g], ['allow-discrete', /\ballow-discrete\b/g],
+]) {
+  const [want, got] = [count(source, re), count(minified, re)];
+  if (want !== got) throw new Error(`Minifier check failed: ${what} appears ${want}× in notionkit.css but ${got}× in notionkit.min.css`);
+}
+if (/\bNaN/.test(minified)) throw new Error('Minifier check failed: notionkit.min.css contains NaN');
+
 // ---- Split off the token blocks -------------------------------------------
 // Both selectors appear exactly once in the minified output. The dark block is
 // matched with its brace attached so that any `[data-theme=dark] .nk-*`

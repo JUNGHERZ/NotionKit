@@ -1,6 +1,6 @@
 {
   "name": "@jungherz-de/notionkit",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "type": "module",
   "description": "A calm, document-centric CSS component library in the Notion idiom – sidebar, page tree, database views, settings and AI surfaces. ~100 components, light & dark mode, no dependencies.",
   "main": "notionkit.css",
@@ -16,7 +16,7 @@
     "SKILL.md"
   ],
   "scripts": {
-    "minify": "cleancss -O2 --source-map -o notionkit.min.css notionkit.css",
+    "minify": "esbuild notionkit.css --minify --sourcemap --outfile=notionkit.min.css --log-level=warning",
     "build:styles-js": "node build-styles-js.mjs",
     "build:pages": "node tools/build-landing.mjs && node tools/build-pages.mjs",
     "build:skill": "node tools/build-skill.mjs",
@@ -53,7 +53,7 @@
     "url": "https://github.com/JUNGHERZ/NotionKit/issues"
   },
   "devDependencies": {
-    "clean-css-cli": "^5.6.3",
-    "@playwright/test": "^1.50.0"
+    "@playwright/test": "^1.50.0",
+    "esbuild": "^0.28.2"
   }
 }
