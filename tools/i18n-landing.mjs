@@ -41,7 +41,7 @@ export const LANDING = {
     familyLead: 'NotionKit is the CSS foundation of a three-layer family. The layers share one design language and one naming stem: <code class="nk-inline-code">.nk-callout</code> becomes <code class="nk-inline-code">&lt;nk-callout&gt;</code>.',
     family: [
       ['NotionKit', 'CSS foundation', 'This project. <code class="nk-inline-code">.nk-*</code> classes and <code class="nk-inline-code">--nk-*</code> tokens for any stack.', null, 'https://github.com/JUNGHERZ/NotionKit'],
-      ['NotionKit Elements', 'Web components', '74 vanilla-JS custom elements that wrap this markup — Shadow DOM, native form participation, pixel parity with the class markup. Built on the constructable stylesheet shipped here.', 'https://notionkit-elements.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Elements'],
+      ['NotionKit Elements', 'Web components', '77 vanilla-JS custom elements that wrap this markup — Shadow DOM, native form participation, pixel parity with the class markup. Built on the constructable stylesheet shipped here.', 'https://notionkit-elements.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Elements'],
       ['NotionKit Web', 'Astro template', 'A complete website template — documentation, knowledge bases, product pages and blogs — on the same foundation. Bilingual, tested, no external requests.', 'https://notionkit-web.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Web'],
     ],
     statusAvailable: 'Available now', linkSite: 'Website', linkRepo: 'GitHub', linkThis: 'You are here',
@@ -85,7 +85,7 @@ export const LANDING = {
     familyLead: 'NotionKit ist die CSS-Grundlage einer dreischichtigen Familie. Die Schichten teilen eine Design-Sprache und einen Namensstamm: aus <code class="nk-inline-code">.nk-callout</code> wird <code class="nk-inline-code">&lt;nk-callout&gt;</code>.',
     family: [
       ['NotionKit', 'CSS-Grundlage', 'Dieses Projekt. <code class="nk-inline-code">.nk-*</code>-Klassen und <code class="nk-inline-code">--nk-*</code>-Tokens für jeden Stack.', null, 'https://github.com/JUNGHERZ/NotionKit'],
-      ['NotionKit Elements', 'Web Components', '74 Vanilla-JS-Custom-Elements, die dieses Markup kapseln — Shadow DOM, native Formularteilnahme, Pixelgleichheit mit dem Klassen-Markup. Gebaut auf dem hier ausgelieferten Constructable Stylesheet.', 'https://notionkit-elements.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Elements'],
+      ['NotionKit Elements', 'Web Components', '77 Vanilla-JS-Custom-Elements, die dieses Markup kapseln — Shadow DOM, native Formularteilnahme, Pixelgleichheit mit dem Klassen-Markup. Gebaut auf dem hier ausgelieferten Constructable Stylesheet.', 'https://notionkit-elements.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Elements'],
       ['NotionKit Web', 'Astro-Template', 'Ein komplettes Website-Template — Dokumentationen, Wissensdatenbanken, Produktseiten und Blogs — auf derselben Grundlage. Zweisprachig, getestet, ohne externe Requests.', 'https://notionkit-web.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Web'],
     ],
     statusAvailable: 'Jetzt verfügbar', linkSite: 'Website', linkRepo: 'GitHub', linkThis: 'Du bist hier',

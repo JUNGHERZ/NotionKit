@@ -48,7 +48,7 @@ NotionKit is a **pure CSS component library** in the idiom of Notion: the quiet,
 
 There is no established UI framework that ships the Notion look *as a system*. What exists are editors (BlockNote, Novel), generic component kits (shadcn/ui) or full clones. NotionKit fills the middle: an opinionated design system with a clear optical signature that lets you build your own product in that ecosystem – familiar feel, own application.
 
-NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements](https://notionkit-elements.jungherz.com) wraps this markup in 74 vanilla web components for application UIs, and [NotionKit Web](https://notionkit-web.jungherz.com) is the official Astro template for complete websites on the same foundation – three layers, one design language.
+NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements](https://notionkit-elements.jungherz.com) wraps this markup in 77 vanilla web components for application UIs, and [NotionKit Web](https://notionkit-web.jungherz.com) is the official Astro template for complete websites on the same foundation – three layers, one design language.
 
 <br>
 
@@ -401,7 +401,7 @@ NotionKit is the CSS foundation of a three-layer family. The layers share one de
 
 ### NotionKit Elements – the app layer
 
-If you want to use NotionKit through **drop-in web components** instead of writing the class markup yourself, take a look at **NotionKit Elements**: 74 vanilla-JS custom elements (`<nk-app>`, `<nk-sidebar>`, `<nk-tree-item>`, `<nk-callout>`, `<nk-database>`, `<nk-cmdk>`, `<nk-block-host>` …) with Shadow DOM, native form participation and pixel parity with the class markup – built on the constructable stylesheet shipped here. The [proof of concept](elements-poc.html) in this repository is its seed.
+If you want to use NotionKit through **drop-in web components** instead of writing the class markup yourself, take a look at **NotionKit Elements**: 77 vanilla-JS custom elements (`<nk-app>`, `<nk-sidebar>`, `<nk-tree-item>`, `<nk-callout>`, `<nk-database>`, `<nk-cmdk>`, `<nk-block-host>` …) with Shadow DOM, native form participation and pixel parity with the class markup – built on the constructable stylesheet shipped here. The [proof of concept](elements-poc.html) in this repository is its seed.
 
 Useful links:
 - GitHub: https://github.com/JUNGHERZ/NotionKit-Elements
