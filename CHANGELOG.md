@@ -4,6 +4,15 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.11.1] – 2026-09-24
+
+### Fixed
+- **The package carries the source map it names.** Since 1.7.1 `notionkit.min.css` ends in `/*# sourceMappingURL=notionkit.min.css.map */`, but the map was not published: the CDN answered 404, and DevTools warned on every page that loads the stylesheet from there. `notionkit.min.css.map` ships now; its sources are included, so DevTools shows `notionkit.css` itself.
+- **The CSS in `notionkit-styles.js` names no source map.** It carried the same comment, and on a constructed sheet a relative map URL resolves against the page – DevTools looked for `notionkit.min.css.map` on the server of every app that adopts the sheet, NotionKit Elements' among them. The embedded copy has no file of its own, so the build drops the comment there.
+
+### Added
+- `npm run check:package`, in CI too: it packs the package without publishing and fails when an entry point, SKILL.md, CHANGELOG.md or a source map named by a shipped file is missing.
+
 ## [1.11.0] – 2026-09-24
 
 SupaGantt's first weeks on NotionKit Elements turned up thirteen findings; five reach into the stylesheet. A floating menu inside an open modal or dialog sits where it should, a floating menu never outgrows the window, the banner's action is a real button, fields can share a row, and a tooltip keeps its line breaks. Additive but for the banner on a phone, see Changed.

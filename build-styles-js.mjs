@@ -25,7 +25,10 @@
 import { readFileSync, writeFileSync } from 'fs';
 
 const pkg = JSON.parse(readFileSync('package.json', 'utf-8'));
-const css = readFileSync('notionkit.min.css', 'utf-8');
+// The map comment names a file next to notionkit.min.css. The CSS embedded
+// here has no file of its own: on a constructed sheet a relative map URL
+// sends DevTools to look for notionkit.min.css.map on the page's own server.
+const css = readFileSync('notionkit.min.css', 'utf-8').replace(/\/\*# sourceMappingURL=.*?\*\/\s*$/, '');
 
 // ---- The minifier kept everything -----------------------------------------
 // clean-css, used up to 1.7.0, did not know @starting-style: it closed the
@@ -97,6 +100,7 @@ const checks = [
   [componentsCss.includes('.nk-tree-item'), 'componentsCss lost the page-tree rules'],
   [componentsCss.includes('::slotted('), 'componentsCss lost the ::slotted() twins'],
   [tokensCss.length + componentsCss.length === css.length, 'split lost or duplicated bytes'],
+  [!css.includes('sourceMappingURL'), 'the embedded CSS still names a source map'],
 ];
 for (const [ok, message] of checks) {
   if (!ok) throw new Error(`Split check failed: ${message}`);

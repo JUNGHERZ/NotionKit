@@ -53,12 +53,13 @@ test('notionkit.min.css has every declaration of notionkit.css, in the same at-r
   expect({ lost: onlyA.slice(0, 12), added: onlyB.slice(0, 12) }).toEqual({ lost: [], added: [] });
 });
 
-test('notionkit-styles.js: css is the minified file, tokens and components together are the source', async ({ page }) => {
+test('notionkit-styles.js: css is the minified file without its map comment, tokens and components together are the source', async ({ page }) => {
   await page.goto('/test/fixtures/stage.html');
   const r = await page.evaluate(async (collectSrc) => {
     const parse = (0, eval)(`(${collectSrc})`)();
     const m = await import('/notionkit-styles.js');
-    const min = await fetch('/notionkit.min.css', { cache: 'no-store' }).then(r => r.text());
+    // The embedded copy has no file of its own, so it names no source map.
+    const min = (await fetch('/notionkit.min.css', { cache: 'no-store' }).then(r => r.text())).replace(/\/\*# sourceMappingURL=.*?\*\/\s*$/, '');
     const source = parse(await fetch('/notionkit.css', { cache: 'no-store' }).then(r => r.text()));
     return { same: m.css === min, source, split: [...parse(m.tokensCss), ...parse(m.componentsCss)].sort(), tokenRules: m.tokensSheet.cssRules.length };
   }, collect.toString());

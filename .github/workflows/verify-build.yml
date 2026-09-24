@@ -47,6 +47,9 @@ jobs:
       - name: Every version reference agrees with package.json
         run: npm run check:versions
 
+      - name: The package carries every file it points to
+        run: npm run check:package
+
       - name: Artifacts exist and carry the package version
         run: |
           set -e
