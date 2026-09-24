@@ -77,6 +77,7 @@ jobs:
           files: |
             notionkit.css
             notionkit.min.css
+            notionkit.min.css.map
             notionkit-styles.js
             theme-override.css
             SKILL.md
