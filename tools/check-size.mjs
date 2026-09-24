@@ -41,6 +41,13 @@ if (!line) problems.push('README: the "… KB raw / … KB minified / … KB gzi
 else if (line[1] !== claim.raw || line[2] !== claim.min || line[3] !== claim.gzip)
   problems.push(`README says ${line[1]} / ${line[2]} / ${line[3]} KB, the build is ${claim.raw} / ${claim.min} / ${claim.gzip} KB`);
 
+// The landing page shows the same number as its badge (build-landing.mjs
+// writes it from the build; this catches a stale generated page).
+for (const [file, dec] of [['index.html', '.'], ['de/index.html', ',']]) {
+  const tag = readFileSync(file, 'utf-8').match(/class="nk-tag orange">([\d.,]+) KB gzip</)?.[1];
+  if (tag !== claim.gzip.replace('.', dec)) problems.push(`${file} shows ${tag ?? 'no'} KB gzip, the build is ${claim.gzip} KB – run npm run build:pages`);
+}
+
 console.log(`notionkit.css ${size.raw} B · minified ${size.min} B (budget ${BUDGET.min}) · gzip ${size.gzip} B (budget ${BUDGET.gzip}, ${Math.round(size.gzip / BUDGET.gzip * 100)} %)`);
 if (problems.length) {
   for (const p of problems) console.error(`::error::${p}`);

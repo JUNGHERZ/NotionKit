@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.7.1-2383e2?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.8.0-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
   <img src="https://img.shields.io/badge/components-~140-448361?style=flat-square" alt="Components">
-  <img src="https://img.shields.io/badge/gzip-11.7%20KB-d9730d?style=flat-square" alt="Size">
+  <img src="https://img.shields.io/badge/gzip-12.2%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.7.1-9065b0?style=flat-square" alt="Changelog"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.8.0-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
   <a href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit/"><img src="https://img.shields.io/badge/CDN-jsDelivr-blue?style=flat-square" alt="jsDelivr"></a>
 </p>
@@ -61,7 +61,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 - 🧩 **Shadow DOM ready** – ships a constructable stylesheet split into tokens and components, plus `::slotted()` twins, so web components adopt it without breaking branding
 - ✍️ **Editor adapter** – no editor of its own; a themed adapter layer for TipTap, BlockNote and Novel inside `.nk-block-host`
 - 🤖 **AI-ready** – ships with [`SKILL.md`](SKILL.md), a structured reference for LLMs and coding agents, including eight complete app skeletons
-- 🪶 **Lightweight** – 97 KB raw / 63 KB minified / 11.7 KB gzipped, no dependencies. The budget is 14 KB gzipped, what a new connection delivers in its first round trip; CI keeps to it
+- 🪶 **Lightweight** – 103 KB raw / 67 KB minified / 12.2 KB gzipped, no dependencies. The budget is 14 KB gzipped, what a new connection delivers in its first round trip; CI keeps to it
 - 🎯 **Prefixed naming** – `nk-*` classes, `--nk-*` tokens, no unprefixed global rules
 
 ---
@@ -77,7 +77,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 Pin a version for production:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.7.1/notionkit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.8.0/notionkit.min.css">
 ```
 
 ### npm / yarn / pnpm
@@ -182,6 +182,7 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-props`, `nk-prop` (`p-name`, `p-icon`, `p-value`) | Page properties under the title, name beside value |
 | `nk-heading`, `p.lead` | Section heading, intro paragraph |
 | `nk-callout` (`c-icon`) | Tinted block with icon |
+| `nk-bookmark` (`bm-text`, `bm-title`, `bm-desc`, `bm-url`, `bm-favicon`, `bm-cover`) | Link block: title, description, address, preview image |
 | `nk-todo` | Checkbox with custom mark and strike-through |
 | `nk-toggle` (`toggle-body`) | `<details>`-based collapsible block |
 | `nk-divider`, `nk-quote` (`q-cite`) | Horizontal rule, block quote |
@@ -210,7 +211,9 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-check` | Checkbox and radio |
 | `nk-slider`, `nk-slider-value` | Native range input |
 | `nk-field` (`f-label`, `f-desc`, `f-control`, `stacked`, `compact`), `nk-fields` | Settings row, stacked field, field grid |
-| `nk-profile-row`, `nk-model-card` (`selected`), `nk-danger-zone`, `nk-member-list`, `nk-member-row` | Settings building blocks |
+| `nk-profile-row` (`big-avatar`, `square`, `pr-actions`, `pr-remove`) | Avatar or workspace icon with its actions; an `<img>` in it is a chosen picture |
+| `nk-copy-field` (`cf-value`, `cf-btn`, `copied`, `mono`, `wrap`, `wide`) | A value to copy – link, address, key – with its actions inside |
+| `nk-model-card` (`selected`), `nk-danger-zone`, `nk-member-list`, `nk-member-row` | Settings building blocks |
 | `nk-modal-backdrop` (`open`), `nk-modal`, `nk-settings-nav`, `nk-settings-user`, `nk-settings-content`, `nk-settings-pane` (`active`) | Settings modal |
 
 ### Overlays, productivity, collaboration
@@ -219,6 +222,7 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-pop`, `nk-menu`, `nk-menu-item` (`m-icon`, `m-shortcut`, `danger`), `nk-menu-sep`, `nk-menu-label` | Popover and context menu, a switch in a row sits on the right |
 | `nk-pop` (`floating`, `open`, `sheet`) | A menu that fades in like the palette and becomes a bottom sheet on a phone |
 | `nk-sheet-backdrop` (`open`), `nk-sheet` (`sh-grabber`, `sh-title`) | Bottom sheet, the phone's twin of the modal |
+| `nk-peek-backdrop` (`open`), `nk-peek` (`pk-bar`, `pk-body`) | Side peek: a row beside the table, a bottom sheet on a phone |
 | `nk-emoji-search`, `nk-emoji-grid`, `nk-emoji-cats` | Emoji picker |
 | `nk-cmdk-backdrop` (`open`), `nk-cmdk`, `nk-cmdk-input-row`, `nk-cmdk-list`, `nk-cmdk-group`, `nk-cmdk-item` (`selected`), `nk-cmdk-empty`, `nk-cmdk-footer` | Command palette |
 | `nk-toast` (`show`) | Toast |

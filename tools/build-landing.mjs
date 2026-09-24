@@ -1,4 +1,5 @@
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync } from 'fs';
+import { gzipSync } from 'zlib';
 import { LANDING, GROUPS } from './i18n-landing.mjs';
 import { CHROME_CSS, nav, head, THEME_JS } from './chrome.mjs';
 
@@ -27,6 +28,16 @@ const LANDING_CSS = `
 // width the frame gets (see .site-scaler in chrome.mjs).
 const DESKTOP_W = 1280, DESKTOP_H = 800, MOBILE_W = 390, MOBILE_H = 780;
 
+// The size badge comes from the build, so it cannot go stale again:
+// notionkit.min.css gzipped as check-size.mjs measures it (which also
+// checks this badge).
+function gzipTag(lang) {
+  if (!existsSync('notionkit.min.css')) return lang === 'de' ? '≤ 14 KB gzip' : '≤ 14 KB gzip';
+  const min = readFileSync('notionkit.min.css', 'utf-8').replace(/\/\*# sourceMappingURL=.*?\*\/\s*$/, '');
+  const kb = (gzipSync(min, { level: 9 }).length / 1024).toFixed(1);
+  return `${lang === 'de' ? kb.replace('.', ',') : kb} KB gzip`;
+}
+
 const build = (t, groups) => `${head(t, {
   title: t.title, desc: t.metaDesc, css: t.cssHref, page: 'index',
 })}
@@ -43,7 +54,7 @@ ${nav(t, 'index')}
     <span class="nk-tag blue">CSS only</span>
     <span class="nk-tag green">~100 ${t.lang === 'de' ? 'Komponenten' : 'components'}</span>
     <span class="nk-tag purple">Light &amp; Dark</span>
-    <span class="nk-tag orange">7.2 KB gzip</span>
+    <span class="nk-tag orange">${gzipTag(t.lang)}</span>
     <span class="nk-tag blue">MIT</span>
   </div>
   <div class="site-cta">
@@ -82,14 +93,14 @@ ${nav(t, 'index')}
       <div class="site-viewport">
         <div class="site-viewport-label">${t.respDesktop}</div>
         <div class="site-scaler" style="--site-w:${DESKTOP_W}px;aspect-ratio:${DESKTOP_W} / ${DESKTOP_H}">
-          <iframe src="${t.appSrc}#menu" title="${t.respDesktop}" loading="lazy" data-theme-sync
+          <iframe src="${t.appSrc}#peek" title="${t.respDesktop}" loading="lazy" data-theme-sync
                   style="width:${DESKTOP_W}px;height:${DESKTOP_H}px"></iframe>
         </div>
       </div>
       <div class="site-viewport mobile">
         <div class="site-viewport-label">${t.respMobile}</div>
         <div class="site-scaler" style="--site-w:${MOBILE_W}px;aspect-ratio:${MOBILE_W} / ${MOBILE_H}">
-          <iframe src="${t.appSrc}#menu" title="${t.respMobile}" loading="lazy" data-theme-sync
+          <iframe src="${t.appSrc}#peek" title="${t.respMobile}" loading="lazy" data-theme-sync
                   style="width:${MOBILE_W}px;height:${MOBILE_H}px"></iframe>
         </div>
       </div>

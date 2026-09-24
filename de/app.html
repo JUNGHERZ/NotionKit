@@ -108,6 +108,15 @@
           <div><strong>Leitidee:</strong> Optik &amp; Gerüst liefert NotionKit, den Editor hängt man über <em>&lt;nk-block-host&gt;</em> ein (z.&nbsp;B. BlockNote), die Daten kommen aus der eigenen API. Drei Ebenen, sauber getrennt.</div>
         </div>
 
+        <a class="nk-bookmark" href="https://notionkit.jungherz.com" target="_blank" rel="noopener">
+          <span class="bm-text">
+            <span class="bm-title">NotionKit – der ruhige Workspace-Look als CSS</span>
+            <span class="bm-desc">NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen.</span>
+            <span class="bm-url"><img class="bm-favicon" src="../favicon.svg" alt=""><span>https://notionkit.jungherz.com</span></span>
+          </span>
+          <span class="bm-cover"><img src="../covers/notionkit-og.jpg" alt=""></span>
+        </a>
+
         <h2 class="nk-heading">✅ Nächste Schritte</h2>
         <div class="nk-todo"><input type="checkbox" checked><span>Komponenten-Umfang skizzieren</span></div>
         <div class="nk-todo"><input type="checkbox" checked><span>Preview mit Light/Dark bauen</span></div>
@@ -453,11 +462,12 @@
       <!-- ===== Pane: Profil ===== -->
       <section class="nk-settings-pane active" id="pane-profil">
         <h2>Mein Profil</h2>
-        <div class="nk-profile-row">
+        <div class="nk-profile-row" data-picker data-max="512">
           <div class="big-avatar">MK</div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <button class="nk-btn secondary small">Bild hochladen</button>
-            <button class="nk-btn secondary small" style="color:var(--nk-text-tertiary)">Entfernen</button>
+          <div class="pr-actions">
+            <button class="nk-btn secondary small" data-choose>Bild hochladen</button>
+            <button class="nk-btn secondary small pr-remove" hidden>Entfernen</button>
+            <input type="file" accept="image/*" hidden>
           </div>
         </div>
         <h3>Angaben</h3>
@@ -600,8 +610,25 @@
           <div class="f-control"><input class="nk-input" value="MonaHilft"></div>
         </div>
         <div class="nk-field">
+          <div><div class="f-label">Icon</div><div class="f-desc">Erscheint in der Sidebar und auf geteilten Seiten.</div></div>
+          <div class="f-control">
+            <div class="nk-profile-row" data-picker data-max="256" data-type="image/png">
+              <div class="big-avatar square">M</div>
+              <div class="pr-actions">
+                <button class="nk-btn secondary small" data-choose>Bild hochladen</button>
+                <button class="nk-btn secondary small pr-remove" hidden>Entfernen</button>
+                <input type="file" accept="image/*" hidden>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nk-field">
           <div><div class="f-label">Domain</div><div class="f-desc">Öffentliche Seiten erscheinen unter dieser Adresse.</div></div>
           <div class="f-control"><input class="nk-input" value="monahilft.notionkit.app"></div>
+        </div>
+        <div class="nk-field">
+          <div><div class="f-label">Öffentliche Adresse</div><div class="f-desc">Hier erreichen Besucher die geteilten Seiten.</div></div>
+          <div class="f-control"><div class="nk-copy-field"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn" data-copy>Kopieren</button></div></div>
         </div>
         <div class="nk-field">
           <div><div class="f-label">Öffentliche Startseite</div><div class="f-desc">Besucher dürfen freigegebene Seiten ohne Login sehen.</div></div>
@@ -705,6 +732,38 @@
   </div>
 </div>
 
+<!-- ================= SIDE PEEK ================= -->
+<!-- Not id="peek": #peek opens it, and a fragment target takes the focus. -->
+<div class="nk-peek-backdrop" id="sidePeek">
+  <aside class="nk-peek" role="dialog" aria-labelledby="peekTitle" tabindex="-1">
+    <div class="pk-bar">
+      <button class="nk-topbar-btn" id="peekClose" aria-label="Schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button>
+      <button class="nk-topbar-btn" id="peekOpen" aria-label="Als Seite öffnen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+    </div>
+    <div class="pk-body">
+      <h1 class="nk-page-title" id="peekTitle"></h1>
+      <dl class="nk-props">
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value" data-peek="status"></dd></div>
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>Verantwortlich</dt><dd class="p-value" data-peek="owner"></dd></div>
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Fällig</dt><dd class="p-value" data-peek="due"></dd></div>
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Fortschritt</dt><dd class="p-value" data-peek="progress"></dd></div>
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">#</span>Aufwand (h)</dt><dd class="p-value" data-peek="effort"></dd></div>
+      </dl>
+      <div class="nk-prose" id="peekNotes"></div>
+      <div class="nk-comments">
+        <div class="nk-comment">
+          <span class="nk-avatar green">SL</span>
+          <div>
+            <div class="c-head"><b>Sara Lindt</b> · vor 1 Std.</div>
+            <div class="c-body">Sieht gut aus – das nehmen wir ins nächste Release.</div>
+          </div>
+        </div>
+        <div class="nk-comment-input"><input class="nk-input" placeholder="Kommentieren …"><button class="nk-btn primary small">Senden</button></div>
+      </div>
+    </div>
+  </aside>
+</div>
+
 <div class="nk-toast" id="toast">✓ <span id="toastMsg"></span></div>
 
 <script>
@@ -735,7 +794,7 @@
   function renderTable() {
     tbody.innerHTML = rows().map(p => `
       <tr>
-        <td><span class="row-title">${p.icon} ${p.name}</span></td>
+        <td><span class="row-title" data-p="${projects.indexOf(p)}">${p.icon} ${p.name}</span></td>
         <td><span class="nk-tag ${p.tag}">${p.status}</span></td>
         <td><span class="person-cell">${p.owner !== "—"
             ? `<span class="nk-avatar small">${p.owner}</span> Marcel`
@@ -749,7 +808,7 @@
   /* ============ List rendern ============ */
   const list = document.getElementById("view-list");
   function renderList() {
-    list.innerHTML = rows().map(p => `<div class="nk-list-item">
+    list.innerHTML = rows().map(p => `<div class="nk-list-item" data-p="${projects.indexOf(p)}">
       <span class="l-icon">${p.icon}</span><span class="l-title">${p.name}</span>
       <span class="l-meta">${p.due} <span class="nk-tag ${p.tag}">${p.status}</span></span>
     </div>`).join("");
@@ -767,7 +826,7 @@
       const cards = rows().filter(p => p.status === c.label);
       return `<div class="nk-board-col">
         <div class="nk-board-col-header"><span class="nk-tag ${c.tag}">${c.label}</span><span class="count">${cards.length}</span></div>
-        ${cards.map(p => `<div class="nk-card" draggable="true">
+        ${cards.map(p => `<div class="nk-card" draggable="true" data-p="${projects.indexOf(p)}">
           <div class="card-title">${p.icon} ${p.name}</div>
           <div class="card-meta"><span>📅 ${p.due}</span><span>▰ ${p.progress}%</span></div>
         </div>`).join("")}
@@ -1192,7 +1251,105 @@
   });
   document.getElementById("aiTest").addEventListener("click", () => { if (!modelSteps.hidden) setStep(4); showToast("Verbindung steht"); });
 
-  /* ============ Anchors: #menu, #filter, #more, #settings open that state ============ */
+  /* ============ Side peek: a row beside the table ============ */
+  // A click on a row's title, a card or a list item opens it at the right
+  // edge, next to the table that stays usable; on a phone it is a sheet.
+  // », Escape or a click elsewhere close it; a click on another row swaps it.
+  const peek = document.getElementById("sidePeek");
+  const PEEK_NOTES = [
+    ["Die Hülle, in der jede andere Ansicht lebt: Sidebar, Seitenbaum und Topbar.", ["Ein Baum mit Unterseiten, die sich falten", "Eine Schublade hinter dem ☰ auf dem Telefon"]],
+    ["Die Seitenspalte mit Cover, Icon, Titel und Eigenschaften, gesetzt in Notions Schriftstufen.", ["16px Dokumenttext neben 14px Bedienelementen", "Volle Breite und kleiner Text je Seite"]],
+    ["Tabelle, Board und Liste lesen dieselben Zeilen; Filter und Sortierung wirken auf alle drei.", ["Eine Werkzeugleiste mit Filter-Pills", "Ein Side Peek für jede Zeile – dieses Panel"]],
+    ["Karten nach Status gruppiert, per Drag-and-Drop zwischen den Spalten verschoben.", ["Eine Spalte je Status-Option", "Eine Karte öffnet sich im Side Peek"]],
+  ];
+  let peekReturn = null;
+  function openPeek(i) {
+    const p = projects[i];
+    document.getElementById("peekTitle").textContent = `${p.icon} ${p.name}`;
+    const set = (k, html) => { peek.querySelector(`[data-peek="${k}"]`).innerHTML = html; };
+    set("status", `<span class="nk-tag ${p.tag}">${p.status}</span>`);
+    set("owner", p.owner !== "—" ? '<span class="nk-avatar small">MK</span>Marcel' : "—");
+    set("due", p.due);
+    set("progress", `<span class="nk-progress wide"><i style="width:${p.progress}%"></i></span><span class="nk-progress-label">${p.progress} %</span>`);
+    set("effort", p.effort.toLocaleString("de", { minimumFractionDigits: 1 }));
+    const [text, points] = PEEK_NOTES[i];
+    document.getElementById("peekNotes").innerHTML = `<p>${text}</p><ul>${points.map(x => `<li>${x}</li>`).join("")}</ul>`;
+    if (!peek.classList.contains("open")) peekReturn = document.activeElement;
+    peek.classList.add("open");
+    requestAnimationFrame(() => peek.querySelector(".nk-peek").focus({ preventScroll: true }));
+  }
+  function closePeek() {
+    if (!peek.classList.contains("open")) return;
+    peek.classList.remove("open");
+    if (peekReturn && peekReturn !== document.body) peekReturn.focus({ preventScroll: true });
+    peekReturn = null;
+  }
+  document.querySelector(".nk-database").addEventListener("click", e => {
+    const row = e.target.closest("[data-p]");
+    if (row) openPeek(+row.dataset.p);
+  });
+  document.addEventListener("click", e => {
+    if (!peek.classList.contains("open") || e.target.closest(".nk-peek, [data-p], .nk-pop, .nk-modal-backdrop, .nk-sheet-backdrop")) return;
+    closePeek();
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closePeek(); });
+  document.getElementById("peekClose").addEventListener("click", closePeek);
+  document.getElementById("peekOpen").addEventListener("click", () => showToast("Öffnet sich als ganze Seite"));
+
+  /* ============ Pictures: profile and workspace icon ============ */
+  // The file is read with its EXIF rotation, drawn no larger than data-max
+  // and kept as a data URL; the input is cleared, so the same file can be
+  // chosen again.
+  async function readPicture(file, max, type) {
+    const bitmap = await createImageBitmap(file, { imageOrientation: "from-image" });
+    const scale = Math.min(1, max / Math.max(bitmap.width, bitmap.height));
+    const canvas = Object.assign(document.createElement("canvas"), { width: Math.max(1, Math.round(bitmap.width * scale)), height: Math.max(1, Math.round(bitmap.height * scale)) });
+    const ctx = canvas.getContext("2d");
+    if (type === "image/jpeg") { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+    ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    bitmap.close();
+    return canvas.toDataURL(type, 0.82);
+  }
+  document.querySelectorAll("[data-picker]").forEach(row => {
+    const avatar = row.querySelector(".big-avatar"), input = row.querySelector("input[type=file]");
+    const choose = row.querySelector("[data-choose]"), remove = row.querySelector(".pr-remove"), initials = avatar.textContent;
+    choose.addEventListener("click", () => input.click());
+    input.addEventListener("change", async () => {
+      const file = input.files[0];
+      input.value = "";
+      if (!file) return;
+      try {
+        const url = await readPicture(file, +row.dataset.max || 512, row.dataset.type || "image/jpeg");
+        avatar.replaceChildren(Object.assign(document.createElement("img"), { src: url, alt: "" }));
+        remove.hidden = false;
+        choose.textContent = "Bild ändern";
+        showToast("Bild aktualisiert");
+      } catch { showToast("Diese Datei lässt sich nicht lesen"); }
+    });
+    remove.addEventListener("click", () => {
+      avatar.textContent = initials;
+      remove.hidden = true;
+      choose.textContent = "Bild hochladen";
+      choose.focus();
+      showToast("Bild entfernt");
+    });
+  });
+
+  /* ============ Copy field ============ */
+  document.querySelectorAll(".nk-copy-field [data-copy]").forEach(btn => btn.addEventListener("click", async () => {
+    const value = btn.closest(".nk-copy-field").querySelector(".cf-value");
+    try {
+      await navigator.clipboard.writeText(value.textContent);
+      btn.textContent = "Kopiert"; btn.classList.add("copied");
+      showToast("Adresse kopiert");
+      setTimeout(() => { btn.textContent = "Kopieren"; btn.classList.remove("copied"); }, 1500);
+    } catch {
+      getSelection().selectAllChildren(value);
+      showToast("Adresse markieren und mit ⌘C kopieren");
+    }
+  }));
+
+  /* ============ Anchors: #menu, #filter, #more, #peek, #settings open that state ============ */
   // The landing page shows app.html#menu: a popover on the desktop, a sheet
   // on the phone – one markup, two presentations.
   function openFromHash() {
@@ -1200,6 +1357,7 @@
     if (h === "#menu") openFloating(pageMenu, pageMenuBtn);
     if (h === "#filter") { filterBtn.scrollIntoView({ block: "center" }); openFloating(filterMenu, filterBtn); }
     if (h === "#more") openMore();
+    if (h === "#peek") openPeek(2);
     if (h === "#settings") modal.classList.add("open");
   }
   requestAnimationFrame(openFromHash);

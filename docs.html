@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.7.1</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.8.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Docs</a>
@@ -353,7 +353,9 @@
         <thead><tr><th>Class</th><th>Applies to</th><th>Effect</th></tr></thead>
         <tbody><tr><td><code>[hidden]</code></td><td><code>[class*="nk-"]</code> <code>::slotted(*)</code></td><td>Hides, always – also on components that set their own display, which beat the browser rule before 1.5.2. hidden="until-found" keeps the browser’s find-in-page reveal.</td></tr>
         <tr><td><code>.active</code></td><td><code>nk-tree-item</code> <code>nk-db-tab</code> <code>nk-tab</code> <code>nk-tab-bar-item</code> <code>nk-settings-pane</code> <code>nk-segmented button</code> <code>nk-emoji-cats span</code> <code>nk-board</code> <code>nk-bubble-menu button</code></td><td>Marks the current item. Tree items and view tabs get the active background, .nk-tab gets the underline, panes become visible.</td></tr>
-        <tr><td><code>.open</code></td><td><code>nk-modal-backdrop</code> <code>nk-cmdk-backdrop</code> <code>nk-sheet-backdrop</code> <code>nk-pop.floating</code> <code>nk-sidebar</code> <code>nk-sidebar-backdrop</code> <code>nk-toggle-arrow</code></td><td>Fades the overlay in and makes it interactive; shows a floating menu; slides the sidebar in as a drawer on a phone; rotates the toggle arrow by 90°.</td></tr>
+        <tr><td><code>.open</code></td><td><code>nk-modal-backdrop</code> <code>nk-cmdk-backdrop</code> <code>nk-sheet-backdrop</code> <code>nk-peek-backdrop</code> <code>nk-pop.floating</code> <code>nk-sidebar</code> <code>nk-sidebar-backdrop</code> <code>nk-toggle-arrow</code></td><td>Fades the overlay in and makes it interactive; slides the side peek in from the right; shows a floating menu; slides the sidebar in as a drawer on a phone; rotates the toggle arrow by 90°.</td></tr>
+        <tr><td><code>.copied</code></td><td><code>nk-copy-field .cf-btn</code></td><td>The moment after copying: the action turns green. Set it after the clipboard write and take it off again.</td></tr>
+        <tr><td><code>.square</code></td><td><code>nk-profile-row .big-avatar</code></td><td>The rounded square of a workspace icon instead of the circle of a person.</td></tr>
         <tr><td><code>.floating</code></td><td><code>nk-pop</code></td><td>A menu over the page: invisible and inert until .open, then it fades in and settles from 4px higher and 98 %, the way the palette opens.</td></tr>
         <tr><td><code>.sheet</code></td><td><code>nk-pop</code></td><td>Below 860px the popover becomes a bottom sheet – full width, grabber, 40px rows, the page dimmed – and inline positioning is overruled.</td></tr>
         <tr><td><code>.done / current</code></td><td><code>nk-step</code></td><td>A finished step on the green tag with a check; the step you are on, ringed in the accent, with aria-current="step".</td></tr>
@@ -796,6 +798,30 @@ class NkCallout extends HTMLElement {
         <div class="doc-meta"><b>On a small screen:</b><span>Flows naturally; the icon stays on the first line because the row is <code>align-items: flex-start</code>.</span></div>
         <div class="doc-classes"><code>.nk-callout</code><code>.c-icon</code></div>
       </article>
+      <article class="doc-entry" id="nk-bookmark">
+        <h3>Bookmark <code>.nk-bookmark</code></h3>
+        <p class="doc-desc">Notion's link block: <code>.bm-title</code>, two lines of <code>.bm-desc</code> and the <code>.bm-url</code> with its <code>.bm-favicon</code> on the left, the preview image in <code>.bm-cover</code> on the right – a third of the box, 240px at most, so a 1200×630 <code>og:image</code> fits nearly whole. The whole box is the link, an <code>&lt;a&gt;</code>; fill it from the page's <code>og:title</code>, <code>og:description</code> and <code>og:image</code>. Without an image the text takes the width, without a description the box gets lower. Also the way to show how a shared link will look.</p>
+        <div class="doc-preview"><a class="nk-bookmark" href="https://notionkit.jungherz.com" target="_blank" rel="noopener" style="max-width:600px">
+  <span class="bm-text">
+    <span class="bm-title">NotionKit – the calm workspace look as CSS</span>
+    <span class="bm-desc">NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces.</span>
+    <span class="bm-url"><img class="bm-favicon" src="favicon.svg" alt=""><span>https://notionkit.jungherz.com</span></span>
+  </span>
+  <span class="bm-cover"><img src="covers/notionkit-og.jpg" alt=""></span>
+</a></div>
+        
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-bookmark" <span class="attr">href=</span>"https://notionkit.jungherz.com" <span class="attr">target=</span>"_blank" <span class="attr">rel=</span>"noopener" <span class="attr">style=</span>"max-width:600px"<span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"bm-text"<span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span>"bm-title"<span class="tag">&gt;</span>NotionKit – the calm workspace look as CSS<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span>"bm-desc"<span class="tag">&gt;</span>NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces.<span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class=</span>"bm-url"<span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attr">class=</span>"bm-favicon" <span class="attr">src=</span>"favicon.svg" <span class="attr">alt=</span>""<span class="tag">&gt;</span><span class="tag">&lt;span</span><span class="tag">&gt;</span>https://notionkit.jungherz.com<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class=</span>"bm-cover"<span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attr">src=</span>"covers/notionkit-og.jpg" <span class="attr">alt=</span>""<span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/a</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>The image keeps its third and is cropped at the centre; title and address end in an ellipsis, the description in two lines.</span></div>
+        <div class="doc-classes"><code>.nk-bookmark</code><code>.bm-text</code><code>.bm-title</code><code>.bm-desc</code><code>.bm-url</code><code>.bm-favicon</code><code>.bm-cover</code></div>
+      </article>
       <article class="doc-entry" id="nk-todo">
         <h3>To-do <code>.nk-todo</code></h3>
         <p class="doc-desc">A checkbox with a custom checkmark. The sibling selector <code>input:checked + span</code> strikes the label through — both halves live inside one component, so it survives the move into a shadow root.</p>
@@ -1132,6 +1158,22 @@ class NkCallout extends HTMLElement {
         <div class="doc-meta"><b>On a small screen:</b><span><code>min-width: 210px</code> can overflow a narrow field row — pair it with <code>.wide</code> or let <code>nk-field</code> wrap.</span></div>
         <div class="doc-classes"><code>.nk-input</code><code>.nk-textarea</code><code>.nk-select</code><code>.wide</code></div>
       </article>
+      <article class="doc-entry" id="nk-copy-field">
+        <h3>Copy field <code>.nk-copy-field</code></h3>
+        <p class="doc-desc">A value to take along – a link to share, an address, a key – in a field of its own, as tall as an input, with its actions inside on the right. <code>.cf-value</code> holds the text on one line with an ellipsis, and a click selects it whole; <code>.cf-btn</code>s are the quiet actions – Copy and, for a secret, Show. <code>.copied</code> on a button is the moment after, in green; the copying is your script. <code>mono</code> for addresses, keys and code, <code>wrap</code> lets a long value break with the actions on its first line, <code>wide</code> fills the row.</p>
+        <div class="doc-preview"><div class="nk-copy-field" style="max-width:340px"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn">Copy</button></div>
+<div class="nk-copy-field mono" style="max-width:340px;margin-top:10px"><span class="cf-value">ntn_••••••••••••••••••••</span><button class="cf-btn">Show</button><button class="cf-btn copied">✓ Copied</button></div></div>
+        <pre class="nk-code"><span class="lang">js</span>btn.addEventListener('click', async () =&gt; {
+  await navigator.clipboard.writeText(field.querySelector('.cf-value').textContent);
+  btn.classList.add('copied');   // green for a moment
+  setTimeout(() =&gt; btn.classList.remove('copied'), 1500);
+});</pre>
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-copy-field" <span class="attr">style=</span>"max-width:340px"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"cf-value"<span class="tag">&gt;</span>https://monahilft.notionkit.app<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"cf-btn"<span class="tag">&gt;</span>Copy<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-copy-field mono" <span class="attr">style=</span>"max-width:340px;margin-top:10px"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"cf-value"<span class="tag">&gt;</span>ntn_••••••••••••••••••••<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"cf-btn"<span class="tag">&gt;</span>Show<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"cf-btn copied"<span class="tag">&gt;</span>✓ Copied<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Keeps to its column: the value is cut, never the actions.</span></div>
+        <div class="doc-classes"><code>.nk-copy-field</code><code>.cf-value</code><code>.cf-btn</code><code>.copied</code><code>.mono</code><code>.wrap</code><code>.wide</code></div>
+      </article>
       <article class="doc-entry" id="nk-btn">
         <h3>Buttons <code>.nk-btn</code></h3>
         <p class="doc-desc">Five variants, 28px tall at 14px. <code>.secondary</code> and <code>.danger</code> are Notion's white button: the outline is <code>--nk-shadow-btn</code>, a 1px inset ring plus a 1px drop, not a border. Hover is an opacity shift on the filled ones and a wash on the white ones — never a hue change. <code>.small</code> (24px) combines with any variant.</p>
@@ -1273,26 +1315,38 @@ class NkCallout extends HTMLElement {
         <div class="doc-classes"><code>.nk-fields</code></div>
       </article>
       <article class="doc-entry" id="nk-profile-row">
-        <h3>Profile row <code>.nk-profile-row</code></h3>
-        <p class="doc-desc">A 56px avatar with the two actions beside it. The gradient matches every other avatar in the system because they all read the same two decor tokens.</p>
+        <h3>Profile row & picture <code>.nk-profile-row</code></h3>
+        <p class="doc-desc">A 56px avatar with its actions beside it, in <code>.pr-actions</code> – upload, change, and the quiet <code>.pr-remove</code>. The gradient matches every other avatar in the system because they all read the same two decor tokens; an <code>&lt;img&gt;</code> inside <code>.big-avatar</code> is a chosen picture, cropped to the circle. <code>square</code> makes it the rounded square of a workspace icon. Choosing the file – a hidden <code>&lt;input type="file"&gt;</code> opened from the button, EXIF rotation, scaling – is your script, or <code>&lt;nk-image-picker&gt;</code>.</p>
         <div class="doc-preview"><div class="nk-profile-row">
   <div class="big-avatar">AL</div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
+  <div class="pr-actions">
     <button class="nk-btn secondary small">Upload image</button>
-    <button class="nk-btn secondary small">Remove</button>
+  </div>
+</div>
+<div class="nk-profile-row">
+  <div class="big-avatar square"><img src="favicon.svg" alt=""></div>
+  <div class="pr-actions">
+    <button class="nk-btn secondary small">Change image</button>
+    <button class="nk-btn secondary small pr-remove">Remove</button>
   </div>
 </div></div>
         
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-profile-row"<span class="tag">&gt;</span>
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"big-avatar"<span class="tag">&gt;</span>AL<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
-  <span class="tag">&lt;div</span> <span class="attr">style=</span>"display:flex;gap:8px;flex-wrap:wrap"<span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"pr-actions"<span class="tag">&gt;</span>
     <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn secondary small"<span class="tag">&gt;</span>Upload image<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
-    <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn secondary small"<span class="tag">&gt;</span>Remove<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-profile-row"<span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"big-avatar square"<span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attr">src=</span>"favicon.svg" <span class="attr">alt=</span>""<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"pr-actions"<span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn secondary small"<span class="tag">&gt;</span>Change image<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn secondary small pr-remove"<span class="tag">&gt;</span>Remove<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
   <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>On a small screen:</b><span>Unchanged; the buttons wrap under the avatar on very narrow screens.</span></div>
-        <div class="doc-classes"><code>.nk-profile-row</code><code>.big-avatar</code></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Unchanged; the actions stay beside the avatar.</span></div>
+        <div class="doc-classes"><code>.nk-profile-row</code><code>.big-avatar</code><code>.square</code><code>.pr-actions</code><code>.pr-remove</code></div>
       </article>
       <article class="doc-entry" id="nk-model-card">
         <h3>Model card <code>.nk-model-card</code></h3>
@@ -1575,6 +1629,48 @@ class NkCallout extends HTMLElement {
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Made for the phone: full width, bottom padding from the safe area, the content scrolls inside the sheet and never moves the page.</span></div>
         <div class="doc-classes"><code>.nk-sheet-backdrop</code><code>.open</code><code>.nk-sheet</code><code>.sh-grabber</code><code>.sh-title</code></div>
+      </article>
+      <article class="doc-entry" id="nk-peek">
+        <h3>Side peek <code>.nk-peek</code></h3>
+        <p class="doc-desc">Notion's side peek: a database row opens in a panel at the right edge, full height, next to the table, which stays visible and usable – there is no scrim, the backdrop only holds the panel and lets clicks through. <code>.pk-bar</code> carries the actions – close with », open as page – and <code>.pk-body</code> the page: title in 32px, properties, prose, comments. <code>.open</code> on the backdrop slides the panel in; closed, it leaves the layout once it has slid out. It lies above the page and the tab bar and below the floating menus, so a menu opened in the peek shows over it. Closing is your script: », Escape, a click outside; a click on another row swaps the content.</p>
+        <div class="doc-preview is-frame" style="height:420px;position:relative"><div class="nk-peek-backdrop open" style="position:absolute;border-radius:var(--nk-radius);overflow:hidden">
+  <aside class="nk-peek" role="dialog" aria-label="Database Table-View" style="width:min(440px, 100%)">
+    <div class="pk-bar">
+      <button class="nk-topbar-btn" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button>
+      <button class="nk-topbar-btn" aria-label="Open as page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+    </div>
+    <div class="pk-body">
+      <h1 class="nk-page-title">🗃️ Database Table-View</h1>
+      <dl class="nk-props">
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In progress</span></dd></div>
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Due</dt><dd class="p-value">20.05.2026</dd></div>
+      </dl>
+      <div class="nk-prose"><p>Table, board and list read the same rows; filters and sort act on all three.</p></div>
+    </div>
+  </aside>
+</div></div>
+        <pre class="nk-code"><span class="lang">js</span>row.addEventListener('click', () =&gt; peek.classList.add('open'));        // a row opens beside the table
+closeBtn.addEventListener('click', () =&gt; peek.classList.remove('open'));
+document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.classList.remove('open'); });</pre>
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-peek-backdrop open" <span class="attr">style=</span>"position:absolute;border-radius:var(--nk-radius);overflow:hidden"<span class="tag">&gt;</span>
+  <span class="tag">&lt;aside</span> <span class="attr">class=</span>"nk-peek" <span class="attr">role=</span>"dialog" <span class="attr">aria-label=</span>"Database Table-View" <span class="attr">style=</span>"width:min(440px, 100%)"<span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"pk-bar"<span class="tag">&gt;</span>
+      <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn" <span class="attr">aria-label=</span>"Close"<span class="tag">&gt;</span><span class="tag">&lt;svg</span> <span class="attr">viewBox=</span>"0 0 24 24" <span class="attr">aria-hidden=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;path</span> <span class="attr">d=</span>"m6 17 5-5-5-5M13 17l5-5-5-5"<span class="tag">/&gt;</span><span class="tag">&lt;/svg</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn" <span class="attr">aria-label=</span>"Open as page"<span class="tag">&gt;</span><span class="tag">&lt;svg</span> <span class="attr">viewBox=</span>"0 0 24 24" <span class="attr">aria-hidden=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;path</span> <span class="attr">d=</span>"M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"<span class="tag">/&gt;</span><span class="tag">&lt;/svg</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"pk-body"<span class="tag">&gt;</span>
+      <span class="tag">&lt;h1</span> <span class="attr">class=</span>"nk-page-title"<span class="tag">&gt;</span>🗃️ Database Table-View<span class="tag">&lt;/h1</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;dl</span> <span class="attr">class=</span>"nk-props"<span class="tag">&gt;</span>
+        <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prop"<span class="tag">&gt;</span><span class="tag">&lt;dt</span> <span class="attr">class=</span>"p-name"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"p-icon"<span class="tag">&gt;</span>◉<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Status<span class="tag">&lt;/dt</span><span class="tag">&gt;</span><span class="tag">&lt;dd</span> <span class="attr">class=</span>"p-value"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag blue"<span class="tag">&gt;</span>In progress<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/dd</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prop"<span class="tag">&gt;</span><span class="tag">&lt;dt</span> <span class="attr">class=</span>"p-name"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"p-icon"<span class="tag">&gt;</span>📅<span class="tag">&lt;/span</span><span class="tag">&gt;</span>Due<span class="tag">&lt;/dt</span><span class="tag">&gt;</span><span class="tag">&lt;dd</span> <span class="attr">class=</span>"p-value"<span class="tag">&gt;</span>20.05.2026<span class="tag">&lt;/dd</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;/dl</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-prose"<span class="tag">&gt;</span><span class="tag">&lt;p</span><span class="tag">&gt;</span>Table, board and list read the same rows; filters and sort act on all three.<span class="tag">&lt;/p</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/aside</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Below 860px it rises from the bottom edge as a sheet over a dimmed page – full width, a grabber, the title in 28px – and the dimmed page takes the tap that closes it.</span></div>
+        <div class="doc-classes"><code>.nk-peek-backdrop</code><code>.open</code><code>.nk-peek</code><code>.pk-bar</code><code>.pk-body</code></div>
       </article>
       <article class="doc-entry" id="nk-toast">
         <h3>Toast <code>.nk-toast</code></h3>

@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.7.1</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.8.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html">Doku</a>
@@ -410,6 +410,19 @@
         
         
       </article>
+      <article class="doc-entry" id="s-nk-bookmark">
+        <h3>Bookmark <code>.nk-bookmark</code></h3>
+        <div class="doc-preview"><a class="nk-bookmark" href="https://notionkit.jungherz.com" target="_blank" rel="noopener" style="max-width:600px">
+  <span class="bm-text">
+    <span class="bm-title">NotionKit – der ruhige Workspace-Look als CSS</span>
+    <span class="bm-desc">NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen.</span>
+    <span class="bm-url"><img class="bm-favicon" src="../favicon.svg" alt=""><span>https://notionkit.jungherz.com</span></span>
+  </span>
+  <span class="bm-cover"><img src="../covers/notionkit-og.jpg" alt=""></span>
+</a></div>
+        
+        
+      </article>
       <article class="doc-entry" id="s-nk-todo">
         <h3>To-do <code>.nk-todo</code></h3>
         <div class="doc-preview"><div>
@@ -596,6 +609,17 @@
         
         
       </article>
+      <article class="doc-entry" id="s-nk-copy-field">
+        <h3>Kopierfeld <code>.nk-copy-field</code></h3>
+        <div class="doc-preview"><div class="nk-copy-field" style="max-width:340px"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn">Kopieren</button></div>
+<div class="nk-copy-field mono" style="max-width:340px;margin-top:10px"><span class="cf-value">ntn_••••••••••••••••••••</span><button class="cf-btn">Zeigen</button><button class="cf-btn copied">✓ Kopiert</button></div></div>
+        <pre class="nk-code"><span class="lang">js</span>btn.addEventListener('click', async () =&gt; {
+  await navigator.clipboard.writeText(field.querySelector('.cf-value').textContent);
+  btn.classList.add('copied');   // kurz grün
+  setTimeout(() =&gt; btn.classList.remove('copied'), 1500);
+});</pre>
+        
+      </article>
       <article class="doc-entry" id="s-nk-btn">
         <h3>Buttons <code>.nk-btn</code></h3>
         <div class="doc-preview"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
@@ -673,12 +697,18 @@
         
       </article>
       <article class="doc-entry" id="s-nk-profile-row">
-        <h3>Profil-Zeile <code>.nk-profile-row</code></h3>
+        <h3>Profil-Zeile & Bild <code>.nk-profile-row</code></h3>
         <div class="doc-preview"><div class="nk-profile-row">
   <div class="big-avatar">AL</div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
+  <div class="pr-actions">
     <button class="nk-btn secondary small">Bild hochladen</button>
-    <button class="nk-btn secondary small">Entfernen</button>
+  </div>
+</div>
+<div class="nk-profile-row">
+  <div class="big-avatar square"><img src="../favicon.svg" alt=""></div>
+  <div class="pr-actions">
+    <button class="nk-btn secondary small">Bild ändern</button>
+    <button class="nk-btn secondary small pr-remove">Entfernen</button>
   </div>
 </div></div>
         
@@ -837,6 +867,29 @@
   </div>
 </div></div>
         
+        
+      </article>
+      <article class="doc-entry" id="s-nk-peek">
+        <h3>Side Peek <code>.nk-peek</code></h3>
+        <div class="doc-preview is-frame" style="height:420px;position:relative"><div class="nk-peek-backdrop open" style="position:absolute;border-radius:var(--nk-radius);overflow:hidden">
+  <aside class="nk-peek" role="dialog" aria-label="Database Table-View" style="width:min(440px, 100%)">
+    <div class="pk-bar">
+      <button class="nk-topbar-btn" aria-label="Schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button>
+      <button class="nk-topbar-btn" aria-label="Als Seite öffnen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+    </div>
+    <div class="pk-body">
+      <h1 class="nk-page-title">🗃️ Database Table-View</h1>
+      <dl class="nk-props">
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In Arbeit</span></dd></div>
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Fällig</dt><dd class="p-value">20.05.2026</dd></div>
+      </dl>
+      <div class="nk-prose"><p>Tabelle, Board und Liste lesen dieselben Zeilen; Filter und Sortierung wirken auf alle drei.</p></div>
+    </div>
+  </aside>
+</div></div>
+        <pre class="nk-code"><span class="lang">js</span>row.addEventListener('click', () =&gt; peek.classList.add('open'));        // eine Zeile öffnet sich neben der Tabelle
+closeBtn.addEventListener('click', () =&gt; peek.classList.remove('open'));
+document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.classList.remove('open'); });</pre>
         
       </article>
       <article class="doc-entry" id="s-nk-toast">

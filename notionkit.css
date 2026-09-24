@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.7.1
+   Jungherz GmbH – v1.8.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -571,7 +571,7 @@ a.crumb { text-decoration: none; }
 .nk-page.covered ::slotted(.nk-page-icon),
 .nk-page.covered ::slotted([slot="icon"]) { margin-top: -42px; }
 .nk-page-title {
-  font-size: 40px; font-weight: 700; line-height: 1.2; margin: 8px 0 4px;
+  font-size: var(--_nk-title, 40px); font-weight: 700; line-height: 1.2; margin: 8px 0 4px;
   outline: none; letter-spacing: 0;
 }
 .nk-page-meta {
@@ -623,6 +623,30 @@ a.crumb { text-decoration: none; }
 .nk-callout .c-icon,
 .nk-callout ::slotted(.c-icon),
 .nk-callout ::slotted([slot="icon"]) { font-size: 17px; }
+
+/* Bookmark, Notion's link block: title, two lines of description and the
+   address with its icon on the left, the page's preview image on the right
+   in a third, 240px at most – a 1200×630 og:image fits it nearly whole in
+   a page column and is cropped at the centre on a phone. The whole box is the
+   link. Without an image the text takes the width, without a description
+   the box gets lower. */
+.nk-bookmark {
+  display: flex; min-width: 0; margin: 8px 0; overflow: hidden;
+  border: 1px solid var(--nk-border); border-radius: var(--nk-radius);
+  color: var(--nk-text); text-decoration: none; transition: background .12s ease;
+}
+.nk-bookmark:hover { background: var(--nk-bg-hover); }
+.nk-bookmark .bm-text { flex: 1 1 0; min-width: 0; padding: 12px 14px 14px; font-size: 14px; line-height: 20px; }
+.nk-bookmark .bm-title { display: block; min-height: 24px; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nk-bookmark .bm-desc {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  max-height: 32px; font-size: 12px; line-height: 16px; color: var(--nk-text-secondary);
+}
+.nk-bookmark .bm-url { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 12px; line-height: 16px; white-space: nowrap; }
+.nk-bookmark .bm-url > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.nk-bookmark .bm-favicon { flex: none; width: 16px; height: 16px; }
+.nk-bookmark .bm-cover { position: relative; flex: 0 0 33%; max-width: 240px; }
+.nk-bookmark .bm-cover > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
 .nk-todo { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; }
 .nk-todo input[type="checkbox"] {
@@ -973,6 +997,30 @@ a.crumb { text-decoration: none; }
   background-size: 4px 4px; background-repeat: no-repeat;
 }
 
+/* Copy field, as Notion shows a link to share or an integration secret:
+   the value in a field of its own – one line, cut with an ellipsis, taken
+   whole by a click – with its actions inside on the right, as tall as an
+   input. `mono` for addresses, keys and code; `wrap` lets a long value
+   break, the actions stay on the first line. `.copied` is an action's
+   moment after, in green. */
+.nk-copy-field {
+  display: flex; align-items: center; gap: 2px; min-width: 210px; max-width: 100%;
+  padding: 0 3px 0 10px; font-size: 14px; line-height: 20px; color: var(--nk-text);
+  background: var(--nk-bg-input); border: 1px solid var(--nk-border); border-radius: var(--nk-radius);
+}
+.nk-copy-field.wide { width: 100%; min-width: 0; }
+.nk-copy-field.wrap { align-items: flex-start; }
+.nk-copy-field .cf-value { flex: 1 1 auto; min-width: 0; padding: 5px 6px 5px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; user-select: all; }
+.nk-copy-field.mono .cf-value { font-family: var(--nk-font-mono); font-size: 13px; }
+.nk-copy-field.wrap .cf-value { white-space: pre-wrap; overflow-wrap: anywhere; }
+.nk-copy-field .cf-btn {
+  flex: none; height: 24px; margin: 3px 0; padding: 0 8px; border: none; border-radius: 4px;
+  background: transparent; font-family: inherit; font-size: 13px; color: var(--nk-text-secondary);
+  white-space: nowrap; cursor: pointer;
+}
+.nk-copy-field .cf-btn:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
+.nk-copy-field .cf-btn.copied { color: var(--nk-color-green); }
+
 /* 28px tall at 14px. The secondary and danger buttons are Notion's white
    button: the outline comes from --nk-shadow-btn, not from a border. */
 .nk-btn {
@@ -1058,8 +1106,16 @@ a.nk-btn { text-decoration: none; }
   width: 56px; height: 56px; border-radius: 50%;
   background: linear-gradient(135deg, var(--nk-decor-purple), var(--nk-decor-blue));
   color: var(--nk-on-accent); font-size: 20px; font-weight: 600;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;
 }
+/* The picture you chose, cropped to the circle – or to the rounded square
+   of a workspace icon. The actions stand in a column beside it; `.pr-remove`
+   is the quiet one. */
+.nk-profile-row .big-avatar > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.nk-profile-row .big-avatar.square,
+.nk-profile-row ::slotted(.big-avatar.square) { border-radius: 8px; }
+.nk-profile-row .pr-actions { display: flex; flex-direction: column; gap: 6px; }
+.nk-profile-row .pr-remove { color: var(--nk-text-tertiary); }
 
 .nk-model-card {
   border: 1px solid var(--nk-border-strong); border-radius: 8px;
@@ -1300,6 +1356,34 @@ a.nk-btn { text-decoration: none; }
 .nk-sheet ::slotted(.sh-grabber) { width: 36px; height: 4px; margin: 4px auto 10px; border-radius: 2px; background: var(--nk-border-strong); }
 .nk-sheet .sh-title,
 .nk-sheet ::slotted(.sh-title) { font-size: 14px; font-weight: 600; text-align: center; padding: 0 8px 10px; }
+
+/* Side peek, as Notion opens a database row beside the table: the entry in
+   a panel at the right edge, full height, a bar for its actions on top –
+   close (») and open as page – and the page below it: title in 32px,
+   properties, prose, comments. The page behind stays visible and usable,
+   so there is no scrim: the backdrop only holds the panel and lets clicks
+   through. `.open` slides it in; closed it leaves the layout once it has
+   slid out. Under the floating menus, so a menu opened in the peek lies
+   above it. Below 860px it is a bottom sheet over a dimmed page (B12). */
+.nk-peek-backdrop {
+  position: fixed; inset: 0; z-index: 50; display: none; pointer-events: none;
+  transition: background-color .2s ease, display .25s allow-discrete;
+}
+.nk-peek-backdrop.open { display: block; }
+.nk-peek {
+  --_nk-title: 32px;
+  position: absolute; top: 0; right: 0; bottom: 0; width: min(560px, 100%);
+  display: flex; flex-direction: column; pointer-events: auto; outline: none;
+  background: var(--nk-bg); color: var(--nk-text); box-shadow: var(--nk-shadow-menu);
+  translate: 100% 0; transition: translate .25s cubic-bezier(.2, .8, .2, 1);
+}
+.nk-peek-backdrop.open .nk-peek { translate: 0 0; }
+@starting-style { .nk-peek-backdrop.open .nk-peek { translate: 100% 0; } }
+.nk-peek .pk-bar { flex: none; display: flex; align-items: center; gap: 2px; height: 44px; padding: 0 12px; }
+.nk-peek .pk-body {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+  padding: 4px 48px 64px; font-size: 16px; line-height: 1.5;
+}
 
 /* Above every overlay – the modal is 100, the palette 110 – because a toast
    is often the answer to something done in a dialog; above the home
@@ -1900,6 +1984,21 @@ a.nk-btn { text-decoration: none; }
   .nk-pop.sheet::before { content: ""; display: block; width: 36px; height: 4px; margin: 4px auto 8px; border-radius: 2px; background: var(--nk-border-strong); }
   .nk-pop.sheet.floating { translate: 0 100%; transition: opacity .2s ease, translate .25s cubic-bezier(.2, .8, .2, 1), visibility 0s linear .25s; }
   .nk-pop.sheet.floating.open { translate: 0 0; transition: opacity .2s ease, translate .25s cubic-bezier(.2, .8, .2, 1), visibility 0s; }
+  /* The side peek rises from the bottom edge instead, over a dimmed page
+     that takes the tap to close it; the title steps down to 28px. */
+  .nk-peek-backdrop { pointer-events: auto; }
+  .nk-peek-backdrop.open { background-color: var(--nk-scrim-soft); }
+  @starting-style { .nk-peek-backdrop.open { background-color: transparent; } }
+  .nk-peek {
+    --_nk-title: 28px;
+    top: auto; left: 0; width: auto; max-height: 92dvh;
+    border-radius: 14px 14px 0 0; translate: 0 100%;
+  }
+  .nk-peek-backdrop.open .nk-peek { translate: 0 0; }
+  @starting-style { .nk-peek-backdrop.open .nk-peek { translate: 0 100%; } }
+  .nk-peek::before { content: ""; flex: none; width: 36px; height: 4px; margin: 10px auto 0; border-radius: 2px; background: var(--nk-border-strong); }
+  .nk-peek .pk-bar { height: 40px; padding: 0 max(8px, env(safe-area-inset-right, 0px)) 0 max(8px, env(safe-area-inset-left, 0px)); }
+  .nk-peek .pk-body { padding: 0 max(20px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px)); }
   /* A visible tab bar would cover the toast, so it rises 12px above the bar.
      :has() sees class markup only; <nk-toast> measures the bar itself. */
   :root:has(.nk-tab-bar:not([hidden])) .nk-toast { bottom: calc(var(--nk-tab-bar-height) + max(6px, env(safe-area-inset-bottom, 0px)) + 6px); }

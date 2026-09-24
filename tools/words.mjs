@@ -73,6 +73,10 @@ export const WORDS = {
     filter: 'Filter', sort: 'Sort', searchLabel: 'Search', newBtn: 'New', statusOpen: 'Status: Open', addFilter: '＋ Filter', removeFilter: 'Remove filter',
     ownerMarcel: 'Owner: Marcel', stepProvider: 'Choose a provider', stepProviderDesc: 'Anthropic', stepKey: 'Enter the API key', stepTest: 'Test the connection',
     stepsLabel: 'Connect your own model', page: 'Page', sheetHint: 'Swipe down or tap outside to close',
+    bmTitle: 'NotionKit – the calm workspace look as CSS', bmDesc: 'NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces.',
+    copy: 'Copy', copied: 'Copied', show: 'Show', copyHint: 'green for a moment', close: 'Close', openPage: 'Open as page',
+    peekTitle: 'Database Table-View', peekText: 'Table, board and list read the same rows; filters and sort act on all three.', peekHintOpen: 'a row opens beside the table',
+    uploadImage: 'Upload image', changeImage: 'Change image',
   },
   de: {
     workspace: 'Acme GmbH', search: 'Suche', home: 'Start', inbox: 'Posteingang', more: 'Mehr', all: 'Alle', attention: 'Aufmerksamkeit', failed: 'Fehlgeschlagen', read: 'Gelesen', ignored: 'Ignoriert',
@@ -146,5 +150,9 @@ export const WORDS = {
     filter: 'Filter', sort: 'Sortieren', searchLabel: 'Suche', newBtn: 'Neu', statusOpen: 'Status: Offen', addFilter: '＋ Filter', removeFilter: 'Filter entfernen',
     ownerMarcel: 'Verantwortlich: Marcel', stepProvider: 'Anbieter wählen', stepProviderDesc: 'Anthropic', stepKey: 'API-Schlüssel eintragen', stepTest: 'Verbindung testen',
     stepsLabel: 'Eigenes Modell verbinden', page: 'Seite', sheetHint: 'Nach unten wischen oder daneben tippen zum Schließen',
+    bmTitle: 'NotionKit – der ruhige Workspace-Look als CSS', bmDesc: 'NotionKit ist eine reine CSS-Komponentenbibliothek im Notion-Look: Sidebar, Seitenbaum, Dokument-Shell, Datenbank-Views, Einstellungen und KI-Flächen.',
+    copy: 'Kopieren', copied: 'Kopiert', show: 'Zeigen', copyHint: 'kurz grün', close: 'Schließen', openPage: 'Als Seite öffnen',
+    peekTitle: 'Database Table-View', peekText: 'Tabelle, Board und Liste lesen dieselben Zeilen; Filter und Sortierung wirken auf alle drei.', peekHintOpen: 'eine Zeile öffnet sich neben der Tabelle',
+    uploadImage: 'Bild hochladen', changeImage: 'Bild ändern',
   },
 };

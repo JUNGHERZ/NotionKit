@@ -20,7 +20,7 @@ export const LANDING = {
     previewLead: 'Below is the live demo — app shell, page tree, a document with its properties, database views, command palette, settings modal and AI thread; “Home” in the sidebar opens the start view. Everything you see is NotionKit markup; the interactions are ~380 lines of plain JavaScript that ship with the demo, not with the library.',
     previewOpen: 'Open the demo full screen ↗',
     responsiveTitle: 'Desktop and mobile, equally',
-    responsiveLead: 'NotionKit is not a mobile-first kit stretched to the desktop, nor a desktop kit squeezed onto a phone. Layouts are fluid, there is exactly one breakpoint at 860px, and the same markup carries both. Same page, two viewports, the page menu open: a popover on the desktop, a sheet on the phone – one markup, two presentations.',
+    responsiveLead: 'NotionKit is not a mobile-first kit stretched to the desktop, nor a desktop kit squeezed onto a phone. Layouts are fluid, there is exactly one breakpoint at 860px, and the same markup carries both. Same page, two viewports, a database row open in the side peek: a panel beside the table on the desktop, a sheet on the phone – one markup, two presentations.',
     respDesktop: 'Desktop · 1280 px', respMobile: 'Mobile · 390 px',
     featuresTitle: 'Why NotionKit',
     features: [
@@ -41,7 +41,7 @@ export const LANDING = {
     familyLead: 'NotionKit is the CSS foundation of a three-layer family. The layers share one design language and one naming stem: <code class="nk-inline-code">.nk-callout</code> becomes <code class="nk-inline-code">&lt;nk-callout&gt;</code>.',
     family: [
       ['NotionKit', 'CSS foundation', 'This project. <code class="nk-inline-code">.nk-*</code> classes and <code class="nk-inline-code">--nk-*</code> tokens for any stack.', null, 'https://github.com/JUNGHERZ/NotionKit'],
-      ['NotionKit Elements', 'Web components', '79 vanilla-JS custom elements that wrap this markup — Shadow DOM, native form participation, pixel parity with the class markup. Built on the constructable stylesheet shipped here.', 'https://notionkit-elements.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Elements'],
+      ['NotionKit Elements', 'Web components', '83 vanilla-JS custom elements that wrap this markup — Shadow DOM, native form participation, pixel parity with the class markup. Built on the constructable stylesheet shipped here.', 'https://notionkit-elements.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Elements'],
       ['NotionKit Web', 'Astro template', 'A complete website template — documentation, knowledge bases, product pages and blogs — on the same foundation. Bilingual, tested, no external requests.', 'https://notionkit-web.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Web'],
     ],
     statusAvailable: 'Available now', linkSite: 'Website', linkRepo: 'GitHub', linkThis: 'You are here',
@@ -64,7 +64,7 @@ export const LANDING = {
     previewLead: 'Unten läuft die Demo — App-Shell, Seitenbaum, ein Dokument mit seinen Eigenschaften, Datenbank-Views, Befehlspalette, Einstellungs-Modal und KI-Faden; „Start“ in der Sidebar öffnet die Start-Ansicht. Alles, was zu sehen ist, ist NotionKit-Markup; die Interaktionen sind rund 380 Zeilen schlichtes JavaScript, das zur Demo gehört, nicht zur Library.',
     previewOpen: 'Demo im Vollbild öffnen ↗',
     responsiveTitle: 'Desktop und Mobile, gleichberechtigt',
-    responsiveLead: 'NotionKit ist weder ein Mobile-first-Kit, das auf den Desktop gedehnt wurde, noch ein Desktop-Kit, das aufs Handy gequetscht wird. Die Layouts sind fließend, es gibt genau einen Breakpoint bei 860 px, und dasselbe Markup trägt beides. Dieselbe Seite, zwei Viewports, das Seitenmenü offen: am Desktop ein Popover, auf dem Telefon ein Sheet – ein Markup, zwei Darstellungen.',
+    responsiveLead: 'NotionKit ist weder ein Mobile-first-Kit, das auf den Desktop gedehnt wurde, noch ein Desktop-Kit, das aufs Handy gequetscht wird. Die Layouts sind fließend, es gibt genau einen Breakpoint bei 860 px, und dasselbe Markup trägt beides. Dieselbe Seite, zwei Viewports, eine Datenbankzeile im Side Peek geöffnet: am Desktop ein Panel neben der Tabelle, auf dem Telefon ein Sheet – ein Markup, zwei Darstellungen.',
     respDesktop: 'Desktop · 1280 px', respMobile: 'Mobil · 390 px',
     featuresTitle: 'Warum NotionKit',
     features: [
@@ -85,7 +85,7 @@ export const LANDING = {
     familyLead: 'NotionKit ist die CSS-Grundlage einer dreischichtigen Familie. Die Schichten teilen eine Design-Sprache und einen Namensstamm: aus <code class="nk-inline-code">.nk-callout</code> wird <code class="nk-inline-code">&lt;nk-callout&gt;</code>.',
     family: [
       ['NotionKit', 'CSS-Grundlage', 'Dieses Projekt. <code class="nk-inline-code">.nk-*</code>-Klassen und <code class="nk-inline-code">--nk-*</code>-Tokens für jeden Stack.', null, 'https://github.com/JUNGHERZ/NotionKit'],
-      ['NotionKit Elements', 'Web Components', '79 Vanilla-JS-Custom-Elements, die dieses Markup kapseln — Shadow DOM, native Formularteilnahme, Pixelgleichheit mit dem Klassen-Markup. Gebaut auf dem hier ausgelieferten Constructable Stylesheet.', 'https://notionkit-elements.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Elements'],
+      ['NotionKit Elements', 'Web Components', '83 Vanilla-JS-Custom-Elements, die dieses Markup kapseln — Shadow DOM, native Formularteilnahme, Pixelgleichheit mit dem Klassen-Markup. Gebaut auf dem hier ausgelieferten Constructable Stylesheet.', 'https://notionkit-elements.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Elements'],
       ['NotionKit Web', 'Astro-Template', 'Ein komplettes Website-Template — Dokumentationen, Wissensdatenbanken, Produktseiten und Blogs — auf derselben Grundlage. Zweisprachig, getestet, ohne externe Requests.', 'https://notionkit-web.jungherz.com', 'https://github.com/JUNGHERZ/NotionKit-Web'],
     ],
     statusAvailable: 'Jetzt verfügbar', linkSite: 'Website', linkRepo: 'GitHub', linkThis: 'Du bist hier',

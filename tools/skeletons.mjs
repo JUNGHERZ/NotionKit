@@ -142,10 +142,10 @@ export const SKELETONS = [
               <th><span class="th-icon">👤</span>Owner</th><th><span class="th-icon">📊</span>Progress</th>
             </tr></thead>
             <tbody>
-              <tr><td><span class="row-title">🚀 Roadmap</span></td><td><span class="nk-tag green">Done</span></td>
+              <tr><td><span class="row-title" data-peek>🚀 Roadmap</span></td><td><span class="nk-tag green">Done</span></td>
                   <td><span class="person-cell"><span class="nk-avatar small purple">AL</span>Ada</span></td>
                   <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td></tr>
-              <tr><td><span class="row-title">🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
+              <tr><td><span class="row-title" data-peek>🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
                   <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
                   <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
             </tbody>
@@ -169,6 +169,20 @@ export const SKELETONS = [
 
 </div>
 
+<!-- A row opens beside the table; on a phone it is a sheet. Under <body>. -->
+<div class="nk-peek-backdrop" id="rowPeek">
+  <aside class="nk-peek" role="dialog" aria-labelledby="peekTitle" tabindex="-1">
+    <div class="pk-bar"><button class="nk-topbar-btn" id="peekClose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button></div>
+    <div class="pk-body">
+      <h1 class="nk-page-title" id="peekTitle"></h1>
+      <dl class="nk-props">
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In progress</span></dd></div>
+      </dl>
+      <div class="nk-prose"><p>Notes on this row – the page behind it.</p></div>
+    </div>
+  </aside>
+</div>
+
 <script>
   // View switch contract: .active on the tab, .active on the board (it is display:none by default).
   document.querySelectorAll('.nk-db-tab').forEach(tab => tab.addEventListener('click', () => {
@@ -177,6 +191,19 @@ export const SKELETONS = [
     document.getElementById('view-table').hidden = board;
     document.getElementById('view-board').classList.toggle('active', board);
   }));
+
+  // Side peek contract: .open on the backdrop. », Escape and a click outside
+  // close it; a click on another row only swaps the content.
+  const peek = document.getElementById('rowPeek');
+  document.querySelectorAll('[data-peek]').forEach(row => row.addEventListener('click', () => {
+    document.getElementById('peekTitle').textContent = row.textContent;
+    peek.classList.add('open');
+    peek.querySelector('.nk-peek').focus({ preventScroll: true });
+  }));
+  const closePeek = () => peek.classList.remove('open');
+  document.getElementById('peekClose').addEventListener('click', closePeek);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePeek(); });
+  document.addEventListener('click', e => { if (!e.target.closest('.nk-peek, [data-peek]')) closePeek(); });
 </script>
 </body>
 </html>`,
@@ -208,7 +235,7 @@ export const SKELETONS = [
     <div class="nk-settings-content">
       <div class="nk-settings-pane active" id="pane-profile">
         <h2 id="settingsTitle">My profile</h2>
-        <div class="nk-profile-row"><div class="big-avatar">AL</div><div><button class="nk-btn secondary small">Upload image</button></div></div>
+        <div class="nk-profile-row"><div class="big-avatar">AL</div><div class="pr-actions"><button class="nk-btn secondary small">Upload image</button></div></div>
         <div class="nk-field"><div><div class="f-label">Display name</div><div class="f-desc">How you appear in the workspace.</div></div>
           <div class="f-control"><input class="nk-input" value="Ada Lovelace"></div></div>
         <div class="nk-field"><div><div class="f-label">Email</div></div>
@@ -228,6 +255,10 @@ export const SKELETONS = [
         <h2>General</h2>
         <div class="nk-field"><div><div class="f-label">Workspace name</div></div>
           <div class="f-control"><input class="nk-input" value="Acme Inc"></div></div>
+        <div class="nk-field"><div><div class="f-label">Icon</div></div>
+          <div class="f-control"><div class="nk-profile-row"><div class="big-avatar square">A</div><div class="pr-actions"><button class="nk-btn secondary small">Upload image</button></div></div></div></div>
+        <div class="nk-field"><div><div class="f-label">Public address</div><div class="f-desc">Visitors reach the shared pages here.</div></div>
+          <div class="f-control"><div class="nk-copy-field"><span class="cf-value">https://acme.example.com</span><button class="cf-btn">Copy</button></div></div></div>
         <div class="nk-danger-zone">
           <div class="dz-title">⚠️ Danger zone</div>
           <div class="nk-field" style="padding-top:0"><div><div class="f-label">Delete workspace</div><div class="f-desc">Irreversibly removes all pages, databases and members.</div></div>

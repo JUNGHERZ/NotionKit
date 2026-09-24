@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.7.1) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.8.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -441,6 +441,24 @@ A tinted block for the one thought that must not be missed. The icon is a `.c-ic
 - **Classes:** `.nk-callout`, `.c-icon`
 - **On a small screen:** Flows naturally; the icon stays on the first line because the row is `align-items: flex-start`.
 
+### Bookmark — `.nk-bookmark`
+
+Notion's link block: `.bm-title`, two lines of `.bm-desc` and the `.bm-url` with its `.bm-favicon` on the left, the preview image in `.bm-cover` on the right – a third of the box, 240px at most, so a 1200×630 `og:image` fits nearly whole. The whole box is the link, an `<a>`; fill it from the page's `og:title`, `og:description` and `og:image`. Without an image the text takes the width, without a description the box gets lower. Also the way to show how a shared link will look.
+
+```html
+<a class="nk-bookmark" href="https://notionkit.jungherz.com" target="_blank" rel="noopener">
+  <span class="bm-text">
+    <span class="bm-title">NotionKit – the calm workspace look as CSS</span>
+    <span class="bm-desc">NotionKit is a pure CSS component library in the Notion idiom: sidebar, page tree, document shell, database views, settings and AI surfaces.</span>
+    <span class="bm-url"><img class="bm-favicon" src="favicon.svg" alt=""><span>https://notionkit.jungherz.com</span></span>
+  </span>
+  <span class="bm-cover"><img src="covers/notionkit-og.jpg" alt=""></span>
+</a>
+```
+
+- **Classes:** `.nk-bookmark`, `.bm-text`, `.bm-title`, `.bm-desc`, `.bm-url`, `.bm-favicon`, `.bm-cover`
+- **On a small screen:** The image keeps its third and is cropped at the centre; title and address end in an ellipsis, the description in two lines.
+
 ### To-do — `.nk-todo`
 
 A checkbox with a custom checkmark. The sibling selector `input:checked + span` strikes the label through — both halves live inside one component, so it survives the move into a shadow root.
@@ -694,6 +712,26 @@ One shared shape for all three: filled with `--nk-bg-input` inside a hairline, 3
 - **Classes:** `.nk-input`, `.nk-textarea`, `.nk-select`, `.wide`
 - **On a small screen:** `min-width: 210px` can overflow a narrow field row — pair it with `.wide` or let `nk-field` wrap.
 
+### Copy field — `.nk-copy-field`
+
+A value to take along – a link to share, an address, a key – in a field of its own, as tall as an input, with its actions inside on the right. `.cf-value` holds the text on one line with an ellipsis, and a click selects it whole; `.cf-btn`s are the quiet actions – Copy and, for a secret, Show. `.copied` on a button is the moment after, in green; the copying is your script. `mono` for addresses, keys and code, `wrap` lets a long value break with the actions on its first line, `wide` fills the row.
+
+```html
+<div class="nk-copy-field"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn">Copy</button></div>
+<div class="nk-copy-field mono"><span class="cf-value">ntn_••••••••••••••••••••</span><button class="cf-btn">Show</button><button class="cf-btn copied">✓ Copied</button></div>
+```
+
+```html
+jsbtn.addEventListener('click', async () => {
+  await navigator.clipboard.writeText(field.querySelector('.cf-value').textContent);
+  btn.classList.add('copied');   // green for a moment
+  setTimeout(() => btn.classList.remove('copied'), 1500);
+});
+```
+
+- **Classes:** `.nk-copy-field`, `.cf-value`, `.cf-btn`, `.copied`, `.mono`, `.wrap`, `.wide`
+- **On a small screen:** Keeps to its column: the value is cut, never the actions.
+
 ### Buttons — `.nk-btn`
 
 Five variants, 28px tall at 14px. `.secondary` and `.danger` are Notion's white button: the outline is `--nk-shadow-btn`, a 1px inset ring plus a 1px drop, not a border. Hover is an opacity shift on the filled ones and a wash on the white ones — never a hue change. `.small` (24px) combines with any variant.
@@ -800,22 +838,28 @@ Several short fields in one row: a grid of `minmax(150px, 1fr)` columns that wra
 - **Classes:** `.nk-fields`
 - **On a small screen:** Wraps to one or two columns on its own; no breakpoint needed.
 
-### Profile row — `.nk-profile-row`
+### Profile row & picture — `.nk-profile-row`
 
-A 56px avatar with the two actions beside it. The gradient matches every other avatar in the system because they all read the same two decor tokens.
+A 56px avatar with its actions beside it, in `.pr-actions` – upload, change, and the quiet `.pr-remove`. The gradient matches every other avatar in the system because they all read the same two decor tokens; an `<img>` inside `.big-avatar` is a chosen picture, cropped to the circle. `square` makes it the rounded square of a workspace icon. Choosing the file – a hidden `<input type="file">` opened from the button, EXIF rotation, scaling – is your script, or `<nk-image-picker>`.
 
 ```html
 <div class="nk-profile-row">
   <div class="big-avatar">AL</div>
-  <div>
+  <div class="pr-actions">
     <button class="nk-btn secondary small">Upload image</button>
-    <button class="nk-btn secondary small">Remove</button>
+  </div>
+</div>
+<div class="nk-profile-row">
+  <div class="big-avatar square"><img src="favicon.svg" alt=""></div>
+  <div class="pr-actions">
+    <button class="nk-btn secondary small">Change image</button>
+    <button class="nk-btn secondary small pr-remove">Remove</button>
   </div>
 </div>
 ```
 
-- **Classes:** `.nk-profile-row`, `.big-avatar`
-- **On a small screen:** Unchanged; the buttons wrap under the avatar on very narrow screens.
+- **Classes:** `.nk-profile-row`, `.big-avatar`, `.square`, `.pr-actions`, `.pr-remove`
+- **On a small screen:** Unchanged; the actions stay beside the avatar.
 
 ### Model card — `.nk-model-card`
 
@@ -1017,6 +1061,38 @@ Notion's mobile surface for menus, properties and more: the phone's twin of the 
 
 - **Classes:** `.nk-sheet-backdrop`, `.open`, `.nk-sheet`, `.sh-grabber`, `.sh-title`
 - **On a small screen:** Made for the phone: full width, bottom padding from the safe area, the content scrolls inside the sheet and never moves the page.
+
+### Side peek — `.nk-peek`
+
+Notion's side peek: a database row opens in a panel at the right edge, full height, next to the table, which stays visible and usable – there is no scrim, the backdrop only holds the panel and lets clicks through. `.pk-bar` carries the actions – close with », open as page – and `.pk-body` the page: title in 32px, properties, prose, comments. `.open` on the backdrop slides the panel in; closed, it leaves the layout once it has slid out. It lies above the page and the tab bar and below the floating menus, so a menu opened in the peek shows over it. Closing is your script: », Escape, a click outside; a click on another row swaps the content.
+
+```html
+<div class="nk-peek-backdrop open">
+  <aside class="nk-peek" role="dialog" aria-label="Database Table-View">
+    <div class="pk-bar">
+      <button class="nk-topbar-btn" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button>
+      <button class="nk-topbar-btn" aria-label="Open as page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+    </div>
+    <div class="pk-body">
+      <h1 class="nk-page-title">🗃️ Database Table-View</h1>
+      <dl class="nk-props">
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In progress</span></dd></div>
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Due</dt><dd class="p-value">20.05.2026</dd></div>
+      </dl>
+      <div class="nk-prose"><p>Table, board and list read the same rows; filters and sort act on all three.</p></div>
+    </div>
+  </aside>
+</div>
+```
+
+```html
+jsrow.addEventListener('click', () => peek.classList.add('open'));        // a row opens beside the table
+closeBtn.addEventListener('click', () => peek.classList.remove('open'));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') peek.classList.remove('open'); });
+```
+
+- **Classes:** `.nk-peek-backdrop`, `.open`, `.nk-peek`, `.pk-bar`, `.pk-body`
+- **On a small screen:** Below 860px it rises from the bottom edge as a sheet over a dimmed page – full width, a grabber, the title in 28px – and the dimmed page takes the tap that closes it.
 
 ### Toast — `.nk-toast`
 
@@ -1355,7 +1431,9 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 |---|---|---|
 | `[hidden]` | `[class*="nk-"]`, `::slotted(*)` | Hides, always – also on components that set their own display, which beat the browser rule before 1.5.2. hidden="until-found" keeps the browser’s find-in-page reveal. |
 | `active` | `nk-tree-item`, `nk-db-tab`, `nk-tab`, `nk-tab-bar-item`, `nk-settings-pane`, `nk-segmented button`, `nk-emoji-cats span`, `nk-board`, `nk-bubble-menu button` | Marks the current item. Tree items and view tabs get the active background, .nk-tab gets the underline, panes become visible. |
-| `open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-sheet-backdrop`, `nk-pop.floating`, `nk-sidebar`, `nk-sidebar-backdrop`, `nk-toggle-arrow` | Fades the overlay in and makes it interactive; shows a floating menu; slides the sidebar in as a drawer on a phone; rotates the toggle arrow by 90°. |
+| `open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-sheet-backdrop`, `nk-peek-backdrop`, `nk-pop.floating`, `nk-sidebar`, `nk-sidebar-backdrop`, `nk-toggle-arrow` | Fades the overlay in and makes it interactive; slides the side peek in from the right; shows a floating menu; slides the sidebar in as a drawer on a phone; rotates the toggle arrow by 90°. |
+| `copied` | `nk-copy-field .cf-btn` | The moment after copying: the action turns green. Set it after the clipboard write and take it off again. |
+| `square` | `nk-profile-row .big-avatar` | The rounded square of a workspace icon instead of the circle of a person. |
 | `floating` | `nk-pop` | A menu over the page: invisible and inert until .open, then it fades in and settles from 4px higher and 98 %, the way the palette opens. |
 | `sheet` | `nk-pop` | Below 860px the popover becomes a bottom sheet – full width, grabber, 40px rows, the page dimmed – and inline positioning is overruled. |
 | `done / current` | `nk-step` | A finished step on the green tag with a check; the step you are on, ringed in the accent, with aria-current="step". |
@@ -1542,10 +1620,10 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
               <th><span class="th-icon">👤</span>Owner</th><th><span class="th-icon">📊</span>Progress</th>
             </tr></thead>
             <tbody>
-              <tr><td><span class="row-title">🚀 Roadmap</span></td><td><span class="nk-tag green">Done</span></td>
+              <tr><td><span class="row-title" data-peek>🚀 Roadmap</span></td><td><span class="nk-tag green">Done</span></td>
                   <td><span class="person-cell"><span class="nk-avatar small purple">AL</span>Ada</span></td>
                   <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td></tr>
-              <tr><td><span class="row-title">🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
+              <tr><td><span class="row-title" data-peek>🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
                   <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
                   <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td></tr>
             </tbody>
@@ -1569,6 +1647,20 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
 
 </div>
 
+<!-- A row opens beside the table; on a phone it is a sheet. Under <body>. -->
+<div class="nk-peek-backdrop" id="rowPeek">
+  <aside class="nk-peek" role="dialog" aria-labelledby="peekTitle" tabindex="-1">
+    <div class="pk-bar"><button class="nk-topbar-btn" id="peekClose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button></div>
+    <div class="pk-body">
+      <h1 class="nk-page-title" id="peekTitle"></h1>
+      <dl class="nk-props">
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In progress</span></dd></div>
+      </dl>
+      <div class="nk-prose"><p>Notes on this row – the page behind it.</p></div>
+    </div>
+  </aside>
+</div>
+
 <script>
   // View switch contract: .active on the tab, .active on the board (it is display:none by default).
   document.querySelectorAll('.nk-db-tab').forEach(tab => tab.addEventListener('click', () => {
@@ -1577,6 +1669,19 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
     document.getElementById('view-table').hidden = board;
     document.getElementById('view-board').classList.toggle('active', board);
   }));
+
+  // Side peek contract: .open on the backdrop. », Escape and a click outside
+  // close it; a click on another row only swaps the content.
+  const peek = document.getElementById('rowPeek');
+  document.querySelectorAll('[data-peek]').forEach(row => row.addEventListener('click', () => {
+    document.getElementById('peekTitle').textContent = row.textContent;
+    peek.classList.add('open');
+    peek.querySelector('.nk-peek').focus({ preventScroll: true });
+  }));
+  const closePeek = () => peek.classList.remove('open');
+  document.getElementById('peekClose').addEventListener('click', closePeek);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePeek(); });
+  document.addEventListener('click', e => { if (!e.target.closest('.nk-peek, [data-peek]')) closePeek(); });
 </script>
 </body>
 </html>
@@ -1618,7 +1723,7 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
     <div class="nk-settings-content">
       <div class="nk-settings-pane active" id="pane-profile">
         <h2 id="settingsTitle">My profile</h2>
-        <div class="nk-profile-row"><div class="big-avatar">AL</div><div><button class="nk-btn secondary small">Upload image</button></div></div>
+        <div class="nk-profile-row"><div class="big-avatar">AL</div><div class="pr-actions"><button class="nk-btn secondary small">Upload image</button></div></div>
         <div class="nk-field"><div><div class="f-label">Display name</div><div class="f-desc">How you appear in the workspace.</div></div>
           <div class="f-control"><input class="nk-input" value="Ada Lovelace"></div></div>
         <div class="nk-field"><div><div class="f-label">Email</div></div>
@@ -1638,6 +1743,10 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
         <h2>General</h2>
         <div class="nk-field"><div><div class="f-label">Workspace name</div></div>
           <div class="f-control"><input class="nk-input" value="Acme Inc"></div></div>
+        <div class="nk-field"><div><div class="f-label">Icon</div></div>
+          <div class="f-control"><div class="nk-profile-row"><div class="big-avatar square">A</div><div class="pr-actions"><button class="nk-btn secondary small">Upload image</button></div></div></div></div>
+        <div class="nk-field"><div><div class="f-label">Public address</div><div class="f-desc">Visitors reach the shared pages here.</div></div>
+          <div class="f-control"><div class="nk-copy-field"><span class="cf-value">https://acme.example.com</span><button class="cf-btn">Copy</button></div></div></div>
         <div class="nk-danger-zone">
           <div class="dz-title">⚠️ Danger zone</div>
           <div class="nk-field" style="padding-top:0"><div><div class="f-label">Delete workspace</div><div class="f-desc">Irreversibly removes all pages, databases and members.</div></div>
@@ -2094,11 +2203,11 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-sidebar-backdrop` `nk-sidebar-toggle` `open` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-topbar-meta` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `nk-cover` `nk-heading` `lead` |
-| Content elements | `nk-callout` `c-icon` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
+| Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
 | Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` |
-| Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
+| Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
-| Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-toast` `show` |
+| Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-bar` `pk-body` `nk-toast` `show` |
 | Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-panels` `nk-panel` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-avatar` `small` `large` `xlarge` `square` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` `nk-steps` `nk-step` `st-mark` `st-desc` `done` `current` |
 | Collaboration & AI | `nk-comments` `nk-comment` `c-head` `c-body` `nk-comment-input` `nk-ai-thread` `nk-ai-msg` `user` `bubble` `a-name` `a-body` `nk-ai-actions` `nk-ai-input-row` `nk-ai-send` |
 | Editor adapter | `nk-block-host` `nk-block-handle` `nk-block-actions` `nk-drop-target` `nk-slash-menu` `nk-slash-menu-label` `nk-slash-item` `selected` `nk-bubble-menu` |
@@ -2158,4 +2267,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.7.1 · MIT · Jungherz GmbH*
+*NotionKit v1.8.0 · MIT · Jungherz GmbH*

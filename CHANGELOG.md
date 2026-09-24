@@ -4,6 +4,62 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.8.0] – 2026-09-24
+
+Links and peeks: a database row opens in a side peek beside the table,
+links get Notion's bookmark block, values to take along a copy field, and
+the profile row shows a chosen picture. Additive – no rule of an existing
+component changes.
+
+### Added
+- **Side peek: `.nk-peek-backdrop` and `.nk-peek`** (`pk-bar`, `pk-body`).
+  Notion's way to open a row: a panel at the right edge, full height, 560px,
+  next to the table, which stays visible and usable – there is no scrim,
+  the backdrop only holds the panel and lets clicks through. `.pk-bar`
+  carries the actions (close with », open as page), `.pk-body` the page:
+  title, properties, prose, comments. `.open` slides it in; closed, it
+  leaves the layout once it has slid out (`display` with `allow-discrete`,
+  `@starting-style`). It lies above the page and the tab bar and below the
+  floating menus, so a menu opened in the peek shows over it. Below 860px it
+  rises as a bottom sheet over a dimmed page that takes the tap to close
+  it. LearnHub builds its contextual help as such a panel.
+- **Bookmark: `.nk-bookmark`** (`bm-text`, `bm-title`, `bm-desc`, `bm-url`,
+  `bm-favicon`, `bm-cover`). Notion's link block: title, two lines of
+  description and the address with its icon on the left, the preview image
+  on the right in a third, 240px at most – a 1200×630 `og:image` fits it
+  nearly whole. The whole box is the link. LearnHub shows how a shared
+  course link will look with it.
+- **Copy field: `.nk-copy-field`** (`cf-value`, `cf-btn`, `copied`, `mono`,
+  `wrap`, `wide`). A value to take along – a link to share, an address, a
+  key – in a field as tall as an input, with its actions inside on the
+  right: the value on one line with an ellipsis, selected whole by a click;
+  `.copied` turns an action green for the moment after. Auxdesk shows its
+  inbound addresses, the Notion workspace URL, the widget secret and embed
+  code this way; NotionKit Web copies links.
+- **Pictures on the profile row.** An `<img>` in `.big-avatar` is a chosen
+  picture, cropped to the circle; `.big-avatar.square` is the rounded
+  square of a workspace icon; `.pr-actions` stacks the actions beside it,
+  `.pr-remove` is the quiet one. The look of `<nk-image-picker>` in NotionKit
+  Elements 1.8.0, after GlassKit Elements' picker; LearnHub needs it for
+  the customer logo.
+- `.nk-page-title` takes its size from the private `--_nk-title` (40px by
+  default), which the peek sets to 32px and to 28px on a phone – like
+  `--_nk-row`, it also reaches a title in a shadow root.
+- Demo: a row, a card or a list item opens in the side peek with its
+  properties, notes and a comment; the bookmark follows the core-idea
+  callout; the profile and the workspace icon take a picture (EXIF
+  rotation, scaled to 512 and 256px); General shows the public address to
+  copy. `#peek` opens the table row. The landing page's desktop/mobile pair
+  opens with the peek: a panel beside the table, a sheet on the phone.
+- `npm run build:og` renders `og.png` and `covers/notionkit-og.jpg` – the
+  preview in the demo's bookmark – from `tools/assets/og-card.html`, with
+  the size from the build.
+
+### Fixed
+- The size badge on the landing page was a constant and still said 7.2 KB,
+  the social card 7 KB. The badge now comes from the build, `check:size`
+  checks it, and the card is rendered with the measured size.
+
 ## [1.7.1] – 2026-09-24
 
 A fix for the minified files. `notionkit.css` was right; `notionkit.min.css`

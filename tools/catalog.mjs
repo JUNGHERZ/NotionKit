@@ -262,6 +262,23 @@ export const CATALOG = [
   html: W => `<div class="nk-callout"><span class="c-icon">💡</span><div>${W.calloutBody}</div></div>`,
 },
 {
+  id: 'nk-bookmark', group: 'content', classes: ['nk-bookmark', 'bm-text', 'bm-title', 'bm-desc', 'bm-url', 'bm-favicon', 'bm-cover'],
+  title: { en: 'Bookmark', de: 'Bookmark' },
+  desc: {
+    en: 'Notion\'s link block: <code>.bm-title</code>, two lines of <code>.bm-desc</code> and the <code>.bm-url</code> with its <code>.bm-favicon</code> on the left, the preview image in <code>.bm-cover</code> on the right – a third of the box, 240px at most, so a 1200×630 <code>og:image</code> fits nearly whole. The whole box is the link, an <code>&lt;a&gt;</code>; fill it from the page\'s <code>og:title</code>, <code>og:description</code> and <code>og:image</code>. Without an image the text takes the width, without a description the box gets lower. Also the way to show how a shared link will look.',
+    de: 'Notions Link-Block: <code>.bm-title</code>, zwei Zeilen <code>.bm-desc</code> und die <code>.bm-url</code> mit ihrem <code>.bm-favicon</code> links, das Vorschaubild in <code>.bm-cover</code> rechts – ein Drittel der Box, höchstens 240px, sodass ein <code>og:image</code> in 1200×630 fast ganz hineinpasst. Die ganze Box ist der Link, ein <code>&lt;a&gt;</code>; gefüllt aus <code>og:title</code>, <code>og:description</code> und <code>og:image</code> der Seite. Ohne Bild nimmt der Text die Breite, ohne Beschreibung wird die Box niedriger. Auch der Weg, zu zeigen, wie ein geteilter Link aussehen wird.',
+  },
+  mobile: { en: 'The image keeps its third and is cropped at the centre; title and address end in an ellipsis, the description in two lines.', de: 'Das Bild behält sein Drittel und wird mittig beschnitten; Titel und Adresse enden mit Auslassungspunkten, die Beschreibung nach zwei Zeilen.' },
+  html: W => `<a class="nk-bookmark" href="https://notionkit.jungherz.com" target="_blank" rel="noopener" style="max-width:600px">
+  <span class="bm-text">
+    <span class="bm-title">${W.bmTitle}</span>
+    <span class="bm-desc">${W.bmDesc}</span>
+    <span class="bm-url"><img class="bm-favicon" src="${W.asset}favicon.svg" alt=""><span>https://notionkit.jungherz.com</span></span>
+  </span>
+  <span class="bm-cover"><img src="${W.asset}covers/notionkit-og.jpg" alt=""></span>
+</a>`,
+},
+{
   id: 'nk-todo', group: 'content', classes: ['nk-todo'],
   title: { en: 'To-do', de: 'To-do' },
   desc: {
@@ -506,6 +523,22 @@ export const CATALOG = [
 </div>`,
 },
 {
+  id: 'nk-copy-field', group: 'forms', classes: ['nk-copy-field', 'cf-value', 'cf-btn', 'copied', 'mono', 'wrap', 'wide'],
+  title: { en: 'Copy field', de: 'Kopierfeld' },
+  desc: {
+    en: 'A value to take along – a link to share, an address, a key – in a field of its own, as tall as an input, with its actions inside on the right. <code>.cf-value</code> holds the text on one line with an ellipsis, and a click selects it whole; <code>.cf-btn</code>s are the quiet actions – Copy and, for a secret, Show. <code>.copied</code> on a button is the moment after, in green; the copying is your script. <code>mono</code> for addresses, keys and code, <code>wrap</code> lets a long value break with the actions on its first line, <code>wide</code> fills the row.',
+    de: 'Ein Wert zum Mitnehmen – ein Link zum Teilen, eine Adresse, ein Schlüssel – in einem eigenen Feld, so hoch wie ein Eingabefeld, mit seinen Aktionen rechts darin. <code>.cf-value</code> hält den Text in einer Zeile mit Auslassungspunkten, ein Klick markiert ihn ganz; <code>.cf-btn</code>s sind die leisen Aktionen – Kopieren und, bei einem Geheimnis, Zeigen. <code>.copied</code> an einem Button ist der Moment danach, in Grün; das Kopieren übernimmt dein Skript. <code>mono</code> für Adressen, Schlüssel und Code, <code>wrap</code> lässt einen langen Wert umbrechen, die Aktionen bleiben in der ersten Zeile, <code>wide</code> füllt die Zeile.',
+  },
+  mobile: { en: 'Keeps to its column: the value is cut, never the actions.', de: 'Bleibt in seiner Spalte: Gekürzt wird der Wert, nie die Aktionen.' },
+  html: W => `<div class="nk-copy-field" style="max-width:340px"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn">${W.copy}</button></div>
+<div class="nk-copy-field mono" style="max-width:340px;margin-top:10px"><span class="cf-value">ntn_••••••••••••••••••••</span><button class="cf-btn">${W.show}</button><button class="cf-btn copied">✓ ${W.copied}</button></div>`,
+  after: W => `<pre class="nk-code"><span class="lang">js</span>btn.addEventListener('click', async () =&gt; {
+  await navigator.clipboard.writeText(field.querySelector('.cf-value').textContent);
+  btn.classList.add('copied');   // ${W.copyHint}
+  setTimeout(() =&gt; btn.classList.remove('copied'), 1500);
+});</pre>`,
+},
+{
   id: 'nk-btn', group: 'forms', classes: ['nk-btn', 'primary', 'secondary', 'danger', 'danger-solid', 'small'],
   title: { en: 'Buttons', de: 'Buttons' },
   desc: {
@@ -606,18 +639,24 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-profile-row', group: 'forms', classes: ['nk-profile-row', 'big-avatar'],
-  title: { en: 'Profile row', de: 'Profil-Zeile' },
+  id: 'nk-profile-row', group: 'forms', classes: ['nk-profile-row', 'big-avatar', 'square', 'pr-actions', 'pr-remove'],
+  title: { en: 'Profile row & picture', de: 'Profil-Zeile & Bild' },
   desc: {
-    en: 'A 56px avatar with the two actions beside it. The gradient matches every other avatar in the system because they all read the same two decor tokens.',
-    de: 'Ein 56px-Avatar mit zwei Aktionen daneben. Der Verlauf passt zu jedem anderen Avatar im System, weil alle dieselben zwei Decor-Tokens lesen.',
+    en: 'A 56px avatar with its actions beside it, in <code>.pr-actions</code> – upload, change, and the quiet <code>.pr-remove</code>. The gradient matches every other avatar in the system because they all read the same two decor tokens; an <code>&lt;img&gt;</code> inside <code>.big-avatar</code> is a chosen picture, cropped to the circle. <code>square</code> makes it the rounded square of a workspace icon. Choosing the file – a hidden <code>&lt;input type="file"&gt;</code> opened from the button, EXIF rotation, scaling – is your script, or <code>&lt;nk-image-picker&gt;</code>.',
+    de: 'Ein 56px-Avatar mit seinen Aktionen daneben, in <code>.pr-actions</code> – hochladen, ändern und das leise <code>.pr-remove</code>. Der Verlauf passt zu jedem anderen Avatar im System, weil alle dieselben zwei Decor-Tokens lesen; ein <code>&lt;img&gt;</code> in <code>.big-avatar</code> ist ein gewähltes Bild, auf den Kreis zugeschnitten. <code>square</code> macht daraus das abgerundete Quadrat eines Workspace-Icons. Die Datei zu wählen – ein verstecktes <code>&lt;input type="file"&gt;</code>, vom Button geöffnet, EXIF-Drehung, Skalierung – übernimmt dein Skript oder <code>&lt;nk-image-picker&gt;</code>.',
   },
-  mobile: { en: 'Unchanged; the buttons wrap under the avatar on very narrow screens.', de: 'Unverändert; auf sehr schmalen Schirmen rutschen die Buttons unter den Avatar.' },
+  mobile: { en: 'Unchanged; the actions stay beside the avatar.', de: 'Unverändert; die Aktionen bleiben neben dem Avatar.' },
   html: W => `<div class="nk-profile-row">
   <div class="big-avatar">AL</div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
-    <button class="nk-btn secondary small">${W.remove === 'Remove' ? 'Upload image' : 'Bild hochladen'}</button>
-    <button class="nk-btn secondary small">${W.remove}</button>
+  <div class="pr-actions">
+    <button class="nk-btn secondary small">${W.uploadImage}</button>
+  </div>
+</div>
+<div class="nk-profile-row">
+  <div class="big-avatar square"><img src="${W.asset}favicon.svg" alt=""></div>
+  <div class="pr-actions">
+    <button class="nk-btn secondary small">${W.changeImage}</button>
+    <button class="nk-btn secondary small pr-remove">${W.remove}</button>
   </div>
 </div>`,
 },
@@ -819,6 +858,35 @@ export const CATALOG = [
     <div class="nk-menu-item danger"><span class="m-icon">🗑</span>${W.moveToTrash}</div>
   </div>
 </div>`,
+},
+{
+  id: 'nk-peek', group: 'overlay', classes: ['nk-peek-backdrop', 'open', 'nk-peek', 'pk-bar', 'pk-body'],
+  title: { en: 'Side peek', de: 'Side Peek' },
+  desc: {
+    en: 'Notion\'s side peek: a database row opens in a panel at the right edge, full height, next to the table, which stays visible and usable – there is no scrim, the backdrop only holds the panel and lets clicks through. <code>.pk-bar</code> carries the actions – close with », open as page – and <code>.pk-body</code> the page: title in 32px, properties, prose, comments. <code>.open</code> on the backdrop slides the panel in; closed, it leaves the layout once it has slid out. It lies above the page and the tab bar and below the floating menus, so a menu opened in the peek shows over it. Closing is your script: », Escape, a click outside; a click on another row swaps the content.',
+    de: 'Notions Side Peek: Eine Datenbankzeile öffnet sich in einem Panel am rechten Rand, in voller Höhe, neben der Tabelle, die sichtbar und bedienbar bleibt – es gibt keine Abdunklung, der Backdrop hält nur das Panel und lässt Klicks durch. <code>.pk-bar</code> trägt die Aktionen – Schließen mit », Als Seite öffnen –, <code>.pk-body</code> die Seite: Titel in 32px, Eigenschaften, Prosa, Kommentare. <code>.open</code> am Backdrop schiebt das Panel herein; geschlossen verlässt es das Layout, sobald es hinausgeglitten ist. Es liegt über Seite und Tab-Leiste und unter den schwebenden Menüs, sodass ein Menü aus dem Peek darüber erscheint. Das Schließen übernimmt dein Skript: », Escape, ein Klick daneben; ein Klick auf eine andere Zeile tauscht den Inhalt.',
+  },
+  mobile: { en: 'Below 860px it rises from the bottom edge as a sheet over a dimmed page – full width, a grabber, the title in 28px – and the dimmed page takes the tap that closes it.', de: 'Unter 860px steigt es als Sheet von der Unterkante über eine abgedunkelte Seite auf – volle Breite, ein Griff, der Titel in 28px –, und die abgedunkelte Seite nimmt den Tipp, der es schließt.' },
+  frame: 420, relativeFrame: true,
+  html: W => `<div class="nk-peek-backdrop open" style="position:absolute;border-radius:var(--nk-radius);overflow:hidden">
+  <aside class="nk-peek" role="dialog" aria-label="${W.peekTitle}" style="width:min(440px, 100%)">
+    <div class="pk-bar">
+      <button class="nk-topbar-btn" aria-label="${W.close}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button>
+      <button class="nk-topbar-btn" aria-label="${W.openPage}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+    </div>
+    <div class="pk-body">
+      <h1 class="nk-page-title">🗃️ ${W.peekTitle}</h1>
+      <dl class="nk-props">
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>${W.status}</dt><dd class="p-value"><span class="nk-tag blue">${W.inProgress}</span></dd></div>
+        <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>${W.due}</dt><dd class="p-value">20.05.2026</dd></div>
+      </dl>
+      <div class="nk-prose"><p>${W.peekText}</p></div>
+    </div>
+  </aside>
+</div>`,
+  after: W => `<pre class="nk-code"><span class="lang">js</span>row.addEventListener('click', () =&gt; peek.classList.add('open'));        // ${W.peekHintOpen}
+closeBtn.addEventListener('click', () =&gt; peek.classList.remove('open'));
+document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.classList.remove('open'); });</pre>`,
 },
 {
   id: 'nk-toast', group: 'overlay', classes: ['nk-toast', 'show'],
