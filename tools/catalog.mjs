@@ -15,6 +15,64 @@ export const GROUPS = [
   { id: 'editor',   prd: '5.11', title: { en: 'Editor adapter',          de: 'Editor-Adapter' } },
 ];
 
+// Month sheets for the date picker and the calendar view, written out the
+// way the demo's script writes them – for the docs, with `today` fixed so
+// the pages do not change from day to day. Weeks start on Monday.
+const pad2 = n => String(n).padStart(2, '0');
+const isoDay = d => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+function isoWeekOf(d) {
+  const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7));
+  return Math.ceil(((t - Date.UTC(t.getUTCFullYear(), 0, 1)) / 864e5 + 1) / 7);
+}
+const CHEVRON = { prev: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>', next: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>' };
+function monthOf(W, month) {
+  const fmt = (o, d) => new Intl.DateTimeFormat(W.locale, o).format(d);
+  const [y, m] = month.split('-').map(Number), first = new Date(y, m - 1, 1), offset = (first.getDay() + 6) % 7;
+  const weekdays = Array.from({ length: 7 }, (_, i) => fmt({ weekday: 'short' }, new Date(2026, 5, 1 + i)).replace('.', ''));
+  return { fmt, m, first, weekdays, day: i => new Date(y, m - 1, 1 - offset + i), rows: Math.ceil((offset + new Date(y, m, 0).getDate()) / 7) };
+}
+const calHead = (W, title, cls) => `<div class="${cls}-head"><div class="${cls}-title">${title}</div><button class="cal-nav">${W.calToday}</button><button class="cal-nav" aria-label="${W.calPrev}">${CHEVRON.prev}</button><button class="cal-nav" aria-label="${W.calNext}">${CHEVRON.next}</button></div>`;
+function calendarMarkup(W, { month, value, start, end, today, off = {}, marks = {}, foot = '' }) {
+  const g = monthOf(W, month);
+  const rows = [`<span class="cal-wd">${W.calWeek}</span>` + g.weekdays.map(w => `<span class="cal-wd">${w.slice(0, 2)}</span>`).join('')];
+  for (let r = 0; r < 6; r++) {
+    let row = `<span class="cal-week">${isoWeekOf(g.day(r * 7))}</span>`;
+    for (let c = 0; c < 7; c++) {
+      const d = g.day(r * 7 + c), iso = isoDay(d), dots = (marks[iso] || []).map(t => `<i class="${t}"></i>`).join('');
+      const cls = ['cal-day', d.getMonth() !== g.m - 1 && 'out', (d.getDay() % 6 === 0 || off[iso]) && 'off', iso === today && 'today',
+        iso === value && 'selected', iso === start && 'start', iso === end && 'end', start && end && iso > start && iso < end && 'in-range'].filter(Boolean).join(' ');
+      row += `<button class="${cls}"${off[iso] ? ` title="${off[iso]}"` : ''}>${d.getDate()}${dots ? `<span class="cal-marks">${dots}</span>` : ''}</button>`;
+    }
+    rows.push(row);
+  }
+  return `<div class="nk-calendar weeks">
+    ${calHead(W, g.fmt({ month: 'long', year: 'numeric' }, g.first), 'cal')}
+    <div class="cal-grid">
+      ${rows.join('\n      ')}
+    </div>${foot}
+  </div>`;
+}
+function calendarViewMarkup(W, { month, today, items = {} }) {
+  const g = monthOf(W, month);
+  const rows = [`<div class="cv-wd">${W.calWeek}</div>` + g.weekdays.map(w => `<div class="cv-wd">${w}</div>`).join('')];
+  for (let r = 0; r < g.rows; r++) {
+    let row = `<div class="cv-week">${isoWeekOf(g.day(r * 7))}</div>`;
+    for (let c = 0; c < 7; c++) {
+      const d = g.day(r * 7 + c), iso = isoDay(d);
+      const cls = ['cv-day', d.getMonth() !== g.m - 1 && 'out', iso === today && 'today'].filter(Boolean).join(' ');
+      row += `<div class="${cls}"><span class="cv-num">${d.getDate()}</span>${(items[iso] || []).map(t => `<button class="cv-item">${t}</button>`).join('')}</div>`;
+    }
+    rows.push(row);
+  }
+  return `<div class="nk-calendar-view weeks">
+  ${calHead(W, g.fmt({ month: 'long', year: 'numeric' }, g.first), 'cv')}
+  <div class="cv-grid">
+    ${rows.join('\n    ')}
+  </div>
+</div>`;
+}
+
 export const CATALOG = [
 // ============================================================ 5.1 APP SHELL
 {
@@ -523,6 +581,16 @@ export const CATALOG = [
 </div>`,
 },
 {
+  id: 'nk-calendar-view', group: 'database', classes: ['nk-calendar-view', 'weeks', 'cv-head', 'cv-title', 'cv-grid', 'cv-wd', 'cv-week', 'cv-day', 'out', 'off', 'today', 'cv-num', 'cv-item'],
+  title: { en: 'Calendar view', de: 'Kalender-Ansicht' },
+  desc: {
+    en: 'The database as Notion\'s month, a view tab like table, board and list: a head with the month and the date picker\'s <code>.cal-nav</code> buttons, the weekdays, and a <code>.cv-day</code> per day with its <code>.cv-num</code> top right – today\'s on a red pill – and the rows due that day as <code>.cv-item</code> cards. Days of the month before and after (<code>.out</code>) and days not worked (<code>.off</code>) are washed. <code>weeks</code> adds a column of ISO calendar weeks. The columns share the width, so seven always fit; an item\'s title ends in an ellipsis.',
+    de: 'Die Datenbank als Notions Monat, ein View-Reiter wie Tabelle, Board und Liste: ein Kopf mit dem Monat und den <code>.cal-nav</code>-Knöpfen der Datumsauswahl, die Wochentage und ein <code>.cv-day</code> je Tag mit seiner <code>.cv-num</code> oben rechts – die von heute auf einer roten Pille – und den an diesem Tag fälligen Zeilen als <code>.cv-item</code>-Karten. Tage des Monats davor und danach (<code>.out</code>) und Tage, an denen nicht gearbeitet wird (<code>.off</code>), sind hinterlegt. <code>weeks</code> ergänzt eine Spalte mit ISO-Kalenderwochen. Die Spalten teilen sich die Breite, sieben passen also immer; der Titel eines Eintrags endet mit Auslassungspunkten.',
+  },
+  mobile: { en: 'Below 860px the days get lower (64px) and the cards smaller; seven columns still fit.', de: 'Unter 860px werden die Tage niedriger (64px) und die Karten kleiner; sieben Spalten passen weiter.' },
+  html: W => calendarViewMarkup(W, { month: '2026-05', today: '2026-05-20', items: { '2026-05-08': [`🧭 ${W.calItem1}`], '2026-05-10': [`📄 ${W.calItem2}`], '2026-05-20': [`🗃️ ${W.calItem3}`, `▤ ${W.calItem4}`] } }),
+},
+{
   id: 'nk-copy-field', group: 'forms', classes: ['nk-copy-field', 'cf-value', 'cf-btn', 'copied', 'mono', 'wrap', 'wide'],
   title: { en: 'Copy field', de: 'Kopierfeld' },
   desc: {
@@ -537,6 +605,23 @@ export const CATALOG = [
   btn.classList.add('copied');   // ${W.copyHint}
   setTimeout(() =&gt; btn.classList.remove('copied'), 1500);
 });</pre>`,
+},
+{
+  id: 'nk-calendar', group: 'forms', classes: ['nk-calendar', 'weeks', 'cal-head', 'cal-title', 'cal-nav', 'cal-grid', 'cal-wd', 'cal-week', 'cal-day', 'out', 'off', 'today', 'start', 'end', 'in-range', 'cal-marks', 'cal-foot'],
+  title: { en: 'Date picker', de: 'Datumsauswahl' },
+  desc: {
+    en: 'Notion\'s month sheet for a date: a title with Today and ‹ ›, the weekdays, six rows of <code>.cal-day</code> buttons. The chosen day is <code>.selected</code> in the accent, today is red; a range runs from <code>.start</code> to <code>.end</code> over <code>.in-range</code> days in the accent\'s tint. <code>.off</code> greys a day that is not worked – a weekend, a holiday, with its name as <code>title</code> – and <code>.out</code> a day of the month before or after; <code>aria-disabled="true"</code> marks one outside the bounds. <code>.cal-marks</code> holds up to three dots in the nine colours (<code>i.blue</code>, <code>i.red</code> …), for deadlines or milestones. <code>weeks</code> adds the ISO calendar week in front of each row, <code>.cal-foot</code> a time field or actions under the sheet. Cells are 36px, so seven and the week column fill a <code>.nk-pop</code>; put it in <code>.nk-pop.floating.sheet</code> and it is a popover on the desktop and a sheet with 44px cells on a phone. The month, the keys and the value are your script – or <code>&lt;nk-calendar&gt;</code>.',
+    de: 'Notions Monatsblatt für ein Datum: ein Titel mit Heute und ‹ ›, die Wochentage, sechs Reihen <code>.cal-day</code>-Knöpfe. Der gewählte Tag ist <code>.selected</code> im Akzent, heute ist rot; ein Zeitraum läuft von <code>.start</code> bis <code>.end</code> über <code>.in-range</code>-Tage in der Tönung des Akzents. <code>.off</code> graut einen Tag, an dem nicht gearbeitet wird – ein Wochenende, ein Feiertag, mit seinem Namen als <code>title</code> –, <code>.out</code> einen Tag des Monats davor oder danach; <code>aria-disabled="true"</code> markiert einen außerhalb der Grenzen. <code>.cal-marks</code> hält bis zu drei Punkte in den neun Farben (<code>i.blue</code>, <code>i.red</code> …), für Fristen oder Meilensteine. <code>weeks</code> stellt jeder Reihe die ISO-Kalenderwoche voran, <code>.cal-foot</code> ein Zeitfeld oder Aktionen unter das Blatt. Die Zellen sind 36px, sieben und die Wochenspalte füllen also ein <code>.nk-pop</code>; in <code>.nk-pop.floating.sheet</code> ist es auf dem Desktop ein Popover und auf dem Telefon ein Sheet mit 44px-Zellen. Monat, Tasten und Wert sind dein Skript – oder <code>&lt;nk-calendar&gt;</code>.',
+  },
+  mobile: { en: 'In a sheet the cells grow to 44px, a thumb\'s width; seven and the week column still fit a 390px screen.', de: 'In einem Sheet wachsen die Zellen auf 44px, eine Daumenbreite; sieben und die Wochenspalte passen weiter auf einen 390px-Schirm.' },
+  html: W => `<div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
+<div class="nk-pop">
+  ${calendarMarkup(W, { month: '2026-06', value: '2026-06-02', today: '2026-06-17', off: { '2026-06-04': W.holidayCorpus }, marks: { '2026-06-02': ['blue'], '2026-06-11': ['orange', 'red'], '2026-06-24': ['green'] } })}
+</div>
+<div class="nk-pop">
+  ${calendarMarkup(W, { month: '2026-06', start: '2026-06-08', end: '2026-06-12', today: '2026-06-17', off: { '2026-06-04': W.holidayCorpus }, foot: `\n    <div class="cal-foot"><input class="nk-input" type="time" value="09:30" aria-label="${W.calTime}"><button class="cal-nav">${W.calClear}</button></div>` })}
+</div>
+</div>`,
 },
 {
   id: 'nk-btn', group: 'forms', classes: ['nk-btn', 'primary', 'secondary', 'danger', 'danger-solid', 'small'],

@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.8.0-2383e2?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.9.0-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
   <img src="https://img.shields.io/badge/components-~140-448361?style=flat-square" alt="Components">
-  <img src="https://img.shields.io/badge/gzip-12.2%20KB-d9730d?style=flat-square" alt="Size">
+  <img src="https://img.shields.io/badge/gzip-13.1%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.8.0-9065b0?style=flat-square" alt="Changelog"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.9.0-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
   <a href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit/"><img src="https://img.shields.io/badge/CDN-jsDelivr-blue?style=flat-square" alt="jsDelivr"></a>
 </p>
@@ -48,7 +48,7 @@ NotionKit is a **pure CSS component library** in the idiom of Notion: the quiet,
 
 There is no established UI framework that ships the Notion look *as a system*. What exists are editors (BlockNote, Novel), generic component kits (shadcn/ui) or full clones. NotionKit fills the middle: an opinionated design system with a clear optical signature that lets you build your own product in that ecosystem – familiar feel, own application.
 
-NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements](https://notionkit-elements.jungherz.com) wraps this markup in 79 vanilla web components for application UIs, and [NotionKit Web](https://notionkit-web.jungherz.com) is the official Astro template for complete websites on the same foundation – three layers, one design language.
+NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements](https://notionkit-elements.jungherz.com) wraps this markup in 85 vanilla web components for application UIs, and [NotionKit Web](https://notionkit-web.jungherz.com) is the official Astro template for complete websites on the same foundation – three layers, one design language.
 
 <br>
 
@@ -61,7 +61,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 - 🧩 **Shadow DOM ready** – ships a constructable stylesheet split into tokens and components, plus `::slotted()` twins, so web components adopt it without breaking branding
 - ✍️ **Editor adapter** – no editor of its own; a themed adapter layer for TipTap, BlockNote and Novel inside `.nk-block-host`
 - 🤖 **AI-ready** – ships with [`SKILL.md`](SKILL.md), a structured reference for LLMs and coding agents, including eight complete app skeletons
-- 🪶 **Lightweight** – 103 KB raw / 67 KB minified / 12.2 KB gzipped, no dependencies. The budget is 14 KB gzipped, what a new connection delivers in its first round trip; CI keeps to it
+- 🪶 **Lightweight** – 110 KB raw / 72 KB minified / 13.1 KB gzipped, no dependencies. The budget is 14 KB gzipped, what a new connection delivers in its first round trip; CI keeps to it
 - 🎯 **Prefixed naming** – `nk-*` classes, `--nk-*` tokens, no unprefixed global rules
 
 ---
@@ -77,7 +77,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 Pin a version for production:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.8.0/notionkit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.9.0/notionkit.min.css">
 ```
 
 ### npm / yarn / pnpm
@@ -201,6 +201,7 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-tag` (nine colours) | Notion's select options, tuned per theme |
 | `nk-progress` (`wide`), `nk-progress-label` | Progress bar in a cell or across its row |
 | `nk-board` (`active`), `nk-board-col`, `nk-board-col-header`, `nk-card` | Board view with scrolling columns |
+| `nk-calendar-view` (`weeks`, `cv-head`, `cv-title`, `cv-grid`, `cv-wd`, `cv-week`, `cv-day`, `cv-num`, `cv-item`) | Calendar view: a month, the rows as cards on their dates |
 
 ### Forms & settings
 | Class | Description |
@@ -213,6 +214,7 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-field` (`f-label`, `f-desc`, `f-control`, `stacked`, `compact`), `nk-fields` | Settings row, stacked field, field grid |
 | `nk-profile-row` (`big-avatar`, `square`, `pr-actions`, `pr-remove`) | Avatar or workspace icon with its actions; an `<img>` in it is a chosen picture |
 | `nk-copy-field` (`cf-value`, `cf-btn`, `copied`, `mono`, `wrap`, `wide`) | A value to copy – link, address, key – with its actions inside |
+| `nk-calendar` (`weeks`, `cal-head`, `cal-nav`, `cal-grid`, `cal-week`, `cal-day`, `cal-marks`, `cal-foot`) | Date picker: a day or a range, calendar weeks, days not worked, marks |
 | `nk-model-card` (`selected`), `nk-danger-zone`, `nk-member-list`, `nk-member-row` | Settings building blocks |
 | `nk-modal-backdrop` (`open`), `nk-modal`, `nk-settings-nav`, `nk-settings-user`, `nk-settings-content`, `nk-settings-pane` (`active`) | Settings modal |
 
@@ -411,7 +413,7 @@ NotionKit is the CSS foundation of a three-layer family. The layers share one de
 
 ### NotionKit Elements – the app layer
 
-If you want to use NotionKit through **drop-in web components** instead of writing the class markup yourself, take a look at **NotionKit Elements**: 79 vanilla-JS custom elements (`<nk-app>`, `<nk-sidebar>`, `<nk-tree-item>`, `<nk-callout>`, `<nk-database>`, `<nk-cmdk>`, `<nk-block-host>` …) with Shadow DOM, native form participation and pixel parity with the class markup – built on the constructable stylesheet shipped here. The [proof of concept](elements-poc.html) in this repository is its seed.
+If you want to use NotionKit through **drop-in web components** instead of writing the class markup yourself, take a look at **NotionKit Elements**: 85 vanilla-JS custom elements (`<nk-app>`, `<nk-sidebar>`, `<nk-tree-item>`, `<nk-callout>`, `<nk-database>`, `<nk-cmdk>`, `<nk-block-host>` …) with Shadow DOM, native form participation and pixel parity with the class markup – built on the constructable stylesheet shipped here. The [proof of concept](elements-poc.html) in this repository is its seed.
 
 Useful links:
 - GitHub: https://github.com/JUNGHERZ/NotionKit-Elements
@@ -462,10 +464,13 @@ The floor is set by `color-mix()` and constructable stylesheets. `:where()`, `in
 |---|---|---|
 | `hidden` (attribute) | every nk- element and slotted node | Hidden, always – even where a component sets its own `display` |
 | `.active` | `nk-tree-item`, `nk-db-tab`, `nk-tab`, `nk-settings-pane`, `nk-segmented button`, `nk-board` | Where the user is |
-| `.open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-sheet-backdrop`, `nk-pop.floating`, `nk-sidebar` (phones), `nk-toggle-arrow` | Overlay visible, menu shown, drawer in / arrow rotated |
+| `.open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-sheet-backdrop`, `nk-peek-backdrop`, `nk-pop.floating`, `nk-sidebar` (phones), `nk-toggle-arrow` | Overlay visible, peek in, menu shown, drawer in / arrow rotated |
 | `.floating` `.sheet` | `nk-pop` | Fades in with `.open`; a bottom sheet below 860px |
 | `.collapsed` | `nk-tree-children` | Subtree folded |
-| `.selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item` | Transient highlight or chosen option |
+| `.selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item`, `nk-calendar .cal-day` | Transient highlight or chosen option – on a calendar the chosen day |
+| `.start` `.end` `.in-range` | `nk-calendar .cal-day` | A range: its ends in the accent, the days between tinted |
+| `.today` `.off` `.out` | `nk-calendar .cal-day`, `nk-calendar-view .cv-day` | Today in red; a day not worked or of another month greyed |
+| `.weeks` | `nk-calendar`, `nk-calendar-view` | ISO calendar weeks in front of the days |
 | `.show` | `nk-toast` | Toast slides in |
 | `aria-checked="true"` | `nk-switch` (button form) | Switch on |
 | `.full` `.small` | `nk-page` | Page options: full width, small text |

@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.8.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.9.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html">Doku</a>
@@ -595,6 +595,22 @@
         
         
       </article>
+      <article class="doc-entry" id="s-nk-calendar-view">
+        <h3>Kalender-Ansicht <code>.nk-calendar-view</code></h3>
+        <div class="doc-preview"><div class="nk-calendar-view weeks">
+  <div class="cv-head"><div class="cv-title">Mai 2026</div><button class="cal-nav">Heute</button><button class="cal-nav" aria-label="Voriger Monat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="cal-nav" aria-label="Nächster Monat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
+  <div class="cv-grid">
+    <div class="cv-wd">KW</div><div class="cv-wd">Mo</div><div class="cv-wd">Di</div><div class="cv-wd">Mi</div><div class="cv-wd">Do</div><div class="cv-wd">Fr</div><div class="cv-wd">Sa</div><div class="cv-wd">So</div>
+    <div class="cv-week">18</div><div class="cv-day out"><span class="cv-num">27</span></div><div class="cv-day out"><span class="cv-num">28</span></div><div class="cv-day out"><span class="cv-num">29</span></div><div class="cv-day out"><span class="cv-num">30</span></div><div class="cv-day"><span class="cv-num">1</span></div><div class="cv-day"><span class="cv-num">2</span></div><div class="cv-day"><span class="cv-num">3</span></div>
+    <div class="cv-week">19</div><div class="cv-day"><span class="cv-num">4</span></div><div class="cv-day"><span class="cv-num">5</span></div><div class="cv-day"><span class="cv-num">6</span></div><div class="cv-day"><span class="cv-num">7</span></div><div class="cv-day"><span class="cv-num">8</span><button class="cv-item">🧭 App-Shell & Sidebar</button></div><div class="cv-day"><span class="cv-num">9</span></div><div class="cv-day"><span class="cv-num">10</span><button class="cv-item">📄 Seiten-Shell</button></div>
+    <div class="cv-week">20</div><div class="cv-day"><span class="cv-num">11</span></div><div class="cv-day"><span class="cv-num">12</span></div><div class="cv-day"><span class="cv-num">13</span></div><div class="cv-day"><span class="cv-num">14</span></div><div class="cv-day"><span class="cv-num">15</span></div><div class="cv-day"><span class="cv-num">16</span></div><div class="cv-day"><span class="cv-num">17</span></div>
+    <div class="cv-week">21</div><div class="cv-day"><span class="cv-num">18</span></div><div class="cv-day"><span class="cv-num">19</span></div><div class="cv-day today"><span class="cv-num">20</span><button class="cv-item">🗃️ Datenbank-Tabelle</button><button class="cv-item">▤ Board-Ansicht</button></div><div class="cv-day"><span class="cv-num">21</span></div><div class="cv-day"><span class="cv-num">22</span></div><div class="cv-day"><span class="cv-num">23</span></div><div class="cv-day"><span class="cv-num">24</span></div>
+    <div class="cv-week">22</div><div class="cv-day"><span class="cv-num">25</span></div><div class="cv-day"><span class="cv-num">26</span></div><div class="cv-day"><span class="cv-num">27</span></div><div class="cv-day"><span class="cv-num">28</span></div><div class="cv-day"><span class="cv-num">29</span></div><div class="cv-day"><span class="cv-num">30</span></div><div class="cv-day"><span class="cv-num">31</span></div>
+  </div>
+</div></div>
+        
+        
+      </article>
     </section>
     <section class="doc-group" id="forms">
       <h2>Formulare & Einstellungen</h2>
@@ -618,6 +634,42 @@
   btn.classList.add('copied');   // kurz grün
   setTimeout(() =&gt; btn.classList.remove('copied'), 1500);
 });</pre>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-calendar">
+        <h3>Datumsauswahl <code>.nk-calendar</code></h3>
+        <div class="doc-preview"><div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start">
+<div class="nk-pop">
+  <div class="nk-calendar weeks">
+    <div class="cal-head"><div class="cal-title">Juni 2026</div><button class="cal-nav">Heute</button><button class="cal-nav" aria-label="Voriger Monat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="cal-nav" aria-label="Nächster Monat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
+    <div class="cal-grid">
+      <span class="cal-wd">KW</span><span class="cal-wd">Mo</span><span class="cal-wd">Di</span><span class="cal-wd">Mi</span><span class="cal-wd">Do</span><span class="cal-wd">Fr</span><span class="cal-wd">Sa</span><span class="cal-wd">So</span>
+      <span class="cal-week">23</span><button class="cal-day">1</button><button class="cal-day selected">2<span class="cal-marks"><i class="blue"></i></span></button><button class="cal-day">3</button><button class="cal-day off" title="Fronleichnam">4</button><button class="cal-day">5</button><button class="cal-day off">6</button><button class="cal-day off">7</button>
+      <span class="cal-week">24</span><button class="cal-day">8</button><button class="cal-day">9</button><button class="cal-day">10</button><button class="cal-day">11<span class="cal-marks"><i class="orange"></i><i class="red"></i></span></button><button class="cal-day">12</button><button class="cal-day off">13</button><button class="cal-day off">14</button>
+      <span class="cal-week">25</span><button class="cal-day">15</button><button class="cal-day">16</button><button class="cal-day today">17</button><button class="cal-day">18</button><button class="cal-day">19</button><button class="cal-day off">20</button><button class="cal-day off">21</button>
+      <span class="cal-week">26</span><button class="cal-day">22</button><button class="cal-day">23</button><button class="cal-day">24<span class="cal-marks"><i class="green"></i></span></button><button class="cal-day">25</button><button class="cal-day">26</button><button class="cal-day off">27</button><button class="cal-day off">28</button>
+      <span class="cal-week">27</span><button class="cal-day">29</button><button class="cal-day">30</button><button class="cal-day out">1</button><button class="cal-day out">2</button><button class="cal-day out">3</button><button class="cal-day out off">4</button><button class="cal-day out off">5</button>
+      <span class="cal-week">28</span><button class="cal-day out">6</button><button class="cal-day out">7</button><button class="cal-day out">8</button><button class="cal-day out">9</button><button class="cal-day out">10</button><button class="cal-day out off">11</button><button class="cal-day out off">12</button>
+    </div>
+  </div>
+</div>
+<div class="nk-pop">
+  <div class="nk-calendar weeks">
+    <div class="cal-head"><div class="cal-title">Juni 2026</div><button class="cal-nav">Heute</button><button class="cal-nav" aria-label="Voriger Monat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="cal-nav" aria-label="Nächster Monat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
+    <div class="cal-grid">
+      <span class="cal-wd">KW</span><span class="cal-wd">Mo</span><span class="cal-wd">Di</span><span class="cal-wd">Mi</span><span class="cal-wd">Do</span><span class="cal-wd">Fr</span><span class="cal-wd">Sa</span><span class="cal-wd">So</span>
+      <span class="cal-week">23</span><button class="cal-day">1</button><button class="cal-day">2</button><button class="cal-day">3</button><button class="cal-day off" title="Fronleichnam">4</button><button class="cal-day">5</button><button class="cal-day off">6</button><button class="cal-day off">7</button>
+      <span class="cal-week">24</span><button class="cal-day start">8</button><button class="cal-day in-range">9</button><button class="cal-day in-range">10</button><button class="cal-day in-range">11</button><button class="cal-day end">12</button><button class="cal-day off">13</button><button class="cal-day off">14</button>
+      <span class="cal-week">25</span><button class="cal-day">15</button><button class="cal-day">16</button><button class="cal-day today">17</button><button class="cal-day">18</button><button class="cal-day">19</button><button class="cal-day off">20</button><button class="cal-day off">21</button>
+      <span class="cal-week">26</span><button class="cal-day">22</button><button class="cal-day">23</button><button class="cal-day">24</button><button class="cal-day">25</button><button class="cal-day">26</button><button class="cal-day off">27</button><button class="cal-day off">28</button>
+      <span class="cal-week">27</span><button class="cal-day">29</button><button class="cal-day">30</button><button class="cal-day out">1</button><button class="cal-day out">2</button><button class="cal-day out">3</button><button class="cal-day out off">4</button><button class="cal-day out off">5</button>
+      <span class="cal-week">28</span><button class="cal-day out">6</button><button class="cal-day out">7</button><button class="cal-day out">8</button><button class="cal-day out">9</button><button class="cal-day out">10</button><button class="cal-day out off">11</button><button class="cal-day out off">12</button>
+    </div>
+    <div class="cal-foot"><input class="nk-input" type="time" value="09:30" aria-label="Uhrzeit"><button class="cal-nav">Löschen</button></div>
+  </div>
+</div>
+</div></div>
+        
         
       </article>
       <article class="doc-entry" id="s-nk-btn">

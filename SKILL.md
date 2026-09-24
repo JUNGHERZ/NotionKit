@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.8.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.9.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -695,6 +695,27 @@ The third database view: one line per row – icon, title and a few properties o
 - **Classes:** `.nk-list`, `.nk-list-item`, `.l-icon`, `.l-title`, `.l-meta`, `.last`
 - **On a small screen:** Stays one line per row: the title gives way first and ends in an ellipsis, the properties keep their place.
 
+### Calendar view — `.nk-calendar-view`
+
+The database as Notion's month, a view tab like table, board and list: a head with the month and the date picker's `.cal-nav` buttons, the weekdays, and a `.cv-day` per day with its `.cv-num` top right – today's on a red pill – and the rows due that day as `.cv-item` cards. Days of the month before and after (`.out`) and days not worked (`.off`) are washed. `weeks` adds a column of ISO calendar weeks. The columns share the width, so seven always fit; an item's title ends in an ellipsis.
+
+```html
+<div class="nk-calendar-view weeks">
+  <div class="cv-head"><div class="cv-title">May 2026</div><button class="cal-nav">Today</button><button class="cal-nav" aria-label="Previous month"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="cal-nav" aria-label="Next month"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
+  <div class="cv-grid">
+    <div class="cv-wd">W</div><div class="cv-wd">Mon</div><div class="cv-wd">Tue</div><div class="cv-wd">Wed</div><div class="cv-wd">Thu</div><div class="cv-wd">Fri</div><div class="cv-wd">Sat</div><div class="cv-wd">Sun</div>
+    <div class="cv-week">18</div><div class="cv-day out"><span class="cv-num">27</span></div><div class="cv-day out"><span class="cv-num">28</span></div><div class="cv-day out"><span class="cv-num">29</span></div><div class="cv-day out"><span class="cv-num">30</span></div><div class="cv-day"><span class="cv-num">1</span></div><div class="cv-day"><span class="cv-num">2</span></div><div class="cv-day"><span class="cv-num">3</span></div>
+    <div class="cv-week">19</div><div class="cv-day"><span class="cv-num">4</span></div><div class="cv-day"><span class="cv-num">5</span></div><div class="cv-day"><span class="cv-num">6</span></div><div class="cv-day"><span class="cv-num">7</span></div><div class="cv-day"><span class="cv-num">8</span><button class="cv-item">🧭 App shell & sidebar</button></div><div class="cv-day"><span class="cv-num">9</span></div><div class="cv-day"><span class="cv-num">10</span><button class="cv-item">📄 Page shell</button></div>
+    <div class="cv-week">20</div><div class="cv-day"><span class="cv-num">11</span></div><div class="cv-day"><span class="cv-num">12</span></div><div class="cv-day"><span class="cv-num">13</span></div><div class="cv-day"><span class="cv-num">14</span></div><div class="cv-day"><span class="cv-num">15</span></div><div class="cv-day"><span class="cv-num">16</span></div><div class="cv-day"><span class="cv-num">17</span></div>
+    <div class="cv-week">21</div><div class="cv-day"><span class="cv-num">18</span></div><div class="cv-day"><span class="cv-num">19</span></div><div class="cv-day today"><span class="cv-num">20</span><button class="cv-item">🗃️ Database table view</button><button class="cv-item">▤ Board view</button></div><div class="cv-day"><span class="cv-num">21</span></div><div class="cv-day"><span class="cv-num">22</span></div><div class="cv-day"><span class="cv-num">23</span></div><div class="cv-day"><span class="cv-num">24</span></div>
+    <div class="cv-week">22</div><div class="cv-day"><span class="cv-num">25</span></div><div class="cv-day"><span class="cv-num">26</span></div><div class="cv-day"><span class="cv-num">27</span></div><div class="cv-day"><span class="cv-num">28</span></div><div class="cv-day"><span class="cv-num">29</span></div><div class="cv-day"><span class="cv-num">30</span></div><div class="cv-day"><span class="cv-num">31</span></div>
+  </div>
+</div>
+```
+
+- **Classes:** `.nk-calendar-view`, `.weeks`, `.cv-head`, `.cv-title`, `.cv-grid`, `.cv-wd`, `.cv-week`, `.cv-day`, `.out`, `.off`, `.today`, `.cv-num`, `.cv-item`
+- **On a small screen:** Below 860px the days get lower (64px) and the cards smaller; seven columns still fit.
+
 ## Forms & settings (PRD 5.6)
 
 ### Inputs, textarea, select — `.nk-input`
@@ -731,6 +752,47 @@ jsbtn.addEventListener('click', async () => {
 
 - **Classes:** `.nk-copy-field`, `.cf-value`, `.cf-btn`, `.copied`, `.mono`, `.wrap`, `.wide`
 - **On a small screen:** Keeps to its column: the value is cut, never the actions.
+
+### Date picker — `.nk-calendar`
+
+Notion's month sheet for a date: a title with Today and ‹ ›, the weekdays, six rows of `.cal-day` buttons. The chosen day is `.selected` in the accent, today is red; a range runs from `.start` to `.end` over `.in-range` days in the accent's tint. `.off` greys a day that is not worked – a weekend, a holiday, with its name as `title` – and `.out` a day of the month before or after; `aria-disabled="true"` marks one outside the bounds. `.cal-marks` holds up to three dots in the nine colours (`i.blue`, `i.red` …), for deadlines or milestones. `weeks` adds the ISO calendar week in front of each row, `.cal-foot` a time field or actions under the sheet. Cells are 36px, so seven and the week column fill a `.nk-pop`; put it in `.nk-pop.floating.sheet` and it is a popover on the desktop and a sheet with 44px cells on a phone. The month, the keys and the value are your script – or `<nk-calendar>`.
+
+```html
+<div>
+<div class="nk-pop">
+  <div class="nk-calendar weeks">
+    <div class="cal-head"><div class="cal-title">June 2026</div><button class="cal-nav">Today</button><button class="cal-nav" aria-label="Previous month"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="cal-nav" aria-label="Next month"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
+    <div class="cal-grid">
+      <span class="cal-wd">W</span><span class="cal-wd">Mo</span><span class="cal-wd">Tu</span><span class="cal-wd">We</span><span class="cal-wd">Th</span><span class="cal-wd">Fr</span><span class="cal-wd">Sa</span><span class="cal-wd">Su</span>
+      <span class="cal-week">23</span><button class="cal-day">1</button><button class="cal-day selected">2<span class="cal-marks"><i class="blue"></i></span></button><button class="cal-day">3</button><button class="cal-day off" title="Corpus Christi">4</button><button class="cal-day">5</button><button class="cal-day off">6</button><button class="cal-day off">7</button>
+      <span class="cal-week">24</span><button class="cal-day">8</button><button class="cal-day">9</button><button class="cal-day">10</button><button class="cal-day">11<span class="cal-marks"><i class="orange"></i><i class="red"></i></span></button><button class="cal-day">12</button><button class="cal-day off">13</button><button class="cal-day off">14</button>
+      <span class="cal-week">25</span><button class="cal-day">15</button><button class="cal-day">16</button><button class="cal-day today">17</button><button class="cal-day">18</button><button class="cal-day">19</button><button class="cal-day off">20</button><button class="cal-day off">21</button>
+      <span class="cal-week">26</span><button class="cal-day">22</button><button class="cal-day">23</button><button class="cal-day">24<span class="cal-marks"><i class="green"></i></span></button><button class="cal-day">25</button><button class="cal-day">26</button><button class="cal-day off">27</button><button class="cal-day off">28</button>
+      <span class="cal-week">27</span><button class="cal-day">29</button><button class="cal-day">30</button><button class="cal-day out">1</button><button class="cal-day out">2</button><button class="cal-day out">3</button><button class="cal-day out off">4</button><button class="cal-day out off">5</button>
+      <span class="cal-week">28</span><button class="cal-day out">6</button><button class="cal-day out">7</button><button class="cal-day out">8</button><button class="cal-day out">9</button><button class="cal-day out">10</button><button class="cal-day out off">11</button><button class="cal-day out off">12</button>
+    </div>
+  </div>
+</div>
+<div class="nk-pop">
+  <div class="nk-calendar weeks">
+    <div class="cal-head"><div class="cal-title">June 2026</div><button class="cal-nav">Today</button><button class="cal-nav" aria-label="Previous month"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="cal-nav" aria-label="Next month"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
+    <div class="cal-grid">
+      <span class="cal-wd">W</span><span class="cal-wd">Mo</span><span class="cal-wd">Tu</span><span class="cal-wd">We</span><span class="cal-wd">Th</span><span class="cal-wd">Fr</span><span class="cal-wd">Sa</span><span class="cal-wd">Su</span>
+      <span class="cal-week">23</span><button class="cal-day">1</button><button class="cal-day">2</button><button class="cal-day">3</button><button class="cal-day off" title="Corpus Christi">4</button><button class="cal-day">5</button><button class="cal-day off">6</button><button class="cal-day off">7</button>
+      <span class="cal-week">24</span><button class="cal-day start">8</button><button class="cal-day in-range">9</button><button class="cal-day in-range">10</button><button class="cal-day in-range">11</button><button class="cal-day end">12</button><button class="cal-day off">13</button><button class="cal-day off">14</button>
+      <span class="cal-week">25</span><button class="cal-day">15</button><button class="cal-day">16</button><button class="cal-day today">17</button><button class="cal-day">18</button><button class="cal-day">19</button><button class="cal-day off">20</button><button class="cal-day off">21</button>
+      <span class="cal-week">26</span><button class="cal-day">22</button><button class="cal-day">23</button><button class="cal-day">24</button><button class="cal-day">25</button><button class="cal-day">26</button><button class="cal-day off">27</button><button class="cal-day off">28</button>
+      <span class="cal-week">27</span><button class="cal-day">29</button><button class="cal-day">30</button><button class="cal-day out">1</button><button class="cal-day out">2</button><button class="cal-day out">3</button><button class="cal-day out off">4</button><button class="cal-day out off">5</button>
+      <span class="cal-week">28</span><button class="cal-day out">6</button><button class="cal-day out">7</button><button class="cal-day out">8</button><button class="cal-day out">9</button><button class="cal-day out">10</button><button class="cal-day out off">11</button><button class="cal-day out off">12</button>
+    </div>
+    <div class="cal-foot"><input class="nk-input" type="time" value="09:30" aria-label="Time"><button class="cal-nav">Clear</button></div>
+  </div>
+</div>
+</div>
+```
+
+- **Classes:** `.nk-calendar`, `.weeks`, `.cal-head`, `.cal-title`, `.cal-nav`, `.cal-grid`, `.cal-wd`, `.cal-week`, `.cal-day`, `.out`, `.off`, `.today`, `.start`, `.end`, `.in-range`, `.cal-marks`, `.cal-foot`
+- **On a small screen:** In a sheet the cells grow to 44px, a thumb's width; seven and the week column still fit a 390px screen.
 
 ### Buttons — `.nk-btn`
 
@@ -1438,7 +1500,10 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 | `sheet` | `nk-pop` | Below 860px the popover becomes a bottom sheet – full width, grabber, 40px rows, the page dimmed – and inline positioning is overruled. |
 | `done / current` | `nk-step` | A finished step on the green tag with a check; the step you are on, ringed in the accent, with aria-current="step". |
 | `collapsed` | `nk-tree-children` | Folds a subtree away with display: none. |
-| `selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item` | The keyboard-highlighted or chosen option. Distinct from active: selection is transient, active is where you are. |
+| `selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item`, `nk-calendar .cal-day` | The keyboard-highlighted or chosen option – on a calendar the chosen day, in the accent. Distinct from active: selection is transient, active is where you are. |
+| `start / end / in-range` | `nk-calendar .cal-day` | A range: its first and last day in the accent, rounded on the outer side, the days between in the accent’s tint. A range of one day is start and end. |
+| `today / off / out` | `nk-calendar .cal-day`, `nk-calendar-view .cv-day` | Today in red – on the calendar view a red pill; a day not worked (weekend, holiday) greyed or washed; a day of the month before or after, the same. |
+| `weeks` | `nk-calendar`, `nk-calendar-view` | Adds the column of ISO calendar weeks in front of the days. |
 | `stacked` | `nk-field` | Label above a full-width control instead of beside it – textareas, long descriptions. |
 | `compact` | `nk-field`, `nk-tree-item`, `nk-select` | The tighter variant: a field with a small tertiary label and no row padding (inside .nk-fields), a 26px tree row, a 120px select. |
 | `scroll` | `nk-segmented` | Scrolls the segments horizontally with the scrollbar hidden, capped at the parent width. |
@@ -2204,8 +2269,8 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
-| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` |
-| Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
+| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` |
+| Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-bar` `pk-body` `nk-toast` `show` |
 | Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-panels` `nk-panel` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-avatar` `small` `large` `xlarge` `square` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` `nk-steps` `nk-step` `st-mark` `st-desc` `done` `current` |
@@ -2248,7 +2313,7 @@ customElements.define('nk-callout', NkCallout);
 
 ## 10. NotionKit Elements
 
-The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elements` (79 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
+The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elements` (85 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
 
 | CSS class markup | Element markup |
 |---|---|
@@ -2267,4 +2332,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.8.0 · MIT · Jungherz GmbH*
+*NotionKit v1.9.0 · MIT · Jungherz GmbH*

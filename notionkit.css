@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.8.0
+   Jungherz GmbH – v1.9.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -899,6 +899,39 @@ a.crumb { text-decoration: none; }
 .nk-list-item .l-meta,
 .nk-list-item ::slotted(.l-meta) { flex: none; display: flex; align-items: center; gap: 8px; margin-left: auto; font-size: 12px; color: var(--nk-text-secondary); white-space: nowrap; }
 
+/* Calendar view, the database as Notion's month: a head with the month and
+   the date picker's .cal-nav buttons (Today, ‹ ›), the weekdays, and a cell per day
+   with its number top right – today's on a red pill – and the rows due that
+   day as small cards (.cv-item). Days of the next and previous month
+   (`.out`) and days not worked (`.off`) are washed. `weeks` adds a column of
+   ISO calendar weeks. The cells share the width, so seven always fit. */
+.nk-calendar-view { font-size: 14px; }
+.nk-calendar-view .cv-head { display: flex; align-items: center; gap: 4px; padding: 2px 0 8px; }
+.nk-calendar-view .cv-title { flex: 1; font-weight: 600; white-space: nowrap; }
+.nk-calendar-view .cv-grid {
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-top: 1px solid var(--nk-border); border-left: 1px solid var(--nk-border);
+}
+.nk-calendar-view.weeks .cv-grid { grid-template-columns: 32px repeat(7, minmax(0, 1fr)); }
+.nk-calendar-view :is(.cv-wd, .cv-week, .cv-day) { min-width: 0; border-right: 1px solid var(--nk-border); border-bottom: 1px solid var(--nk-border); }
+.nk-calendar-view .cv-wd { padding: 4px 8px; font-size: 12px; color: var(--nk-text-secondary); text-align: center; }
+.nk-calendar-view .cv-week { padding: 6px 0; font-size: 11px; color: var(--nk-text-tertiary); text-align: center; font-variant-numeric: tabular-nums; }
+.nk-calendar-view .cv-day { display: flex; flex-direction: column; gap: 3px; min-height: 112px; padding: 4px 4px 6px; }
+.nk-calendar-view .cv-day:is(.out, .off) { background: var(--nk-bg-sidebar); }
+.nk-calendar-view .cv-num {
+  align-self: flex-end; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px;
+  font-size: 13px; line-height: 22px; text-align: center; color: var(--nk-text-secondary); font-variant-numeric: tabular-nums;
+}
+.nk-calendar-view .cv-day.out .cv-num { color: var(--nk-text-tertiary); }
+.nk-calendar-view .cv-day.today .cv-num { background: var(--nk-danger); color: var(--nk-on-accent); }
+.nk-calendar-view .cv-item {
+  display: block; min-width: 0; padding: 3px 6px; border-radius: 4px;
+  background: var(--nk-bg-card); border: 1px solid var(--nk-border); box-shadow: var(--nk-shadow-card);
+  font-size: 12.5px; line-height: 18px; color: var(--nk-text); text-align: left;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;
+}
+.nk-calendar-view .cv-item:hover { background: var(--nk-bg-hover); }
+
 /* Board columns scroll horizontally on narrow viewports (PRD 6.3a.4). */
 .nk-board { display: none; gap: 12px; padding: 14px 2px; overflow-x: auto; }
 .nk-board.active { display: flex; }
@@ -1020,6 +1053,60 @@ a.crumb { text-decoration: none; }
 }
 .nk-copy-field .cf-btn:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
 .nk-copy-field .cf-btn.copied { color: var(--nk-color-green); }
+
+/* Date picker, Notion's month sheet: a title with the month and the ‹ ›
+   buttons, the weekdays, six rows of days. The chosen day takes the accent,
+   today is in red. A range fills from `.start` to `.end` in a band of the
+   accent's tint (`.in-range`). `.off` greys a day that is not worked – a
+   weekend, a holiday; `.out` a day of the next or previous month;
+   aria-disabled one outside the bounds. `.cal-marks` holds up to three dots
+   (`i.blue`, `i.red` … the nine colours). `weeks` adds a column of ISO
+   calendar weeks, `.cal-foot` a time field or actions under the sheet. The
+   cells are --_nk-cell square: 36px, so seven and a week column fill a
+   popover; 44px in a sheet on a phone. */
+.nk-calendar {
+  display: block; width: max-content; max-width: 100%; margin-inline: auto;
+  font-size: 14px; user-select: none; -webkit-user-select: none;
+}
+.nk-calendar .cal-head { display: flex; align-items: center; gap: 2px; padding: 0 0 6px 6px; }
+.nk-calendar .cal-title { flex: 1; font-weight: 600; white-space: nowrap; }
+.nk-calendar .cal-nav,
+.nk-calendar-view .cal-nav {
+  display: inline-flex; align-items: center; justify-content: center; height: 28px; min-width: 28px; padding: 0 6px;
+  border: none; border-radius: var(--nk-radius); background: transparent;
+  font-family: inherit; font-size: 13px; color: var(--nk-text-secondary); cursor: pointer;
+}
+.nk-calendar .cal-nav:hover,
+.nk-calendar-view .cal-nav:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
+.nk-calendar .cal-nav svg,
+.nk-calendar-view .cal-nav svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.nk-calendar .cal-grid { display: grid; grid-template-columns: repeat(7, var(--_nk-cell, 36px)); row-gap: 2px; }
+.nk-calendar.weeks .cal-grid { grid-template-columns: 24px repeat(7, var(--_nk-cell, 36px)); }
+.nk-calendar .cal-wd,
+.nk-calendar .cal-week { display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--nk-text-tertiary); font-variant-numeric: tabular-nums; }
+.nk-calendar .cal-wd { height: 24px; }
+.nk-calendar .cal-week { font-size: 11px; }
+.nk-calendar .cal-day {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  width: var(--_nk-cell, 36px); height: var(--_nk-cell, 36px); padding: 0;
+  border: none; border-radius: var(--nk-radius); background: transparent;
+  font-family: inherit; font-size: 14px; color: var(--nk-text); font-variant-numeric: tabular-nums; cursor: pointer;
+}
+.nk-calendar .cal-day:hover { background: var(--nk-bg-hover); }
+.nk-calendar .cal-day:focus-visible { outline: 2px solid color-mix(in srgb, var(--nk-accent) 60%, transparent); outline-offset: -2px; }
+.nk-calendar .cal-day.out,
+.nk-calendar .cal-day.off { color: var(--nk-text-tertiary); }
+.nk-calendar .cal-day.today { color: var(--nk-danger); font-weight: 600; }
+.nk-calendar .cal-day.in-range { border-radius: 0; background: color-mix(in srgb, var(--nk-accent) 12%, transparent); }
+.nk-calendar .cal-day:is(.selected, .start, .end) { background: var(--nk-accent); color: var(--nk-on-accent); font-weight: 500; }
+.nk-calendar .cal-day.start:not(.end) { border-radius: var(--nk-radius) 0 0 var(--nk-radius); }
+.nk-calendar .cal-day.end:not(.start) { border-radius: 0 var(--nk-radius) var(--nk-radius) 0; }
+.nk-calendar .cal-day[aria-disabled="true"] { color: var(--nk-text-tertiary); background: none; opacity: .5; cursor: default; }
+.nk-calendar .cal-marks { position: absolute; left: 0; right: 0; bottom: 3px; display: flex; justify-content: center; gap: 2px; pointer-events: none; }
+.nk-calendar .cal-marks i { width: 4px; height: 4px; border-radius: 50%; background: var(--nk-color-gray); }
+.nk-calendar .cal-day:is(.selected, .start, .end) .cal-marks i { background: var(--nk-on-accent); }
+.nk-calendar .cal-foot { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 8px 2px 0; border-top: 1px solid var(--nk-border); }
+.nk-calendar .cal-foot .nk-input { min-width: 0; flex: 1 1 auto; }
 
 /* 28px tall at 14px. The secondary and danger buttons are Notion's white
    button: the outline comes from --nk-shadow-btn, not from a border. */
@@ -1534,15 +1621,24 @@ a.nk-btn { text-decoration: none; }
 .nk-avatar.square { border-radius: 4px; }
 .nk-avatar > img,
 .nk-avatar ::slotted(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
-.nk-avatar.gray   { background: var(--nk-color-gray); }
-.nk-avatar.brown  { background: var(--nk-color-brown); }
-.nk-avatar.orange { background: var(--nk-color-orange); }
-.nk-avatar.yellow { background: var(--nk-color-yellow); }
-.nk-avatar.green  { background: var(--nk-color-green); }
-.nk-avatar.blue   { background: var(--nk-color-blue); }
-.nk-avatar.purple { background: var(--nk-color-purple); }
-.nk-avatar.pink   { background: var(--nk-color-pink); }
-.nk-avatar.red    { background: var(--nk-color-red); }
+.nk-avatar.gray,
+.nk-calendar .cal-marks i.gray { background: var(--nk-color-gray); }
+.nk-avatar.brown,
+.nk-calendar .cal-marks i.brown { background: var(--nk-color-brown); }
+.nk-avatar.orange,
+.nk-calendar .cal-marks i.orange { background: var(--nk-color-orange); }
+.nk-avatar.yellow,
+.nk-calendar .cal-marks i.yellow { background: var(--nk-color-yellow); }
+.nk-avatar.green,
+.nk-calendar .cal-marks i.green { background: var(--nk-color-green); }
+.nk-avatar.blue,
+.nk-calendar .cal-marks i.blue { background: var(--nk-color-blue); }
+.nk-avatar.purple,
+.nk-calendar .cal-marks i.purple { background: var(--nk-color-purple); }
+.nk-avatar.pink,
+.nk-calendar .cal-marks i.pink { background: var(--nk-color-pink); }
+.nk-avatar.red,
+.nk-calendar .cal-marks i.red { background: var(--nk-color-red); }
 
 /* A neutral surface for content that belongs together – the cards on
    Notion's Home, the boxes in its settings. Not .nk-card, which is the board
@@ -1984,6 +2080,12 @@ a.nk-btn { text-decoration: none; }
   .nk-pop.sheet::before { content: ""; display: block; width: 36px; height: 4px; margin: 4px auto 8px; border-radius: 2px; background: var(--nk-border-strong); }
   .nk-pop.sheet.floating { translate: 0 100%; transition: opacity .2s ease, translate .25s cubic-bezier(.2, .8, .2, 1), visibility 0s linear .25s; }
   .nk-pop.sheet.floating.open { translate: 0 0; transition: opacity .2s ease, translate .25s cubic-bezier(.2, .8, .2, 1), visibility 0s; }
+  /* A date picker in a sheet gets cells a thumb can hit. The calendar view
+     keeps seven columns and gets lower. */
+  .nk-pop.sheet,
+  .nk-sheet { --_nk-cell: 44px; }
+  .nk-calendar-view .cv-day { min-height: 64px; padding: 2px 2px 4px; }
+  .nk-calendar-view .cv-item { padding: 1px 4px; font-size: 11px; line-height: 16px; }
   /* The side peek rises from the bottom edge instead, over a dimmed page
      that takes the tap to close it; the title steps down to 28px. */
   .nk-peek-backdrop { pointer-events: auto; }

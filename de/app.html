@@ -96,7 +96,7 @@
         <dl class="nk-props">
           <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In Arbeit</span></dd></div>
           <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>Verantwortlich</dt><dd class="p-value"><span class="nk-avatar small">MK</span>Marcel Karas</dd></div>
-          <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Fällig</dt><dd class="p-value">2. Juni 2026</dd></div>
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Fällig</dt><dd class="p-value" id="pageDue" data-date="2026-06-02">2. Juni 2026</dd></div>
           <div class="nk-prop"><dt class="p-name"><span class="p-icon">🏷️</span>Tags</dt><dd class="p-value"><span class="nk-tag purple">Design-System</span><span class="nk-tag">CSS</span></dd></div>
           <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Fortschritt</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
         </dl>
@@ -130,6 +130,7 @@
               <span class="nk-db-tab active" data-view="table">▦ Tabelle <span class="badge" id="rowCount">4</span></span>
               <span class="nk-db-tab" data-view="board">▤ Board</span>
               <span class="nk-db-tab" data-view="list">☰ Liste</span>
+              <span class="nk-db-tab" data-view="calendar">📅 Kalender</span>
               <span class="nk-db-tab add">＋</span>
             </div>
             <div class="tools">
@@ -164,6 +165,7 @@
 
           <!-- List View -->
           <div class="nk-list" id="view-list" hidden></div>
+          <div class="nk-calendar-view weeks" id="view-calendar" hidden></div>
         </div>
 
         <hr class="nk-divider">
@@ -708,6 +710,11 @@
   <div class="nk-menu-item danger" role="menuitem" tabindex="-1"><span class="m-icon">🗑️</span>In den Papierkorb</div>
 </div>
 
+<!-- ================= DATE PICKER ================= -->
+<div class="nk-pop floating sheet" id="datePicker" style="position:fixed" aria-label="Fällig">
+  <div class="nk-calendar weeks" id="dueCalendar" role="group" aria-label="Fällig"></div>
+</div>
+
 <!-- ================= FILTER MENU ================= -->
 <div class="nk-pop nk-menu floating sheet" id="filterMenu" role="menu" aria-label="Filter" style="position:fixed">
   <div class="nk-menu-label">Filtern nach</div>
@@ -799,7 +806,7 @@
         <td><span class="person-cell">${p.owner !== "—"
             ? `<span class="nk-avatar small">${p.owner}</span> Marcel`
             : "—"}</span></td>
-        <td class="date-cell">${p.due}</td>
+        <td class="date-cell" data-due="${projects.indexOf(p)}">${p.due}</td>
         <td><span class="nk-progress"><i style="width:${p.progress}%"></i></span><span class="nk-progress-label">${p.progress}%</span></td>
         <td class="num">${p.effort == null ? "—" : p.effort.toLocaleString("de", { minimumFractionDigits: 1 })}</td>
       </tr>`).join("");
@@ -846,7 +853,104 @@
     });
     document.getElementById("rowCount").textContent = rows().length;
   }
-  function renderAll() { renderTable(); renderBoard(); renderList(); renderFilters(); }
+  function renderAll() { renderTable(); renderBoard(); renderList(); renderFilters(); renderCalendarView(); }
+
+  /* ============ Dates: the picker on Due, the calendar view ============ */
+  // One month in a floating popover – a sheet on a phone – with the ISO
+  // calendar week in front of each row. Weekends and holidays are greyed,
+  // the projects' due dates carry a dot. Weeks start on Monday.
+  const HOLIDAYS = { "2026-05-01": "Tag der Arbeit", "2026-05-14": "Christi Himmelfahrt", "2026-05-25": "Pfingstmontag", "2026-10-03": "Tag der Deutschen Einheit" };
+  const pad = n => String(n).padStart(2, "0");
+  const isoOf = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const dueToIso = s => s.split(".").reverse().join("-");
+  const isoToDue = v => v.split("-").reverse().join(".");
+  const fmt = (options, d, locale = "de") => new Intl.DateTimeFormat(locale, options).format(d);
+  const longDate = v => fmt({ day: "numeric", month: "long", year: "numeric" }, new Date(v + "T00:00"), "de");
+  function isoWeek(d) {
+    const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7));
+    return Math.ceil(((t - Date.UTC(t.getUTCFullYear(), 0, 1)) / 864e5 + 1) / 7);
+  }
+  const weekdays = style => Array.from({ length: 7 }, (_, i) => fmt({ weekday: "short" }, new Date(2026, 5, 1 + i)).replace(".", "")).map(w => style === 2 ? w.slice(0, 2) : w);
+  const monthGrid = month => {
+    const [y, m] = month.split("-").map(Number), first = new Date(y, m - 1, 1), offset = (first.getDay() + 6) % 7;
+    return { y, m, first, day: i => new Date(y, m - 1, 1 - offset + i), rows: Math.ceil((offset + new Date(y, m, 0).getDate()) / 7) };
+  };
+  const chevron = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
+
+  const datePicker = document.getElementById("datePicker"), dueCalendar = document.getElementById("dueCalendar");
+  const picker = { month: "", value: "", onPick: null };
+  function drawPicker() {
+    const g = monthGrid(picker.month), today = isoOf(new Date()), marks = {};
+    for (const p of projects) (marks[dueToIso(p.due)] ||= []).push("blue");
+    const focus = [0, 1, 2, 3, 4, 5].flatMap(r => [0, 1, 2, 3, 4, 5, 6].map(c => isoOf(g.day(r * 7 + c)))).includes(picker.value) ? picker.value : `${picker.month}-01`;
+    let cells = `<span class="cal-wd" aria-hidden="true">KW</span>` + weekdays(2).map(w => `<span class="cal-wd" aria-hidden="true">${w}</span>`).join("");
+    for (let i = 0; i < 42; i++) {
+      const d = g.day(i), iso = isoOf(d), holiday = HOLIDAYS[iso], dots = (marks[iso] || []).map(t => `<i class="${t}"></i>`).join("");
+      if (i % 7 === 0) cells += `<span class="cal-week" aria-hidden="true">${isoWeek(d)}</span>`;
+      const cls = ["cal-day", d.getMonth() !== g.m - 1 && "out", (d.getDay() % 6 === 0 || holiday) && "off", iso === today && "today", iso === picker.value && "selected"].filter(Boolean).join(" ");
+      cells += `<button class="${cls}" type="button" data-date="${iso}" aria-pressed="${iso === picker.value}" tabindex="${iso === focus ? 0 : -1}" aria-label="${fmt({ weekday: "long", day: "numeric", month: "long", year: "numeric" }, d)}${holiday ? ", " + holiday : ""}"${holiday ? ` title="${holiday}"` : ""}>${d.getDate()}${dots ? `<span class="cal-marks">${dots}</span>` : ""}</button>`;
+    }
+    dueCalendar.innerHTML = `<div class="cal-head"><div class="cal-title" aria-live="polite">${fmt({ month: "long", year: "numeric" }, g.first)}</div>`
+      + `<button class="cal-nav" type="button" data-cal="today">Heute</button>`
+      + `<button class="cal-nav" type="button" data-cal="-1" aria-label="Voriger Monat">${chevron("M15 6l-6 6 6 6")}</button>`
+      + `<button class="cal-nav" type="button" data-cal="1" aria-label="Nächster Monat">${chevron("M9 6l6 6-6 6")}</button></div>`
+      + `<div class="cal-grid">${cells}</div>`;
+  }
+  const stepMonth = (month, n) => isoOf(new Date(Number(month.slice(0, 4)), Number(month.slice(5, 7)) - 1 + n, 1)).slice(0, 7);
+  function openPicker(anchor, value, onPick) {
+    Object.assign(picker, { value, month: value.slice(0, 7), onPick });
+    drawPicker();
+    openFloating(datePicker, anchor);
+  }
+  dueCalendar.addEventListener("click", e => {
+    const nav = e.target.closest("[data-cal]");
+    if (nav) { picker.month = nav.dataset.cal === "today" ? isoOf(new Date()).slice(0, 7) : stepMonth(picker.month, +nav.dataset.cal); drawPicker(); return; }
+    const day = e.target.closest("[data-date]");
+    if (!day) return;
+    closeFloating();
+    picker.onPick(day.dataset.date);
+  });
+  const pageDue = document.getElementById("pageDue");
+  pageDue.addEventListener("click", () => openPicker(pageDue, pageDue.dataset.date, v => {
+    pageDue.dataset.date = v;
+    pageDue.textContent = longDate(v);
+    showToast(`Fällig: ${longDate(v)}`);
+  }));
+  tbody.addEventListener("click", e => {
+    const cell = e.target.closest("[data-due]");
+    if (!cell) return;
+    const p = projects[+cell.dataset.due];
+    openPicker(cell, dueToIso(p.due), v => { p.due = isoToDue(v); renderAll(); showToast(`${p.name}: ${longDate(v)}`); });
+  });
+
+  // The calendar view: the rows by due date in a month, a card per row that
+  // opens in the side peek like a row of the table.
+  const calView = document.getElementById("view-calendar");
+  let calMonth = "2026-05";
+  function renderCalendarView() {
+    const g = monthGrid(calMonth), today = isoOf(new Date()), byDay = {};
+    for (const p of rows()) (byDay[dueToIso(p.due)] ||= []).push(p);
+    let cells = `<div class="cv-wd">KW</div>` + weekdays(3).map(w => `<div class="cv-wd">${w}</div>`).join("");
+    for (let i = 0; i < g.rows * 7; i++) {
+      const d = g.day(i), iso = isoOf(d);
+      if (i % 7 === 0) cells += `<div class="cv-week">${isoWeek(d)}</div>`;
+      const cls = ["cv-day", d.getMonth() !== g.m - 1 && "out", iso === today && "today"].filter(Boolean).join(" ");
+      cells += `<div class="${cls}"><span class="cv-num">${d.getDate()}</span>${(byDay[iso] || []).map(p => `<button class="cv-item" type="button" data-p="${projects.indexOf(p)}">${p.icon} ${p.name}</button>`).join("")}</div>`;
+    }
+    calView.innerHTML = `<div class="cv-head"><div class="cv-title">${fmt({ month: "long", year: "numeric" }, g.first)}</div>`
+      + `<button class="cal-nav" type="button" data-cv="today">Heute</button>`
+      + `<button class="cal-nav" type="button" data-cv="-1" aria-label="Voriger Monat">${chevron("M15 6l-6 6 6 6")}</button>`
+      + `<button class="cal-nav" type="button" data-cv="1" aria-label="Nächster Monat">${chevron("M9 6l6 6-6 6")}</button></div>`
+      + `<div class="cv-grid">${cells}</div>`;
+  }
+  calView.addEventListener("click", e => {
+    const nav = e.target.closest("[data-cv]");
+    if (!nav) return;
+    calMonth = nav.dataset.cv === "today" ? isoOf(new Date()).slice(0, 7) : stepMonth(calMonth, +nav.dataset.cv);
+    renderCalendarView();
+  });
+
   renderAll();
 
   /* ============ View-Tabs ============ */
@@ -857,6 +961,7 @@
       const view = tab.dataset.view;
       document.getElementById("view-table").hidden = view !== "table";
       document.getElementById("view-list").hidden = view !== "list";
+      document.getElementById("view-calendar").hidden = view !== "calendar";
       document.getElementById("view-board").classList.toggle("active", view === "board");
     });
   });
@@ -1349,7 +1454,7 @@
     }
   }));
 
-  /* ============ Anchors: #menu, #filter, #more, #peek, #settings open that state ============ */
+  /* ============ Anchors: #menu, #filter, #more, #peek, #date, #calendar, #settings open that state ============ */
   // The landing page shows app.html#menu: a popover on the desktop, a sheet
   // on the phone – one markup, two presentations.
   function openFromHash() {
@@ -1358,6 +1463,8 @@
     if (h === "#filter") { filterBtn.scrollIntoView({ block: "center" }); openFloating(filterMenu, filterBtn); }
     if (h === "#more") openMore();
     if (h === "#peek") openPeek(2);
+    if (h === "#date") pageDue.click();
+    if (h === "#calendar") document.querySelector('.nk-db-tab[data-view="calendar"]').click();
     if (h === "#settings") modal.classList.add("open");
   }
   requestAnimationFrame(openFromHash);

@@ -4,6 +4,51 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.9.0] – 2026-09-24
+
+Dates: a date picker for properties and fields, and a calendar view for the
+database. SupaGantt, a planning tool about to start on NotionKit, asked for
+both – start and end dates, constraints and deadlines, with calendar weeks,
+working days and holidays. Additive – no rule of an existing component
+changes.
+
+### Added
+- **Date picker: `.nk-calendar`** (`cal-head`, `cal-title`, `cal-nav`,
+  `cal-grid`, `cal-wd`, `cal-week`, `cal-day`, `cal-marks`, `cal-foot`;
+  `weeks`). Notion's month sheet for a date: the title with Today and ‹ ›,
+  the weekdays, six rows of day buttons. The chosen day is `.selected` in the
+  accent, today is red; a range runs from `.start` to `.end` over `.in-range`
+  days in the accent's tint. `.off` greys a day that is not worked – a
+  weekend, a holiday with its name as `title` – and `.out` a day of the
+  month before or after; `aria-disabled="true"` marks one outside the
+  bounds and keeps it in the arrow path. `.cal-marks` holds up to three dots
+  in the nine colours, for deadlines and milestones. `weeks` puts the ISO
+  calendar week in front of each row, `.cal-foot` a time field or actions
+  under the sheet. The cells are 36px, so seven and the week column fill a
+  `.nk-pop`; in `.nk-pop.floating.sheet` it is a popover on the desktop and
+  a bottom sheet on a phone, where the cells grow to 44px (the private
+  `--_nk-cell`, like `--_nk-row` for menu rows). The shape follows GlassKit
+  1.16.0's `.glass-calendar`: a `role="group"` of buttons named with their
+  full date, SVG chevrons, a live title.
+- **Calendar view: `.nk-calendar-view`** (`cv-head`, `cv-title`, `cv-grid`,
+  `cv-wd`, `cv-week`, `cv-day`, `cv-num`, `cv-item`; `weeks`). Notion's
+  fourth database view: a month in seven columns of equal width, the rows as
+  small cards on their dates, cut with an ellipsis. Today sits on a red
+  pill, days of other months and days not worked (`.off`) are washed;
+  `weeks` adds the calendar week. On a phone the seven columns stay, the
+  days get lower and the cards smaller. The Today and ‹ › buttons are the
+  picker's `.cal-nav`.
+- Demo: Due under the title opens the date picker – on the month of its
+  date, weekends and holidays greyed, the projects' due dates dotted, the
+  week in front of each row – and so does a due date in the table; a new
+  date reaches table, board, list and calendar. The database has a
+  📅 Calendar tab with the rows on their due dates; a card opens in the side
+  peek. `#date` and `#calendar` open those states.
+
+The stylesheet is 13.1 KB gzipped, 93 % of the 14 KB budget, and 72 KB
+minified, 96 % of the 75 KB that were meant never to bind before the gzip
+budget – the next feature release decides both.
+
 ## [1.8.0] – 2026-09-24
 
 Links and peeks: a database row opens in a side peek beside the table,

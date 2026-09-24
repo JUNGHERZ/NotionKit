@@ -77,6 +77,8 @@ export const WORDS = {
     copy: 'Copy', copied: 'Copied', show: 'Show', copyHint: 'green for a moment', close: 'Close', openPage: 'Open as page',
     peekTitle: 'Database Table-View', peekText: 'Table, board and list read the same rows; filters and sort act on all three.', peekHintOpen: 'a row opens beside the table',
     uploadImage: 'Upload image', changeImage: 'Change image',
+    locale: 'en', calWeek: 'W', calToday: 'Today', calPrev: 'Previous month', calNext: 'Next month', calClear: 'Clear', calTime: 'Time', holidayCorpus: 'Corpus Christi',
+    calItem1: 'App shell & sidebar', calItem2: 'Page shell', calItem3: 'Database table view', calItem4: 'Board view',
   },
   de: {
     workspace: 'Acme GmbH', search: 'Suche', home: 'Start', inbox: 'Posteingang', more: 'Mehr', all: 'Alle', attention: 'Aufmerksamkeit', failed: 'Fehlgeschlagen', read: 'Gelesen', ignored: 'Ignoriert',
@@ -154,5 +156,7 @@ export const WORDS = {
     copy: 'Kopieren', copied: 'Kopiert', show: 'Zeigen', copyHint: 'kurz grün', close: 'Schließen', openPage: 'Als Seite öffnen',
     peekTitle: 'Database Table-View', peekText: 'Tabelle, Board und Liste lesen dieselben Zeilen; Filter und Sortierung wirken auf alle drei.', peekHintOpen: 'eine Zeile öffnet sich neben der Tabelle',
     uploadImage: 'Bild hochladen', changeImage: 'Bild ändern',
+    locale: 'de', calWeek: 'KW', calToday: 'Heute', calPrev: 'Voriger Monat', calNext: 'Nächster Monat', calClear: 'Löschen', calTime: 'Uhrzeit', holidayCorpus: 'Fronleichnam',
+    calItem1: 'App-Shell & Sidebar', calItem2: 'Seiten-Shell', calItem3: 'Datenbank-Tabelle', calItem4: 'Board-Ansicht',
   },
 };
