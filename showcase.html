@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.9.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.10.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html">Docs</a>
@@ -231,7 +231,10 @@
         <h3>App shell <code>.nk-app</code></h3>
         <div class="doc-preview is-frame" style="height:340px"><div class="nk-app" style="height:100%">
   <aside class="nk-sidebar">
-    <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
+    <div class="nk-sidebar-head">
+      <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
+      <button class="nk-sidebar-collapse" aria-label="Close sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+    </div>
     <div class="nk-sidebar-scroll">
       <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Search</span></div>
       <div class="nk-tree-item active"><span class="icon">🏠</span><span class="label">Home</span></div>
@@ -256,6 +259,10 @@
         <pre class="nk-code"><span class="lang">html</span>&lt;div class="nk-sidebar-backdrop open"&gt;&lt;/div&gt;   &lt;!-- phones: the drawer's scrim --&gt;
 &lt;aside class="nk-sidebar open"&gt;…&lt;/aside&gt;         &lt;!-- slides in over the page --&gt;
 &lt;button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu"&gt;☰&lt;/button&gt;</pre>
+<pre class="nk-code"><span class="lang">js</span>collapseBtn.addEventListener('click', () =&gt; {            // the « in .nk-sidebar-head
+  sidebar.classList.add('collapsed');                      // slides out on the desktop
+  sidebarToggle.classList.add('collapsed');                // the ☰ in the topbar brings it back
+});</pre>
         
       </article>
       <article class="doc-entry" id="s-nk-workspace">
@@ -925,6 +932,7 @@
         <h3>Side peek <code>.nk-peek</code></h3>
         <div class="doc-preview is-frame" style="height:420px;position:relative"><div class="nk-peek-backdrop open" style="position:absolute;border-radius:var(--nk-radius);overflow:hidden">
   <aside class="nk-peek" role="dialog" aria-label="Database Table-View" style="width:min(440px, 100%)">
+    <div class="pk-resize" role="separator" aria-orientation="vertical" aria-label="Resize" tabindex="0"></div>
     <div class="pk-bar">
       <button class="nk-topbar-btn" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button>
       <button class="nk-topbar-btn" aria-label="Open as page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
@@ -941,12 +949,46 @@
 </div></div>
         <pre class="nk-code"><span class="lang">js</span>row.addEventListener('click', () =&gt; peek.classList.add('open'));        // a row opens beside the table
 closeBtn.addEventListener('click', () =&gt; peek.classList.remove('open'));
-document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.classList.remove('open'); });</pre>
+document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.classList.remove('open'); });
+handle.addEventListener('pointermove', e =&gt;                  // .pk-resize, with pointer capture
+  document.documentElement.style.setProperty('--nk-peek-width', innerWidth - e.clientX + 'px'));
+app.classList.toggle('peek-inset', open);                     // the page moves aside</pre>
+        
+      </article>
+      <article class="doc-entry" id="s-nk-dialog">
+        <h3>Dialog <code>.nk-dialog</code></h3>
+        <div class="doc-preview is-frame" style="height:300px;position:relative"><div class="nk-dialog-backdrop open" style="position:absolute;border-radius:var(--nk-radius)">
+  <div class="nk-dialog" role="alertdialog" aria-modal="true" aria-label="Move to trash">
+    <div class="dl-title">Move “Product roadmap” to trash?</div>
+    <div class="dl-body">The page and its sub-pages can be restored from Trash for 30 days.</div>
+    <div class="dl-actions"><button class="nk-btn secondary">Cancel</button><button class="nk-btn danger-solid">Move to trash</button></div>
+  </div>
+</div></div>
+        <pre class="nk-code"><span class="lang">html</span>&lt;div class="nk-dialog-backdrop open"&gt;
+  &lt;div class="nk-dialog wide" role="dialog" aria-modal="true" aria-labelledby="t"&gt;
+    &lt;div class="dl-title" id="t"&gt;New view&lt;/div&gt;
+    &lt;div class="dl-body"&gt;
+      &lt;div class="nk-field stacked"&gt;&lt;div&gt;&lt;div class="f-label"&gt;Name&lt;/div&gt;&lt;/div&gt;&lt;div class="f-control"&gt;&lt;input class="nk-input"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="dl-actions"&gt;&lt;button class="nk-btn secondary"&gt;Cancel&lt;/button&gt;&lt;button class="nk-btn primary"&gt;Create&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
         
       </article>
       <article class="doc-entry" id="s-nk-toast">
         <h3>Toast <code>.nk-toast</code></h3>
         <div class="doc-preview"><div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>Settings saved</span></div></div>
+        
+        
+      </article>
+      <article class="doc-entry" id="s-nk-tooltip">
+        <h3>Tooltip <code>.nk-tooltip</code></h3>
+        <div class="doc-preview"><div style="position:relative;height:84px">
+  <button class="nk-topbar-btn" style="position:absolute;left:61px;top:6px" aria-label="Style, export and more">⋯</button>
+  <div class="nk-tooltip open" role="tooltip" style="position:absolute;left:8px;top:40px">Style, export and more</div>
+  <button class="nk-sidebar-collapse" style="position:absolute;left:300px;top:6px;opacity:1" aria-label="Close sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+  <div class="nk-tooltip open" role="tooltip" style="position:absolute;left:255px;top:40px">Close sidebar<span class="tt-key">⌘\</span></div>
+</div></div>
         
         
       </article>

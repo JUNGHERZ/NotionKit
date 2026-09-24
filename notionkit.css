@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.9.0
+   Jungherz GmbH – v1.10.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -223,6 +223,7 @@
 
   /* ---- Metrics ---- */
   --nk-sidebar-width: 260px;
+  --nk-peek-width: 560px;
   --nk-tab-bar-height: 58px;
   --nk-radius: 6px;
   --nk-font: ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
@@ -328,7 +329,7 @@
   background: var(--nk-bg-sidebar);
   display: flex; flex-direction: column;
   border-right: 1px solid var(--nk-border);
-  transition: background .25s ease;
+  transition: background .25s ease, margin-left .24s cubic-bezier(.2, .8, .25, 1);
 }
 
 .nk-workspace {
@@ -374,6 +375,32 @@
 /* The drawer's scrim and the ☰ that opens it; both only act below 860px. */
 .nk-sidebar-backdrop { display: none; position: fixed; inset: 0; z-index: 59; background: var(--nk-scrim-soft); }
 .nk-sidebar-toggle { display: none; }
+
+/* Collapsing on the desktop, Notion's «: .nk-sidebar.collapsed slides the
+   sidebar out to the left and the main column takes its width; hidden, it
+   takes no focus – it stays visible while it slides, and is back at once
+   when it expands. .nk-sidebar-toggle.collapsed shows the topbar's ☰ that
+   brings it back, on the desktop too. The « is .nk-sidebar-collapse in
+   .nk-sidebar-head beside the workspace row; it shows while the pointer is
+   over the sidebar. A phone keeps the drawer (B12). */
+.nk-sidebar.collapsed {
+  margin-left: calc(0px - var(--nk-sidebar-width) - env(safe-area-inset-left, 0px)); visibility: hidden;
+  transition: background .25s ease, margin-left .24s cubic-bezier(.2, .8, .25, 1), visibility 0s linear .24s;
+}
+.nk-sidebar-toggle.collapsed { display: inline-flex; }
+.nk-sidebar-head { display: flex; align-items: center; }
+.nk-sidebar-head > .nk-workspace,
+.nk-sidebar-head ::slotted(.nk-workspace) { flex: 1; min-width: 0; }
+.nk-sidebar-collapse {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; margin: 4px 12px 0 -4px; padding: 0;
+  border: none; border-radius: var(--nk-radius); background: transparent;
+  color: var(--nk-text-tertiary); cursor: pointer; opacity: 0; transition: opacity .15s;
+}
+.nk-sidebar:hover .nk-sidebar-collapse,
+.nk-sidebar-collapse:focus-visible { opacity: 1; }
+.nk-sidebar-collapse:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
+.nk-sidebar-collapse svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ---- Main / Topbar ---- */
 .nk-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
@@ -1444,6 +1471,34 @@ a.nk-btn { text-decoration: none; }
 .nk-sheet .sh-title,
 .nk-sheet ::slotted(.sh-title) { font-size: 14px; font-weight: 600; text-align: center; padding: 0 8px 10px; }
 
+/* Dialog: a question or a short form – "Move to trash?", a name, a link
+   between two tasks – with the contract of the modal and the sheet: .open on
+   the backdrop fades it in over a scrim and the card settles like the
+   modal's. It lies above both, so a question can come from either. 440px,
+   .wide 560px; .dl-title, .dl-body, .dl-actions on the right with the
+   confirming button last. Below 860px it is a bottom sheet (B12). */
+.nk-dialog-backdrop {
+  position: fixed; inset: 0; z-index: 105;
+  display: none; align-items: center; justify-content: center;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: var(--nk-scrim-soft); opacity: 0;
+  transition: opacity .2s ease, display .2s allow-discrete;
+}
+.nk-dialog-backdrop.open { display: flex; opacity: 1; }
+@starting-style { .nk-dialog-backdrop.open { opacity: 0; } }
+.nk-dialog {
+  width: 440px; max-width: 100%; max-height: 100%; overflow-y: auto; overscroll-behavior: contain;
+  padding: 20px 24px; border-radius: 10px; outline: none;
+  background: var(--nk-bg); color: var(--nk-text); box-shadow: var(--nk-shadow-menu);
+  scale: .98; translate: 0 6px; transition: scale .2s ease, translate .2s ease;
+}
+.nk-dialog.wide { width: 560px; }
+.nk-dialog-backdrop.open .nk-dialog { scale: 1; translate: 0 0; }
+@starting-style { .nk-dialog-backdrop.open .nk-dialog { scale: .98; translate: 0 6px; } }
+.nk-dialog .dl-title { font-size: 16px; font-weight: 600; line-height: 1.4; margin-bottom: 6px; }
+.nk-dialog .dl-body { font-size: 14px; line-height: 1.5; }
+.nk-dialog .dl-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+
 /* Side peek, as Notion opens a database row beside the table: the entry in
    a panel at the right edge, full height, a bar for its actions on top –
    close (») and open as page – and the page below it: title in 32px,
@@ -1459,7 +1514,7 @@ a.nk-btn { text-decoration: none; }
 .nk-peek-backdrop.open { display: block; }
 .nk-peek {
   --_nk-title: 32px;
-  position: absolute; top: 0; right: 0; bottom: 0; width: min(560px, 100%);
+  position: absolute; top: 0; right: 0; bottom: 0; width: min(var(--nk-peek-width), 100%);
   display: flex; flex-direction: column; pointer-events: auto; outline: none;
   background: var(--nk-bg); color: var(--nk-text); box-shadow: var(--nk-shadow-menu);
   translate: 100% 0; transition: translate .25s cubic-bezier(.2, .8, .2, 1);
@@ -1471,6 +1526,17 @@ a.nk-btn { text-decoration: none; }
   flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
   padding: 4px 48px 64px; font-size: 16px; line-height: 1.5;
 }
+/* Its width is the token --nk-peek-width. .pk-resize on the left edge takes
+   the pointer to make it wider or narrower, as in Notion – a script sets the
+   token on :root – and shows a line while hovered, focused or .active.
+   .nk-app.peek-inset gives the main column a right padding as wide as the
+   peek: the page moves aside instead of lying under it. */
+.nk-peek .pk-resize { position: absolute; top: 0; bottom: 0; left: -4px; width: 8px; z-index: 1; cursor: col-resize; touch-action: none; outline: none; }
+.nk-peek .pk-resize::after { content: ""; position: absolute; top: 0; bottom: 0; left: 3px; width: 2px; transition: background .15s; }
+.nk-peek .pk-resize:hover::after,
+.nk-peek .pk-resize:focus-visible::after,
+.nk-peek .pk-resize.active::after { background: var(--nk-accent); }
+.nk-app.peek-inset .nk-main { padding-right: min(var(--nk-peek-width), 100%); }
 
 /* Above every overlay – the modal is 100, the palette 110 – because a toast
    is often the answer to something done in a dialog; above the home
@@ -1489,6 +1555,18 @@ a.nk-btn { text-decoration: none; }
   display: flex; gap: 8px; align-items: center;
 }
 .nk-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Tooltip: a hover hint in the toast's colours, 12px, at most 260px wide,
+   a shortcut in .tt-key. Invisible and inert until .open fades it in;
+   where it sits is yours – fixed, top and left. Above every overlay. */
+.nk-tooltip {
+  z-index: 130; max-width: 260px; padding: 4px 8px; border-radius: var(--nk-radius);
+  background: var(--nk-text); color: var(--nk-bg); box-shadow: var(--nk-shadow-menu);
+  font-size: 12px; font-weight: 500; line-height: 16px; pointer-events: none;
+  opacity: 0; visibility: hidden; transition: opacity .1s ease, visibility 0s linear .1s;
+}
+.nk-tooltip.open { opacity: 1; visibility: visible; transition: opacity .1s ease; }
+.nk-tooltip .tt-key { margin-left: 6px; color: color-mix(in srgb, var(--nk-bg) 60%, transparent); }
 
 
 /* ============================================================
@@ -2026,6 +2104,8 @@ a.nk-btn { text-decoration: none; }
   .nk-sidebar-backdrop.open { display: block; opacity: 1; }
   @starting-style { .nk-sidebar-backdrop.open { opacity: 0; } }
   .nk-sidebar-toggle { display: inline-flex; }
+  .nk-sidebar.collapsed { margin-left: 0; visibility: visible; transition: background .25s ease, transform .24s cubic-bezier(.2, .8, .25, 1), display .24s allow-discrete; }
+  .nk-sidebar-collapse { display: none; }
   .nk-tab-bar { display: flex; }
   .nk-tab-bar.fixed + .nk-tab-bar-spacer { display: block; }
   .nk-page { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); padding-bottom: 80px; }
@@ -2101,6 +2181,21 @@ a.nk-btn { text-decoration: none; }
   .nk-peek::before { content: ""; flex: none; width: 36px; height: 4px; margin: 10px auto 0; border-radius: 2px; background: var(--nk-border-strong); }
   .nk-peek .pk-bar { height: 40px; padding: 0 max(8px, env(safe-area-inset-right, 0px)) 0 max(8px, env(safe-area-inset-left, 0px)); }
   .nk-peek .pk-body { padding: 0 max(20px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px)); }
+  .nk-peek .pk-resize { display: none; }
+  .nk-app.peek-inset .nk-main { padding-right: 0; }
+  /* A dialog rises from the bottom edge like the sheet, its buttons stacked
+     across the width with the confirming one on top. */
+  .nk-dialog-backdrop { flex-direction: column; justify-content: flex-end; padding: max(24px, env(safe-area-inset-top, 0px)) 0 0; }
+  .nk-dialog {
+    width: 100%; max-width: 640px; border-radius: 14px 14px 0 0; scale: none; translate: 0 100%;
+    padding: 6px max(20px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px));
+    transition: translate .25s cubic-bezier(.2, .8, .2, 1);
+  }
+  .nk-dialog.wide { width: 100%; }
+  .nk-dialog-backdrop.open .nk-dialog { translate: 0 0; }
+  @starting-style { .nk-dialog-backdrop.open .nk-dialog { translate: 0 100%; } }
+  .nk-dialog::before { content: ""; display: block; width: 36px; height: 4px; margin: 4px auto 14px; border-radius: 2px; background: var(--nk-border-strong); }
+  .nk-dialog .dl-actions { flex-direction: column-reverse; }
   /* A visible tab bar would cover the toast, so it rises 12px above the bar.
      :has() sees class markup only; <nk-toast> measures the bar itself. */
   :root:has(.nk-tab-bar:not([hidden])) .nk-toast { bottom: calc(var(--nk-tab-bar-height) + max(6px, env(safe-area-inset-bottom, 0px)) + 6px); }

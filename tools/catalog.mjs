@@ -76,11 +76,11 @@ function calendarViewMarkup(W, { month, today, items = {} }) {
 export const CATALOG = [
 // ============================================================ 5.1 APP SHELL
 {
-  id: 'nk-app', group: 'shell', classes: ['nk-app', 'nk-sidebar', 'nk-sidebar-scroll', 'nk-sidebar-footer', 'nk-main', 'nk-sidebar-backdrop', 'nk-sidebar-toggle', 'open'],
+  id: 'nk-app', group: 'shell', classes: ['nk-app', 'nk-sidebar', 'nk-sidebar-head', 'nk-sidebar-collapse', 'nk-sidebar-scroll', 'nk-sidebar-footer', 'nk-main', 'nk-sidebar-backdrop', 'nk-sidebar-toggle', 'open', 'collapsed'],
   title: { en: 'App shell', de: 'App-Shell' },
   desc: {
-    en: '<code>nk-app</code> is a full-height flex row: sidebar left, main column right. It is the outermost element of a workspace app and the only place a fixed height belongs. Inside the sidebar, <code>nk-sidebar-scroll</code> is the scrolling tree area and <code>nk-sidebar-footer</code> the pinned bottom (Settings, Trash).',
-    de: '<code>nk-app</code> ist eine flex-Zeile über die volle Höhe: Sidebar links, Hauptspalte rechts. Es ist das äußerste Element einer Workspace-App und der einzige Ort, an den eine feste Höhe gehört. In der Sidebar ist <code>nk-sidebar-scroll</code> der scrollende Baumbereich und <code>nk-sidebar-footer</code> der fixierte Fuß (Einstellungen, Papierkorb).',
+    en: '<code>nk-app</code> is a full-height flex row: sidebar left, main column right. It is the outermost element of a workspace app and the only place a fixed height belongs. Inside the sidebar, <code>nk-sidebar-scroll</code> is the scrolling tree area and <code>nk-sidebar-footer</code> the pinned bottom (Settings, Trash). On the desktop the sidebar collapses as in Notion: <code>.nk-sidebar-head</code> holds the workspace row and the « <code>.nk-sidebar-collapse</code>, which shows while the pointer is over the sidebar; <code>.collapsed</code> on the sidebar slides it out to the left – the main column takes the width, the hidden sidebar takes no focus – and <code>.collapsed</code> on the topbar\'s <code>.nk-sidebar-toggle</code> shows the ☰ that brings it back. Notion\'s shortcut is ⌘\\.',
+    de: '<code>nk-app</code> ist eine flex-Zeile über die volle Höhe: Sidebar links, Hauptspalte rechts. Es ist das äußerste Element einer Workspace-App und der einzige Ort, an den eine feste Höhe gehört. In der Sidebar ist <code>nk-sidebar-scroll</code> der scrollende Baumbereich und <code>nk-sidebar-footer</code> der fixierte Fuß (Einstellungen, Papierkorb). Auf dem Desktop klappt die Sidebar wie in Notion ein: <code>.nk-sidebar-head</code> hält die Workspace-Zeile und das « <code>.nk-sidebar-collapse</code>, das erscheint, solange der Zeiger über der Sidebar ist; <code>.collapsed</code> an der Sidebar schiebt sie nach links hinaus – die Hauptspalte nimmt die Breite, die verborgene Sidebar nimmt keinen Fokus –, und <code>.collapsed</code> am <code>.nk-sidebar-toggle</code> der Topbar zeigt das ☰, das sie zurückholt. Notions Kürzel ist ⌘\\.',
   },
   mobile: {
     en: 'Below 860px the sidebar steps aside and the main column takes the full width. <code>.open</code> brings it back as an off-canvas drawer over the page, with a <code>.nk-sidebar-backdrop</code> as its scrim: it slides in and the scrim fades, CSS only. The ☰ that opens it is a <code>.nk-topbar-btn.nk-sidebar-toggle</code> at the start of the topbar, shown on phones only; toggle <code>.open</code> on sidebar and backdrop, close on the backdrop, Escape and a chosen page. The height is <code>100dvh</code> with a <code>100vh</code> fallback, so a standalone PWA on iOS does not count the status bar into the shell. Safe areas are handled per surface, not on <code>nk-app</code>: topbar, page, sidebar and tab bar pad their content by the left/right insets (Dynamic Island in landscape) while their backgrounds run edge to edge.',
@@ -89,7 +89,10 @@ export const CATALOG = [
   frame: 340,
   html: W => `<div class="nk-app" style="height:100%">
   <aside class="nk-sidebar">
-    <div class="nk-workspace"><div class="avatar">A</div>${W.workspace}<span class="chev">⌄</span></div>
+    <div class="nk-sidebar-head">
+      <div class="nk-workspace"><div class="avatar">A</div>${W.workspace}<span class="chev">⌄</span></div>
+      <button class="nk-sidebar-collapse" aria-label="${W.closeSidebar}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+    </div>
     <div class="nk-sidebar-scroll">
       <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">${W.search}</span></div>
       <div class="nk-tree-item active"><span class="icon">🏠</span><span class="label">${W.home}</span></div>
@@ -113,7 +116,11 @@ export const CATALOG = [
 </div>`,
   after: W => `<pre class="nk-code"><span class="lang">html</span>&lt;div class="nk-sidebar-backdrop open"&gt;&lt;/div&gt;   &lt;!-- phones: the drawer's scrim --&gt;
 &lt;aside class="nk-sidebar open"&gt;…&lt;/aside&gt;         &lt;!-- slides in over the page --&gt;
-&lt;button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu"&gt;☰&lt;/button&gt;</pre>`,
+&lt;button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu"&gt;☰&lt;/button&gt;</pre>
+<pre class="nk-code"><span class="lang">js</span>collapseBtn.addEventListener('click', () =&gt; {            // the « in .nk-sidebar-head
+  sidebar.classList.add('collapsed');                      // slides out on the desktop
+  sidebarToggle.classList.add('collapsed');                // ${W.collapseHint}
+});</pre>`,
 },
 {
   id: 'nk-workspace', group: 'shell', classes: ['nk-workspace', 'avatar', 'chev'],
@@ -945,16 +952,17 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-peek', group: 'overlay', classes: ['nk-peek-backdrop', 'open', 'nk-peek', 'pk-bar', 'pk-body'],
+  id: 'nk-peek', group: 'overlay', classes: ['nk-peek-backdrop', 'open', 'nk-peek', 'pk-resize', 'pk-bar', 'pk-body', 'active', 'peek-inset'],
   title: { en: 'Side peek', de: 'Side Peek' },
   desc: {
-    en: 'Notion\'s side peek: a database row opens in a panel at the right edge, full height, next to the table, which stays visible and usable – there is no scrim, the backdrop only holds the panel and lets clicks through. <code>.pk-bar</code> carries the actions – close with », open as page – and <code>.pk-body</code> the page: title in 32px, properties, prose, comments. <code>.open</code> on the backdrop slides the panel in; closed, it leaves the layout once it has slid out. It lies above the page and the tab bar and below the floating menus, so a menu opened in the peek shows over it. Closing is your script: », Escape, a click outside; a click on another row swaps the content.',
-    de: 'Notions Side Peek: Eine Datenbankzeile öffnet sich in einem Panel am rechten Rand, in voller Höhe, neben der Tabelle, die sichtbar und bedienbar bleibt – es gibt keine Abdunklung, der Backdrop hält nur das Panel und lässt Klicks durch. <code>.pk-bar</code> trägt die Aktionen – Schließen mit », Als Seite öffnen –, <code>.pk-body</code> die Seite: Titel in 32px, Eigenschaften, Prosa, Kommentare. <code>.open</code> am Backdrop schiebt das Panel herein; geschlossen verlässt es das Layout, sobald es hinausgeglitten ist. Es liegt über Seite und Tab-Leiste und unter den schwebenden Menüs, sodass ein Menü aus dem Peek darüber erscheint. Das Schließen übernimmt dein Skript: », Escape, ein Klick daneben; ein Klick auf eine andere Zeile tauscht den Inhalt.',
+    en: 'Notion\'s side peek: a database row opens in a panel at the right edge, full height, next to the table, which stays visible and usable – there is no scrim, the backdrop only holds the panel and lets clicks through. <code>.pk-bar</code> carries the actions – close with », open as page – and <code>.pk-body</code> the page: title in 32px, properties, prose, comments. <code>.open</code> on the backdrop slides the panel in; closed, it leaves the layout once it has slid out. It lies above the page and the tab bar and below the floating menus, so a menu opened in the peek shows over it. Closing is your script: », Escape, a click outside; a click on another row swaps the content. Its width is the token <code>--nk-peek-width</code> (560px): <code>.pk-resize</code> on the left edge takes the pointer to make it wider or narrower, as in Notion – set the token on <code>:root</code> while dragging; it shows a line while hovered, focused or <code>.active</code>. <code>.peek-inset</code> on <code>.nk-app</code> gives the main column a right padding as wide as the peek, so the page moves aside instead of lying under it – for a Gantt chart whose bars must stay visible.',
+    de: 'Notions Side Peek: Eine Datenbankzeile öffnet sich in einem Panel am rechten Rand, in voller Höhe, neben der Tabelle, die sichtbar und bedienbar bleibt – es gibt keine Abdunklung, der Backdrop hält nur das Panel und lässt Klicks durch. <code>.pk-bar</code> trägt die Aktionen – Schließen mit », Als Seite öffnen –, <code>.pk-body</code> die Seite: Titel in 32px, Eigenschaften, Prosa, Kommentare. <code>.open</code> am Backdrop schiebt das Panel herein; geschlossen verlässt es das Layout, sobald es hinausgeglitten ist. Es liegt über Seite und Tab-Leiste und unter den schwebenden Menüs, sodass ein Menü aus dem Peek darüber erscheint. Das Schließen übernimmt dein Skript: », Escape, ein Klick daneben; ein Klick auf eine andere Zeile tauscht den Inhalt. Seine Breite ist das Token <code>--nk-peek-width</code> (560px): <code>.pk-resize</code> am linken Rand nimmt den Zeiger, um es breiter oder schmaler zu ziehen, wie in Notion – beim Ziehen das Token auf <code>:root</code> setzen; es zeigt eine Linie bei Hover, Fokus oder <code>.active</code>. <code>.peek-inset</code> an <code>.nk-app</code> gibt der Hauptspalte rechts ein Padding so breit wie der Peek, die Seite rückt also zur Seite, statt darunter zu liegen – für ein Gantt-Diagramm, dessen Balken sichtbar bleiben müssen.',
   },
   mobile: { en: 'Below 860px it rises from the bottom edge as a sheet over a dimmed page – full width, a grabber, the title in 28px – and the dimmed page takes the tap that closes it.', de: 'Unter 860px steigt es als Sheet von der Unterkante über eine abgedunkelte Seite auf – volle Breite, ein Griff, der Titel in 28px –, und die abgedunkelte Seite nimmt den Tipp, der es schließt.' },
   frame: 420, relativeFrame: true,
   html: W => `<div class="nk-peek-backdrop open" style="position:absolute;border-radius:var(--nk-radius);overflow:hidden">
   <aside class="nk-peek" role="dialog" aria-label="${W.peekTitle}" style="width:min(440px, 100%)">
+    <div class="pk-resize" role="separator" aria-orientation="vertical" aria-label="${W.resize}" tabindex="0"></div>
     <div class="pk-bar">
       <button class="nk-topbar-btn" aria-label="${W.close}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button>
       <button class="nk-topbar-btn" aria-label="${W.openPage}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
@@ -971,7 +979,36 @@ export const CATALOG = [
 </div>`,
   after: W => `<pre class="nk-code"><span class="lang">js</span>row.addEventListener('click', () =&gt; peek.classList.add('open'));        // ${W.peekHintOpen}
 closeBtn.addEventListener('click', () =&gt; peek.classList.remove('open'));
-document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.classList.remove('open'); });</pre>`,
+document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.classList.remove('open'); });
+handle.addEventListener('pointermove', e =&gt;                  // .pk-resize, with pointer capture
+  document.documentElement.style.setProperty('--nk-peek-width', innerWidth - e.clientX + 'px'));
+app.classList.toggle('peek-inset', open);                     // the page moves aside</pre>`,
+},
+{
+  id: 'nk-dialog', group: 'overlay', classes: ['nk-dialog-backdrop', 'open', 'nk-dialog', 'wide', 'dl-title', 'dl-body', 'dl-actions'],
+  title: { en: 'Dialog', de: 'Dialog' },
+  desc: {
+    en: 'A question or a short form – “Move to trash?”, the name of a new view, the link between two tasks – in a card of 440px, <code>.wide</code> 560px: <code>.dl-title</code>, <code>.dl-body</code> and <code>.dl-actions</code> on the right with the confirming button last. The contract of the modal and the sheet: <code>.open</code> on the backdrop fades it in over a scrim and the card settles like the modal\'s; closed, the backdrop leaves the layout once it has faded. It lies above the modal and the sheet, so a question can come from either. Closing is your script: Escape (captured, before the overlays behind it), the backdrop, the buttons; move focus in and back out. <code>role="alertdialog"</code> for a question, <code>role="dialog"</code> for a form.',
+    de: 'Eine Frage oder ein kurzes Formular – „In den Papierkorb?“, der Name einer neuen Ansicht, die Verknüpfung zweier Vorgänge – in einer Karte von 440px, <code>.wide</code> 560px: <code>.dl-title</code>, <code>.dl-body</code> und <code>.dl-actions</code> rechts, der bestätigende Button zuletzt. Der Vertrag von Modal und Sheet: <code>.open</code> am Backdrop blendet ihn über einer Abdunklung ein, die Karte setzt sich wie die des Modals; geschlossen verlässt der Backdrop nach dem Ausblenden das Layout. Er liegt über Modal und Sheet, eine Frage kann also aus beiden kommen. Das Schließen übernimmt dein Skript: Escape (in der Capture-Phase, vor den Overlays dahinter), der Backdrop, die Buttons; Fokus hinein und wieder zurück. <code>role="alertdialog"</code> für eine Frage, <code>role="dialog"</code> für ein Formular.',
+  },
+  mobile: { en: 'Below 860px it rises from the bottom edge as a sheet – full width, a grabber, the safe area kept – and the buttons stack across the width, the confirming one on top.', de: 'Unter 860px steigt er als Sheet von der Unterkante auf – volle Breite, ein Griff, die Safe Area gewahrt –, und die Buttons stapeln sich über die Breite, der bestätigende oben.' },
+  frame: 300, relativeFrame: true,
+  html: W => `<div class="nk-dialog-backdrop open" style="position:absolute;border-radius:var(--nk-radius)">
+  <div class="nk-dialog" role="alertdialog" aria-modal="true" aria-label="${W.moveToTrash}">
+    <div class="dl-title">${W.trashTitle}</div>
+    <div class="dl-body">${W.trashText}</div>
+    <div class="dl-actions"><button class="nk-btn secondary">${W.cancel}</button><button class="nk-btn danger-solid">${W.moveToTrash}</button></div>
+  </div>
+</div>`,
+  after: W => `<pre class="nk-code"><span class="lang">html</span>&lt;div class="nk-dialog-backdrop open"&gt;
+  &lt;div class="nk-dialog wide" role="dialog" aria-modal="true" aria-labelledby="t"&gt;
+    &lt;div class="dl-title" id="t"&gt;${W.newView}&lt;/div&gt;
+    &lt;div class="dl-body"&gt;
+      &lt;div class="nk-field stacked"&gt;&lt;div&gt;&lt;div class="f-label"&gt;${W.fieldName}&lt;/div&gt;&lt;/div&gt;&lt;div class="f-control"&gt;&lt;input class="nk-input"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="dl-actions"&gt;&lt;button class="nk-btn secondary"&gt;${W.cancel}&lt;/button&gt;&lt;button class="nk-btn primary"&gt;${W.create}&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>`,
 },
 {
   id: 'nk-toast', group: 'overlay', classes: ['nk-toast', 'show'],
@@ -996,6 +1033,21 @@ document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.clas
   html: W => `<div class="nk-gallery-grid">
   <div class="nk-g-item"><h4>${W.activePages}</h4><div class="nk-stat"><div class="s-label">${W.thisWeek}</div><div class="s-value">128</div></div></div>
   <div class="nk-g-item"><h4>${W.openTasks}</h4><div class="nk-stat"><div class="s-label">${W.thisWeek}</div><div class="s-value">17</div></div></div>
+</div>`,
+},
+{
+  id: 'nk-tooltip', group: 'overlay', classes: ['nk-tooltip', 'open', 'tt-key'],
+  title: { en: 'Tooltip', de: 'Tooltip' },
+  desc: {
+    en: 'A hover hint in the toast\'s colours: 12px, at most 260px wide, a shortcut in <code>.tt-key</code>, muted. Invisible and inert until <code>.open</code> fades it in; where it sits is yours – fixed, top and left, 6px below the button and centred, above it where the window ends. It lies above every overlay and never takes the pointer. Show it after a moment under the pointer and at once on keyboard focus, hide it on leave, a press, Escape; name it in the button\'s <code>aria-describedby</code>.',
+    de: 'Ein Hover-Hinweis in den Farben des Toasts: 12px, höchstens 260px breit, ein Kürzel in <code>.tt-key</code>, gedämpft. Unsichtbar und inaktiv, bis <code>.open</code> ihn einblendet; wo er sitzt, entscheidest du – fixed, top und left, 6px unter dem Button und zentriert, darüber, wo das Fenster endet. Er liegt über jedem Overlay und nimmt nie den Zeiger. Zeige ihn nach einem Moment unter dem Zeiger und sofort bei Tastaturfokus, blende ihn beim Verlassen, einem Druck und Escape aus; nenne ihn im <code>aria-describedby</code> des Buttons.',
+  },
+  mobile: { en: 'A phone has no hover: leave tooltips to the pointer and show nothing on touch.', de: 'Ein Telefon hat kein Hover: Tooltips dem Zeiger überlassen und bei Berührung nichts zeigen.' },
+  html: W => `<div style="position:relative;height:84px">
+  <button class="nk-topbar-btn" style="position:absolute;left:61px;top:6px" aria-label="${W.moreTip}">⋯</button>
+  <div class="nk-tooltip open" role="tooltip" style="position:absolute;left:8px;top:40px">${W.moreTip}</div>
+  <button class="nk-sidebar-collapse" style="position:absolute;left:300px;top:6px;opacity:1" aria-label="${W.closeSidebar}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+  <div class="nk-tooltip open" role="tooltip" style="position:absolute;left:255px;top:40px">${W.closeSidebar}<span class="tt-key">⌘\\</span></div>
 </div>`,
 },
 {

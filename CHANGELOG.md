@@ -4,6 +4,60 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.10.0] – 2026-09-24
+
+Shell and overlays: the sidebar collapses on the desktop, the side peek
+resizes and can move the page aside, and there are a dialog and a tooltip.
+SupaGantt asked for all four – a Gantt chart at full width, bars that stay
+visible beside the peek, confirmation and input dialogs, hints on bars and
+the ribbon. Additive; the size budget moves, see Changed.
+
+### Added
+- **Collapsing sidebar: `.nk-sidebar.collapsed`**, with `.nk-sidebar-head`
+  and `.nk-sidebar-collapse`. Notion's «: `.nk-sidebar-head` holds the
+  workspace row and the « beside it, which shows while the pointer is over
+  the sidebar. `.collapsed` slides the sidebar out to the left and the main
+  column takes its width; it stays visible while it slides and takes no
+  focus once it is out. `.nk-sidebar-toggle.collapsed` shows the topbar's ☰
+  on the desktop too, to bring it back; Notion's shortcut is ⌘\. A phone
+  keeps the drawer – there `.collapsed` changes nothing.
+- **Resizable side peek: `.pk-resize` and the token `--nk-peek-width`.** The
+  peek's width is a token now (560px). `.pk-resize` on its left edge takes
+  the pointer – a script sets the token on `:root` while dragging – and
+  shows a line in the accent while hovered, focused or `.active`.
+  **`.nk-app.peek-inset`** gives the main column a right padding as wide as
+  the peek: the page moves aside instead of lying under it, for a chart
+  whose bars must stay visible. Neither acts on a phone, where the peek is a
+  sheet.
+- **Dialog: `.nk-dialog-backdrop` and `.nk-dialog`** (`wide`, `dl-title`,
+  `dl-body`, `dl-actions`). A question or a short form – “Move to trash?”,
+  the name of a new view, the link between two tasks – in a card of 440px,
+  560px `.wide`, with the actions on the right and the confirming one last.
+  The contract of the modal and the sheet: `.open` on the backdrop fades it
+  in over a scrim and the card settles like the modal's; closed, the
+  backdrop leaves the layout once it has faded. It lies above the modal and
+  the sheet (z-index 105), so a question can come from either. Below 860px
+  it is a bottom sheet with a grabber and the buttons stacked across the
+  width, the confirming one on top.
+- **Tooltip: `.nk-tooltip`** (`open`, `tt-key`). Notion's hover hint in the
+  toast's colours, 12px, at most 260px wide, a shortcut muted in `.tt-key`.
+  Invisible and inert until `.open` fades it in; where it sits is yours –
+  6px below the button and centred, above it where the window ends. It lies
+  above every overlay.
+- Demo: « in the sidebar and ⌘\ collapse it, the ☰ brings it back; the side
+  peek resizes from its left edge and with the arrow keys; the page menu's
+  “Move to trash” asks first, and the ＋ view tab asks for a name and a
+  layout; the topbar's buttons and the « have tooltips. `#dialog` opens the
+  question.
+
+### Changed
+- **Size budget: 18 KB gzipped and 100 KB minified**, instead of 14 KB and
+  75 KB. Up to 1.9.0 the gzipped file stayed under what a new connection
+  delivers in its first round trip; past that, the next round trip reaches
+  about 43 KB, so the budget now keeps the library lean rather than marking
+  a network step. The minified budget is again set so it never binds first.
+  1.10.0 is 13.8 KB gzipped.
+
 ## [1.9.0] – 2026-09-24
 
 Dates: a date picker for properties and fields, and a calendar view for the

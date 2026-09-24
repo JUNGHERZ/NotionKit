@@ -32,7 +32,7 @@ const DESKTOP_W = 1280, DESKTOP_H = 800, MOBILE_W = 390, MOBILE_H = 780;
 // notionkit.min.css gzipped as check-size.mjs measures it (which also
 // checks this badge).
 function gzipTag(lang) {
-  if (!existsSync('notionkit.min.css')) return lang === 'de' ? '≤ 14 KB gzip' : '≤ 14 KB gzip';
+  if (!existsSync('notionkit.min.css')) return '≤ 18 KB gzip';
   const min = readFileSync('notionkit.min.css', 'utf-8').replace(/\/\*# sourceMappingURL=.*?\*\/\s*$/, '');
   const kb = (gzipSync(min, { level: 9 }).length / 1024).toFixed(1);
   return `${lang === 'de' ? kb.replace('.', ',') : kb} KB gzip`;

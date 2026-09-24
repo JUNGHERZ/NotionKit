@@ -20,7 +20,11 @@ export const SKELETONS = [
   <!-- On a phone the sidebar is a drawer: the ☰ in the topbar opens it. -->
   <div class="nk-sidebar-backdrop" id="backdrop"></div>
   <aside class="nk-sidebar" id="sidebar">
-    <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
+    <!-- Desktop: the « collapses the sidebar, the ☰ in the topbar brings it back. -->
+    <div class="nk-sidebar-head">
+      <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
+      <button class="nk-sidebar-collapse" id="collapse" aria-label="Close sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+    </div>
     <div class="nk-sidebar-scroll">
       <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Search</span><span class="nk-kbd-hint"><kbd class="nk-kbd">⌘</kbd><kbd class="nk-kbd">K</kbd></span></div>
       <div class="nk-tree-item"><span class="icon">🏠</span><span class="label">Home</span></div>
@@ -88,7 +92,11 @@ export const SKELETONS = [
     backdrop.classList.toggle('open', open);
     menu.setAttribute('aria-expanded', String(open));
   };
-  menu.addEventListener('click', () => drawer(!sidebar.classList.contains('open')));
+  // Desktop: .collapsed on the sidebar slides it out, on the ☰ shows it.
+  const collapsed = on => { sidebar.classList.toggle('collapsed', on); menu.classList.toggle('collapsed', on); };
+  const phone = matchMedia('(max-width: 860px)');
+  menu.addEventListener('click', () => phone.matches ? drawer(!sidebar.classList.contains('open')) : collapsed(false));
+  collapse.addEventListener('click', () => collapsed(true));
   backdrop.addEventListener('click', () => drawer(false));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') drawer(false); });
 </script>

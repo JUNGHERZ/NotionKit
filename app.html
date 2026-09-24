@@ -23,10 +23,13 @@
   <!-- On a phone the sidebar is a drawer: the ☰ in the topbar opens it. -->
   <div class="nk-sidebar-backdrop" id="sidebarBackdrop"></div>
   <aside class="nk-sidebar" id="sidebar">
-    <div class="nk-workspace">
-      <div class="avatar">M</div>
-      <span>MonaHilft</span>
-      <span class="chev">⌄</span>
+    <div class="nk-sidebar-head">
+      <div class="nk-workspace">
+        <div class="avatar">M</div>
+        <span>MonaHilft</span>
+        <span class="chev">⌄</span>
+      </div>
+      <button class="nk-sidebar-collapse" id="sidebarCollapse" aria-label="Close sidebar" data-tooltip="Close sidebar" data-tooltip-key="⌘\"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
     </div>
 
     <div class="nk-sidebar-scroll">
@@ -73,7 +76,7 @@
   <!-- ================= MAIN ================= -->
   <main class="nk-main">
     <div class="nk-topbar">
-      <button class="nk-topbar-btn nk-sidebar-toggle" id="sidebarToggle" aria-label="Menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+      <button class="nk-topbar-btn nk-sidebar-toggle" id="sidebarToggle" aria-label="Menu" aria-expanded="false" aria-controls="sidebar" data-tooltip="Open sidebar" data-tooltip-key="⌘\">☰</button>
       <nav class="nk-breadcrumb" id="crumbs">
         <span class="crumb">📊 Project overview</span>
         <span class="sep">/</span>
@@ -81,10 +84,10 @@
       </nav>
       <div class="nk-topbar-actions">
         <span class="nk-topbar-meta" id="lastEdited">Last edited 2 min ago</span>
-        <button class="nk-topbar-btn nk-share-btn">Share</button>
-        <button class="nk-topbar-btn">⭐</button>
+        <button class="nk-topbar-btn nk-share-btn" data-tooltip="Share or publish">Share</button>
+        <button class="nk-topbar-btn" aria-label="Favourite" data-tooltip="Add to Favourites">⭐</button>
         <button class="nk-topbar-btn nk-theme-toggle" id="themeToggle" title="Toggle light / dark">🌙</button>
-        <button class="nk-topbar-btn" id="pageMenuBtn" aria-haspopup="menu" aria-expanded="false" title="Page options">⋯</button>
+        <button class="nk-topbar-btn" id="pageMenuBtn" aria-haspopup="menu" aria-expanded="false" aria-label="Page options" data-tooltip="Style, export and more">⋯</button>
       </div>
     </div>
 
@@ -131,7 +134,7 @@
               <span class="nk-db-tab" data-view="board">▤ Board</span>
               <span class="nk-db-tab" data-view="list">☰ List</span>
               <span class="nk-db-tab" data-view="calendar">📅 Calendar</span>
-              <span class="nk-db-tab add">＋</span>
+              <span class="nk-db-tab add" id="addView" role="button" tabindex="0">＋</span>
             </div>
             <div class="tools">
               <button class="nk-db-tool active" id="filterBtn" aria-haspopup="menu" aria-expanded="false">Filter</button>
@@ -743,6 +746,7 @@
 <!-- Not id="peek": #peek opens it, and a fragment target takes the focus. -->
 <div class="nk-peek-backdrop" id="sidePeek">
   <aside class="nk-peek" role="dialog" aria-labelledby="peekTitle" tabindex="-1">
+    <div class="pk-resize" id="peekResize" role="separator" aria-orientation="vertical" aria-label="Resize" aria-valuemin="380" aria-valuenow="560" tabindex="0"></div>
     <div class="pk-bar">
       <button class="nk-topbar-btn" id="peekClose" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button>
       <button class="nk-topbar-btn" id="peekOpen" aria-label="Open as page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
@@ -770,6 +774,28 @@
     </div>
   </aside>
 </div>
+
+<!-- ================= DIALOGS ================= -->
+<!-- Not id="dialog": #dialog opens one, and a fragment target takes the focus. -->
+<div class="nk-dialog-backdrop" id="trashDialog">
+  <div class="nk-dialog" role="alertdialog" aria-modal="true" aria-labelledby="trashTitle" aria-describedby="trashText" tabindex="-1">
+    <div class="dl-title" id="trashTitle">Move “NotionKit MVP” to trash?</div>
+    <div class="dl-body" id="trashText">The page and its sub-pages can be restored from Trash for 30 days.</div>
+    <div class="dl-actions"><button class="nk-btn secondary" data-close="">Cancel</button><button class="nk-btn danger-solid" data-close="trash">Move to trash</button></div>
+  </div>
+</div>
+<div class="nk-dialog-backdrop" id="viewDialog">
+  <div class="nk-dialog" role="dialog" aria-modal="true" aria-labelledby="viewTitle" tabindex="-1">
+    <div class="dl-title" id="viewTitle">New view</div>
+    <div class="dl-body">
+      <div class="nk-field stacked"><div><div class="f-label">Name</div></div><div class="f-control"><input class="nk-input" id="viewName" placeholder="Timeline"></div></div>
+      <div class="nk-field stacked"><div><div class="f-label">Layout</div></div><div class="f-control"><select class="nk-select" id="viewLayout"><option>Table</option><option>Board</option><option>List</option><option>Calendar</option></select></div></div>
+    </div>
+    <div class="dl-actions"><button class="nk-btn secondary" data-close="">Cancel</button><button class="nk-btn primary" data-close="create">Create</button></div>
+  </div>
+</div>
+
+<div class="nk-tooltip" id="tooltip" role="tooltip" style="position:fixed"></div>
 
 <div class="nk-toast" id="toast">✓ <span id="toastMsg"></span></div>
 
@@ -1217,10 +1243,30 @@
     sidebarBackdrop.classList.toggle("open", open);
     sidebarToggle.setAttribute("aria-expanded", String(open));
   }
-  sidebarToggle.addEventListener("click", () => setDrawer(!sidebar.classList.contains("open")));
+  const phone = matchMedia("(max-width: 860px)");
+  sidebarToggle.addEventListener("click", () => phone.matches ? setDrawer(!sidebar.classList.contains("open")) : setCollapsed(false));
   sidebarBackdrop.addEventListener("click", () => setDrawer(false));
   document.addEventListener("keydown", e => { if (e.key === "Escape") setDrawer(false); });
   sidebar.addEventListener("click", e => { if (e.target.closest(".nk-tree-item") && !e.target.closest("[data-toggle]")) setDrawer(false); });
+
+  /* ============ Sidebar on the desktop: « collapses it, ☰ and ⌘\ bring it back ============ */
+  // .collapsed on the sidebar slides it out, on the ☰ shows it on the
+  // desktop too; focus follows to the control that is left.
+  const sidebarCollapse = document.getElementById("sidebarCollapse");
+  function setCollapsed(on) {
+    const focused = sidebar.contains(document.activeElement) || document.activeElement === sidebarToggle;
+    sidebar.classList.toggle("collapsed", on);
+    sidebarToggle.classList.toggle("collapsed", on);
+    // Two frames later: with reduced motion every nk- element transitions for
+    // .01ms, the inherited visibility included, so the « is focusable only then.
+    if (focused) requestAnimationFrame(() => requestAnimationFrame(() => (on ? sidebarToggle : sidebarCollapse).focus({ preventScroll: true })));
+  }
+  sidebarCollapse.addEventListener("click", () => setCollapsed(true));
+  document.addEventListener("keydown", e => {
+    if (!(e.metaKey || e.ctrlKey) || e.key !== "\\") return;
+    e.preventDefault();
+    phone.matches ? setDrawer(!sidebar.classList.contains("open")) : setCollapsed(!sidebar.classList.contains("collapsed"));
+  });
 
   /* ============ Views: start and project page ============ */
   const crumbs = document.getElementById("crumbs");
@@ -1394,12 +1440,112 @@
     if (row) openPeek(+row.dataset.p);
   });
   document.addEventListener("click", e => {
-    if (!peek.classList.contains("open") || e.target.closest(".nk-peek, [data-p], .nk-pop, .nk-modal-backdrop, .nk-sheet-backdrop")) return;
+    if (!peek.classList.contains("open") || e.target.closest(".nk-peek, [data-p], .nk-pop, .nk-modal-backdrop, .nk-sheet-backdrop, .nk-dialog-backdrop")) return;
     closePeek();
   });
   document.addEventListener("keydown", e => { if (e.key === "Escape") closePeek(); });
   document.getElementById("peekClose").addEventListener("click", closePeek);
   document.getElementById("peekOpen").addEventListener("click", () => showToast("Opens as a full page"));
+
+  // The left edge resizes it: --nk-peek-width on :root, from 380px to all
+  // but 320px of the window; the arrow keys move it by 16px.
+  const peekResize = document.getElementById("peekResize");
+  function setPeekWidth(w) {
+    w = Math.round(Math.min(Math.max(w, 380), Math.max(380, innerWidth - 320)));
+    document.documentElement.style.setProperty("--nk-peek-width", w + "px");
+    peekResize.setAttribute("aria-valuenow", w);
+  }
+  peekResize.addEventListener("pointerdown", e => {
+    e.preventDefault();
+    peekResize.setPointerCapture(e.pointerId);
+    peekResize.classList.add("active");
+    const move = ev => setPeekWidth(innerWidth - ev.clientX);
+    const up = () => {
+      peekResize.classList.remove("active");
+      peekResize.removeEventListener("pointermove", move);
+      peekResize.removeEventListener("lostpointercapture", up);
+    };
+    peekResize.addEventListener("pointermove", move);
+    peekResize.addEventListener("lostpointercapture", up);
+  });
+  peekResize.addEventListener("keydown", e => {
+    const step = { ArrowLeft: 16, ArrowRight: -16 }[e.key];
+    if (step) { e.preventDefault(); setPeekWidth(+peekResize.getAttribute("aria-valuenow") + step); }
+  });
+
+  /* ============ Dialogs: move to trash, a new view ============ */
+  // .open on the backdrop; Escape, the backdrop and a button with data-close
+  // close it – data-close says what was chosen. Focus goes in and comes back.
+  const dialog = { open: null, back: null, done: null };
+  function openDialog(d, done, back = document.activeElement) {
+    Object.assign(dialog, { open: d, back, done });
+    d.classList.add("open");
+    requestAnimationFrame(() => (d.querySelector("input, select, textarea") || d.querySelector(".dl-actions button")).focus({ preventScroll: true }));
+  }
+  function closeDialog(value = "") {
+    if (!dialog.open) return;
+    const { open, back, done } = dialog;
+    Object.assign(dialog, { open: null, back: null, done: null });
+    open.classList.remove("open");
+    back?.focus?.({ preventScroll: true });
+    if (value) done?.(value);
+  }
+  document.querySelectorAll(".nk-dialog-backdrop").forEach(d => d.addEventListener("click", e => {
+    const button = e.target.closest("[data-close]");
+    if (button) closeDialog(button.dataset.close);
+    else if (e.target === d) closeDialog();
+  }));
+  // Captured, so a dialog closes before the peek, a menu or the modal behind it.
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && dialog.open) { e.stopPropagation(); closeDialog(); } }, true);
+  const trashDialog = document.getElementById("trashDialog");
+  const viewDialog = document.getElementById("viewDialog"), viewName = document.getElementById("viewName"), viewLayout = document.getElementById("viewLayout");
+  pageMenu.querySelector(".nk-menu-item.danger").addEventListener("click", () => openDialog(trashDialog, () => showToast("Moved to trash"), pageMenuBtn));
+  document.getElementById("addView").addEventListener("click", () => {
+    viewName.value = "";
+    openDialog(viewDialog, () => showToast(`View “${viewName.value || "Untitled"}” created as ${viewLayout.value.toLowerCase()}`));
+  });
+  viewName.addEventListener("keydown", e => { if (e.key === "Enter") closeDialog("create"); });
+
+  /* ============ Tooltips: data-tooltip on a button ============ */
+  // After 400ms under the pointer, at once on keyboard focus, never on touch:
+  // centred below the button, above it where the window ends, 8px inside.
+  const tooltip = document.getElementById("tooltip");
+  let tipTarget = null, tipTimer = 0;
+  function showTip(el) {
+    const key = el.dataset.tooltipKey;
+    tooltip.replaceChildren(el.dataset.tooltip, ...(key ? [Object.assign(document.createElement("span"), { className: "tt-key", textContent: key })] : []));
+    const r = el.getBoundingClientRect(), w = tooltip.offsetWidth, h = tooltip.offsetHeight;
+    let top = r.bottom + 6;
+    if (top + h > innerHeight - 8) top = r.top - 6 - h;
+    tooltip.style.top = Math.round(top) + "px";
+    tooltip.style.left = Math.round(Math.min(Math.max(8, (r.left + r.right) / 2 - w / 2), innerWidth - 8 - w)) + "px";
+    tooltip.classList.add("open");
+    el.setAttribute("aria-describedby", "tooltip");
+  }
+  function hideTip() {
+    clearTimeout(tipTimer);
+    tooltip.classList.remove("open");
+    tipTarget?.removeAttribute("aria-describedby");
+    tipTarget = null;
+  }
+  document.addEventListener("pointerover", e => {
+    const el = e.pointerType === "touch" ? null : e.target.closest("[data-tooltip]");
+    if (el === tipTarget) return;
+    hideTip();
+    if (!el) return;
+    tipTarget = el;
+    tipTimer = setTimeout(() => showTip(el), 400);
+  });
+  document.addEventListener("focusin", e => {
+    const el = e.target.closest("[data-tooltip]");
+    if (!el?.matches(":focus-visible")) return;
+    hideTip();
+    tipTarget = el;
+    showTip(el);
+  });
+  document.addEventListener("focusout", hideTip);
+  document.addEventListener("pointerdown", hideTip, true);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") hideTip(); });
 
   /* ============ Pictures: profile and workspace icon ============ */
   // The file is read with its EXIF rotation, drawn no larger than data-max
@@ -1454,7 +1600,7 @@
     }
   }));
 
-  /* ============ Anchors: #menu, #filter, #more, #peek, #date, #calendar, #settings open that state ============ */
+  /* ============ Anchors: #menu, #filter, #more, #peek, #date, #calendar, #dialog, #settings open that state ============ */
   // The landing page shows app.html#menu: a popover on the desktop, a sheet
   // on the phone – one markup, two presentations.
   function openFromHash() {
@@ -1465,6 +1611,7 @@
     if (h === "#peek") openPeek(2);
     if (h === "#date") pageDue.click();
     if (h === "#calendar") document.querySelector('.nk-db-tab[data-view="calendar"]').click();
+    if (h === "#dialog") openDialog(trashDialog, () => showToast("Moved to trash"), pageMenuBtn);
     if (h === "#settings") modal.classList.add("open");
   }
   requestAnimationFrame(openFromHash);

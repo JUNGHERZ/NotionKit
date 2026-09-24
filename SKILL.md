@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.9.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.10.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -135,6 +135,7 @@ All visual values are custom properties. `:root` holds the light theme, `[data-t
 | `--nk-scrim` | `rgba(15,15,15,0.6)` | — (inherits) | Modal backdrop |
 | `--nk-scrim-soft` | `rgba(15,15,15,0.5)` | — (inherits) | Command palette backdrop, one step lighter |
 | `--nk-sidebar-width` | `260px` | — (inherits) | Sidebar width, also its min-width (plus the left safe-area inset, if any) |
+| `--nk-peek-width` | `560px` | — (inherits) |  |
 | `--nk-tab-bar-height` | `58px` | — (inherits) | Mobile tab bar height without the safe-area inset (the inset replaces the 6px bottom padding); the spacer uses the same value |
 | `--nk-radius` | `6px` | — (inherits) | Control radius. Cards and modals use 8–12px directly |
 | `--nk-font` | `ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif` | — (inherits) | System font stack |
@@ -192,12 +193,15 @@ Every snippet below is real markup from the documentation previews. A few inline
 
 ### App shell — `.nk-app`
 
-`nk-app` is a full-height flex row: sidebar left, main column right. It is the outermost element of a workspace app and the only place a fixed height belongs. Inside the sidebar, `nk-sidebar-scroll` is the scrolling tree area and `nk-sidebar-footer` the pinned bottom (Settings, Trash).
+`nk-app` is a full-height flex row: sidebar left, main column right. It is the outermost element of a workspace app and the only place a fixed height belongs. Inside the sidebar, `nk-sidebar-scroll` is the scrolling tree area and `nk-sidebar-footer` the pinned bottom (Settings, Trash). On the desktop the sidebar collapses as in Notion: `.nk-sidebar-head` holds the workspace row and the « `.nk-sidebar-collapse`, which shows while the pointer is over the sidebar; `.collapsed` on the sidebar slides it out to the left – the main column takes the width, the hidden sidebar takes no focus – and `.collapsed` on the topbar's `.nk-sidebar-toggle` shows the ☰ that brings it back. Notion's shortcut is ⌘\.
 
 ```html
 <div class="nk-app">
   <aside class="nk-sidebar">
-    <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
+    <div class="nk-sidebar-head">
+      <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
+      <button class="nk-sidebar-collapse" aria-label="Close sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+    </div>
     <div class="nk-sidebar-scroll">
       <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Search</span></div>
       <div class="nk-tree-item active"><span class="icon">🏠</span><span class="label">Home</span></div>
@@ -225,9 +229,13 @@ Every snippet below is real markup from the documentation previews. A few inline
 <div class="nk-sidebar-backdrop open"></div>   <!-- phones: the drawer's scrim -->
 <aside class="nk-sidebar open">…</aside>         <!-- slides in over the page -->
 <button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu">☰</button>
+jscollapseBtn.addEventListener('click', () => {            // the « in .nk-sidebar-head
+  sidebar.classList.add('collapsed');                      // slides out on the desktop
+  sidebarToggle.classList.add('collapsed');                // the ☰ in the topbar brings it back
+});
 ```
 
-- **Classes:** `.nk-app`, `.nk-sidebar`, `.nk-sidebar-scroll`, `.nk-sidebar-footer`, `.nk-main`, `.nk-sidebar-backdrop`, `.nk-sidebar-toggle`, `.open`
+- **Classes:** `.nk-app`, `.nk-sidebar`, `.nk-sidebar-head`, `.nk-sidebar-collapse`, `.nk-sidebar-scroll`, `.nk-sidebar-footer`, `.nk-main`, `.nk-sidebar-backdrop`, `.nk-sidebar-toggle`, `.open`, `.collapsed`
 - **On a small screen:** Below 860px the sidebar steps aside and the main column takes the full width. `.open` brings it back as an off-canvas drawer over the page, with a `.nk-sidebar-backdrop` as its scrim: it slides in and the scrim fades, CSS only. The ☰ that opens it is a `.nk-topbar-btn.nk-sidebar-toggle` at the start of the topbar, shown on phones only; toggle `.open` on sidebar and backdrop, close on the backdrop, Escape and a chosen page. The height is `100dvh` with a `100vh` fallback, so a standalone PWA on iOS does not count the status bar into the shell. Safe areas are handled per surface, not on `nk-app`: topbar, page, sidebar and tab bar pad their content by the left/right insets (Dynamic Island in landscape) while their backgrounds run edge to edge.
 
 ### Workspace switcher — `.nk-workspace`
@@ -1126,11 +1134,12 @@ Notion's mobile surface for menus, properties and more: the phone's twin of the 
 
 ### Side peek — `.nk-peek`
 
-Notion's side peek: a database row opens in a panel at the right edge, full height, next to the table, which stays visible and usable – there is no scrim, the backdrop only holds the panel and lets clicks through. `.pk-bar` carries the actions – close with », open as page – and `.pk-body` the page: title in 32px, properties, prose, comments. `.open` on the backdrop slides the panel in; closed, it leaves the layout once it has slid out. It lies above the page and the tab bar and below the floating menus, so a menu opened in the peek shows over it. Closing is your script: », Escape, a click outside; a click on another row swaps the content.
+Notion's side peek: a database row opens in a panel at the right edge, full height, next to the table, which stays visible and usable – there is no scrim, the backdrop only holds the panel and lets clicks through. `.pk-bar` carries the actions – close with », open as page – and `.pk-body` the page: title in 32px, properties, prose, comments. `.open` on the backdrop slides the panel in; closed, it leaves the layout once it has slid out. It lies above the page and the tab bar and below the floating menus, so a menu opened in the peek shows over it. Closing is your script: », Escape, a click outside; a click on another row swaps the content. Its width is the token `--nk-peek-width` (560px): `.pk-resize` on the left edge takes the pointer to make it wider or narrower, as in Notion – set the token on `:root` while dragging; it shows a line while hovered, focused or `.active`. `.peek-inset` on `.nk-app` gives the main column a right padding as wide as the peek, so the page moves aside instead of lying under it – for a Gantt chart whose bars must stay visible.
 
 ```html
 <div class="nk-peek-backdrop open">
   <aside class="nk-peek" role="dialog" aria-label="Database Table-View">
+    <div class="pk-resize" role="separator" aria-orientation="vertical" aria-label="Resize" tabindex="0"></div>
     <div class="pk-bar">
       <button class="nk-topbar-btn" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button>
       <button class="nk-topbar-btn" aria-label="Open as page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
@@ -1151,10 +1160,42 @@ Notion's side peek: a database row opens in a panel at the right edge, full heig
 jsrow.addEventListener('click', () => peek.classList.add('open'));        // a row opens beside the table
 closeBtn.addEventListener('click', () => peek.classList.remove('open'));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') peek.classList.remove('open'); });
+handle.addEventListener('pointermove', e =>                  // .pk-resize, with pointer capture
+  document.documentElement.style.setProperty('--nk-peek-width', innerWidth - e.clientX + 'px'));
+app.classList.toggle('peek-inset', open);                     // the page moves aside
 ```
 
-- **Classes:** `.nk-peek-backdrop`, `.open`, `.nk-peek`, `.pk-bar`, `.pk-body`
+- **Classes:** `.nk-peek-backdrop`, `.open`, `.nk-peek`, `.pk-resize`, `.pk-bar`, `.pk-body`, `.active`, `.peek-inset`
 - **On a small screen:** Below 860px it rises from the bottom edge as a sheet over a dimmed page – full width, a grabber, the title in 28px – and the dimmed page takes the tap that closes it.
+
+### Dialog — `.nk-dialog`
+
+A question or a short form – “Move to trash?”, the name of a new view, the link between two tasks – in a card of 440px, `.wide` 560px: `.dl-title`, `.dl-body` and `.dl-actions` on the right with the confirming button last. The contract of the modal and the sheet: `.open` on the backdrop fades it in over a scrim and the card settles like the modal's; closed, the backdrop leaves the layout once it has faded. It lies above the modal and the sheet, so a question can come from either. Closing is your script: Escape (captured, before the overlays behind it), the backdrop, the buttons; move focus in and back out. `role="alertdialog"` for a question, `role="dialog"` for a form.
+
+```html
+<div class="nk-dialog-backdrop open">
+  <div class="nk-dialog" role="alertdialog" aria-modal="true" aria-label="Move to trash">
+    <div class="dl-title">Move “Product roadmap” to trash?</div>
+    <div class="dl-body">The page and its sub-pages can be restored from Trash for 30 days.</div>
+    <div class="dl-actions"><button class="nk-btn secondary">Cancel</button><button class="nk-btn danger-solid">Move to trash</button></div>
+  </div>
+</div>
+```
+
+```html
+<div class="nk-dialog-backdrop open">
+  <div class="nk-dialog wide" role="dialog" aria-modal="true" aria-labelledby="t">
+    <div class="dl-title" id="t">New view</div>
+    <div class="dl-body">
+      <div class="nk-field stacked"><div><div class="f-label">Name</div></div><div class="f-control"><input class="nk-input"></div></div>
+    </div>
+    <div class="dl-actions"><button class="nk-btn secondary">Cancel</button><button class="nk-btn primary">Create</button></div>
+  </div>
+</div>
+```
+
+- **Classes:** `.nk-dialog-backdrop`, `.open`, `.nk-dialog`, `.wide`, `.dl-title`, `.dl-body`, `.dl-actions`
+- **On a small screen:** Below 860px it rises from the bottom edge as a sheet – full width, a grabber, the safe area kept – and the buttons stack across the width, the confirming one on top.
 
 ### Toast — `.nk-toast`
 
@@ -1166,6 +1207,22 @@ Fixed to the bottom centre, inverted (text colour as background). It sits off-sc
 
 - **Classes:** `.nk-toast`, `.show`
 - **On a small screen:** Centred by `translateX(-50%)`, so it stays centred at any width.
+
+### Tooltip — `.nk-tooltip`
+
+A hover hint in the toast's colours: 12px, at most 260px wide, a shortcut in `.tt-key`, muted. Invisible and inert until `.open` fades it in; where it sits is yours – fixed, top and left, 6px below the button and centred, above it where the window ends. It lies above every overlay and never takes the pointer. Show it after a moment under the pointer and at once on keyboard focus, hide it on leave, a press, Escape; name it in the button's `aria-describedby`.
+
+```html
+<div>
+  <button class="nk-topbar-btn" aria-label="Style, export and more">⋯</button>
+  <div class="nk-tooltip open" role="tooltip">Style, export and more</div>
+  <button class="nk-sidebar-collapse" aria-label="Close sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+  <div class="nk-tooltip open" role="tooltip">Close sidebar<span class="tt-key">⌘\</span></div>
+</div>
+```
+
+- **Classes:** `.nk-tooltip`, `.open`, `.tt-key`
+- **On a small screen:** A phone has no hover: leave tooltips to the pointer and show nothing on touch.
 
 ## Gallery & productivity (PRD 5.9)
 
@@ -1493,13 +1550,14 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 |---|---|---|
 | `[hidden]` | `[class*="nk-"]`, `::slotted(*)` | Hides, always – also on components that set their own display, which beat the browser rule before 1.5.2. hidden="until-found" keeps the browser’s find-in-page reveal. |
 | `active` | `nk-tree-item`, `nk-db-tab`, `nk-tab`, `nk-tab-bar-item`, `nk-settings-pane`, `nk-segmented button`, `nk-emoji-cats span`, `nk-board`, `nk-bubble-menu button` | Marks the current item. Tree items and view tabs get the active background, .nk-tab gets the underline, panes become visible. |
-| `open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-sheet-backdrop`, `nk-peek-backdrop`, `nk-pop.floating`, `nk-sidebar`, `nk-sidebar-backdrop`, `nk-toggle-arrow` | Fades the overlay in and makes it interactive; slides the side peek in from the right; shows a floating menu; slides the sidebar in as a drawer on a phone; rotates the toggle arrow by 90°. |
+| `open` | `nk-modal-backdrop`, `nk-cmdk-backdrop`, `nk-sheet-backdrop`, `nk-dialog-backdrop`, `nk-peek-backdrop`, `nk-pop.floating`, `nk-tooltip`, `nk-sidebar`, `nk-sidebar-backdrop`, `nk-toggle-arrow` | Fades the overlay in and makes it interactive; slides the side peek in from the right; shows a floating menu or a tooltip; slides the sidebar in as a drawer on a phone; rotates the toggle arrow by 90°. |
+| `peek-inset` | `nk-app` | While the side peek is open: the main column gets a right padding as wide as the peek, so the page moves aside instead of lying under it. Desktop only. |
 | `copied` | `nk-copy-field .cf-btn` | The moment after copying: the action turns green. Set it after the clipboard write and take it off again. |
 | `square` | `nk-profile-row .big-avatar` | The rounded square of a workspace icon instead of the circle of a person. |
 | `floating` | `nk-pop` | A menu over the page: invisible and inert until .open, then it fades in and settles from 4px higher and 98 %, the way the palette opens. |
 | `sheet` | `nk-pop` | Below 860px the popover becomes a bottom sheet – full width, grabber, 40px rows, the page dimmed – and inline positioning is overruled. |
 | `done / current` | `nk-step` | A finished step on the green tag with a check; the step you are on, ringed in the accent, with aria-current="step". |
-| `collapsed` | `nk-tree-children` | Folds a subtree away with display: none. |
+| `collapsed` | `nk-tree-children`, `nk-sidebar`, `nk-sidebar-toggle` | Folds a subtree away with display: none. On the sidebar it slides it out to the left on the desktop; on the ☰ it shows the button that brings it back. |
 | `selected` | `nk-cmdk-item`, `nk-model-card`, `nk-slash-item`, `nk-calendar .cal-day` | The keyboard-highlighted or chosen option – on a calendar the chosen day, in the accent. Distinct from active: selection is transient, active is where you are. |
 | `start / end / in-range` | `nk-calendar .cal-day` | A range: its first and last day in the accent, rounded on the outer side, the days between in the accent’s tint. A range of one day is start and end. |
 | `today / off / out` | `nk-calendar .cal-day`, `nk-calendar-view .cv-day` | Today in red – on the calendar view a red pill; a day not worked (weekend, holiday) greyed or washed; a day of the month before or after, the same. |
@@ -1553,7 +1611,11 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
   <!-- On a phone the sidebar is a drawer: the ☰ in the topbar opens it. -->
   <div class="nk-sidebar-backdrop" id="backdrop"></div>
   <aside class="nk-sidebar" id="sidebar">
-    <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
+    <!-- Desktop: the « collapses the sidebar, the ☰ in the topbar brings it back. -->
+    <div class="nk-sidebar-head">
+      <div class="nk-workspace"><div class="avatar">A</div>Acme Inc<span class="chev">⌄</span></div>
+      <button class="nk-sidebar-collapse" id="collapse" aria-label="Close sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+    </div>
     <div class="nk-sidebar-scroll">
       <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Search</span><span class="nk-kbd-hint"><kbd class="nk-kbd">⌘</kbd><kbd class="nk-kbd">K</kbd></span></div>
       <div class="nk-tree-item"><span class="icon">🏠</span><span class="label">Home</span></div>
@@ -1621,7 +1683,11 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
     backdrop.classList.toggle('open', open);
     menu.setAttribute('aria-expanded', String(open));
   };
-  menu.addEventListener('click', () => drawer(!sidebar.classList.contains('open')));
+  // Desktop: .collapsed on the sidebar slides it out, on the ☰ shows it.
+  const collapsed = on => { sidebar.classList.toggle('collapsed', on); menu.classList.toggle('collapsed', on); };
+  const phone = matchMedia('(max-width: 860px)');
+  menu.addEventListener('click', () => phone.matches ? drawer(!sidebar.classList.contains('open')) : collapsed(false));
+  collapse.addEventListener('click', () => collapsed(true));
   backdrop.addEventListener('click', () => drawer(false));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') drawer(false); });
 </script>
@@ -2265,14 +2331,14 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 
 | Group | Classes |
 |---|---|
-| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-sidebar-backdrop` `nk-sidebar-toggle` `open` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-topbar-meta` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
+| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-head` `nk-sidebar-collapse` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-sidebar-backdrop` `nk-sidebar-toggle` `open` `collapsed` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-topbar-meta` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
 | Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
-| Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-bar` `pk-body` `nk-toast` `show` |
+| Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `nk-tooltip` `tt-key` |
 | Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-panels` `nk-panel` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-avatar` `small` `large` `xlarge` `square` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` `nk-steps` `nk-step` `st-mark` `st-desc` `done` `current` |
 | Collaboration & AI | `nk-comments` `nk-comment` `c-head` `c-body` `nk-comment-input` `nk-ai-thread` `nk-ai-msg` `user` `bubble` `a-name` `a-body` `nk-ai-actions` `nk-ai-input-row` `nk-ai-send` |
 | Editor adapter | `nk-block-host` `nk-block-handle` `nk-block-actions` `nk-drop-target` `nk-slash-menu` `nk-slash-menu-label` `nk-slash-item` `selected` `nk-bubble-menu` |
@@ -2313,7 +2379,7 @@ customElements.define('nk-callout', NkCallout);
 
 ## 10. NotionKit Elements
 
-The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elements` (85 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
+The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elements` (87 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
 
 | CSS class markup | Element markup |
 |---|---|
@@ -2332,4 +2398,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.9.0 · MIT · Jungherz GmbH*
+*NotionKit v1.10.0 · MIT · Jungherz GmbH*

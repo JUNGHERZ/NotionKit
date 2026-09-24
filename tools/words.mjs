@@ -79,6 +79,10 @@ export const WORDS = {
     uploadImage: 'Upload image', changeImage: 'Change image',
     locale: 'en', calWeek: 'W', calToday: 'Today', calPrev: 'Previous month', calNext: 'Next month', calClear: 'Clear', calTime: 'Time', holidayCorpus: 'Corpus Christi',
     calItem1: 'App shell & sidebar', calItem2: 'Page shell', calItem3: 'Database table view', calItem4: 'Board view',
+    closeSidebar: 'Close sidebar', openSidebar: 'Open sidebar', resize: 'Resize', cancel: 'Cancel', create: 'Create',
+    trashTitle: 'Move “Product roadmap” to trash?', trashText: 'The page and its sub-pages can be restored from Trash for 30 days.',
+    newView: 'New view', fieldName: 'Name', layout: 'Layout', timeline: 'Timeline', calendar: 'Calendar',
+    moreTip: 'Style, export and more', favouriteTip: 'Add to Favourites', collapseHint: 'the ☰ in the topbar brings it back',
   },
   de: {
     workspace: 'Acme GmbH', search: 'Suche', home: 'Start', inbox: 'Posteingang', more: 'Mehr', all: 'Alle', attention: 'Aufmerksamkeit', failed: 'Fehlgeschlagen', read: 'Gelesen', ignored: 'Ignoriert',
@@ -158,5 +162,9 @@ export const WORDS = {
     uploadImage: 'Bild hochladen', changeImage: 'Bild ändern',
     locale: 'de', calWeek: 'KW', calToday: 'Heute', calPrev: 'Voriger Monat', calNext: 'Nächster Monat', calClear: 'Löschen', calTime: 'Uhrzeit', holidayCorpus: 'Fronleichnam',
     calItem1: 'App-Shell & Sidebar', calItem2: 'Seiten-Shell', calItem3: 'Datenbank-Tabelle', calItem4: 'Board-Ansicht',
+    closeSidebar: 'Seitenleiste schließen', openSidebar: 'Seitenleiste öffnen', resize: 'Breite ändern', cancel: 'Abbrechen', create: 'Erstellen',
+    trashTitle: '„Produkt-Roadmap“ in den Papierkorb verschieben?', trashText: 'Die Seite und ihre Unterseiten lassen sich 30 Tage lang aus dem Papierkorb wiederherstellen.',
+    newView: 'Neue Ansicht', fieldName: 'Name', layout: 'Layout', timeline: 'Zeitleiste', calendar: 'Kalender',
+    moreTip: 'Stil, Export und mehr', favouriteTip: 'Zu Favoriten hinzufügen', collapseHint: 'das ☰ in der Topbar holt sie zurück',
   },
 };

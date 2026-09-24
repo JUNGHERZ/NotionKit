@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.9.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.10.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Doku</a>
@@ -319,6 +319,7 @@
         <tr><td><code>--nk-scrim</code></td><td><span class="sw" style="background:rgba(15,15,15,0.6)"></span><code>rgba(15,15,15,0.6)</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Modal-Backdrop</td></tr>
         <tr><td><code>--nk-scrim-soft</code></td><td><span class="sw" style="background:rgba(15,15,15,0.5)"></span><code>rgba(15,15,15,0.5)</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Backdrop der Befehlspalette, eine Stufe heller</td></tr>
         <tr><td><code>--nk-sidebar-width</code></td><td><code>260px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Sidebar-Breite, zugleich ihre min-width (plus linker Safe-Area-Inset, falls vorhanden)</td></tr>
+        <tr><td><code>--nk-peek-width</code></td><td><code>560px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td></td></tr>
         <tr><td><code>--nk-tab-bar-height</code></td><td><code>58px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Höhe der mobilen Tab-Bar ohne Safe-Area; der Platzhalter nutzt denselben Wert</td></tr>
         <tr><td><code>--nk-radius</code></td><td><code>6px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Radius für Bedienelemente. Karten und Modals nutzen direkt 8–12px</td></tr>
         <tr><td><code>--nk-font</code></td><td><code>ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>System-Schriftstapel</td></tr>
@@ -353,13 +354,14 @@
         <thead><tr><th>Klasse</th><th>Gilt für</th><th>Wirkung</th></tr></thead>
         <tbody><tr><td><code>[hidden]</code></td><td><code>[class*="nk-"]</code> <code>::slotted(*)</code></td><td>Blendet aus, immer – auch Komponenten mit eigenem display, die vor 1.5.2 die Browser-Regel schlugen. hidden="until-found" behält das Aufdecken per Seitensuche des Browsers.</td></tr>
         <tr><td><code>.active</code></td><td><code>nk-tree-item</code> <code>nk-db-tab</code> <code>nk-tab</code> <code>nk-tab-bar-item</code> <code>nk-settings-pane</code> <code>nk-segmented button</code> <code>nk-emoji-cats span</code> <code>nk-board</code> <code>nk-bubble-menu button</code></td><td>Markiert das aktuelle Element. Baum-Einträge und View-Reiter bekommen den Aktiv-Hintergrund, .nk-tab die Unterlinie, Panes werden sichtbar.</td></tr>
-        <tr><td><code>.open</code></td><td><code>nk-modal-backdrop</code> <code>nk-cmdk-backdrop</code> <code>nk-sheet-backdrop</code> <code>nk-peek-backdrop</code> <code>nk-pop.floating</code> <code>nk-sidebar</code> <code>nk-sidebar-backdrop</code> <code>nk-toggle-arrow</code></td><td>Blendet das Overlay ein und macht es bedienbar; schiebt den Side Peek von rechts herein; zeigt ein schwebendes Menü; schiebt die Sidebar auf dem Telefon als Schublade herein; dreht den Toggle-Pfeil um 90°.</td></tr>
+        <tr><td><code>.open</code></td><td><code>nk-modal-backdrop</code> <code>nk-cmdk-backdrop</code> <code>nk-sheet-backdrop</code> <code>nk-dialog-backdrop</code> <code>nk-peek-backdrop</code> <code>nk-pop.floating</code> <code>nk-tooltip</code> <code>nk-sidebar</code> <code>nk-sidebar-backdrop</code> <code>nk-toggle-arrow</code></td><td>Blendet das Overlay ein und macht es bedienbar; schiebt den Side Peek von rechts herein; zeigt ein schwebendes Menü oder einen Tooltip; schiebt die Sidebar auf dem Telefon als Schublade herein; dreht den Toggle-Pfeil um 90°.</td></tr>
+        <tr><td><code>.peek-inset</code></td><td><code>nk-app</code></td><td>Solange der Side Peek offen ist: Die Hauptspalte bekommt rechts ein Padding so breit wie der Peek, die Seite rückt also zur Seite, statt darunter zu liegen. Nur auf dem Desktop.</td></tr>
         <tr><td><code>.copied</code></td><td><code>nk-copy-field .cf-btn</code></td><td>Der Moment nach dem Kopieren: Die Aktion wird grün. Nach dem Schreiben in die Zwischenablage setzen und wieder abnehmen.</td></tr>
         <tr><td><code>.square</code></td><td><code>nk-profile-row .big-avatar</code></td><td>Das abgerundete Quadrat eines Workspace-Icons statt des Kreises einer Person.</td></tr>
         <tr><td><code>.floating</code></td><td><code>nk-pop</code></td><td>Ein Menü über der Seite: unsichtbar und inaktiv bis .open, dann blendet es ein und setzt sich aus 4px Höhe und 98 % ab, so wie die Palette öffnet.</td></tr>
         <tr><td><code>.sheet</code></td><td><code>nk-pop</code></td><td>Unter 860px wird das Popover zum Bottom Sheet – volle Breite, Griff, 40px-Zeilen, die Seite abgedunkelt –, eine Inline-Position wird übergangen.</td></tr>
         <tr><td><code>.done / current</code></td><td><code>nk-step</code></td><td>Ein erledigter Schritt auf dem grünen Tag mit Haken; der Schritt, auf dem man steht, im Akzent umrandet, mit aria-current="step".</td></tr>
-        <tr><td><code>.collapsed</code></td><td><code>nk-tree-children</code></td><td>Klappt einen Unterbaum per display: none weg.</td></tr>
+        <tr><td><code>.collapsed</code></td><td><code>nk-tree-children</code> <code>nk-sidebar</code> <code>nk-sidebar-toggle</code></td><td>Klappt einen Unterbaum per display: none weg. An der Sidebar schiebt es sie auf dem Desktop nach links hinaus; am ☰ zeigt es den Button, der sie zurückholt.</td></tr>
         <tr><td><code>.selected</code></td><td><code>nk-cmdk-item</code> <code>nk-model-card</code> <code>nk-slash-item</code> <code>nk-calendar .cal-day</code></td><td>Die per Tastatur hervorgehobene oder gewählte Option – im Kalender der gewählte Tag, im Akzent. Anders als active: Auswahl ist flüchtig, active ist der Ort, an dem du bist.</td></tr>
         <tr><td><code>.start / end / in-range</code></td><td><code>nk-calendar .cal-day</code></td><td>Ein Zeitraum: erster und letzter Tag im Akzent, außen gerundet, die Tage dazwischen in der Tönung des Akzents. Ein Zeitraum von einem Tag ist start und end.</td></tr>
         <tr><td><code>.today / off / out</code></td><td><code>nk-calendar .cal-day</code> <code>nk-calendar-view .cv-day</code></td><td>Heute in Rot – in der Kalenderansicht eine rote Pille; ein Tag ohne Arbeit (Wochenende, Feiertag) gegraut bzw. hinterlegt; ein Tag des Monats davor oder danach ebenso.</td></tr>
@@ -479,10 +481,13 @@ class NkCallout extends HTMLElement {
       <div class="prd">PRD 5.1</div>
       <article class="doc-entry" id="nk-app">
         <h3>App-Shell <code>.nk-app</code></h3>
-        <p class="doc-desc"><code>nk-app</code> ist eine flex-Zeile über die volle Höhe: Sidebar links, Hauptspalte rechts. Es ist das äußerste Element einer Workspace-App und der einzige Ort, an den eine feste Höhe gehört. In der Sidebar ist <code>nk-sidebar-scroll</code> der scrollende Baumbereich und <code>nk-sidebar-footer</code> der fixierte Fuß (Einstellungen, Papierkorb).</p>
+        <p class="doc-desc"><code>nk-app</code> ist eine flex-Zeile über die volle Höhe: Sidebar links, Hauptspalte rechts. Es ist das äußerste Element einer Workspace-App und der einzige Ort, an den eine feste Höhe gehört. In der Sidebar ist <code>nk-sidebar-scroll</code> der scrollende Baumbereich und <code>nk-sidebar-footer</code> der fixierte Fuß (Einstellungen, Papierkorb). Auf dem Desktop klappt die Sidebar wie in Notion ein: <code>.nk-sidebar-head</code> hält die Workspace-Zeile und das « <code>.nk-sidebar-collapse</code>, das erscheint, solange der Zeiger über der Sidebar ist; <code>.collapsed</code> an der Sidebar schiebt sie nach links hinaus – die Hauptspalte nimmt die Breite, die verborgene Sidebar nimmt keinen Fokus –, und <code>.collapsed</code> am <code>.nk-sidebar-toggle</code> der Topbar zeigt das ☰, das sie zurückholt. Notions Kürzel ist ⌘\.</p>
         <div class="doc-preview is-frame" style="height:340px"><div class="nk-app" style="height:100%">
   <aside class="nk-sidebar">
-    <div class="nk-workspace"><div class="avatar">A</div>Acme GmbH<span class="chev">⌄</span></div>
+    <div class="nk-sidebar-head">
+      <div class="nk-workspace"><div class="avatar">A</div>Acme GmbH<span class="chev">⌄</span></div>
+      <button class="nk-sidebar-collapse" aria-label="Seitenleiste schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+    </div>
     <div class="nk-sidebar-scroll">
       <div class="nk-tree-item"><span class="icon">🔍</span><span class="label">Suche</span></div>
       <div class="nk-tree-item active"><span class="icon">🏠</span><span class="label">Start</span></div>
@@ -507,10 +512,17 @@ class NkCallout extends HTMLElement {
         <pre class="nk-code"><span class="lang">html</span>&lt;div class="nk-sidebar-backdrop open"&gt;&lt;/div&gt;   &lt;!-- phones: the drawer's scrim --&gt;
 &lt;aside class="nk-sidebar open"&gt;…&lt;/aside&gt;         &lt;!-- slides in over the page --&gt;
 &lt;button class="nk-topbar-btn nk-sidebar-toggle" aria-label="Menu"&gt;☰&lt;/button&gt;</pre>
+<pre class="nk-code"><span class="lang">js</span>collapseBtn.addEventListener('click', () =&gt; {            // the « in .nk-sidebar-head
+  sidebar.classList.add('collapsed');                      // slides out on the desktop
+  sidebarToggle.classList.add('collapsed');                // das ☰ in der Topbar holt sie zurück
+});</pre>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-app" <span class="attr">style=</span>"height:100%"<span class="tag">&gt;</span>
   <span class="tag">&lt;aside</span> <span class="attr">class=</span>"nk-sidebar"<span class="tag">&gt;</span>
-    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-workspace"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"avatar"<span class="tag">&gt;</span>A<span class="tag">&lt;/div</span><span class="tag">&gt;</span>Acme GmbH<span class="tag">&lt;span</span> <span class="attr">class=</span>"chev"<span class="tag">&gt;</span>⌄<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-sidebar-head"<span class="tag">&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-workspace"<span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"avatar"<span class="tag">&gt;</span>A<span class="tag">&lt;/div</span><span class="tag">&gt;</span>Acme GmbH<span class="tag">&lt;span</span> <span class="attr">class=</span>"chev"<span class="tag">&gt;</span>⌄<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-sidebar-collapse" <span class="attr">aria-label=</span>"Seitenleiste schließen"<span class="tag">&gt;</span><span class="tag">&lt;svg</span> <span class="attr">viewBox=</span>"0 0 24 24" <span class="attr">aria-hidden=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;path</span> <span class="attr">d=</span>"m18 17-5-5 5-5M11 17l-5-5 5-5"<span class="tag">/&gt;</span><span class="tag">&lt;/svg</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-sidebar-scroll"<span class="tag">&gt;</span>
       <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tree-item"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>🔍<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Suche<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
       <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tree-item active"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"icon"<span class="tag">&gt;</span>🏠<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"label"<span class="tag">&gt;</span>Start<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
@@ -533,7 +545,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;/main</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Unter 860px tritt die Sidebar zur Seite, die Hauptspalte nimmt die volle Breite. <code>.open</code> holt sie als Off-Canvas-Schublade über die Seite zurück, mit einem <code>.nk-sidebar-backdrop</code> als Abdunklung: Sie gleitet herein und die Abdunklung blendet ein, nur mit CSS. Das ☰, das sie öffnet, ist ein <code>.nk-topbar-btn.nk-sidebar-toggle</code> am Anfang der Topbar, nur auf dem Telefon sichtbar; <code>.open</code> an Sidebar und Backdrop umschalten, schließen über den Backdrop, Escape und eine gewählte Seite. Die Höhe ist <code>100dvh</code> mit <code>100vh</code>-Fallback, damit eine Standalone-PWA auf iOS die Statusleiste nicht in die Shell einrechnet. Safe-Areas behandelt jede Fläche selbst, nicht <code>nk-app</code>: Topbar, Seite, Sidebar und Tab-Bar rücken ihren Inhalt um die linken/rechten Insets ein (Dynamic Island im Querformat), ihre Hintergründe laufen weiter bis zum Rand.</span></div>
-        <div class="doc-classes"><code>.nk-app</code><code>.nk-sidebar</code><code>.nk-sidebar-scroll</code><code>.nk-sidebar-footer</code><code>.nk-main</code><code>.nk-sidebar-backdrop</code><code>.nk-sidebar-toggle</code><code>.open</code></div>
+        <div class="doc-classes"><code>.nk-app</code><code>.nk-sidebar</code><code>.nk-sidebar-head</code><code>.nk-sidebar-collapse</code><code>.nk-sidebar-scroll</code><code>.nk-sidebar-footer</code><code>.nk-main</code><code>.nk-sidebar-backdrop</code><code>.nk-sidebar-toggle</code><code>.open</code><code>.collapsed</code></div>
       </article>
       <article class="doc-entry" id="nk-workspace">
         <h3>Workspace-Umschalter <code>.nk-workspace</code></h3>
@@ -1735,9 +1747,10 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-peek">
         <h3>Side Peek <code>.nk-peek</code></h3>
-        <p class="doc-desc">Notions Side Peek: Eine Datenbankzeile öffnet sich in einem Panel am rechten Rand, in voller Höhe, neben der Tabelle, die sichtbar und bedienbar bleibt – es gibt keine Abdunklung, der Backdrop hält nur das Panel und lässt Klicks durch. <code>.pk-bar</code> trägt die Aktionen – Schließen mit », Als Seite öffnen –, <code>.pk-body</code> die Seite: Titel in 32px, Eigenschaften, Prosa, Kommentare. <code>.open</code> am Backdrop schiebt das Panel herein; geschlossen verlässt es das Layout, sobald es hinausgeglitten ist. Es liegt über Seite und Tab-Leiste und unter den schwebenden Menüs, sodass ein Menü aus dem Peek darüber erscheint. Das Schließen übernimmt dein Skript: », Escape, ein Klick daneben; ein Klick auf eine andere Zeile tauscht den Inhalt.</p>
+        <p class="doc-desc">Notions Side Peek: Eine Datenbankzeile öffnet sich in einem Panel am rechten Rand, in voller Höhe, neben der Tabelle, die sichtbar und bedienbar bleibt – es gibt keine Abdunklung, der Backdrop hält nur das Panel und lässt Klicks durch. <code>.pk-bar</code> trägt die Aktionen – Schließen mit », Als Seite öffnen –, <code>.pk-body</code> die Seite: Titel in 32px, Eigenschaften, Prosa, Kommentare. <code>.open</code> am Backdrop schiebt das Panel herein; geschlossen verlässt es das Layout, sobald es hinausgeglitten ist. Es liegt über Seite und Tab-Leiste und unter den schwebenden Menüs, sodass ein Menü aus dem Peek darüber erscheint. Das Schließen übernimmt dein Skript: », Escape, ein Klick daneben; ein Klick auf eine andere Zeile tauscht den Inhalt. Seine Breite ist das Token <code>--nk-peek-width</code> (560px): <code>.pk-resize</code> am linken Rand nimmt den Zeiger, um es breiter oder schmaler zu ziehen, wie in Notion – beim Ziehen das Token auf <code>:root</code> setzen; es zeigt eine Linie bei Hover, Fokus oder <code>.active</code>. <code>.peek-inset</code> an <code>.nk-app</code> gibt der Hauptspalte rechts ein Padding so breit wie der Peek, die Seite rückt also zur Seite, statt darunter zu liegen – für ein Gantt-Diagramm, dessen Balken sichtbar bleiben müssen.</p>
         <div class="doc-preview is-frame" style="height:420px;position:relative"><div class="nk-peek-backdrop open" style="position:absolute;border-radius:var(--nk-radius);overflow:hidden">
   <aside class="nk-peek" role="dialog" aria-label="Database Table-View" style="width:min(440px, 100%)">
+    <div class="pk-resize" role="separator" aria-orientation="vertical" aria-label="Breite ändern" tabindex="0"></div>
     <div class="pk-bar">
       <button class="nk-topbar-btn" aria-label="Schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 17 5-5-5-5M13 17l5-5-5-5"/></svg></button>
       <button class="nk-topbar-btn" aria-label="Als Seite öffnen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
@@ -1754,10 +1767,14 @@ class NkCallout extends HTMLElement {
 </div></div>
         <pre class="nk-code"><span class="lang">js</span>row.addEventListener('click', () =&gt; peek.classList.add('open'));        // eine Zeile öffnet sich neben der Tabelle
 closeBtn.addEventListener('click', () =&gt; peek.classList.remove('open'));
-document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.classList.remove('open'); });</pre>
+document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.classList.remove('open'); });
+handle.addEventListener('pointermove', e =&gt;                  // .pk-resize, with pointer capture
+  document.documentElement.style.setProperty('--nk-peek-width', innerWidth - e.clientX + 'px'));
+app.classList.toggle('peek-inset', open);                     // the page moves aside</pre>
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-peek-backdrop open" <span class="attr">style=</span>"position:absolute;border-radius:var(--nk-radius);overflow:hidden"<span class="tag">&gt;</span>
   <span class="tag">&lt;aside</span> <span class="attr">class=</span>"nk-peek" <span class="attr">role=</span>"dialog" <span class="attr">aria-label=</span>"Database Table-View" <span class="attr">style=</span>"width:min(440px, 100%)"<span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"pk-resize" <span class="attr">role=</span>"separator" <span class="attr">aria-orientation=</span>"vertical" <span class="attr">aria-label=</span>"Breite ändern" <span class="attr">tabindex=</span>"0"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
     <span class="tag">&lt;div</span> <span class="attr">class=</span>"pk-bar"<span class="tag">&gt;</span>
       <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn" <span class="attr">aria-label=</span>"Schließen"<span class="tag">&gt;</span><span class="tag">&lt;svg</span> <span class="attr">viewBox=</span>"0 0 24 24" <span class="attr">aria-hidden=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;path</span> <span class="attr">d=</span>"m6 17 5-5-5-5M13 17l5-5-5-5"<span class="tag">/&gt;</span><span class="tag">&lt;/svg</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
       <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn" <span class="attr">aria-label=</span>"Als Seite öffnen"<span class="tag">&gt;</span><span class="tag">&lt;svg</span> <span class="attr">viewBox=</span>"0 0 24 24" <span class="attr">aria-hidden=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;path</span> <span class="attr">d=</span>"M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"<span class="tag">/&gt;</span><span class="tag">&lt;/svg</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
@@ -1773,7 +1790,37 @@ document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.clas
   <span class="tag">&lt;/aside</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Unter 860px steigt es als Sheet von der Unterkante über eine abgedunkelte Seite auf – volle Breite, ein Griff, der Titel in 28px –, und die abgedunkelte Seite nimmt den Tipp, der es schließt.</span></div>
-        <div class="doc-classes"><code>.nk-peek-backdrop</code><code>.open</code><code>.nk-peek</code><code>.pk-bar</code><code>.pk-body</code></div>
+        <div class="doc-classes"><code>.nk-peek-backdrop</code><code>.open</code><code>.nk-peek</code><code>.pk-resize</code><code>.pk-bar</code><code>.pk-body</code><code>.active</code><code>.peek-inset</code></div>
+      </article>
+      <article class="doc-entry" id="nk-dialog">
+        <h3>Dialog <code>.nk-dialog</code></h3>
+        <p class="doc-desc">Eine Frage oder ein kurzes Formular – „In den Papierkorb?“, der Name einer neuen Ansicht, die Verknüpfung zweier Vorgänge – in einer Karte von 440px, <code>.wide</code> 560px: <code>.dl-title</code>, <code>.dl-body</code> und <code>.dl-actions</code> rechts, der bestätigende Button zuletzt. Der Vertrag von Modal und Sheet: <code>.open</code> am Backdrop blendet ihn über einer Abdunklung ein, die Karte setzt sich wie die des Modals; geschlossen verlässt der Backdrop nach dem Ausblenden das Layout. Er liegt über Modal und Sheet, eine Frage kann also aus beiden kommen. Das Schließen übernimmt dein Skript: Escape (in der Capture-Phase, vor den Overlays dahinter), der Backdrop, die Buttons; Fokus hinein und wieder zurück. <code>role="alertdialog"</code> für eine Frage, <code>role="dialog"</code> für ein Formular.</p>
+        <div class="doc-preview is-frame" style="height:300px;position:relative"><div class="nk-dialog-backdrop open" style="position:absolute;border-radius:var(--nk-radius)">
+  <div class="nk-dialog" role="alertdialog" aria-modal="true" aria-label="In den Papierkorb">
+    <div class="dl-title">„Produkt-Roadmap“ in den Papierkorb verschieben?</div>
+    <div class="dl-body">Die Seite und ihre Unterseiten lassen sich 30 Tage lang aus dem Papierkorb wiederherstellen.</div>
+    <div class="dl-actions"><button class="nk-btn secondary">Abbrechen</button><button class="nk-btn danger-solid">In den Papierkorb</button></div>
+  </div>
+</div></div>
+        <pre class="nk-code"><span class="lang">html</span>&lt;div class="nk-dialog-backdrop open"&gt;
+  &lt;div class="nk-dialog wide" role="dialog" aria-modal="true" aria-labelledby="t"&gt;
+    &lt;div class="dl-title" id="t"&gt;Neue Ansicht&lt;/div&gt;
+    &lt;div class="dl-body"&gt;
+      &lt;div class="nk-field stacked"&gt;&lt;div&gt;&lt;div class="f-label"&gt;Name&lt;/div&gt;&lt;/div&gt;&lt;div class="f-control"&gt;&lt;input class="nk-input"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="dl-actions"&gt;&lt;button class="nk-btn secondary"&gt;Abbrechen&lt;/button&gt;&lt;button class="nk-btn primary"&gt;Erstellen&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-dialog-backdrop open" <span class="attr">style=</span>"position:absolute;border-radius:var(--nk-radius)"<span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-dialog" <span class="attr">role=</span>"alertdialog" <span class="attr">aria-modal=</span>"true" <span class="attr">aria-label=</span>"In den Papierkorb"<span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"dl-title"<span class="tag">&gt;</span>„Produkt-Roadmap“ in den Papierkorb verschieben?<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"dl-body"<span class="tag">&gt;</span>Die Seite und ihre Unterseiten lassen sich 30 Tage lang aus dem Papierkorb wiederherstellen.<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class=</span>"dl-actions"<span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn secondary"<span class="tag">&gt;</span>Abbrechen<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-btn danger-solid"<span class="tag">&gt;</span>In den Papierkorb<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Unter 860px steigt er als Sheet von der Unterkante auf – volle Breite, ein Griff, die Safe Area gewahrt –, und die Buttons stapeln sich über die Breite, der bestätigende oben.</span></div>
+        <div class="doc-classes"><code>.nk-dialog-backdrop</code><code>.open</code><code>.nk-dialog</code><code>.wide</code><code>.dl-title</code><code>.dl-body</code><code>.dl-actions</code></div>
       </article>
       <article class="doc-entry" id="nk-toast">
         <h3>Toast <code>.nk-toast</code></h3>
@@ -1784,6 +1831,26 @@ document.addEventListener('keydown', e =&gt; { if (e.key === 'Escape') peek.clas
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-toast show" <span class="attr">style=</span>"position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto"<span class="tag">&gt;</span>✓ <span class="tag">&lt;span</span><span class="tag">&gt;</span>Einstellungen gespeichert<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Per <code>translateX(-50%)</code> zentriert und bleibt es in jeder Breite.</span></div>
         <div class="doc-classes"><code>.nk-toast</code><code>.show</code></div>
+      </article>
+      <article class="doc-entry" id="nk-tooltip">
+        <h3>Tooltip <code>.nk-tooltip</code></h3>
+        <p class="doc-desc">Ein Hover-Hinweis in den Farben des Toasts: 12px, höchstens 260px breit, ein Kürzel in <code>.tt-key</code>, gedämpft. Unsichtbar und inaktiv, bis <code>.open</code> ihn einblendet; wo er sitzt, entscheidest du – fixed, top und left, 6px unter dem Button und zentriert, darüber, wo das Fenster endet. Er liegt über jedem Overlay und nimmt nie den Zeiger. Zeige ihn nach einem Moment unter dem Zeiger und sofort bei Tastaturfokus, blende ihn beim Verlassen, einem Druck und Escape aus; nenne ihn im <code>aria-describedby</code> des Buttons.</p>
+        <div class="doc-preview"><div style="position:relative;height:84px">
+  <button class="nk-topbar-btn" style="position:absolute;left:61px;top:6px" aria-label="Stil, Export und mehr">⋯</button>
+  <div class="nk-tooltip open" role="tooltip" style="position:absolute;left:8px;top:40px">Stil, Export und mehr</div>
+  <button class="nk-sidebar-collapse" style="position:absolute;left:300px;top:6px;opacity:1" aria-label="Seitenleiste schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 17-5-5 5-5M11 17l-5-5 5-5"/></svg></button>
+  <div class="nk-tooltip open" role="tooltip" style="position:absolute;left:255px;top:40px">Seitenleiste schließen<span class="tt-key">⌘\</span></div>
+</div></div>
+        
+        
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">style=</span>"position:relative;height:84px"<span class="tag">&gt;</span>
+  <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-topbar-btn" <span class="attr">style=</span>"position:absolute;left:61px;top:6px" <span class="attr">aria-label=</span>"Stil, Export und mehr"<span class="tag">&gt;</span>⋯<span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tooltip open" <span class="attr">role=</span>"tooltip" <span class="attr">style=</span>"position:absolute;left:8px;top:40px"<span class="tag">&gt;</span>Stil, Export und mehr<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;button</span> <span class="attr">class=</span>"nk-sidebar-collapse" <span class="attr">style=</span>"position:absolute;left:300px;top:6px;opacity:1" <span class="attr">aria-label=</span>"Seitenleiste schließen"<span class="tag">&gt;</span><span class="tag">&lt;svg</span> <span class="attr">viewBox=</span>"0 0 24 24" <span class="attr">aria-hidden=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;path</span> <span class="attr">d=</span>"m18 17-5-5 5-5M11 17l-5-5 5-5"<span class="tag">/&gt;</span><span class="tag">&lt;/svg</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tooltip open" <span class="attr">role=</span>"tooltip" <span class="attr">style=</span>"position:absolute;left:255px;top:40px"<span class="tag">&gt;</span>Seitenleiste schließen<span class="tag">&lt;span</span> <span class="attr">class=</span>"tt-key"<span class="tag">&gt;</span>⌘\<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Ein Telefon hat kein Hover: Tooltips dem Zeiger überlassen und bei Berührung nichts zeigen.</span></div>
+        <div class="doc-classes"><code>.nk-tooltip</code><code>.open</code><code>.tt-key</code></div>
       </article>
     </section>
     <section class="doc-group" id="gallery">

@@ -2,11 +2,13 @@
 // NotionKit – Size Budget
 //
 // The stylesheet is render-blocking, and most pages load it over a
-// connection of its own (a CDN). A new TCP connection delivers about 14 KB
-// in its first round trip, so the gzipped file stays under 14 KiB – the
-// "14 KB rule". The minified budget is set so it never binds before the
-// gzip budget does. When a release gets close, the budget is a decision,
-// not a rule to game.
+// connection of its own (a CDN). Up to 1.9.0 the gzipped file stayed under
+// 14 KiB, what a new TCP connection delivers in its first round trip – the
+// "14 KB rule". From 1.10.0 the budget is 18 KiB: past the first round trip
+// the next one reaches about 43 KB, so the budget now keeps the library
+// lean rather than marking a network step. The minified budget is set so it
+// never binds before the gzip budget does. When a release gets close, the
+// budget is a decision, not a rule to game.
 //
 // The script also keeps the size claims in README.md true: the gzip badge
 // and the "raw / minified / gzipped" line must match the built files.
@@ -16,7 +18,7 @@
 import { readFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 
-const BUDGET = { gzip: 14 * 1024, min: 75 * 1024 };
+const BUDGET = { gzip: 18 * 1024, min: 100 * 1024 };
 
 const raw = readFileSync('notionkit.css');
 const min = readFileSync('notionkit.min.css', 'utf-8')
@@ -29,7 +31,7 @@ const size = {
 const kib = (n, digits = 0) => (n / 1024).toFixed(digits);
 const problems = [];
 
-if (size.gzip > BUDGET.gzip) problems.push(`gzip ${size.gzip} B exceeds the ${BUDGET.gzip} B budget (14 KB rule)`);
+if (size.gzip > BUDGET.gzip) problems.push(`gzip ${size.gzip} B exceeds the ${BUDGET.gzip} B budget`);
 if (size.min > BUDGET.min) problems.push(`minified ${size.min} B exceeds the ${BUDGET.min} B budget`);
 
 const readme = readFileSync('README.md', 'utf-8');
