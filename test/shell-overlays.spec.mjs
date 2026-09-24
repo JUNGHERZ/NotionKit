@@ -1,6 +1,7 @@
 // Shell and overlays (1.10.0): the sidebar that collapses on the desktop, the
 // side peek that resizes and can inset the page, the dialog, the tooltip –
-// in the stylesheet and in the demo that uses them.
+// in the stylesheet and in the demo that uses them. 1.10.1: a disabled
+// button takes the pointer again, for its title or tooltip.
 import { test, expect } from '@playwright/test';
 
 const PHONE = { width: 390, height: 844 };
@@ -187,4 +188,28 @@ test('tooltip: at once on keyboard focus', async ({ page }) => {
   await page.keyboard.press('Shift+Tab');
   await page.keyboard.press('Tab');
   expect(await page.evaluate(() => [document.activeElement.id, document.getElementById('tooltip').classList.contains('open')])).toEqual(['sidebarCollapse', true]);
+});
+
+// ── Disabled buttons (1.10.1) ───────────────────────────────────────────────
+
+test('a disabled button takes the pointer – not-allowed, no hover effect – so its title or tooltip can show', async ({ page }) => {
+  await page.goto('/test/fixtures/stage.html');
+  await page.evaluate(() => {
+    document.getElementById('stage').innerHTML = ['primary', 'secondary', 'danger', 'danger-solid'].map(v => `<button class="nk-btn ${v}" id="${v}" disabled>${v}</button>`).join(' ')
+      + ' <a class="nk-btn secondary" id="link" href="#x" aria-disabled="true">Link</a>';
+  });
+  for (const id of ['primary', 'secondary', 'danger', 'danger-solid', 'link']) {
+    const style = () => page.evaluate(id => { const cs = getComputedStyle(document.getElementById(id)); return { opacity: cs.opacity, background: cs.backgroundColor, cursor: cs.cursor, events: cs.pointerEvents }; }, id);
+    const before = await style();
+    expect(before, id).toMatchObject({ opacity: '0.5', cursor: 'not-allowed', events: 'auto' });
+    await page.hover(`#${id}`, { force: true });
+    await page.waitForTimeout(250);
+    expect(await style(), id).toEqual(before);
+    expect(await page.evaluate(id => { const el = document.getElementById(id), r = el.getBoundingClientRect(); return document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2) === el; }, id), id).toBe(true);
+  }
+  // An enabled one still reacts.
+  await page.evaluate(() => document.getElementById('primary').removeAttribute('disabled'));
+  await page.hover('#primary');
+  await page.waitForTimeout(250);
+  expect(await page.evaluate(() => getComputedStyle(document.getElementById('primary')).opacity)).toBe('0.88');
 });

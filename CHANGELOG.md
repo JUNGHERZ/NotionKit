@@ -4,6 +4,12 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.10.1] – 2026-09-24
+
+### Fixed
+- **A disabled button takes the pointer again.** `.nk-btn:disabled` had `pointer-events: none`: neither its `title` nor a tooltip ever showed – the hint that says why a button is disabled was invisible exactly when it mattered – the `not-allowed` cursor never appeared, and a click fell through to the element behind it, a table row say. The hover rules of the four variants now leave a disabled button alone instead (`:hover:not(:disabled, [aria-disabled="true"])`). Found in Auxdesk, whose hints on two message actions explain that they wait for a Notion connection.
+- **A disabled link button looks disabled.** `a.nk-btn[aria-disabled="true"]` gets the same half opacity and `not-allowed` cursor as a disabled `<button>`; stopping its click stays the script's.
+
 ## [1.10.0] – 2026-09-24
 
 Shell and overlays: the sidebar collapses on the desktop, the side peek resizes and can move the page aside, and there are a dialog and a tooltip. SupaGantt asked for all four – a Gantt chart at full width, bars that stay visible beside the peek, confirmation and input dialogs, hints on bars and the ribbon. Additive; the size budget moves, see Changed.

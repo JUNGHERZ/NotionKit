@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.10.0
+   Jungherz GmbH – v1.10.1
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -1151,16 +1151,20 @@ a.crumb { text-decoration: none; }
   stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
 }
 .nk-btn.primary { background: var(--nk-accent); color: var(--nk-on-accent); }
-.nk-btn.primary:hover { opacity: .88; }
+.nk-btn.primary:hover:not(:disabled, [aria-disabled="true"]) { opacity: .88; }
 .nk-btn.secondary { background: var(--nk-bg-card); color: var(--nk-text); box-shadow: var(--nk-shadow-btn); }
-.nk-btn.secondary:hover { background: color-mix(in srgb, var(--nk-bg-card), var(--nk-text) 6%); }
+.nk-btn.secondary:hover:not(:disabled, [aria-disabled="true"]) { background: color-mix(in srgb, var(--nk-bg-card), var(--nk-text) 6%); }
 .nk-btn.danger { background: var(--nk-bg-card); color: var(--nk-danger); box-shadow: var(--nk-shadow-btn); }
-.nk-btn.danger:hover { background: color-mix(in srgb, var(--nk-danger) 8%, var(--nk-bg-card)); }
+.nk-btn.danger:hover:not(:disabled, [aria-disabled="true"]) { background: color-mix(in srgb, var(--nk-danger) 8%, var(--nk-bg-card)); }
 .nk-btn.danger-solid { background: var(--nk-danger); color: var(--nk-on-accent); }
-.nk-btn.danger-solid:hover { opacity: .88; }
+.nk-btn.danger-solid:hover:not(:disabled, [aria-disabled="true"]) { opacity: .88; }
 .nk-btn.small { padding: 1px 8px; font-size: 13px; line-height: 20px; }
 a.nk-btn { text-decoration: none; }
-.nk-btn:disabled { opacity: .5; cursor: not-allowed; pointer-events: none; }
+/* Disabled still takes the pointer – for its title or tooltip, which often
+   says why – but the hover rules above leave it alone. A link button is
+   disabled with aria-disabled="true"; stopping its click is your script's. */
+.nk-btn:disabled,
+.nk-btn[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
 
 /* Two checked states on purpose: <input class="nk-switch" type="checkbox">
    uses :checked, <button class="nk-switch" role="switch"> uses
