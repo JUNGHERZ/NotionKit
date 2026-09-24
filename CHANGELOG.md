@@ -4,6 +4,23 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.11.0] – 2026-09-24
+
+SupaGantt's first weeks on NotionKit Elements turned up thirteen findings; five reach into the stylesheet. A floating menu inside an open modal or dialog sits where it should, a floating menu never outgrows the window, the banner's action is a real button, fields can share a row, and a tooltip keeps its line breaks. Additive but for the banner on a phone, see Changed.
+
+### Added
+- **`.nk-fields.fit`**: the fields share the row – `auto-fit` instead of `auto-fill` – so two fields in a 560px dialog are two halves instead of two 150px columns and an empty third.
+- **`.nk-tooltip.lines`** keeps the line breaks of its text (`white-space: pre-line`): a bar's name, its dates and its duration on lines of their own.
+
+### Changed
+- **A floating popover never outgrows the window.** `.nk-pop.floating` is never taller than the window less 8px at either edge (`max-height: calc(100dvh - 16px)`) and scrolls inside; a placement script caps it to the room below or above its anchor through the private property `--_nk-float-max` – a menu of 48 assignees near the bottom of the window. As a sheet on a phone it keeps 85dvh.
+- **The banner's action is a button.** `.b-action` and `slot="action"` strip a `<button>` down to its text – no padding, border or background, the banner's colour and font – so `<button class="b-action" type="button">` looks like the underlined link it replaces, with a button's role and keyboard. Below 860px the action moves under the text instead of squeezing it into a narrow column beside it.
+- **A tooltip breaks a long word** (`overflow-wrap: break-word`) instead of running past its 260px.
+- Docs, showcase, SKILL.md and the demo write the banner's action as a `<button>`.
+
+### Fixed
+- **A floating menu or date picker inside an open modal, dialog, sheet or side peek sits where it should.** The open surfaces kept a transform that moves nothing – `scale(1) translateY(0)`, `translate: 0 0`, `scale: 1` – and any transform but `none` makes an element the containing block of its fixed descendants: a menu placed in window coordinates landed off by the surface's position and was clipped by its overflow. At rest they now carry `none`; they open with the same motion.
+
 ## [1.10.1] – 2026-09-24
 
 ### Fixed

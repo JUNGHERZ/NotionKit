@@ -381,7 +381,7 @@ export const SKELETONS = [
     <li class="nk-step"><span class="st-mark">3</span><span>Assistant</span></li>
   </ol>
 
-  <div class="nk-banner info">ℹ️ You can change all of this later in Settings.<span class="b-action">Skip</span></div>
+  <div class="nk-banner info">ℹ️ You can change all of this later in Settings.<button class="b-action" type="button">Skip</button></div>
 
   <h2 class="nk-heading">1 · About you</h2>
   <div class="nk-field"><div><div class="f-label">Display name</div><div class="f-desc">How teammates see you.</div></div>

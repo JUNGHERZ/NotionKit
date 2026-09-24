@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.10.1</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.11.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Docs</a>
@@ -1413,7 +1413,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-fields">
         <h3>Field grid <code>.nk-fields</code></h3>
-        <p class="doc-desc">Several short fields in one row: a grid of <code>minmax(150px, 1fr)</code> columns that wraps as the width allows. Every direct <code>.nk-field</code> child becomes stacked and compact by itself – a 12px label above a full-width control – so nothing collides.</p>
+        <p class="doc-desc">Several short fields in one row: a grid of <code>minmax(150px, 1fr)</code> columns that wraps as the width allows. Every direct <code>.nk-field</code> child becomes stacked and compact by itself – a 12px label above a full-width control – so nothing collides. <code>.fit</code> lets the fields share the row instead – two fields in a 560px dialog are two halves, not two thirds and a gap.</p>
         <div class="doc-preview"><div class="nk-fields" style="max-width:520px">
   <div class="nk-field"><div><div class="f-label">Name</div></div><div class="f-control"><input class="nk-input" value="Ada Lovelace"></div></div>
   <div class="nk-field"><div><div class="f-label">Email</div></div><div class="f-control"><input class="nk-input" value="ada@acme.com"></div></div>
@@ -1427,7 +1427,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-field"<span class="tag">&gt;</span><span class="tag">&lt;div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-label"<span class="tag">&gt;</span>Status<span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"f-control"<span class="tag">&gt;</span><span class="tag">&lt;select</span> <span class="attr">class=</span>"nk-select"<span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>In progress<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;option</span><span class="tag">&gt;</span>Done<span class="tag">&lt;/option</span><span class="tag">&gt;</span><span class="tag">&lt;/select</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Wraps to one or two columns on its own; no breakpoint needed.</span></div>
-        <div class="doc-classes"><code>.nk-fields</code></div>
+        <div class="doc-classes"><code>.nk-fields</code><code>.fit</code></div>
       </article>
       <article class="doc-entry" id="nk-profile-row">
         <h3>Profile row & picture <code>.nk-profile-row</code></h3>
@@ -1629,7 +1629,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-menu">
         <h3>Context menu <code>.nk-menu</code></h3>
-        <p class="doc-desc">Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu. A menu that floats over the page takes <code>floating</code> and opens and closes with <code>.open</code>, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. <code>sheet</code> makes it a bottom sheet on a phone, as Notion's mobile app opens every menu – the same markup, two presentations.</p>
+        <p class="doc-desc">Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu. A menu that floats over the page takes <code>floating</code> and opens and closes with <code>.open</code>, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. <code>sheet</code> makes it a bottom sheet on a phone, as Notion's mobile app opens every menu – the same markup, two presentations. A floating menu never grows past the window: a longer one scrolls inside, and <code>--_nk-float-max</code> caps it to the room a script found below or above its anchor.</p>
         <div class="doc-preview"><div class="nk-pop nk-menu">
   <div class="nk-menu-label">Pages</div>
   <div class="nk-menu-item"><span class="m-icon">✏️</span>Rename<span class="m-shortcut">⌘⇧R</span></div>
@@ -1834,7 +1834,7 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
       </article>
       <article class="doc-entry" id="nk-tooltip">
         <h3>Tooltip <code>.nk-tooltip</code></h3>
-        <p class="doc-desc">A hover hint in the toast's colours: 12px, at most 260px wide, a shortcut in <code>.tt-key</code>, muted. Invisible and inert until <code>.open</code> fades it in; where it sits is yours – fixed, top and left, 6px below the button and centred, above it where the window ends. It lies above every overlay and never takes the pointer. Show it after a moment under the pointer and at once on keyboard focus, hide it on leave, a press, Escape; name it in the button's <code>aria-describedby</code>.</p>
+        <p class="doc-desc">A hover hint in the toast's colours: 12px, at most 260px wide, a shortcut in <code>.tt-key</code>, muted. Invisible and inert until <code>.open</code> fades it in; where it sits is yours – fixed, top and left, 6px below the button and centred, above it where the window ends. It lies above every overlay and never takes the pointer. Show it after a moment under the pointer and at once on keyboard focus, hide it on leave, a press, Escape; name it in the button's <code>aria-describedby</code>. Long words break; <code>.lines</code> keeps the line breaks of its text, for a hint of two or three lines.</p>
         <div class="doc-preview"><div style="position:relative;height:84px">
   <button class="nk-topbar-btn" style="position:absolute;left:61px;top:6px" aria-label="Style, export and more">⋯</button>
   <div class="nk-tooltip open" role="tooltip" style="position:absolute;left:8px;top:40px">Style, export and more</div>
@@ -1850,7 +1850,7 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
   <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-tooltip open" <span class="attr">role=</span>"tooltip" <span class="attr">style=</span>"position:absolute;left:255px;top:40px"<span class="tag">&gt;</span>Close sidebar<span class="tag">&lt;span</span> <span class="attr">class=</span>"tt-key"<span class="tag">&gt;</span>⌘\<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>A phone has no hover: leave tooltips to the pointer and show nothing on touch.</span></div>
-        <div class="doc-classes"><code>.nk-tooltip</code><code>.open</code><code>.tt-key</code></div>
+        <div class="doc-classes"><code>.nk-tooltip</code><code>.open</code><code>.tt-key</code><code>.lines</code></div>
       </article>
     </section>
     <section class="doc-group" id="gallery">
@@ -2012,18 +2012,18 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
       </article>
       <article class="doc-entry" id="nk-banner">
         <h3>Banner <code>.nk-banner</code></h3>
-        <p class="doc-desc">A full-width notice in four tones, tinted the way Notion colours a block: a soft <code>--nk-tint-*</code> background under the normal text colour. <code>.b-action</code> pushes an underlined action to the right edge.</p>
-        <div class="doc-preview"><div class="nk-banner info">ℹ️ The “Project overview” database has 2 overdue entries.<span class="b-action">View</span></div>
+        <p class="doc-desc">A full-width notice in four tones, tinted the way Notion colours a block: a soft <code>--nk-tint-*</code> background under the normal text colour. <code>.b-action</code> pushes an underlined action to the right edge – a <code>&lt;button&gt;</code>, which the rule strips down to its text.</p>
+        <div class="doc-preview"><div class="nk-banner info">ℹ️ The “Project overview” database has 2 overdue entries.<button class="b-action" type="button">View</button></div>
 <div class="nk-banner success">✅ All changes have been synced.</div>
-<div class="nk-banner warning">⚠️ Your trial ends in 5 days.<span class="b-action">View</span></div>
+<div class="nk-banner warning">⚠️ Your trial ends in 5 days.<button class="b-action" type="button">View</button></div>
 <div class="nk-banner danger">⛔ The connection to Notion was lost.</div></div>
         
         
-        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner info"<span class="tag">&gt;</span>ℹ️ The “Project overview” database has 2 overdue entries.<span class="tag">&lt;span</span> <span class="attr">class=</span>"b-action"<span class="tag">&gt;</span>View<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner info"<span class="tag">&gt;</span>ℹ️ The “Project overview” database has 2 overdue entries.<span class="tag">&lt;button</span> <span class="attr">class=</span>"b-action" <span class="attr">type=</span>"button"<span class="tag">&gt;</span>View<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner success"<span class="tag">&gt;</span>✅ All changes have been synced.<span class="tag">&lt;/div</span><span class="tag">&gt;</span>
-<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner warning"<span class="tag">&gt;</span>⚠️ Your trial ends in 5 days.<span class="tag">&lt;span</span> <span class="attr">class=</span>"b-action"<span class="tag">&gt;</span>View<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner warning"<span class="tag">&gt;</span>⚠️ Your trial ends in 5 days.<span class="tag">&lt;button</span> <span class="attr">class=</span>"b-action" <span class="attr">type=</span>"button"<span class="tag">&gt;</span>View<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-banner danger"<span class="tag">&gt;</span>⛔ The connection to Notion was lost.<span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>On a small screen:</b><span>The action stays on the same line; wrap the banner content yourself if it gets crowded.</span></div>
+        <div class="doc-meta"><b>On a small screen:</b><span>Below 860px the action moves under the text instead of squeezing it into a narrow column beside it.</span></div>
         <div class="doc-classes"><code>.nk-banner</code><code>.info</code><code>.success</code><code>.warning</code><code>.danger</code><code>.b-action</code></div>
       </article>
       <article class="doc-entry" id="nk-avatar-group">

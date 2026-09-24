@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.10.1
+   Jungherz GmbH – v1.11.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -1018,6 +1018,9 @@ a.crumb { text-decoration: none; }
   display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px 12px; padding: 9px 0;
 }
+/* .fit: the fields share the row instead of keeping 150px columns – two
+   fields in a 560px dialog are two halves, not two thirds and a gap. */
+.nk-fields.fit { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .nk-fields > .nk-field { min-width: 0; }
 
 /* Filled, not outlined: Notion's inputs sit on a faint grey wash inside a
@@ -1304,7 +1307,10 @@ a.nk-btn { text-decoration: none; }
   display: flex; overflow: hidden;
   transform: scale(.98) translateY(6px); transition: transform .2s ease;
 }
-.nk-modal-backdrop.open .nk-modal { transform: scale(1) translateY(0); }
+/* At rest the open surfaces carry no transform at all – `none`, not an
+   identity – so a floating menu or date picker inside is fixed to the
+   window again, not to the surface, and not clipped by its overflow. */
+.nk-modal-backdrop.open .nk-modal { transform: none; }
 
 .nk-settings-nav {
   width: 240px; min-width: 240px; background: var(--nk-bg-sidebar);
@@ -1392,9 +1398,13 @@ a.nk-btn { text-decoration: none; }
 /* `floating`: a popover over the page – a page menu, a filter menu – that
    opens and closes with .open, the way the palette does: it fades in and
    settles from 4px higher and 98 %. Closed it takes no clicks and no
-   focus. Where it sits is yours: fixed or absolute, top and left or right. */
+   focus. Where it sits is yours: fixed or absolute, top and left or right.
+   It never grows past the window: a longer menu scrolls inside, and
+   --_nk-float-max, set by a placement script, caps it to the room below or
+   above its anchor. */
 .nk-pop.floating {
   z-index: 60; opacity: 0; visibility: hidden; pointer-events: none;
+  max-height: min(var(--_nk-float-max, 100dvh), 100dvh - 16px); overflow-y: auto; overscroll-behavior: contain;
   transform: translateY(-4px) scale(.98); transform-origin: top;
   transition: opacity .15s ease, transform .15s ease, visibility 0s linear .15s;
 }
@@ -1468,7 +1478,7 @@ a.nk-btn { text-decoration: none; }
   border-radius: 14px 14px 0 0; box-shadow: var(--nk-shadow-menu);
   translate: 0 100%; transition: translate .25s cubic-bezier(.2, .8, .2, 1);
 }
-.nk-sheet-backdrop.open .nk-sheet { translate: 0 0; }
+.nk-sheet-backdrop.open .nk-sheet { translate: none; }
 @starting-style { .nk-sheet-backdrop.open .nk-sheet { translate: 0 100%; } }
 .nk-sheet .sh-grabber,
 .nk-sheet ::slotted(.sh-grabber) { width: 36px; height: 4px; margin: 4px auto 10px; border-radius: 2px; background: var(--nk-border-strong); }
@@ -1497,7 +1507,7 @@ a.nk-btn { text-decoration: none; }
   scale: .98; translate: 0 6px; transition: scale .2s ease, translate .2s ease;
 }
 .nk-dialog.wide { width: 560px; }
-.nk-dialog-backdrop.open .nk-dialog { scale: 1; translate: 0 0; }
+.nk-dialog-backdrop.open .nk-dialog { scale: none; translate: none; }
 @starting-style { .nk-dialog-backdrop.open .nk-dialog { scale: .98; translate: 0 6px; } }
 .nk-dialog .dl-title { font-size: 16px; font-weight: 600; line-height: 1.4; margin-bottom: 6px; }
 .nk-dialog .dl-body { font-size: 14px; line-height: 1.5; }
@@ -1523,7 +1533,7 @@ a.nk-btn { text-decoration: none; }
   background: var(--nk-bg); color: var(--nk-text); box-shadow: var(--nk-shadow-menu);
   translate: 100% 0; transition: translate .25s cubic-bezier(.2, .8, .2, 1);
 }
-.nk-peek-backdrop.open .nk-peek { translate: 0 0; }
+.nk-peek-backdrop.open .nk-peek { translate: none; }
 @starting-style { .nk-peek-backdrop.open .nk-peek { translate: 100% 0; } }
 .nk-peek .pk-bar { flex: none; display: flex; align-items: center; gap: 2px; height: 44px; padding: 0 12px; }
 .nk-peek .pk-body {
@@ -1564,13 +1574,14 @@ a.nk-btn { text-decoration: none; }
    a shortcut in .tt-key. Invisible and inert until .open fades it in;
    where it sits is yours – fixed, top and left. Above every overlay. */
 .nk-tooltip {
-  z-index: 130; max-width: 260px; padding: 4px 8px; border-radius: var(--nk-radius);
+  z-index: 130; max-width: 260px; padding: 4px 8px; border-radius: var(--nk-radius); overflow-wrap: break-word;
   background: var(--nk-text); color: var(--nk-bg); box-shadow: var(--nk-shadow-menu);
   font-size: 12px; font-weight: 500; line-height: 16px; pointer-events: none;
   opacity: 0; visibility: hidden; transition: opacity .1s ease, visibility 0s linear .1s;
 }
 .nk-tooltip.open { opacity: 1; visibility: visible; transition: opacity .1s ease; }
 .nk-tooltip .tt-key { margin-left: 6px; color: color-mix(in srgb, var(--nk-bg) 60%, transparent); }
+.nk-tooltip.lines { white-space: pre-line; }
 
 
 /* ============================================================
@@ -1664,7 +1675,10 @@ a.nk-btn { text-decoration: none; }
 .nk-banner.danger { background: var(--nk-tint-red); }
 .nk-banner .b-action,
 .nk-banner ::slotted(.b-action),
-.nk-banner ::slotted([slot="action"]) { margin-left: auto; font-weight: 500; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.nk-banner ::slotted([slot="action"]) {
+  margin-left: auto; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-weight: 500; text-align: left;
+  cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
+}
 
 .nk-avatar-group { display: flex; }
 .nk-avatar-group .mini-avatar,
@@ -2163,7 +2177,7 @@ a.nk-btn { text-decoration: none; }
   }
   .nk-pop.sheet::before { content: ""; display: block; width: 36px; height: 4px; margin: 4px auto 8px; border-radius: 2px; background: var(--nk-border-strong); }
   .nk-pop.sheet.floating { translate: 0 100%; transition: opacity .2s ease, translate .25s cubic-bezier(.2, .8, .2, 1), visibility 0s linear .25s; }
-  .nk-pop.sheet.floating.open { translate: 0 0; transition: opacity .2s ease, translate .25s cubic-bezier(.2, .8, .2, 1), visibility 0s; }
+  .nk-pop.sheet.floating.open { translate: none; transition: opacity .2s ease, translate .25s cubic-bezier(.2, .8, .2, 1), visibility 0s; }
   /* A date picker in a sheet gets cells a thumb can hit. The calendar view
      keeps seven columns and gets lower. */
   .nk-pop.sheet,
@@ -2180,12 +2194,18 @@ a.nk-btn { text-decoration: none; }
     top: auto; left: 0; width: auto; max-height: 92dvh;
     border-radius: 14px 14px 0 0; translate: 0 100%;
   }
-  .nk-peek-backdrop.open .nk-peek { translate: 0 0; }
+  .nk-peek-backdrop.open .nk-peek { translate: none; }
   @starting-style { .nk-peek-backdrop.open .nk-peek { translate: 0 100%; } }
   .nk-peek::before { content: ""; flex: none; width: 36px; height: 4px; margin: 10px auto 0; border-radius: 2px; background: var(--nk-border-strong); }
   .nk-peek .pk-bar { height: 40px; padding: 0 max(8px, env(safe-area-inset-right, 0px)) 0 max(8px, env(safe-area-inset-left, 0px)); }
   .nk-peek .pk-body { padding: 0 max(20px, env(safe-area-inset-right, 0px)) max(24px, env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px)); }
   .nk-peek .pk-resize { display: none; }
+  /* A banner puts its action under the text instead of squeezing the text
+     into a narrow column beside it. */
+  .nk-banner { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; }
+  .nk-banner .b-action,
+  .nk-banner ::slotted(.b-action),
+  .nk-banner ::slotted([slot="action"]) { grid-column: 1 / -1; justify-self: start; margin-left: 0; }
   .nk-app.peek-inset .nk-main { padding-right: 0; }
   /* A dialog rises from the bottom edge like the sheet, its buttons stacked
      across the width with the confirming one on top. */
@@ -2196,7 +2216,7 @@ a.nk-btn { text-decoration: none; }
     transition: translate .25s cubic-bezier(.2, .8, .2, 1);
   }
   .nk-dialog.wide { width: 100%; }
-  .nk-dialog-backdrop.open .nk-dialog { translate: 0 0; }
+  .nk-dialog-backdrop.open .nk-dialog { translate: none; }
   @starting-style { .nk-dialog-backdrop.open .nk-dialog { translate: 0 100%; } }
   .nk-dialog::before { content: ""; display: block; width: 36px; height: 4px; margin: 4px auto 14px; border-radius: 2px; background: var(--nk-border-strong); }
   .nk-dialog .dl-actions { flex-direction: column-reverse; }

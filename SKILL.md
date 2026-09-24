@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.10.1) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.11.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -895,7 +895,7 @@ The settings-row primitive: label and description on the left, control on the ri
 
 ### Field grid — `.nk-fields`
 
-Several short fields in one row: a grid of `minmax(150px, 1fr)` columns that wraps as the width allows. Every direct `.nk-field` child becomes stacked and compact by itself – a 12px label above a full-width control – so nothing collides.
+Several short fields in one row: a grid of `minmax(150px, 1fr)` columns that wraps as the width allows. Every direct `.nk-field` child becomes stacked and compact by itself – a 12px label above a full-width control – so nothing collides. `.fit` lets the fields share the row instead – two fields in a 560px dialog are two halves, not two thirds and a gap.
 
 ```html
 <div class="nk-fields">
@@ -905,7 +905,7 @@ Several short fields in one row: a grid of `minmax(150px, 1fr)` columns that wra
 </div>
 ```
 
-- **Classes:** `.nk-fields`
+- **Classes:** `.nk-fields`, `.fit`
 - **On a small screen:** Wraps to one or two columns on its own; no breakpoint needed.
 
 ### Profile row & picture — `.nk-profile-row`
@@ -1051,7 +1051,7 @@ An eight-column grid inside `nk-pop`, with a filter field above and a greyed-out
 
 ### Context menu — `.nk-menu`
 
-Combine `nk-pop` with `nk-menu`. Items take an `.m-icon` on the left and an `.m-shortcut` pushed right; `.danger` turns an item red. A `.nk-switch` as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu. A menu that floats over the page takes `floating` and opens and closes with `.open`, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. `sheet` makes it a bottom sheet on a phone, as Notion's mobile app opens every menu – the same markup, two presentations.
+Combine `nk-pop` with `nk-menu`. Items take an `.m-icon` on the left and an `.m-shortcut` pushed right; `.danger` turns an item red. A `.nk-switch` as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu. A menu that floats over the page takes `floating` and opens and closes with `.open`, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. `sheet` makes it a bottom sheet on a phone, as Notion's mobile app opens every menu – the same markup, two presentations. A floating menu never grows past the window: a longer one scrolls inside, and `--_nk-float-max` caps it to the room a script found below or above its anchor.
 
 ```html
 <div class="nk-pop nk-menu">
@@ -1210,7 +1210,7 @@ Fixed to the bottom centre, inverted (text colour as background). It sits off-sc
 
 ### Tooltip — `.nk-tooltip`
 
-A hover hint in the toast's colours: 12px, at most 260px wide, a shortcut in `.tt-key`, muted. Invisible and inert until `.open` fades it in; where it sits is yours – fixed, top and left, 6px below the button and centred, above it where the window ends. It lies above every overlay and never takes the pointer. Show it after a moment under the pointer and at once on keyboard focus, hide it on leave, a press, Escape; name it in the button's `aria-describedby`.
+A hover hint in the toast's colours: 12px, at most 260px wide, a shortcut in `.tt-key`, muted. Invisible and inert until `.open` fades it in; where it sits is yours – fixed, top and left, 6px below the button and centred, above it where the window ends. It lies above every overlay and never takes the pointer. Show it after a moment under the pointer and at once on keyboard focus, hide it on leave, a press, Escape; name it in the button's `aria-describedby`. Long words break; `.lines` keeps the line breaks of its text, for a hint of two or three lines.
 
 ```html
 <div>
@@ -1221,7 +1221,7 @@ A hover hint in the toast's colours: 12px, at most 260px wide, a shortcut in `.t
 </div>
 ```
 
-- **Classes:** `.nk-tooltip`, `.open`, `.tt-key`
+- **Classes:** `.nk-tooltip`, `.open`, `.tt-key`, `.lines`
 - **On a small screen:** A phone has no hover: leave tooltips to the pointer and show nothing on touch.
 
 ## Gallery & productivity (PRD 5.9)
@@ -1347,17 +1347,17 @@ A small set of mutually exclusive options. The active segment lifts out of the t
 
 ### Banner — `.nk-banner`
 
-A full-width notice in four tones, tinted the way Notion colours a block: a soft `--nk-tint-*` background under the normal text colour. `.b-action` pushes an underlined action to the right edge.
+A full-width notice in four tones, tinted the way Notion colours a block: a soft `--nk-tint-*` background under the normal text colour. `.b-action` pushes an underlined action to the right edge – a `<button>`, which the rule strips down to its text.
 
 ```html
-<div class="nk-banner info">ℹ️ The “Project overview” database has 2 overdue entries.<span class="b-action">View</span></div>
+<div class="nk-banner info">ℹ️ The “Project overview” database has 2 overdue entries.<button class="b-action" type="button">View</button></div>
 <div class="nk-banner success">✅ All changes have been synced.</div>
-<div class="nk-banner warning">⚠️ Your trial ends in 5 days.<span class="b-action">View</span></div>
+<div class="nk-banner warning">⚠️ Your trial ends in 5 days.<button class="b-action" type="button">View</button></div>
 <div class="nk-banner danger">⛔ The connection to Notion was lost.</div>
 ```
 
 - **Classes:** `.nk-banner`, `.info`, `.success`, `.warning`, `.danger`, `.b-action`
-- **On a small screen:** The action stays on the same line; wrap the banner content yourself if it gets crowded.
+- **On a small screen:** Below 860px the action moves under the text instead of squeezing it into a narrow column beside it.
 
 ### Avatar group — `.nk-avatar-group`
 
@@ -2012,7 +2012,7 @@ Eight complete, runnable documents. Each starts with a decision block. Copy one,
     <li class="nk-step"><span class="st-mark">3</span><span>Assistant</span></li>
   </ol>
 
-  <div class="nk-banner info">ℹ️ You can change all of this later in Settings.<span class="b-action">Skip</span></div>
+  <div class="nk-banner info">ℹ️ You can change all of this later in Settings.<button class="b-action" type="button">Skip</button></div>
 
   <h2 class="nk-heading">1 · About you</h2>
   <div class="nk-field"><div><div class="f-label">Display name</div><div class="f-desc">How teammates see you.</div></div>
@@ -2336,9 +2336,9 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
 | Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` |
-| Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
+| Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `fit` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
-| Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `nk-tooltip` `tt-key` |
+| Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `nk-tooltip` `tt-key` `lines` |
 | Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-panels` `nk-panel` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-avatar` `small` `large` `xlarge` `square` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` `nk-steps` `nk-step` `st-mark` `st-desc` `done` `current` |
 | Collaboration & AI | `nk-comments` `nk-comment` `c-head` `c-body` `nk-comment-input` `nk-ai-thread` `nk-ai-msg` `user` `bubble` `a-name` `a-body` `nk-ai-actions` `nk-ai-input-row` `nk-ai-send` |
 | Editor adapter | `nk-block-host` `nk-block-handle` `nk-block-actions` `nk-drop-target` `nk-slash-menu` `nk-slash-menu-label` `nk-slash-item` `selected` `nk-bubble-menu` |
@@ -2398,4 +2398,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.10.1 · MIT · Jungherz GmbH*
+*NotionKit v1.11.0 · MIT · Jungherz GmbH*

@@ -717,11 +717,11 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-fields', group: 'forms', classes: ['nk-fields'],
+  id: 'nk-fields', group: 'forms', classes: ['nk-fields', 'fit'],
   title: { en: 'Field grid', de: 'Feldraster' },
   desc: {
-    en: 'Several short fields in one row: a grid of <code>minmax(150px, 1fr)</code> columns that wraps as the width allows. Every direct <code>.nk-field</code> child becomes stacked and compact by itself – a 12px label above a full-width control – so nothing collides.',
-    de: 'Mehrere kurze Felder in einer Zeile: ein Raster aus <code>minmax(150px, 1fr)</code>-Spalten, das umbricht, wie es die Breite erlaubt. Jedes direkte <code>.nk-field</code>-Kind wird von selbst gestapelt und kompakt – ein 12px-Label über einem vollbreiten Control –, damit nichts kollidiert.',
+    en: 'Several short fields in one row: a grid of <code>minmax(150px, 1fr)</code> columns that wraps as the width allows. Every direct <code>.nk-field</code> child becomes stacked and compact by itself – a 12px label above a full-width control – so nothing collides. <code>.fit</code> lets the fields share the row instead – two fields in a 560px dialog are two halves, not two thirds and a gap.',
+    de: 'Mehrere kurze Felder in einer Zeile: ein Raster aus <code>minmax(150px, 1fr)</code>-Spalten, das umbricht, wie es die Breite erlaubt. Jedes direkte <code>.nk-field</code>-Kind wird von selbst gestapelt und kompakt – ein 12px-Label über einem vollbreiten Control –, damit nichts kollidiert. <code>.fit</code> lässt die Felder die Zeile stattdessen teilen – zwei Felder in einem 560px-Dialog sind zwei Hälften, nicht zwei Drittel und eine Lücke.',
   },
   mobile: { en: 'Wraps to one or two columns on its own; no breakpoint needed.', de: 'Bricht von selbst auf ein oder zwei Spalten um; kein Breakpoint nötig.' },
   html: W => `<div class="nk-fields" style="max-width:520px">
@@ -871,8 +871,8 @@ export const CATALOG = [
   id: 'nk-menu', group: 'overlay', classes: ['nk-menu', 'nk-menu-item', 'm-icon', 'm-shortcut', 'danger', 'nk-menu-sep', 'nk-menu-label', 'floating', 'sheet', 'open'],
   title: { en: 'Context menu', de: 'Kontextmenü' },
   desc: {
-    en: 'Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion\'s page menu. A menu that floats over the page takes <code>floating</code> and opens and closes with <code>.open</code>, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. <code>sheet</code> makes it a bottom sheet on a phone, as Notion\'s mobile app opens every menu – the same markup, two presentations.',
-    de: '<code>nk-pop</code> mit <code>nk-menu</code> kombinieren. Einträge nehmen links ein <code>.m-icon</code> und rechts ein <code>.m-shortcut</code>; <code>.danger</code> färbt einen Eintrag rot. Ein <code>.nk-switch</code> als letztes Kind eines Eintrags sitzt rechts, wie „Kleiner Text“ und „Volle Breite“ in Notions Seitenmenü. Ein Menü, das über der Seite schwebt, bekommt <code>floating</code> und öffnet und schließt über <code>.open</code> wie die Palette: Es blendet ein und setzt sich aus 4px Höhe und 98 % ab; geschlossen nimmt es weder Klicks noch Fokus an, und wo es sitzt, bestimmst du. <code>sheet</code> macht es auf dem Telefon zum Bottom Sheet, so wie Notions Mobil-App jedes Menü öffnet – dasselbe Markup, zwei Darstellungen.',
+    en: 'Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion\'s page menu. A menu that floats over the page takes <code>floating</code> and opens and closes with <code>.open</code>, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. <code>sheet</code> makes it a bottom sheet on a phone, as Notion\'s mobile app opens every menu – the same markup, two presentations. A floating menu never grows past the window: a longer one scrolls inside, and <code>--_nk-float-max</code> caps it to the room a script found below or above its anchor.',
+    de: '<code>nk-pop</code> mit <code>nk-menu</code> kombinieren. Einträge nehmen links ein <code>.m-icon</code> und rechts ein <code>.m-shortcut</code>; <code>.danger</code> färbt einen Eintrag rot. Ein <code>.nk-switch</code> als letztes Kind eines Eintrags sitzt rechts, wie „Kleiner Text“ und „Volle Breite“ in Notions Seitenmenü. Ein Menü, das über der Seite schwebt, bekommt <code>floating</code> und öffnet und schließt über <code>.open</code> wie die Palette: Es blendet ein und setzt sich aus 4px Höhe und 98 % ab; geschlossen nimmt es weder Klicks noch Fokus an, und wo es sitzt, bestimmst du. <code>sheet</code> macht es auf dem Telefon zum Bottom Sheet, so wie Notions Mobil-App jedes Menü öffnet – dasselbe Markup, zwei Darstellungen. Ein schwebendes Menü wächst nie über das Fenster hinaus: Ein längeres scrollt in sich, und <code>--_nk-float-max</code> begrenzt es auf den Platz, den ein Skript unter oder über seinem Anker gefunden hat.',
   },
   mobile: { en: 'Shortcuts are meaningless on touch — hide the <code>.m-shortcut</code> spans there. With <code>sheet</code> the menu becomes a bottom sheet below 860px: full width, a grabber, 40px rows, the page dimmed behind it; inline positioning is overruled.', de: 'Kürzel sind auf Touch bedeutungslos – die <code>.m-shortcut</code>-Spans dort ausblenden. Mit <code>sheet</code> wird das Menü unter 860px zum Bottom Sheet: volle Breite, ein Griff, 40px-Zeilen, die Seite dahinter abgedunkelt; eine Inline-Position wird übergangen.' },
   html: W => `<div class="nk-pop nk-menu">
@@ -1036,11 +1036,11 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
 </div>`,
 },
 {
-  id: 'nk-tooltip', group: 'overlay', classes: ['nk-tooltip', 'open', 'tt-key'],
+  id: 'nk-tooltip', group: 'overlay', classes: ['nk-tooltip', 'open', 'tt-key', 'lines'],
   title: { en: 'Tooltip', de: 'Tooltip' },
   desc: {
-    en: 'A hover hint in the toast\'s colours: 12px, at most 260px wide, a shortcut in <code>.tt-key</code>, muted. Invisible and inert until <code>.open</code> fades it in; where it sits is yours – fixed, top and left, 6px below the button and centred, above it where the window ends. It lies above every overlay and never takes the pointer. Show it after a moment under the pointer and at once on keyboard focus, hide it on leave, a press, Escape; name it in the button\'s <code>aria-describedby</code>.',
-    de: 'Ein Hover-Hinweis in den Farben des Toasts: 12px, höchstens 260px breit, ein Kürzel in <code>.tt-key</code>, gedämpft. Unsichtbar und inaktiv, bis <code>.open</code> ihn einblendet; wo er sitzt, entscheidest du – fixed, top und left, 6px unter dem Button und zentriert, darüber, wo das Fenster endet. Er liegt über jedem Overlay und nimmt nie den Zeiger. Zeige ihn nach einem Moment unter dem Zeiger und sofort bei Tastaturfokus, blende ihn beim Verlassen, einem Druck und Escape aus; nenne ihn im <code>aria-describedby</code> des Buttons.',
+    en: 'A hover hint in the toast\'s colours: 12px, at most 260px wide, a shortcut in <code>.tt-key</code>, muted. Invisible and inert until <code>.open</code> fades it in; where it sits is yours – fixed, top and left, 6px below the button and centred, above it where the window ends. It lies above every overlay and never takes the pointer. Show it after a moment under the pointer and at once on keyboard focus, hide it on leave, a press, Escape; name it in the button\'s <code>aria-describedby</code>. Long words break; <code>.lines</code> keeps the line breaks of its text, for a hint of two or three lines.',
+    de: 'Ein Hover-Hinweis in den Farben des Toasts: 12px, höchstens 260px breit, ein Kürzel in <code>.tt-key</code>, gedämpft. Unsichtbar und inaktiv, bis <code>.open</code> ihn einblendet; wo er sitzt, entscheidest du – fixed, top und left, 6px unter dem Button und zentriert, darüber, wo das Fenster endet. Er liegt über jedem Overlay und nimmt nie den Zeiger. Zeige ihn nach einem Moment unter dem Zeiger und sofort bei Tastaturfokus, blende ihn beim Verlassen, einem Druck und Escape aus; nenne ihn im <code>aria-describedby</code> des Buttons. Lange Wörter brechen um; <code>.lines</code> behält die Zeilenumbrüche seines Texts, für einen Hinweis über zwei, drei Zeilen.',
   },
   mobile: { en: 'A phone has no hover: leave tooltips to the pointer and show nothing on touch.', de: 'Ein Telefon hat kein Hover: Tooltips dem Zeiger überlassen und bei Berührung nichts zeigen.' },
   html: W => `<div style="position:relative;height:84px">
@@ -1153,13 +1153,13 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
   id: 'nk-banner', group: 'gallery', classes: ['nk-banner', 'info', 'success', 'warning', 'danger', 'b-action'],
   title: { en: 'Banner', de: 'Banner' },
   desc: {
-    en: 'A full-width notice in four tones, tinted the way Notion colours a block: a soft <code>--nk-tint-*</code> background under the normal text colour. <code>.b-action</code> pushes an underlined action to the right edge.',
-    de: 'Ein Hinweis über die volle Breite in vier Tönen, getönt wie Notion einen Block färbt: ein weicher <code>--nk-tint-*</code>-Hintergrund unter der normalen Textfarbe. <code>.b-action</code> schiebt eine unterstrichene Aktion an den rechten Rand.',
+    en: 'A full-width notice in four tones, tinted the way Notion colours a block: a soft <code>--nk-tint-*</code> background under the normal text colour. <code>.b-action</code> pushes an underlined action to the right edge – a <code>&lt;button&gt;</code>, which the rule strips down to its text.',
+    de: 'Ein Hinweis über die volle Breite in vier Tönen, getönt wie Notion einen Block färbt: ein weicher <code>--nk-tint-*</code>-Hintergrund unter der normalen Textfarbe. <code>.b-action</code> schiebt eine unterstrichene Aktion an den rechten Rand – ein <code>&lt;button&gt;</code>, den die Regel auf seinen Text zurücknimmt.',
   },
-  mobile: { en: 'The action stays on the same line; wrap the banner content yourself if it gets crowded.', de: 'Die Aktion bleibt in derselben Zeile; bei Enge den Banner-Inhalt selbst umbrechen lassen.' },
-  html: W => `<div class="nk-banner info">ℹ️ ${W.bannerInfo}<span class="b-action">${W.bannerAction}</span></div>
+  mobile: { en: 'Below 860px the action moves under the text instead of squeezing it into a narrow column beside it.', de: 'Unter 860px rutscht die Aktion unter den Text, statt ihn in eine schmale Spalte daneben zu drücken.' },
+  html: W => `<div class="nk-banner info">ℹ️ ${W.bannerInfo}<button class="b-action" type="button">${W.bannerAction}</button></div>
 <div class="nk-banner success">✅ ${W.bannerSuccess}</div>
-<div class="nk-banner warning">⚠️ ${W.bannerWarning}<span class="b-action">${W.bannerAction}</span></div>
+<div class="nk-banner warning">⚠️ ${W.bannerWarning}<button class="b-action" type="button">${W.bannerAction}</button></div>
 <div class="nk-banner danger">⛔ ${W.bannerDanger}</div>`,
 },
 {
