@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.13.0
+   Jungherz GmbH – v1.14.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -1007,6 +1007,23 @@ a.crumb { text-decoration: none; }
 .nk-card .card-meta,
 .nk-card ::slotted(.card-meta) { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--nk-text-secondary); }
 
+/* Gallery view: the rows as cards with a picture on top, in a grid that
+   fills the row – Notion's gallery, for a course catalog or a reading list.
+   A card is the board's .nk-card; a .nk-cover as its first child runs to
+   the card's edges in 2:1, the picture cropped to fill – the cover gradient
+   where a row has none. `.small` and `.large` set the card size, columns
+   from 180px and 340px instead of 260px; `.fit` shows a picture whole, for
+   logos. The grid drops columns by itself, no breakpoint involved. */
+.nk-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 16px; padding: 14px 2px; }
+.nk-gallery.small { grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr)); gap: 12px; }
+.nk-gallery.large { grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); }
+.nk-gallery .nk-card { display: flex; flex-direction: column; min-width: 0; margin: 0; color: inherit; text-decoration: none; cursor: pointer; }
+.nk-gallery .nk-card > .nk-cover { flex: none; height: auto; aspect-ratio: 2 / 1; margin: -10px -12px 10px; border-radius: 7px 7px 0 0; overflow: hidden; }
+.nk-gallery.fit .nk-card > .nk-cover:has(> img) { background: var(--nk-bg-callout); }
+.nk-gallery.fit .nk-card > .nk-cover > img { object-fit: contain; }
+.nk-gallery .card-title { min-width: 0; }
+.nk-gallery > .nk-new-row { justify-content: center; min-height: 64px; border: 1px dashed var(--nk-border-strong); border-radius: 8px; }
+
 
 /* ============================================================
    B6. FORMS & SETTINGS  (PRD 5.6)
@@ -1714,6 +1731,11 @@ a.nk-btn { text-decoration: none; }
   margin-left: auto; padding: 0; border: 0; background: none; color: inherit; font: inherit; font-weight: 500; text-align: left;
   cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
 }
+/* A slotted <button> also meets the page's button reset, and the outer
+   tree wins over ::slotted() – the margin that pushes the action to the
+   right edge takes !important there. */
+.nk-banner ::slotted(.b-action),
+.nk-banner ::slotted([slot="action"]) { margin-left: auto !important; }
 
 .nk-avatar-group { display: flex; }
 .nk-avatar-group .mini-avatar,
@@ -2269,6 +2291,8 @@ a.nk-btn { text-decoration: none; }
   .nk-banner .b-action,
   .nk-banner ::slotted(.b-action),
   .nk-banner ::slotted([slot="action"]) { grid-column: 1 / -1; justify-self: start; margin-left: 0; }
+  .nk-banner ::slotted(.b-action),
+  .nk-banner ::slotted([slot="action"]) { margin-left: 0 !important; }
   .nk-app.peek-inset .nk-main { padding-right: 0; }
   /* A dialog rises from the bottom edge like the sheet, its buttons stacked
      across the width with the confirming one on top. */

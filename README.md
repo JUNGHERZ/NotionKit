@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.13.0-2383e2?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.14.0-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
   <img src="https://img.shields.io/badge/components-~140-448361?style=flat-square" alt="Components">
-  <img src="https://img.shields.io/badge/gzip-14.3%20KB-d9730d?style=flat-square" alt="Size">
+  <img src="https://img.shields.io/badge/gzip-14.4%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.13.0-9065b0?style=flat-square" alt="Changelog"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.14.0-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
   <a href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit/"><img src="https://img.shields.io/badge/CDN-jsDelivr-blue?style=flat-square" alt="jsDelivr"></a>
 </p>
@@ -48,7 +48,7 @@ NotionKit is a **pure CSS component library** in the idiom of Notion: the quiet,
 
 There is no established UI framework that ships the Notion look *as a system*. What exists are editors (BlockNote, Novel), generic component kits (shadcn/ui) or full clones. NotionKit fills the middle: an opinionated design system with a clear optical signature that lets you build your own product in that ecosystem – familiar feel, own application.
 
-NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements](https://notionkit-elements.jungherz.com) wraps this markup in 87 vanilla web components for application UIs, and [NotionKit Web](https://notionkit-web.jungherz.com) is the official Astro template for complete websites on the same foundation – three layers, one design language.
+NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements](https://notionkit-elements.jungherz.com) wraps this markup in 88 vanilla web components for application UIs, and [NotionKit Web](https://notionkit-web.jungherz.com) is the official Astro template for complete websites on the same foundation – three layers, one design language.
 
 <br>
 
@@ -61,7 +61,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 - 🧩 **Shadow DOM ready** – ships a constructable stylesheet split into tokens and components, plus `::slotted()` twins, so web components adopt it without breaking branding
 - ✍️ **Editor adapter** – no editor of its own; a themed adapter layer for TipTap, BlockNote and Novel inside `.nk-block-host`
 - 🤖 **AI-ready** – ships with [`SKILL.md`](SKILL.md), a structured reference for LLMs and coding agents, including eight complete app skeletons
-- 🪶 **Lightweight** – 122 KB raw / 79 KB minified / 14.3 KB gzipped, no dependencies. The budget is 18 KB gzipped – up to 1.9.0 it was 14 KB, what a new connection delivers in its first round trip; CI keeps to it
+- 🪶 **Lightweight** – 124 KB raw / 80 KB minified / 14.4 KB gzipped, no dependencies. The budget is 18 KB gzipped – up to 1.9.0 it was 14 KB, what a new connection delivers in its first round trip; CI keeps to it
 - 🎯 **Prefixed naming** – `nk-*` classes, `--nk-*` tokens, no unprefixed global rules
 
 ---
@@ -77,7 +77,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 Pin a version for production:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.13.0/notionkit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.14.0/notionkit.min.css">
 ```
 
 ### npm / yarn / pnpm
@@ -203,6 +203,7 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-progress` (`wide`), `nk-progress-label` | Progress bar in a cell or across its row |
 | `nk-board` (`active`), `nk-board-col`, `nk-board-col-header`, `nk-card` | Board view with scrolling columns |
 | `nk-calendar-view` (`weeks`, `cv-head`, `cv-title`, `cv-grid`, `cv-wd`, `cv-week`, `cv-day`, `cv-num`, `cv-item`) | Calendar view: a month, the rows as cards on their dates |
+| `nk-gallery` (`small`, `large`, `fit`) with `nk-card` and `nk-cover` | Gallery view: the rows as cards with a picture on top, in three sizes |
 
 ### Forms & settings
 | Class | Description |
@@ -417,7 +418,7 @@ NotionKit is the CSS foundation of a three-layer family. The layers share one de
 
 ### NotionKit Elements – the app layer
 
-If you want to use NotionKit through **drop-in web components** instead of writing the class markup yourself, take a look at **NotionKit Elements**: 87 vanilla-JS custom elements (`<nk-app>`, `<nk-sidebar>`, `<nk-tree-item>`, `<nk-callout>`, `<nk-database>`, `<nk-cmdk>`, `<nk-block-host>` …) with Shadow DOM, native form participation and pixel parity with the class markup – built on the constructable stylesheet shipped here. The [proof of concept](elements-poc.html) in this repository is its seed.
+If you want to use NotionKit through **drop-in web components** instead of writing the class markup yourself, take a look at **NotionKit Elements**: 88 vanilla-JS custom elements (`<nk-app>`, `<nk-sidebar>`, `<nk-tree-item>`, `<nk-callout>`, `<nk-database>`, `<nk-cmdk>`, `<nk-block-host>` …) with Shadow DOM, native form participation and pixel parity with the class markup – built on the constructable stylesheet shipped here. The [proof of concept](elements-poc.html) in this repository is its seed.
 
 Useful links:
 - GitHub: https://github.com/JUNGHERZ/NotionKit-Elements

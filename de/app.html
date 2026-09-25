@@ -134,6 +134,7 @@
               <span class="nk-db-tab" data-view="board">▤ Board</span>
               <span class="nk-db-tab" data-view="list">☰ Liste</span>
               <span class="nk-db-tab" data-view="calendar">📅 Kalender</span>
+              <span class="nk-db-tab" data-view="gallery">🖼 Galerie</span>
               <span class="nk-db-tab add" id="addView" role="button" tabindex="0">＋</span>
             </div>
             <div class="tools">
@@ -169,6 +170,7 @@
           <!-- List View -->
           <div class="nk-list" id="view-list" hidden></div>
           <div class="nk-calendar-view weeks" id="view-calendar" hidden></div>
+          <div class="nk-gallery" id="view-gallery" role="list" hidden></div>
         </div>
 
         <hr class="nk-divider">
@@ -802,10 +804,10 @@
 <script>
   /* ============ Daten ============ */
   const projects = [
-    { icon: "🧭", name: "App-Shell & Sidebar", status: "Fertig",       tag: "green",  owner: "MK", due: "08.05.2026", progress: 100, effort: 6 },
-    { icon: "📄", name: "Page-Shell & Typografie", status: "Fertig",    tag: "green",  owner: "MK", due: "10.05.2026", progress: 100, effort: 4.5 },
-    { icon: "🗃️", name: "Database Table-View", status: "In Arbeit",    tag: "blue",   owner: "MK", due: "20.05.2026", progress: 65, effort: 12.5 },
-    { icon: "▤",  name: "Board-View & Drag-and-Drop", status: "Geplant", tag: "orange", owner: "—",  due: "02.06.2026", progress: 0, effort: 8 },
+    { icon: "🧭", name: "App-Shell & Sidebar", status: "Fertig",       tag: "green",  owner: "MK", due: "08.05.2026", progress: 100, effort: 6, cover: "../covers/aurora.svg" },
+    { icon: "📄", name: "Page-Shell & Typografie", status: "Fertig",    tag: "green",  owner: "MK", due: "10.05.2026", progress: 100, effort: 4.5, cover: "../covers/dunes.svg" },
+    { icon: "🗃️", name: "Database Table-View", status: "In Arbeit",    tag: "blue",   owner: "MK", due: "20.05.2026", progress: 65, effort: 12.5, cover: "../covers/meadow.svg" },
+    { icon: "▤",  name: "Board-View & Drag-and-Drop", status: "Geplant", tag: "orange", owner: "—",  due: "02.06.2026", progress: 0, effort: 8, cover: "../covers/tide.svg" },
   ];
 
   /* ============ Filters and sort: they act on table, board and list ============ */
@@ -847,6 +849,16 @@
     </div>`).join("");
   }
 
+  /* ============ Gallery rendern ============ */
+  const gallery = document.getElementById("view-gallery");
+  function renderGallery() {
+    gallery.innerHTML = rows().map(p => `<div class="nk-card" role="listitem" tabindex="0" data-p="${projects.indexOf(p)}">
+      <div class="nk-cover"><img src="${p.cover}" alt=""></div>
+      <div class="card-title">${p.icon} ${p.name}</div>
+      <div class="card-meta"><span><span class="nk-tag ${p.tag}">${p.status}</span></span><span>📅 ${p.due}</span></div>
+    </div>`).join("") + `<div class="nk-new-row" role="button" tabindex="0">＋ Neue Seite</div>`;
+  }
+
   /* ============ Board rendern ============ */
   const board = document.getElementById("view-board");
   function renderBoard() {
@@ -879,7 +891,7 @@
     });
     document.getElementById("rowCount").textContent = rows().length;
   }
-  function renderAll() { renderTable(); renderBoard(); renderList(); renderFilters(); renderCalendarView(); }
+  function renderAll() { renderTable(); renderBoard(); renderList(); renderFilters(); renderCalendarView(); renderGallery(); }
 
   /* ============ Dates: the picker on Due, the calendar view ============ */
   // One month in a floating popover – a sheet on a phone – with the ISO
@@ -988,6 +1000,7 @@
       document.getElementById("view-table").hidden = view !== "table";
       document.getElementById("view-list").hidden = view !== "list";
       document.getElementById("view-calendar").hidden = view !== "calendar";
+      document.getElementById("view-gallery").hidden = view !== "gallery";
       document.getElementById("view-board").classList.toggle("active", view === "board");
     });
   });
@@ -1439,6 +1452,10 @@
     const row = e.target.closest("[data-p]");
     if (row) openPeek(+row.dataset.p);
   });
+  // A gallery card takes the keyboard: Enter or Space opens it like a click.
+  document.querySelector(".nk-database").addEventListener("keydown", e => {
+    if ((e.key === "Enter" || e.key === " ") && e.target.matches?.("[data-p][tabindex]")) { e.preventDefault(); openPeek(+e.target.dataset.p); }
+  });
   document.addEventListener("click", e => {
     if (!peek.classList.contains("open") || e.target.closest(".nk-peek, [data-p], .nk-pop, .nk-modal-backdrop, .nk-sheet-backdrop, .nk-dialog-backdrop")) return;
     closePeek();
@@ -1600,7 +1617,7 @@
     }
   }));
 
-  /* ============ Anchors: #menu, #filter, #more, #peek, #date, #calendar, #dialog, #settings open that state ============ */
+  /* ============ Anchors: #menu, #filter, #more, #peek, #date, #calendar, #gallery, #dialog, #settings open that state ============ */
   // The landing page shows app.html#menu: a popover on the desktop, a sheet
   // on the phone – one markup, two presentations.
   function openFromHash() {
@@ -1611,6 +1628,7 @@
     if (h === "#peek") openPeek(2);
     if (h === "#date") pageDue.click();
     if (h === "#calendar") document.querySelector('.nk-db-tab[data-view="calendar"]').click();
+    if (h === "#gallery") document.querySelector('.nk-db-tab[data-view="gallery"]').click();
     if (h === "#dialog") openDialog(trashDialog, () => showToast("In den Papierkorb verschoben"), pageMenuBtn);
     if (h === "#settings") modal.classList.add("open");
   }

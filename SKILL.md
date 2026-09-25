@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.13.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.14.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -730,6 +730,22 @@ The database as Notion's month, a view tab like table, board and list: a head wi
 
 - **Classes:** `.nk-calendar-view`, `.weeks`, `.cv-head`, `.cv-title`, `.cv-grid`, `.cv-wd`, `.cv-week`, `.cv-day`, `.out`, `.off`, `.today`, `.cv-num`, `.cv-item`
 - **On a small screen:** Below 860px the days get lower (64px) and the cards smaller; seven columns still fit.
+
+### Gallery view — `.nk-gallery`
+
+The fifth database view: the rows as cards with a picture on top, in a grid that fills the row – Notion's gallery, for a course catalog or a reading list. A card is the board's `.nk-card` with `.card-title` and `.card-meta`; a `.nk-cover` as its first child runs to the card's edges in 2:1, a picture inside cropped to fill – without one the cover gradient shows. `.small` and `.large` set the card size, columns from 180px and 340px instead of 260px; `.fit` shows a picture whole, for logos. A `.nk-new-row` at the end becomes the add card. Clicking a card is your script, as with a row of the table.
+
+```html
+<div class="nk-gallery" role="list">
+  <div class="nk-card" role="listitem" tabindex="0"><div class="nk-cover"><img src="covers/aurora.svg" alt=""></div><div class="card-title">🚀 Roadmap</div><div class="card-meta"><span class="nk-tag green">Done</span><span>📅 12.05.2026</span></div></div>
+  <div class="nk-card" role="listitem" tabindex="0"><div class="nk-cover"><img src="covers/dunes.svg" alt=""></div><div class="card-title">🎨 Design system</div><div class="card-meta"><span class="nk-tag blue">In progress</span><span>📅 20.05.2026</span></div></div>
+  <div class="nk-card" role="listitem" tabindex="0"><div class="nk-cover"></div><div class="card-title">📣 Launch</div><div class="card-meta"><span class="nk-tag yellow">Planned</span><span>📅 02.06.2026</span></div></div>
+  <div class="nk-new-row" role="button" tabindex="0">＋ New page</div>
+</div>
+```
+
+- **Classes:** `.nk-gallery`, `.small`, `.large`, `.fit`
+- **On a small screen:** The grid drops columns by itself – one card per row on a phone, no breakpoint involved.
 
 ## Forms & settings (PRD 5.6)
 
@@ -2347,7 +2363,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `text` `flush` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
-| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` |
+| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` `nk-gallery` `small` `large` `fit` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `fit` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `nk-tooltip` `tt-key` `lines` |
@@ -2391,7 +2407,7 @@ customElements.define('nk-callout', NkCallout);
 
 ## 10. NotionKit Elements
 
-The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elements` (87 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
+The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elements` (88 elements, https://notionkit-elements.jungherz.com, own SKILL.md at https://notionkit-elements.jungherz.com/SKILL.md). It adopts the component sheet from this package and follows these conventions, so class markup and element markup map one to one:
 
 | CSS class markup | Element markup |
 |---|---|
@@ -2410,4 +2426,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.13.0 · MIT · Jungherz GmbH*
+*NotionKit v1.14.0 · MIT · Jungherz GmbH*

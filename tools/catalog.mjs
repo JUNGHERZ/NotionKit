@@ -602,6 +602,21 @@ export const CATALOG = [
   html: W => calendarViewMarkup(W, { month: '2026-05', today: '2026-05-20', items: { '2026-05-08': [`🧭 ${W.calItem1}`], '2026-05-10': [`📄 ${W.calItem2}`], '2026-05-20': [`🗃️ ${W.calItem3}`, `▤ ${W.calItem4}`] } }),
 },
 {
+  id: 'nk-gallery', group: 'database', classes: ['nk-gallery', 'small', 'large', 'fit'],
+  title: { en: 'Gallery view', de: 'Galerie-Ansicht' },
+  desc: {
+    en: 'The fifth database view: the rows as cards with a picture on top, in a grid that fills the row – Notion\'s gallery, for a course catalog or a reading list. A card is the board\'s <code>.nk-card</code> with <code>.card-title</code> and <code>.card-meta</code>; a <code>.nk-cover</code> as its first child runs to the card\'s edges in 2:1, a picture inside cropped to fill – without one the cover gradient shows. <code>.small</code> and <code>.large</code> set the card size, columns from 180px and 340px instead of 260px; <code>.fit</code> shows a picture whole, for logos. A <code>.nk-new-row</code> at the end becomes the add card. Clicking a card is your script, as with a row of the table.',
+    de: 'Die fünfte Datenbank-Ansicht: die Einträge als Karten mit einem Bild oben, in einem Raster, das die Zeile füllt – Notions Galerie, für einen Kurskatalog oder eine Leseliste. Eine Karte ist die <code>.nk-card</code> des Boards mit <code>.card-title</code> und <code>.card-meta</code>; ein <code>.nk-cover</code> als erstes Kind läuft in 2:1 bis an die Ränder der Karte, ein Bild darin wird beschnitten – ohne Bild zeigt sich der Cover-Verlauf. <code>.small</code> und <code>.large</code> setzen die Kartengröße, Spalten ab 180px und 340px statt 260px; <code>.fit</code> zeigt ein Bild ganz, für Logos. Ein <code>.nk-new-row</code> am Ende wird zur Hinzufügen-Karte. Der Klick auf eine Karte ist dein Skript, wie bei einer Tabellenzeile.',
+  },
+  mobile: { en: 'The grid drops columns by itself – one card per row on a phone, no breakpoint involved.', de: 'Das Raster verliert Spalten von selbst – auf dem Telefon eine Karte pro Zeile, ganz ohne Breakpoint.' },
+  html: W => `<div class="nk-gallery" role="list">
+  <div class="nk-card" role="listitem" tabindex="0"><div class="nk-cover"><img src="${W.asset}covers/aurora.svg" alt=""></div><div class="card-title">🚀 ${W.roadmap}</div><div class="card-meta"><span class="nk-tag green">${W.done}</span><span>📅 12.05.2026</span></div></div>
+  <div class="nk-card" role="listitem" tabindex="0"><div class="nk-cover"><img src="${W.asset}covers/dunes.svg" alt=""></div><div class="card-title">🎨 ${W.designSystem}</div><div class="card-meta"><span class="nk-tag blue">${W.inProgress}</span><span>📅 20.05.2026</span></div></div>
+  <div class="nk-card" role="listitem" tabindex="0"><div class="nk-cover"></div><div class="card-title">📣 ${W.launch}</div><div class="card-meta"><span class="nk-tag yellow">${W.planned}</span><span>📅 02.06.2026</span></div></div>
+  <div class="nk-new-row" role="button" tabindex="0">${W.newPage}</div>
+</div>`,
+},
+{
   id: 'nk-copy-field', group: 'forms', classes: ['nk-copy-field', 'cf-value', 'cf-btn', 'copied', 'mono', 'wrap', 'wide'],
   title: { en: 'Copy field', de: 'Kopierfeld' },
   desc: {

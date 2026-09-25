@@ -4,6 +4,18 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.14.0] – 2026-09-25
+
+The gallery view, the fifth database view – LearnHub's wish for its course catalog, where tiles with a 64px cover band left the course pictures hard to make out. Additive.
+
+### Added
+- **Gallery view: `.nk-gallery`** (`small`, `large`, `fit`). The rows as cards with a picture on top, in a grid that fills the row – Notion's gallery, for a course catalog or a reading list. A card is the board's `.nk-card` with `.card-title` and `.card-meta`; a `.nk-cover` as its first child runs to the card's edges in 2:1, a picture inside cropped to fill, the cover gradient without one. `.small` and `.large` set the card size – columns from 180px and 340px instead of 260px – and `.fit` shows a picture whole, for logos. A `.nk-new-row` at the end becomes a dashed add card. The grid drops columns by itself: one card per row on a phone.
+- Demo: the project database has a Gallery tab, each project with one of the four covers; `#gallery` opens it, and a card opens in the side peek like a row of the table.
+
+### Fixed
+- **A `<button>` as the action of a banner stands at its right edge again in NotionKit Elements.** Since 1.11.0 the docs write the action as a button, and on a page with `class="nk-body"` the scoped button reset set its margin to 0 – the outer tree wins over `::slotted()` – so after a short text the action sat right behind it. The `::slotted` twins take `margin-left` with `!important` now, as the panel's heading and the page's lead already do. Class markup was never affected.
+- The pages and SKILL.md count 88 elements in NotionKit Elements.
+
 ## [1.13.0] – 2026-09-25
 
 LearnHub moved from 1.5.1 to 1.11 and sent back three findings about fixed sizes: fields that ran past a narrow tile, a cover that the title touched when the page had no icon, and cover heights nobody could change inside an element. Additive – a page with a cover and an icon, a field row and every other layout stay as they were.
