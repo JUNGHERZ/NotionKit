@@ -13,6 +13,10 @@ const box = (page, sel) => page.evaluate(s => { const r = document.querySelector
 test('sidebar: « shows over the sidebar and collapses it; the main column takes the width; ☰ brings it back', async ({ page }) => {
   await page.goto('/app.html');
   const opacity = () => page.evaluate(() => getComputedStyle(document.getElementById('sidebarCollapse')).opacity);
+  // The pointer starts at 0/0, over the sidebar; in CI Chromium can hover it
+  // on load. Away from the sidebar the « is hidden.
+  await page.mouse.move(900, 600);
+  await settle(page);
   expect(await opacity()).toBe('0');
   await page.hover('.nk-sidebar-scroll');
   await settle(page);
