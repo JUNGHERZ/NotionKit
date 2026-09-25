@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.12.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.13.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -137,6 +137,8 @@ All visual values are custom properties. `:root` holds the light theme, `[data-t
 | `--nk-sidebar-width` | `260px` | — (inherits) | Sidebar width, also its min-width (plus the left safe-area inset, if any) |
 | `--nk-peek-width` | `560px` | — (inherits) | Width of the side peek; .pk-resize sets it on :root while dragging |
 | `--nk-page-full-max` | `none` | — (inherits) | Cap of a .nk-page.full column – none: the whole window, 1080px for a dashboard without 1600px lines |
+| `--nk-cover-height` | `200px` | — (inherits) | Height of the page cover band – on :root or on one cover; Notion takes about 30vh |
+| `--nk-panel-cover-height` | `64px` | — (inherits) | Height of a cover inside a panel, the band of a page tile |
 | `--nk-tab-bar-height` | `58px` | — (inherits) | Mobile tab bar height without the safe-area inset (the inset replaces the 6px bottom padding); the spacer uses the same value |
 | `--nk-radius` | `6px` | — (inherits) | Control radius. Cards and modals use 8–12px directly |
 | `--nk-font` | `ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif` | — (inherits) | System font stack |
@@ -414,7 +416,7 @@ The properties under the title of a database page – the pattern Notion is know
 
 ### Cover — `.nk-cover`
 
-A 200px decorative band above the page. Three radial gradients mixed from the `--nk-decor-*` tokens over `--nk-bg-callout`. For a picture put an `<img>` inside: it fills the band and is cropped, never stretched, and `object-position` moves the crop, as Notion's “Reposition” does. The gradient stays underneath while it loads.
+A decorative band above the page, 200px tall – the token `--nk-cover-height`, on `:root` or on one cover; Notion's own takes about 30vh, `clamp(200px, 30vh, 300px)` comes close. Three radial gradients mixed from the `--nk-decor-*` tokens over `--nk-bg-callout`. For a picture put an `<img>` inside: it fills the band and is cropped, never stretched, and `object-position` moves the crop, as Notion's “Reposition” does. The gradient stays underneath while it loads.
 
 ```html
 <div class="nk-cover"></div>
@@ -422,7 +424,7 @@ A 200px decorative band above the page. Three radial gradients mixed from the `-
 ```
 
 - **Classes:** `.nk-cover`
-- **On a small screen:** Fixed 200px height, full bleed. Reduce it yourself if it eats too much of a short screen.
+- **On a small screen:** Full bleed, as tall as `--nk-cover-height`; lower the token if the band eats too much of a short screen. Without a page icon the page keeps its top padding under the cover.
 
 ### Headings & lead — `.nk-heading`
 
@@ -733,7 +735,7 @@ The database as Notion's month, a view tab like table, board and list: a head wi
 
 ### Inputs, textarea, select — `.nk-input`
 
-One shared shape for all three: filled with `--nk-bg-input` inside a hairline, 32px tall at 14px — Notion's input, not an outlined white box. The focus ring is mixed from the accent, so it re-brands with it. `.wide` makes an input fill its row.
+One shared shape for all three: filled with `--nk-bg-input` inside a hairline, 32px tall at 14px — Notion's input, not an outlined white box. The focus ring is mixed from the accent, so it re-brands with it. `.wide` makes an input fill its row. Each keeps at least 210px, except inside a panel, where it never runs past the edge of a narrow tile; a field row keeps the 210px there too.
 
 ```html
 <div>
@@ -748,7 +750,7 @@ One shared shape for all three: filled with `--nk-bg-input` inside a hairline, 3
 
 ### Copy field — `.nk-copy-field`
 
-A value to take along – a link to share, an address, a key – in a field of its own, as tall as an input, with its actions inside on the right. `.cf-value` holds the text on one line with an ellipsis, and a click selects it whole; `.cf-btn`s are the quiet actions – Copy and, for a secret, Show. `.copied` on a button is the moment after, in green; the copying is your script. `mono` for addresses, keys and code, `wrap` lets a long value break with the actions on its first line, `wide` fills the row.
+A value to take along – a link to share, an address, a key – in a field of its own, as tall as an input, with its actions inside on the right. `.cf-value` holds the text on one line with an ellipsis, and a click selects it whole; `.cf-btn`s are the quiet actions – Copy and, for a secret, Show. `.copied` on a button is the moment after, in green; the copying is your script. `mono` for addresses, keys and code, `wrap` lets a long value break with the actions on its first line, `wide` fills the row. Like an input it keeps at least 210px, except inside a panel.
 
 ```html
 <div class="nk-copy-field"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn">Copy</button></div>
@@ -1247,7 +1249,7 @@ A fluid `repeat(auto-fit, minmax(min(280px, 100%), 1fr))` grid. There is no brea
 
 ### Panels — `.nk-panel`
 
-A neutral surface for content that belongs together – the cards on Notion's Home, the boxes in its settings. Not `.nk-card`, which is the board card. `.nk-panels` sets several in a grid of columns at least 200px wide that share the row. Inside, an `<h3>` is the title and a `<p>` the quiet text; a `.nk-cover` as first child runs to the panel's edges, and a `.nk-page-icon` after it overlaps the cover – a page tile, as on Home under “Recently visited”. As an `<a>` or `<button>` the panel answers the pointer. `.p-head` holds the title with something at its right edge in `.p-end` – a state as a tag, a button – as Notion's settings boxes show a connection; where both do not fit, the end moves under the title. `.nk-panels.flush` drops the grid's outer margin.
+A neutral surface for content that belongs together – the cards on Notion's Home, the boxes in its settings. Not `.nk-card`, which is the board card. `.nk-panels` sets several in a grid of columns at least 200px wide that share the row. Inside, an `<h3>` is the title and a `<p>` the quiet text; a `.nk-cover` as first child runs to the panel's edges, and a `.nk-page-icon` after it overlaps the cover – a page tile, as on Home under “Recently visited”. As an `<a>` or `<button>` the panel answers the pointer. `.p-head` holds the title with something at its right edge in `.p-end` – a state as a tag, a button – as Notion's settings boxes show a connection; where both do not fit, the end moves under the title. `.nk-panels.flush` drops the grid's outer margin. A cover in a panel is `--nk-panel-cover-height` tall (64px). Inputs, selects and copy fields in a panel never run past its edge, however narrow the tile.
 
 ```html
 <div class="nk-panels">
@@ -2408,4 +2410,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.12.0 · MIT · Jungherz GmbH*
+*NotionKit v1.13.0 · MIT · Jungherz GmbH*

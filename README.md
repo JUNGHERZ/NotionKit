@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.12.0-2383e2?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.13.0-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
   <img src="https://img.shields.io/badge/components-~140-448361?style=flat-square" alt="Components">
-  <img src="https://img.shields.io/badge/gzip-14.2%20KB-d9730d?style=flat-square" alt="Size">
+  <img src="https://img.shields.io/badge/gzip-14.3%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.12.0-9065b0?style=flat-square" alt="Changelog"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.13.0-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
   <a href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit/"><img src="https://img.shields.io/badge/CDN-jsDelivr-blue?style=flat-square" alt="jsDelivr"></a>
 </p>
@@ -61,7 +61,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 - 🧩 **Shadow DOM ready** – ships a constructable stylesheet split into tokens and components, plus `::slotted()` twins, so web components adopt it without breaking branding
 - ✍️ **Editor adapter** – no editor of its own; a themed adapter layer for TipTap, BlockNote and Novel inside `.nk-block-host`
 - 🤖 **AI-ready** – ships with [`SKILL.md`](SKILL.md), a structured reference for LLMs and coding agents, including eight complete app skeletons
-- 🪶 **Lightweight** – 122 KB raw / 78 KB minified / 14.2 KB gzipped, no dependencies. The budget is 18 KB gzipped – up to 1.9.0 it was 14 KB, what a new connection delivers in its first round trip; CI keeps to it
+- 🪶 **Lightweight** – 122 KB raw / 79 KB minified / 14.3 KB gzipped, no dependencies. The budget is 18 KB gzipped – up to 1.9.0 it was 14 KB, what a new connection delivers in its first round trip; CI keeps to it
 - 🎯 **Prefixed naming** – `nk-*` classes, `--nk-*` tokens, no unprefixed global rules
 
 ---
@@ -77,7 +77,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 Pin a version for production:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.12.0/notionkit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.13.0/notionkit.min.css">
 ```
 
 ### npm / yarn / pnpm
@@ -178,7 +178,7 @@ About 140 component classes across eleven groups. Every one of them is documente
 ### Page & content
 | Class | Description |
 |---|---|
-| `nk-page-scroll`, `nk-cover`, `nk-page`, `nk-page-icon`, `nk-page-title`, `nk-page-meta` | Document shell: 760px column with auto margins; an `<img>` in the cover is cropped to fill it |
+| `nk-page-scroll`, `nk-cover`, `nk-page`, `nk-page-icon`, `nk-page-title`, `nk-page-meta` | Document shell: 760px column with auto margins; an `<img>` in the cover is cropped to fill it, the band as tall as `--nk-cover-height` |
 | `nk-page` (`full`, `small`) | Notion's page options: full width – capped by `--nk-page-full-max` if you like – and small text (14px), per page |
 | `nk-props` (`flush`), `nk-prop` (`p-name`, `p-icon`, `p-value`, `text`) | Page properties under the title, name beside value – under it in a column narrower than 380px |
 | `nk-heading`, `p.lead` | Section heading, intro paragraph |

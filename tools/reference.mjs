@@ -86,6 +86,8 @@ export const TOKEN_MEANING = {
   '--nk-sidebar-width': { en: 'Sidebar width, also its min-width (plus the left safe-area inset, if any)', de: 'Sidebar-Breite, zugleich ihre min-width (plus linker Safe-Area-Inset, falls vorhanden)' },
   '--nk-peek-width': { en: 'Width of the side peek; .pk-resize sets it on :root while dragging', de: 'Breite des Side Peeks; .pk-resize setzt es beim Ziehen auf :root' },
   '--nk-page-full-max': { en: 'Cap of a .nk-page.full column – none: the whole window, 1080px for a dashboard without 1600px lines', de: 'Grenze einer .nk-page.full-Spalte – none: das ganze Fenster, 1080px für ein Dashboard ohne 1600px lange Zeilen' },
+  '--nk-cover-height': { en: 'Height of the page cover band – on :root or on one cover; Notion takes about 30vh', de: 'Höhe des Cover-Bands der Seite – auf :root oder an einem Cover; Notion nimmt etwa 30vh' },
+  '--nk-panel-cover-height': { en: 'Height of a cover inside a panel, the band of a page tile', de: 'Höhe eines Covers im Panel, das Band einer Seitenkachel' },
   '--nk-tab-bar-height': { en: 'Mobile tab bar height without the safe-area inset (the inset replaces the 6px bottom padding); the spacer uses the same value', de: 'Höhe der mobilen Tab-Bar ohne Safe-Area; der Platzhalter nutzt denselben Wert' },
   '--nk-radius': { en: 'Control radius. Cards and modals use 8–12px directly', de: 'Radius für Bedienelemente. Karten und Modals nutzen direkt 8–12px' },
   '--nk-font': { en: 'System font stack', de: 'System-Schriftstapel' },

@@ -4,6 +4,18 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.13.0] – 2026-09-25
+
+LearnHub moved from 1.5.1 to 1.11 and sent back three findings about fixed sizes: fields that ran past a narrow tile, a cover that the title touched when the page had no icon, and cover heights nobody could change inside an element. Additive – a page with a cover and an icon, a field row and every other layout stay as they were.
+
+### Added
+- **Tokens `--nk-cover-height` (200px) and `--nk-panel-cover-height` (64px).** The page cover and the cover of a panel were fixed, and an element's shadow root kept them out of reach. Set on `:root` or on one cover or panel – `--nk-cover-height: clamp(200px, 30vh, 300px)` comes close to Notion's own 30vh.
+
+### Fixed
+- **Inputs, selects, textareas and copy fields stay inside a panel.** Their 210px floor ran past a tile of the 200px grid – about 166px inside – as soon as a window fit four tiles in a row. Inside a `.nk-panel` the floor is `min(210px, 100%)` now, and every field has `max-width: 100%`. A field row keeps its 210px, in a panel too: the plain `min(210px, 100%)` for every field, as proposed, would have narrowed the input of every settings row to its own default width, 168px, because the control box of a row takes its width from its content.
+- **A cover without a page icon no longer touches the title.** A page after a cover dropped its top padding so that the icon could overlap the cover; without an icon nothing was left between the picture and the title. The padding now goes only when there is an icon (`.nk-cover + .nk-page:has(> .nk-page-icon)`), as Notion leaves room under a cover too.
+- The token table describes the two new tokens; the docs no longer tell a reader to lower the cover “yourself”, which an element never allowed.
+
 ## [1.12.0] – 2026-09-25
 
 Auxdesk moved from 1.5.1 to 1.11 and sent back eight findings; this release answers all of them. Panels carry a tag or a button beside their title, property lists and panel grids can drop the margin meant for a page, text values flow as text, a value moves under its name in a narrow column, steps take their state one by one and can run in a row, tabs scroll, a full page can have a cap, and a table row can carry buttons. Additive but for property values in columns narrower than 380px, see Changed.

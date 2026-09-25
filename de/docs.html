@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.12.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.13.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Doku</a>
@@ -321,6 +321,8 @@
         <tr><td><code>--nk-sidebar-width</code></td><td><code>260px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Sidebar-Breite, zugleich ihre min-width (plus linker Safe-Area-Inset, falls vorhanden)</td></tr>
         <tr><td><code>--nk-peek-width</code></td><td><code>560px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Breite des Side Peeks; .pk-resize setzt es beim Ziehen auf :root</td></tr>
         <tr><td><code>--nk-page-full-max</code></td><td><code>none</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Grenze einer .nk-page.full-Spalte – none: das ganze Fenster, 1080px für ein Dashboard ohne 1600px lange Zeilen</td></tr>
+        <tr><td><code>--nk-cover-height</code></td><td><code>200px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Höhe des Cover-Bands der Seite – auf :root oder an einem Cover; Notion nimmt etwa 30vh</td></tr>
+        <tr><td><code>--nk-panel-cover-height</code></td><td><code>64px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Höhe eines Covers im Panel, das Band einer Seitenkachel</td></tr>
         <tr><td><code>--nk-tab-bar-height</code></td><td><code>58px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Höhe der mobilen Tab-Bar ohne Safe-Area; der Platzhalter nutzt denselben Wert</td></tr>
         <tr><td><code>--nk-radius</code></td><td><code>6px</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>Radius für Bedienelemente. Karten und Modals nutzen direkt 8–12px</td></tr>
         <tr><td><code>--nk-font</code></td><td><code>ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif</code></td><td><span style="color:var(--nk-text-tertiary)">—</span></td><td>System-Schriftstapel</td></tr>
@@ -776,14 +778,14 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-cover">
         <h3>Cover <code>.nk-cover</code></h3>
-        <p class="doc-desc">Ein 200px hohes Zierband über der Seite. Drei radiale Verläufe, gemischt aus den <code>--nk-decor-*</code>-Tokens über <code>--nk-bg-callout</code>. Für ein Bild ein <code>&lt;img&gt;</code> hineinsetzen: Es füllt das Band und wird beschnitten, nie verzerrt, und <code>object-position</code> verschiebt den Ausschnitt wie Notions „Neu positionieren“. Der Verlauf bleibt darunter, solange es lädt.</p>
+        <p class="doc-desc">Ein Zierband über der Seite, 200px hoch – das Token <code>--nk-cover-height</code>, auf <code>:root</code> oder an einem Cover; Notions eigenes nimmt etwa 30vh, <code>clamp(200px, 30vh, 300px)</code> kommt nahe heran. Drei radiale Verläufe, gemischt aus den <code>--nk-decor-*</code>-Tokens über <code>--nk-bg-callout</code>. Für ein Bild ein <code>&lt;img&gt;</code> hineinsetzen: Es füllt das Band und wird beschnitten, nie verzerrt, und <code>object-position</code> verschiebt den Ausschnitt wie Notions „Neu positionieren“. Der Verlauf bleibt darunter, solange es lädt.</p>
         <div class="doc-preview"><div class="nk-cover" style="border-radius:var(--nk-radius)"></div>
 <div class="nk-cover" style="height:120px;border-radius:var(--nk-radius);margin-top:12px"><img src="../covers/meadow.svg" alt=""></div></div>
         
         
         <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover" <span class="attr">style=</span>"border-radius:var(--nk-radius)"<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-cover" <span class="attr">style=</span>"height:120px;border-radius:var(--nk-radius);margin-top:12px"<span class="tag">&gt;</span><span class="tag">&lt;img</span> <span class="attr">src=</span>"../covers/meadow.svg" <span class="attr">alt=</span>""<span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
-        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Feste 200px Höhe, randlos. Auf kurzen Schirmen bei Bedarf selbst reduzieren.</span></div>
+        <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Randlos, so hoch wie <code>--nk-cover-height</code>; das Token senken, wenn das Band zu viel eines kurzen Schirms frisst. Ohne Seiten-Icon behält die Seite ihren oberen Abstand unter dem Cover.</span></div>
         <div class="doc-classes"><code>.nk-cover</code></div>
       </article>
       <article class="doc-entry" id="nk-heading">
@@ -1196,7 +1198,7 @@ class NkCallout extends HTMLElement {
       <div class="prd">PRD 5.6</div>
       <article class="doc-entry" id="nk-input">
         <h3>Inputs, Textarea, Select <code>.nk-input</code></h3>
-        <p class="doc-desc">Eine gemeinsame Form für alle drei: gefüllt mit <code>--nk-bg-input</code> in einer Haarlinie, 32px hoch bei 14px – Notions Input, keine umrandete weiße Box. Der Fokusring wird aus dem Akzent gemischt und färbt sich mit ihm um. <code>.wide</code> füllt die Zeile.</p>
+        <p class="doc-desc">Eine gemeinsame Form für alle drei: gefüllt mit <code>--nk-bg-input</code> in einer Haarlinie, 32px hoch bei 14px – Notions Input, keine umrandete weiße Box. Der Fokusring wird aus dem Akzent gemischt und färbt sich mit ihm um. <code>.wide</code> füllt die Zeile. Jedes behält mindestens 210px, außer in einem Panel, wo es nie über den Rand einer schmalen Kachel hinausragt; eine Feldzeile behält die 210px auch dort.</p>
         <div class="doc-preview"><div style="display:flex;flex-direction:column;gap:10px;max-width:340px">
   <input class="nk-input wide" value="Ada Lovelace">
   <select class="nk-select wide"><option>Hell</option><option>Dunkel</option><option>System</option></select>
@@ -1214,7 +1216,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-copy-field">
         <h3>Kopierfeld <code>.nk-copy-field</code></h3>
-        <p class="doc-desc">Ein Wert zum Mitnehmen – ein Link zum Teilen, eine Adresse, ein Schlüssel – in einem eigenen Feld, so hoch wie ein Eingabefeld, mit seinen Aktionen rechts darin. <code>.cf-value</code> hält den Text in einer Zeile mit Auslassungspunkten, ein Klick markiert ihn ganz; <code>.cf-btn</code>s sind die leisen Aktionen – Kopieren und, bei einem Geheimnis, Zeigen. <code>.copied</code> an einem Button ist der Moment danach, in Grün; das Kopieren übernimmt dein Skript. <code>mono</code> für Adressen, Schlüssel und Code, <code>wrap</code> lässt einen langen Wert umbrechen, die Aktionen bleiben in der ersten Zeile, <code>wide</code> füllt die Zeile.</p>
+        <p class="doc-desc">Ein Wert zum Mitnehmen – ein Link zum Teilen, eine Adresse, ein Schlüssel – in einem eigenen Feld, so hoch wie ein Eingabefeld, mit seinen Aktionen rechts darin. <code>.cf-value</code> hält den Text in einer Zeile mit Auslassungspunkten, ein Klick markiert ihn ganz; <code>.cf-btn</code>s sind die leisen Aktionen – Kopieren und, bei einem Geheimnis, Zeigen. <code>.copied</code> an einem Button ist der Moment danach, in Grün; das Kopieren übernimmt dein Skript. <code>mono</code> für Adressen, Schlüssel und Code, <code>wrap</code> lässt einen langen Wert umbrechen, die Aktionen bleiben in der ersten Zeile, <code>wide</code> füllt die Zeile. Wie ein Input behält es mindestens 210px, außer in einem Panel.</p>
         <div class="doc-preview"><div class="nk-copy-field" style="max-width:340px"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn">Kopieren</button></div>
 <div class="nk-copy-field mono" style="max-width:340px;margin-top:10px"><span class="cf-value">ntn_••••••••••••••••••••</span><button class="cf-btn">Zeigen</button><button class="cf-btn copied">✓ Kopiert</button></div></div>
         <pre class="nk-code"><span class="lang">js</span>btn.addEventListener('click', async () =&gt; {
@@ -1883,7 +1885,7 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
       </article>
       <article class="doc-entry" id="nk-panel">
         <h3>Panels <code>.nk-panel</code></h3>
-        <p class="doc-desc">Eine neutrale Fläche für Inhalt, der zusammengehört – die Karten auf Notions Startseite, die Kästen in seinen Einstellungen. Nicht <code>.nk-card</code>, das ist die Board-Karte. <code>.nk-panels</code> setzt mehrere in ein Raster mit Spalten von mindestens 200px, die sich die Zeile teilen. Darin ist ein <code>&lt;h3&gt;</code> der Titel und ein <code>&lt;p&gt;</code> der ruhige Text; ein <code>.nk-cover</code> als erstes Kind läuft bis an die Ränder, ein <code>.nk-page-icon</code> danach überlappt das Cover – eine Seitenkachel wie auf der Startseite unter „Zuletzt besucht“. Als <code>&lt;a&gt;</code> oder <code>&lt;button&gt;</code> reagiert das Panel auf den Zeiger. <code>.p-head</code> hält den Titel mit etwas an seinem rechten Rand in <code>.p-end</code> – einen Zustand als Tag, einen Button –, wie Notions Einstellungskästen eine Verbindung zeigen; passt beides nicht nebeneinander, rutscht das Ende unter den Titel. <code>.nk-panels.flush</code> nimmt dem Raster den Außenabstand.</p>
+        <p class="doc-desc">Eine neutrale Fläche für Inhalt, der zusammengehört – die Karten auf Notions Startseite, die Kästen in seinen Einstellungen. Nicht <code>.nk-card</code>, das ist die Board-Karte. <code>.nk-panels</code> setzt mehrere in ein Raster mit Spalten von mindestens 200px, die sich die Zeile teilen. Darin ist ein <code>&lt;h3&gt;</code> der Titel und ein <code>&lt;p&gt;</code> der ruhige Text; ein <code>.nk-cover</code> als erstes Kind läuft bis an die Ränder, ein <code>.nk-page-icon</code> danach überlappt das Cover – eine Seitenkachel wie auf der Startseite unter „Zuletzt besucht“. Als <code>&lt;a&gt;</code> oder <code>&lt;button&gt;</code> reagiert das Panel auf den Zeiger. <code>.p-head</code> hält den Titel mit etwas an seinem rechten Rand in <code>.p-end</code> – einen Zustand als Tag, einen Button –, wie Notions Einstellungskästen eine Verbindung zeigen; passt beides nicht nebeneinander, rutscht das Ende unter den Titel. <code>.nk-panels.flush</code> nimmt dem Raster den Außenabstand. Ein Cover im Panel ist <code>--nk-panel-cover-height</code> hoch (64px). Inputs, Selects und Kopierfelder in einem Panel ragen nie über seinen Rand, wie schmal die Kachel auch ist.</p>
         <div class="doc-preview"><div class="nk-panels">
   <a class="nk-panel" href="#">
     <div class="nk-cover"><img src="../covers/aurora.svg" alt=""></div>
