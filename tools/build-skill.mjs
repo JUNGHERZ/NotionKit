@@ -235,6 +235,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; \`.novel-editor\`
 - Give every overlay its backdrop: \`.nk-modal-backdrop > .nk-modal\`, \`.nk-cmdk-backdrop > .nk-cmdk\`.
 - Derive colours with \`color-mix(in srgb, var(--nk-accent) 25%, transparent)\` when you need a tint.
 - Pass icons **directly** into a slot (\`<span slot="icon">💡</span>\`), never wrapped in another element.
+- **Blocks in a column with a gap:** set \`--nk-block-space: 0\` on the column and every block inside – callout, quote, code, divider, database, panels, properties … – drops its outer margin; \`.flush\` does it for one block. Headings keep theirs.
 - **Layout wrappers are yours.** NotionKit ships no utility classes on purpose. A \`<div style="display:flex;gap:8px">\` around two buttons, or \`style="max-width:none"\` on \`.nk-page\` for a data-centric screen, is the intended way – inline *layout* is fine. Inline *colour* or *state* is not (use tokens and state classes).
 
 ### ❌ Common mistakes

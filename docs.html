@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.15.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.16.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Docs</a>
@@ -1096,7 +1096,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-progress">
         <h3>Progress bar <code>.nk-progress</code></h3>
-        <p class="doc-desc">A 6px rail whose fill is an <code>&lt;i&gt;</code> with a percentage width. Track and fill use Notion's blue tint and mid-tone, so a re-theme carries them along. 110px wide in a cell; <code>wide</code> fills its row – a property value, a panel, a course overview – and in a flex row the label keeps its place beside it.</p>
+        <p class="doc-desc">A 6px rail whose fill is an <code>&lt;i&gt;</code> with a percentage width. Track and fill use Notion's blue tint and mid-tone, so a re-theme carries them along. 110px wide in a cell; <code>wide</code> fills its row – a property value, a panel, a course overview – and in a flex row the label keeps its place beside it; in a flex column it stays a 6px bar.</p>
         <div class="doc-preview"><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
 <span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span>
 <div style="display:flex;align-items:center;max-width:360px;margin-top:14px"><span class="nk-progress wide"><i style="width:80%"></i></span><span class="nk-progress-label">80 %</span></div></div>
@@ -1146,7 +1146,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-list">
         <h3>List view <code>.nk-list</code></h3>
-        <p class="doc-desc">The third database view: one line per row – icon, title and a few properties on the right – as Notion shows a database under “List”. Hairlines between rows and the hover wash across the whole row, like a table without columns; the last row drops its line. As an <code>&lt;a&gt;</code> each row is a real link. Put it in <code>.nk-database</code> under the view tabs, or use it on its own for any list of pages.</p>
+        <p class="doc-desc">The third database view: one line per row – icon, title and a few properties on the right – as Notion shows a database under “List”. Hairlines between rows and the hover wash across the whole row, like a table without columns; the last row drops its line. As an <code>&lt;a&gt;</code> each row is a real link. Put it in <code>.nk-database</code> under the view tabs, or use it on its own for any list of pages. A row that is no target itself – a file with its own Remove button – takes <code>.static</code>: no hand, no hover wash.</p>
         <div class="doc-preview"><div class="nk-list" style="max-width:520px">
   <a class="nk-list-item" href="#"><span class="l-icon">🚀</span><span class="l-title">Roadmap</span><span class="l-meta">12.05.2026 <span class="nk-tag green">Done</span></span></a>
   <a class="nk-list-item" href="#"><span class="l-icon">🎨</span><span class="l-title">Design system</span><span class="l-meta">20.05.2026 <span class="nk-tag blue">In progress</span></span></a>
@@ -1160,7 +1160,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-list-item" <span class="attr">href=</span>"#"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-icon"<span class="tag">&gt;</span>📣<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-title"<span class="tag">&gt;</span>Launch<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-meta"<span class="tag">&gt;</span>02.06.2026 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag orange"<span class="tag">&gt;</span>Planned<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/a</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Stays one line per row: the title gives way first and ends in an ellipsis, the properties keep their place.</span></div>
-        <div class="doc-classes"><code>.nk-list</code><code>.nk-list-item</code><code>.l-icon</code><code>.l-title</code><code>.l-meta</code><code>.last</code></div>
+        <div class="doc-classes"><code>.nk-list</code><code>.nk-list-item</code><code>.l-icon</code><code>.l-title</code><code>.l-meta</code><code>.last</code><code>.static</code></div>
       </article>
       <article class="doc-entry" id="nk-calendar-view">
         <h3>Calendar view <code>.nk-calendar-view</code></h3>
@@ -1322,7 +1322,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-btn">
         <h3>Buttons <code>.nk-btn</code></h3>
-        <p class="doc-desc">Five variants, 28px tall at 14px. <code>.secondary</code> and <code>.danger</code> are Notion's white button: the outline is <code>--nk-shadow-btn</code>, a 1px inset ring plus a 1px drop, not a border. Hover is an opacity shift on the filled ones and a wash on the white ones — never a hue change. <code>.small</code> (24px) combines with any variant.</p>
+        <p class="doc-desc">Five variants, 28px tall at 14px. <code>.secondary</code> and <code>.danger</code> are Notion's white button: the outline is <code>--nk-shadow-btn</code>, a 1px inset ring plus a 1px drop, not a border. Hover is an opacity shift on the filled ones and a wash on the white ones — never a hue change. <code>.small</code> (24px) combines with any variant. Stretched across a column – a full-width button on a sign-in page – it keeps its label centred.</p>
         <div class="doc-preview"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
   <button class="nk-btn primary">Save changes</button>
   <button class="nk-btn secondary">Discard</button>
@@ -1660,7 +1660,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-menu">
         <h3>Context menu <code>.nk-menu</code></h3>
-        <p class="doc-desc">Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu. A menu that floats over the page takes <code>floating</code> and opens and closes with <code>.open</code>, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. <code>sheet</code> makes it a bottom sheet on a phone, as Notion's mobile app opens every menu – the same markup, two presentations. A floating menu never grows past the window: a longer one scrolls inside, and <code>--_nk-float-max</code> caps it to the room a script found below or above its anchor.</p>
+        <p class="doc-desc">Combine <code>nk-pop</code> with <code>nk-menu</code>. Items take an <code>.m-icon</code> on the left and an <code>.m-shortcut</code> pushed right; <code>.danger</code> turns an item red. A <code>.nk-switch</code> as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu. A menu that floats over the page takes <code>floating</code> and opens and closes with <code>.open</code>, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. <code>sheet</code> makes it a bottom sheet on a phone, as Notion's mobile app opens every menu – the same markup, two presentations. A floating menu never grows past the window: a longer one scrolls inside, and <code>--_nk-float-max</code> caps it to the room a script found below or above its anchor. It lies above the modal, the sheet and the dialog, so a menu or a date picker opened from one of them shows over it.</p>
         <div class="doc-preview"><div class="nk-pop nk-menu">
   <div class="nk-menu-label">Pages</div>
   <div class="nk-menu-item"><span class="m-icon">✏️</span>Rename<span class="m-shortcut">⌘⇧R</span></div>

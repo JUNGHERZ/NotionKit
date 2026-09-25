@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.15.0
+   Jungherz GmbH – v1.16.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -622,7 +622,7 @@ a.crumb { text-decoration: none; }
    The value keeps at least 220px: in a column narrower than 380px – a side
    panel, a third of the page – it moves under its name instead of breaking
    an address into syllables. */
-.nk-props { display: flex; flex-direction: column; margin: 0 0 20px; font-size: 14px; line-height: 1.5; }
+.nk-props { display: flex; flex-direction: column; margin: 0 0 var(--nk-block-space, 20px); font-size: 14px; line-height: 1.5; }
 /* .flush: no outer margin – inside a panel, a cell or a flex column with a
    gap of its own, where the margin meant for the flow under a title only
    adds to their spacing. */
@@ -661,11 +661,20 @@ a.crumb { text-decoration: none; }
 /* ============================================================
    B4. CONTENT ELEMENTS  (PRD 5.4)
    ============================================================ */
+/* A block's outer margin – callout, quote, code, divider, database, panels,
+   properties and the rest below – is meant for the flow of a page. A column
+   that spaces its children with a gap of its own sets --nk-block-space: 0
+   once, on the column, and every block inside drops it; `.flush` drops it on
+   one block. Headings keep theirs, they open a section. The property is no
+   token: unset, each block keeps its own margin. */
+:is(.nk-props, .nk-callout, .nk-bookmark, .nk-toggle, .nk-divider, .nk-quote, .nk-code, .nk-database, .nk-danger-zone, .nk-gallery-grid,
+    .nk-template-btn, .nk-synced, .nk-banner, .nk-panels, .nk-skeleton, .nk-steps, .nk-comments, .nk-block-host, .nk-model-card,
+    .nk-ai-input-row).flush { margin-top: 0; margin-bottom: 0; }
 .nk-callout {
   display: flex; gap: 10px; align-items: flex-start;
   background: var(--nk-bg-callout);
   border-radius: var(--nk-radius);
-  padding: 16px 16px 16px 12px; margin: 16px 0;
+  padding: 16px 16px 16px 12px; margin: var(--nk-block-space, 16px) 0;
   line-height: 1.5;
 }
 .nk-callout .c-icon,
@@ -679,7 +688,7 @@ a.crumb { text-decoration: none; }
    link. Without an image the text takes the width, without a description
    the box gets lower. */
 .nk-bookmark {
-  display: flex; min-width: 0; margin: 8px 0; overflow: hidden;
+  display: flex; min-width: 0; margin: var(--nk-block-space, 8px) 0; overflow: hidden;
   border: 1px solid var(--nk-border); border-radius: var(--nk-radius);
   color: var(--nk-text); text-decoration: none; transition: background .12s ease;
 }
@@ -714,7 +723,7 @@ a.crumb { text-decoration: none; }
 /* The summary marker is a pseudo-element and therefore cannot be
    reached on slotted content — <nk-toggle> must render its own
    summary in the shadow tree rather than accept one via slot. */
-.nk-toggle { margin: 6px 0; }
+.nk-toggle { margin: var(--nk-block-space, 6px) 0; }
 .nk-toggle summary {
   cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px;
   padding: 4px 6px; border-radius: var(--nk-radius); font-weight: 500;
@@ -730,11 +739,11 @@ a.crumb { text-decoration: none; }
 .nk-toggle .toggle-body,
 .nk-toggle ::slotted(.toggle-body) { padding: 4px 0 8px 26px; color: var(--nk-text-secondary); line-height: 1.55; }
 
-.nk-divider { border: none; border-top: 1px solid var(--nk-border); margin: 24px 0; }
+.nk-divider { border: none; border-top: 1px solid var(--nk-border); margin: var(--nk-block-space, 24px) 0; }
 
 .nk-quote {
   border-left: 3px solid var(--nk-text); padding: 2px 0 2px 14px;
-  margin: 16px 0; color: var(--nk-text-secondary);
+  margin: var(--nk-block-space, 16px) 0; color: var(--nk-text-secondary);
   line-height: 1.5;
 }
 .nk-quote .q-cite { display: block; margin-top: 6px; font-size: 12.5px; color: var(--nk-text-tertiary); }
@@ -767,7 +776,7 @@ a.crumb { text-decoration: none; }
   background: var(--nk-bg-code); border: 1px solid var(--nk-border);
   border-radius: var(--nk-radius); padding: 20px 24px;
   font-family: var(--nk-font-mono);
-  font-size: 13px; line-height: 1.6; margin: 14px 0; overflow-x: auto;
+  font-size: 13px; line-height: 1.6; margin: var(--nk-block-space, 14px) 0; overflow-x: auto;
   color: var(--nk-text-secondary);
   white-space: pre; position: relative;
 }
@@ -784,7 +793,7 @@ a.crumb { text-decoration: none; }
 /* ============================================================
    B5. DATABASE VIEWS  (PRD 5.5)
    ============================================================ */
-.nk-database { margin: 12px 0 8px; }
+.nk-database { margin: var(--nk-block-space, 12px) 0 var(--nk-block-space, 8px); }
 
 .nk-db-tabs {
   display: flex; gap: 2px; align-items: center;
@@ -942,7 +951,9 @@ a.crumb { text-decoration: none; }
 /* `wide` fills its row – a property value, a panel, a course overview. In
    a flex row it grows from 60px, so the label keeps its place beside it
    instead of wrapping below; elsewhere it is simply 100% wide. */
-.nk-progress.wide { width: 100%; flex: 1 1 60px; }
+/* In a flex column – a panel – the 60px basis would become the bar's height;
+   max-height keeps it a bar. */
+.nk-progress.wide { width: 100%; flex: 1 1 60px; max-height: 6px; }
 .nk-progress-label { font-size: 12px; color: var(--nk-text-tertiary); margin-left: 7px; white-space: nowrap; }
 
 /* List view: one line per row – icon, title, a few properties on the right –
@@ -956,6 +967,10 @@ a.crumb { text-decoration: none; }
   color: inherit; text-decoration: none; cursor: pointer;
 }
 .nk-list-item:hover { background: var(--nk-bg-hover); }
+/* .static: a row that is no target itself – a file with its own Remove
+   button – takes neither the hand nor the hover wash. */
+.nk-list-item.static { cursor: default; }
+.nk-list-item.static:hover { background: none; }
 .nk-list > .nk-list-item:last-child,
 .nk-list ::slotted(.nk-list-item:last-child),
 .nk-list-item.last { border-bottom: none; }
@@ -1202,7 +1217,7 @@ a.crumb { text-decoration: none; }
   border-radius: var(--nk-radius); cursor: pointer;
   padding: 3px 12px; border: 1px solid transparent;
   transition: background .15s, border-color .15s, box-shadow .15s, opacity .15s;
-  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap;
 }
 .nk-btn svg,
 .nk-btn ::slotted(svg) {
@@ -1297,7 +1312,7 @@ a.nk-btn { text-decoration: none; }
 
 .nk-model-card {
   border: 1px solid var(--nk-border-strong); border-radius: 8px;
-  padding: 12px 14px; margin-bottom: 10px; cursor: pointer;
+  padding: 12px 14px; margin-bottom: var(--nk-block-space, 10px); cursor: pointer;
   display: flex; align-items: flex-start; gap: 11px;
   transition: border-color .15s, background .15s;
 }
@@ -1320,7 +1335,7 @@ a.nk-btn { text-decoration: none; }
 
 .nk-danger-zone {
   border: 1px solid color-mix(in srgb, var(--nk-danger) 40%, transparent); border-radius: 8px;
-  padding: 14px 16px; margin-top: 26px;
+  padding: 14px 16px; margin-top: var(--nk-block-space, 26px);
 }
 .nk-danger-zone .dz-title { color: var(--nk-danger); font-weight: 600; font-size: 13px; margin-bottom: 8px; }
 
@@ -1458,9 +1473,11 @@ a.nk-btn { text-decoration: none; }
    focus. Where it sits is yours: fixed or absolute, top and left or right.
    It never grows past the window: a longer menu scrolls inside, and
    --_nk-float-max, set by a placement script, caps it to the room below or
-   above its anchor. */
+   above its anchor. It lies above the modal, the sheet and the dialog (106),
+   so a menu or a date picker opened from one of them shows over it; the
+   palette, the toast and the tooltip stay above. */
 .nk-pop.floating {
-  z-index: 60; opacity: 0; visibility: hidden; pointer-events: none;
+  z-index: 106; opacity: 0; visibility: hidden; pointer-events: none;
   max-height: min(var(--_nk-float-max, 100dvh), 100dvh - 16px); overflow-y: auto; overscroll-behavior: contain;
   transform: translateY(-4px) scale(.98); transform-origin: top;
   transition: opacity .15s ease, transform .15s ease, visibility 0s linear .15s;
@@ -1647,7 +1664,7 @@ a.nk-btn { text-decoration: none; }
 /* Fluid, not breakpoint-driven: two columns in a 760px page column,
    one column as soon as the container drops below ~600px. min(280px, 100%)
    keeps the single column from overflowing containers narrower than 280px. */
-.nk-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 20px 32px; margin: 12px 0; }
+.nk-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 20px 32px; margin: var(--nk-block-space, 12px) 0; }
 .nk-g-item > h4 {
   font-size: 12px; font-weight: 500; color: var(--nk-text-tertiary);
   text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px;
@@ -1679,7 +1696,7 @@ a.nk-btn { text-decoration: none; }
   display: flex; align-items: center; gap: 8px; width: 100%;
   font-family: inherit; font-size: 14px; color: var(--nk-text-secondary);
   background: var(--nk-bg-callout); border: none; border-radius: var(--nk-radius);
-  padding: 8px 12px; cursor: pointer; margin-bottom: 6px; text-align: left;
+  padding: 8px 12px; cursor: pointer; margin-bottom: var(--nk-block-space, 6px); text-align: left;
 }
 .nk-template-btn:hover { background: var(--nk-bg-hover); }
 
@@ -1703,7 +1720,7 @@ a.nk-btn { text-decoration: none; }
 
 .nk-synced {
   border: 1.5px solid color-mix(in srgb, var(--nk-danger) 55%, transparent); border-radius: 8px;
-  padding: 12px 14px; position: relative; margin: 8px 0;
+  padding: 12px 14px; position: relative; margin: var(--nk-block-space, 8px) 0;
 }
 .nk-synced .synced-badge {
   position: absolute; top: -9px; right: 10px; font-size: 11px;
@@ -1733,7 +1750,7 @@ a.nk-btn { text-decoration: none; }
    text colour on top. The hue carries the mood, not the type. */
 .nk-banner {
   display: flex; align-items: center; gap: 10px; font-size: 14px;
-  border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; color: var(--nk-text);
+  border-radius: 8px; padding: 10px 14px; margin-bottom: var(--nk-block-space, 8px); color: var(--nk-text);
 }
 .nk-banner.info { background: var(--nk-tint-blue); }
 .nk-banner.success { background: var(--nk-tint-green); }
@@ -1816,7 +1833,7 @@ a.nk-btn { text-decoration: none; }
    or button the panel answers the pointer. Inside a panel an input, a
    select or a copy field gives up its 210px floor rather than run past the
    edge of a 200px tile; a field row keeps it. */
-.nk-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 12px; margin: 12px 0; }
+.nk-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 12px; margin: var(--nk-block-space, 12px) 0; }
 .nk-panels.flush { margin: 0; }
 .nk-panel {
   display: flex; flex-direction: column; gap: 6px; min-width: 0; --_nk-field-min: min(210px, 100%);
@@ -1842,7 +1859,7 @@ a.nk-btn { text-decoration: none; }
 .nk-panel > .nk-cover + .nk-page-icon { margin-top: -24px; }
 
 .nk-skeleton {
-  border-radius: 5px; margin-bottom: 10px;
+  border-radius: 5px; margin-bottom: var(--nk-block-space, 10px);
   background: linear-gradient(90deg, var(--nk-bg-callout) 25%, var(--nk-bg-hover) 50%, var(--nk-bg-callout) 75%);
   background-size: 200% 100%; animation: nk-shimmer 1.6s infinite;
 }
@@ -1872,7 +1889,7 @@ a.nk-btn { text-decoration: none; }
    Notion's idiom it is a numbered list with checks – but LearnHub, Auxdesk
    and NotionKit Web each build one. Write it as an <ol>; mark the current
    step with aria-current="step". */
-.nk-steps { display: flex; flex-direction: column; margin: 8px 0; padding: 0; list-style: none; font-size: 14px; }
+.nk-steps { display: flex; flex-direction: column; margin: var(--nk-block-space, 8px) 0; padding: 0; list-style: none; font-size: 14px; }
 .nk-step { position: relative; display: flex; align-items: flex-start; gap: 10px; padding-bottom: 14px; line-height: 20px; color: var(--nk-text-tertiary); }
 .nk-step:last-child { padding-bottom: 0; }
 .nk-step:not(:last-child)::after { content: ""; position: absolute; left: 10px; top: 24px; bottom: 4px; width: 1px; background: var(--nk-border); }
@@ -1906,7 +1923,7 @@ a.nk-btn { text-decoration: none; }
 /* ============================================================
    B10. COLLABORATION & AI  (PRD 5.10)
    ============================================================ */
-.nk-comments { border-left: 1px solid var(--nk-border); padding: 4px 0 4px 18px; margin: 8px 0 8px 8px; }
+.nk-comments { border-left: 1px solid var(--nk-border); padding: 4px 0 4px 18px; margin: var(--nk-block-space, 8px) 0 var(--nk-block-space, 8px) 8px; }
 .nk-comment { display: flex; gap: 9px; margin-bottom: 14px; }
 .nk-comment .mini-avatar,
 .nk-comment ::slotted(.mini-avatar),
@@ -1962,7 +1979,7 @@ a.nk-btn { text-decoration: none; }
 .nk-ai-actions button:hover,
 .nk-ai-actions ::slotted(button:hover) { background: var(--nk-bg-hover); color: var(--nk-text); }
 .nk-ai-input-row {
-  display: flex; align-items: center; gap: 8px; margin-top: 14px;
+  display: flex; align-items: center; gap: 8px; margin-top: var(--nk-block-space, 14px);
   border: 1px solid var(--nk-border-strong); border-radius: 10px; padding: 8px 12px;
 }
 .nk-ai-input-row:focus-within { border-color: var(--nk-accent); }
@@ -1994,7 +2011,7 @@ a.nk-btn { text-decoration: none; }
 .nk-block-host {
   position: relative;
   border-radius: var(--nk-radius);
-  margin: 8px 0;
+  margin: var(--nk-block-space, 8px) 0;
   padding: 2px 0 2px 2px;
   transition: background .15s, box-shadow .15s;
 }
@@ -2268,7 +2285,7 @@ a.nk-btn { text-decoration: none; }
      on purpose. With `floating` it rises from the bottom edge. */
   .nk-pop.sheet {
     position: fixed !important; inset: auto 0 0 0 !important; width: auto !important;
-    transform: none !important; z-index: 100; --_nk-row: 40px;
+    transform: none !important; z-index: 106; --_nk-row: 40px;
     max-height: 85dvh; overflow-y: auto; overscroll-behavior: contain;
     border-radius: 14px 14px 0 0;
     padding: 6px max(8px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px));

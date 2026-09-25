@@ -4,6 +4,20 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.16.0] – 2026-09-25
+
+LearnHub checked all its open findings against 1.14.0 and sent back a consolidated list; this release takes the fixes and small additions from it, together with Auxdesk's finding 25. Links for steps and gallery cards and German texts in the elements follow in 1.17.0.
+
+### Added
+- **`--nk-block-space`: the outer margins of blocks in a column with a gap.** Callout, quote, code, divider, database, panel grid, property list, bookmark, toggle, steps, synced block, banner, skeleton, template button, danger zone, comments, block host, model card, gallery grid and AI input row keep the margin they have for the flow of a page – but a column that spaces its children with a `gap` of its own sets `--nk-block-space: 0` once, and every block inside drops it. In an element's shadow root the margin was out of reach, and in a flex column margins do not collapse: two callouts stood 46px apart in a column with a 14px gap. The property is no token – unset, each block keeps its own margin. Headings keep theirs; they open a section.
+- **`.flush` on any of those blocks** drops its own outer margin; on `.nk-props` and `.nk-panels` it did so since 1.12.0.
+- **`.nk-list-item.static`** for a row that is no target itself – a file with its own Remove button: no hand, no hover wash. Rows of the list view keep both.
+
+### Fixed
+- **A wide progress bar stays a bar in a flex column.** `.nk-progress.wide` grows along the row with `flex: 1 1 60px`; in a column – a panel – that basis became its height, 60px and more. `max-height: 6px` keeps it a bar; in a row nothing changes.
+- **A button stretched across a column keeps its label centred** – a full-width “Continue” on a sign-in page sat at its left edge. `.nk-btn` has `justify-content: center`; a button as wide as its label looks as before.
+- **A floating menu or date picker lies above the modal, the sheet and the dialog.** At z-index 60 one opened from a dialog – kept directly under `<body>`, as the docs advise – sat under it. Floating popovers and the phone's menu sheets are 106 now, above the dialog's 105 and below the palette, the toast and the tooltip.
+
 ## [1.15.0] – 2026-09-25
 
 Two findings from Auxdesk's jobs and messages after the move to the table view: text that needs a tone and a second line, and sorting – the part of it that lives in NotionKit Elements. Additive.

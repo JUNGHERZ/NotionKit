@@ -19,7 +19,8 @@ test('the ⋯ menu floats in under its button and takes nothing while closed', a
   expect(await state()).toMatchObject({ visibility: 'hidden', events: 'none' });
   await page.click('#pageMenuBtn');
   await settle(page);
-  expect(await state()).toEqual({ visibility: 'visible', events: 'auto', gap: 6, right: 0, z: '60' });
+  // 106: above the modal, the sheet and the dialog, so a menu opened from one of them shows over it.
+  expect(await state()).toEqual({ visibility: 'visible', events: 'auto', gap: 6, right: 0, z: '106' });
   expect(await page.locator('#pageMenuBtn').getAttribute('aria-expanded')).toBe('true');
 });
 

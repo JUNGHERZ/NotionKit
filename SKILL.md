@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.15.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.16.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -660,7 +660,7 @@ The select option as Notion draws it: 20px tall, 3px corners, the cell's 14px, n
 
 ### Progress bar — `.nk-progress`
 
-A 6px rail whose fill is an `<i>` with a percentage width. Track and fill use Notion's blue tint and mid-tone, so a re-theme carries them along. 110px wide in a cell; `wide` fills its row – a property value, a panel, a course overview – and in a flex row the label keeps its place beside it.
+A 6px rail whose fill is an `<i>` with a percentage width. Track and fill use Notion's blue tint and mid-tone, so a re-theme carries them along. 110px wide in a cell; `wide` fills its row – a property value, a panel, a course overview – and in a flex row the label keeps its place beside it; in a flex column it stays a 6px bar.
 
 ```html
 <span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
@@ -697,7 +697,7 @@ Fixed 220px columns in a horizontally scrolling row. `nk-board` is `display:none
 
 ### List view — `.nk-list`
 
-The third database view: one line per row – icon, title and a few properties on the right – as Notion shows a database under “List”. Hairlines between rows and the hover wash across the whole row, like a table without columns; the last row drops its line. As an `<a>` each row is a real link. Put it in `.nk-database` under the view tabs, or use it on its own for any list of pages.
+The third database view: one line per row – icon, title and a few properties on the right – as Notion shows a database under “List”. Hairlines between rows and the hover wash across the whole row, like a table without columns; the last row drops its line. As an `<a>` each row is a real link. Put it in `.nk-database` under the view tabs, or use it on its own for any list of pages. A row that is no target itself – a file with its own Remove button – takes `.static`: no hand, no hover wash.
 
 ```html
 <div class="nk-list">
@@ -707,7 +707,7 @@ The third database view: one line per row – icon, title and a few properties o
 </div>
 ```
 
-- **Classes:** `.nk-list`, `.nk-list-item`, `.l-icon`, `.l-title`, `.l-meta`, `.last`
+- **Classes:** `.nk-list`, `.nk-list-item`, `.l-icon`, `.l-title`, `.l-meta`, `.last`, `.static`
 - **On a small screen:** Stays one line per row: the title gives way first and ends in an ellipsis, the properties keep their place.
 
 ### Calendar view — `.nk-calendar-view`
@@ -827,7 +827,7 @@ Notion's month sheet for a date: a title with Today and ‹ ›, the weekdays, s
 
 ### Buttons — `.nk-btn`
 
-Five variants, 28px tall at 14px. `.secondary` and `.danger` are Notion's white button: the outline is `--nk-shadow-btn`, a 1px inset ring plus a 1px drop, not a border. Hover is an opacity shift on the filled ones and a wash on the white ones — never a hue change. `.small` (24px) combines with any variant.
+Five variants, 28px tall at 14px. `.secondary` and `.danger` are Notion's white button: the outline is `--nk-shadow-btn`, a 1px inset ring plus a 1px drop, not a border. Hover is an opacity shift on the filled ones and a wash on the white ones — never a hue change. `.small` (24px) combines with any variant. Stretched across a column – a full-width button on a sign-in page – it keeps its label centred.
 
 ```html
 <div>
@@ -1074,7 +1074,7 @@ An eight-column grid inside `nk-pop`, with a filter field above and a greyed-out
 
 ### Context menu — `.nk-menu`
 
-Combine `nk-pop` with `nk-menu`. Items take an `.m-icon` on the left and an `.m-shortcut` pushed right; `.danger` turns an item red. A `.nk-switch` as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu. A menu that floats over the page takes `floating` and opens and closes with `.open`, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. `sheet` makes it a bottom sheet on a phone, as Notion's mobile app opens every menu – the same markup, two presentations. A floating menu never grows past the window: a longer one scrolls inside, and `--_nk-float-max` caps it to the room a script found below or above its anchor.
+Combine `nk-pop` with `nk-menu`. Items take an `.m-icon` on the left and an `.m-shortcut` pushed right; `.danger` turns an item red. A `.nk-switch` as the last child of an item sits on the right, like “Small text” and “Full width” in Notion's page menu. A menu that floats over the page takes `floating` and opens and closes with `.open`, the way the palette does: it fades in and settles from 4px higher and 98 %; closed it takes no clicks and no focus, and where it sits is yours. `sheet` makes it a bottom sheet on a phone, as Notion's mobile app opens every menu – the same markup, two presentations. A floating menu never grows past the window: a longer one scrolls inside, and `--_nk-float-max` caps it to the room a script found below or above its anchor. It lies above the modal, the sheet and the dialog, so a menu or a date picker opened from one of them shows over it.
 
 ```html
 <div class="nk-pop nk-menu">
@@ -2336,6 +2336,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 - Give every overlay its backdrop: `.nk-modal-backdrop > .nk-modal`, `.nk-cmdk-backdrop > .nk-cmdk`.
 - Derive colours with `color-mix(in srgb, var(--nk-accent) 25%, transparent)` when you need a tint.
 - Pass icons **directly** into a slot (`<span slot="icon">💡</span>`), never wrapped in another element.
+- **Blocks in a column with a gap:** set `--nk-block-space: 0` on the column and every block inside – callout, quote, code, divider, database, panels, properties … – drops its outer margin; `.flush` does it for one block. Headings keep theirs.
 - **Layout wrappers are yours.** NotionKit ships no utility classes on purpose. A `<div style="display:flex;gap:8px">` around two buttons, or `style="max-width:none"` on `.nk-page` for a data-centric screen, is the intended way – inline *layout* is fine. Inline *colour* or *state* is not (use tokens and state classes).
 
 ### ❌ Common mistakes
@@ -2363,7 +2364,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `text` `flush` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
-| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `td-text` `td-desc` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` `nk-gallery` `small` `large` `fit` |
+| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `td-text` `td-desc` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `static` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` `nk-gallery` `small` `large` `fit` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `fit` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `nk-tooltip` `tt-key` `lines` |
@@ -2426,4 +2427,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.15.0 · MIT · Jungherz GmbH*
+*NotionKit v1.16.0 · MIT · Jungherz GmbH*

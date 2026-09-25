@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.15.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.16.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Doku</a>
@@ -1096,7 +1096,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-progress">
         <h3>Fortschrittsbalken <code>.nk-progress</code></h3>
-        <p class="doc-desc">Eine 6px-Schiene, deren Füllung ein <code>&lt;i&gt;</code> mit Prozentbreite ist. Schiene und Füllung nutzen Notions blaue Tönung und den blauen Mittelton und ziehen bei einem Theme-Wechsel mit. 110px breit in einer Zelle; <code>wide</code> füllt seine Zeile – ein Eigenschaftswert, ein Panel, eine Kursübersicht – und in einer flex-Zeile behält das Label seinen Platz daneben.</p>
+        <p class="doc-desc">Eine 6px-Schiene, deren Füllung ein <code>&lt;i&gt;</code> mit Prozentbreite ist. Schiene und Füllung nutzen Notions blaue Tönung und den blauen Mittelton und ziehen bei einem Theme-Wechsel mit. 110px breit in einer Zelle; <code>wide</code> füllt seine Zeile – ein Eigenschaftswert, ein Panel, eine Kursübersicht – und in einer flex-Zeile behält das Label seinen Platz daneben; in einer flex-Spalte bleibt er ein 6px-Balken.</p>
         <div class="doc-preview"><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
 <span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span>
 <div style="display:flex;align-items:center;max-width:360px;margin-top:14px"><span class="nk-progress wide"><i style="width:80%"></i></span><span class="nk-progress-label">80 %</span></div></div>
@@ -1146,7 +1146,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-list">
         <h3>Listen-Ansicht <code>.nk-list</code></h3>
-        <p class="doc-desc">Die dritte Datenbank-Ansicht: eine Zeile pro Eintrag – Icon, Titel und rechts ein paar Eigenschaften –, wie Notion eine Datenbank unter „Liste“ zeigt. Haarlinien zwischen den Zeilen und der Hover-Hauch über die ganze Zeile, wie eine Tabelle ohne Spalten; die letzte Zeile verliert ihre Linie. Als <code>&lt;a&gt;</code> ist jede Zeile ein echter Link. In <code>.nk-database</code> unter die View-Reiter setzen oder allein für jede Liste von Seiten nutzen.</p>
+        <p class="doc-desc">Die dritte Datenbank-Ansicht: eine Zeile pro Eintrag – Icon, Titel und rechts ein paar Eigenschaften –, wie Notion eine Datenbank unter „Liste“ zeigt. Haarlinien zwischen den Zeilen und der Hover-Hauch über die ganze Zeile, wie eine Tabelle ohne Spalten; die letzte Zeile verliert ihre Linie. Als <code>&lt;a&gt;</code> ist jede Zeile ein echter Link. In <code>.nk-database</code> unter die View-Reiter setzen oder allein für jede Liste von Seiten nutzen. Eine Zeile, die selbst kein Ziel ist – eine Datei mit eigenem Entfernen-Knopf –, bekommt <code>.static</code>: keine Hand, kein Hover-Hauch.</p>
         <div class="doc-preview"><div class="nk-list" style="max-width:520px">
   <a class="nk-list-item" href="#"><span class="l-icon">🚀</span><span class="l-title">Roadmap</span><span class="l-meta">12.05.2026 <span class="nk-tag green">Fertig</span></span></a>
   <a class="nk-list-item" href="#"><span class="l-icon">🎨</span><span class="l-title">Design-System</span><span class="l-meta">20.05.2026 <span class="nk-tag blue">In Arbeit</span></span></a>
@@ -1160,7 +1160,7 @@ class NkCallout extends HTMLElement {
   <span class="tag">&lt;a</span> <span class="attr">class=</span>"nk-list-item" <span class="attr">href=</span>"#"<span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-icon"<span class="tag">&gt;</span>📣<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-title"<span class="tag">&gt;</span>Launch<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;span</span> <span class="attr">class=</span>"l-meta"<span class="tag">&gt;</span>02.06.2026 <span class="tag">&lt;span</span> <span class="attr">class=</span>"nk-tag orange"<span class="tag">&gt;</span>Geplant<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/a</span><span class="tag">&gt;</span>
 <span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Bleibt eine Zeile pro Eintrag: Der Titel gibt zuerst nach und endet mit Auslassungspunkten, die Eigenschaften behalten ihren Platz.</span></div>
-        <div class="doc-classes"><code>.nk-list</code><code>.nk-list-item</code><code>.l-icon</code><code>.l-title</code><code>.l-meta</code><code>.last</code></div>
+        <div class="doc-classes"><code>.nk-list</code><code>.nk-list-item</code><code>.l-icon</code><code>.l-title</code><code>.l-meta</code><code>.last</code><code>.static</code></div>
       </article>
       <article class="doc-entry" id="nk-calendar-view">
         <h3>Kalender-Ansicht <code>.nk-calendar-view</code></h3>
@@ -1322,7 +1322,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-btn">
         <h3>Buttons <code>.nk-btn</code></h3>
-        <p class="doc-desc">Fünf Varianten, 28px hoch bei 14px. <code>.secondary</code> und <code>.danger</code> sind Notions weißer Button: die Kontur ist <code>--nk-shadow-btn</code>, ein 1px-Innenring plus 1px Schatten, kein Rahmen. Hover ist bei gefüllten Buttons eine Deckkraft-Änderung, bei weißen ein Hauch – nie ein Farbwechsel. <code>.small</code> (24px) lässt sich mit jeder Variante kombinieren.</p>
+        <p class="doc-desc">Fünf Varianten, 28px hoch bei 14px. <code>.secondary</code> und <code>.danger</code> sind Notions weißer Button: die Kontur ist <code>--nk-shadow-btn</code>, ein 1px-Innenring plus 1px Schatten, kein Rahmen. Hover ist bei gefüllten Buttons eine Deckkraft-Änderung, bei weißen ein Hauch – nie ein Farbwechsel. <code>.small</code> (24px) lässt sich mit jeder Variante kombinieren. Über eine Spalte gestreckt – ein Button über die volle Breite auf einer Anmeldeseite – bleibt seine Beschriftung mittig.</p>
         <div class="doc-preview"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
   <button class="nk-btn primary">Änderungen speichern</button>
   <button class="nk-btn secondary">Verwerfen</button>
@@ -1660,7 +1660,7 @@ class NkCallout extends HTMLElement {
       </article>
       <article class="doc-entry" id="nk-menu">
         <h3>Kontextmenü <code>.nk-menu</code></h3>
-        <p class="doc-desc"><code>nk-pop</code> mit <code>nk-menu</code> kombinieren. Einträge nehmen links ein <code>.m-icon</code> und rechts ein <code>.m-shortcut</code>; <code>.danger</code> färbt einen Eintrag rot. Ein <code>.nk-switch</code> als letztes Kind eines Eintrags sitzt rechts, wie „Kleiner Text“ und „Volle Breite“ in Notions Seitenmenü. Ein Menü, das über der Seite schwebt, bekommt <code>floating</code> und öffnet und schließt über <code>.open</code> wie die Palette: Es blendet ein und setzt sich aus 4px Höhe und 98 % ab; geschlossen nimmt es weder Klicks noch Fokus an, und wo es sitzt, bestimmst du. <code>sheet</code> macht es auf dem Telefon zum Bottom Sheet, so wie Notions Mobil-App jedes Menü öffnet – dasselbe Markup, zwei Darstellungen. Ein schwebendes Menü wächst nie über das Fenster hinaus: Ein längeres scrollt in sich, und <code>--_nk-float-max</code> begrenzt es auf den Platz, den ein Skript unter oder über seinem Anker gefunden hat.</p>
+        <p class="doc-desc"><code>nk-pop</code> mit <code>nk-menu</code> kombinieren. Einträge nehmen links ein <code>.m-icon</code> und rechts ein <code>.m-shortcut</code>; <code>.danger</code> färbt einen Eintrag rot. Ein <code>.nk-switch</code> als letztes Kind eines Eintrags sitzt rechts, wie „Kleiner Text“ und „Volle Breite“ in Notions Seitenmenü. Ein Menü, das über der Seite schwebt, bekommt <code>floating</code> und öffnet und schließt über <code>.open</code> wie die Palette: Es blendet ein und setzt sich aus 4px Höhe und 98 % ab; geschlossen nimmt es weder Klicks noch Fokus an, und wo es sitzt, bestimmst du. <code>sheet</code> macht es auf dem Telefon zum Bottom Sheet, so wie Notions Mobil-App jedes Menü öffnet – dasselbe Markup, zwei Darstellungen. Ein schwebendes Menü wächst nie über das Fenster hinaus: Ein längeres scrollt in sich, und <code>--_nk-float-max</code> begrenzt es auf den Platz, den ein Skript unter oder über seinem Anker gefunden hat. Es liegt über Modal, Sheet und Dialog, ein Menü oder eine Datumsauswahl aus einem davon erscheint also darüber.</p>
         <div class="doc-preview"><div class="nk-pop nk-menu">
   <div class="nk-menu-label">Seiten</div>
   <div class="nk-menu-item"><span class="m-icon">✏️</span>Umbenennen<span class="m-shortcut">⌘⇧R</span></div>
