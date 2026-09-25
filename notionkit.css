@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.16.0
+   Jungherz GmbH – v1.17.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -1042,7 +1042,10 @@ a.crumb { text-decoration: none; }
    the card's edges in 2:1, the picture cropped to fill – the cover gradient
    where a row has none. `.small` and `.large` set the card size, columns
    from 180px and 340px instead of 260px; `.fit` shows a picture whole, for
-   logos. The grid drops columns by itself, no breakpoint involved. */
+   logos. The grid drops columns by itself, no breakpoint involved. A card
+   that is a link – <a class="nk-card" href>, to open in a new tab – sits
+   in a .card-item that carries role="listitem", so the link keeps its own
+   role; the card fills it. */
 .nk-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 16px; padding: 14px 2px; }
 .nk-gallery.small { grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr)); gap: 12px; }
 .nk-gallery.large { grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); }
@@ -1051,6 +1054,8 @@ a.crumb { text-decoration: none; }
 .nk-gallery.fit .nk-card > .nk-cover:has(> img) { background: var(--nk-bg-callout); }
 .nk-gallery.fit .nk-card > .nk-cover > img { object-fit: contain; }
 .nk-gallery .card-title { min-width: 0; }
+.nk-gallery > .card-item { display: flex; min-width: 0; }
+.nk-gallery > .card-item > .nk-card { flex: 1 1 auto; }
 .nk-gallery > .nk-new-row { justify-content: center; min-height: 64px; border: 1px dashed var(--nk-border-strong); border-radius: 8px; }
 
 
@@ -1907,11 +1912,15 @@ a.nk-btn { text-decoration: none; }
 /* The states go per step, in any order: a wizard that lets a step be
    skipped marks it .skipped – a dashed ring around a dash – while a later
    one is .done. The label as a <button class="st-label"> makes a step one
-   to jump to. */
+   to jump to; as an <a class="st-label" href> one to open in a new tab or
+   to copy the address of, and it looks the same. */
 .nk-step.skipped .st-mark { border-style: dashed; }
-.nk-step button.st-label { font: inherit; color: inherit; text-align: left; background: none; border: 0; border-radius: 3px; cursor: pointer; }
-.nk-step button.st-label:hover { text-decoration: underline; text-decoration-color: var(--nk-text-tertiary); text-underline-offset: 2px; }
-.nk-step button.st-label:focus-visible { outline: 2px solid color-mix(in srgb, var(--nk-accent) 60%, transparent); outline-offset: 2px; }
+.nk-step button.st-label,
+.nk-step a.st-label { font: inherit; color: inherit; text-align: left; text-decoration: none; background: none; border: 0; border-radius: 3px; cursor: pointer; }
+.nk-step button.st-label:hover,
+.nk-step a.st-label:hover { text-decoration: underline; text-decoration-color: var(--nk-text-tertiary); text-underline-offset: 2px; }
+.nk-step button.st-label:focus-visible,
+.nk-step a.st-label:focus-visible { outline: 2px solid color-mix(in srgb, var(--nk-accent) 60%, transparent); outline-offset: 2px; }
 /* .horizontal: one row above a wizard, each step joined to the next by a
    line that takes the room between them. */
 .nk-steps.horizontal { flex-direction: row; align-items: flex-start; gap: 10px; }

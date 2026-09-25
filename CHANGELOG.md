@@ -4,6 +4,14 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.17.0] – 2026-09-25
+
+The rest of LearnHub's consolidated list: a step and a gallery card as links, to open in a new tab or to copy the address of. The German texts of the elements and the link contract live in NotionKit Elements 1.17.0. Additive.
+
+### Added
+- **A step's label as a link: `<a class="st-label" href>`.** It looks like the `<button class="st-label">` from 1.12.0 – the step's colour, no underline until hovered, the same focus ring – and opens in a new tab with a middle click, for a course that shares the addresses of its chapters.
+- **A gallery card as a link: `<a class="nk-card" href>` in a `.card-item`.** The `.card-item` carries `role="listitem"`, so the link keeps its own role; the card fills it and looks and stretches like the cards beside it. The docs show one of each.
+
 ## [1.16.0] – 2026-09-25
 
 LearnHub checked all its open findings against 1.14.0 and sent back a consolidated list; this release takes the fixes and small additions from it, together with Auxdesk's finding 25. Links for steps and gallery cards and German texts in the elements follow in 1.17.0.

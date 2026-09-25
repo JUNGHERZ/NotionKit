@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.16.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.17.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -733,18 +733,18 @@ The database as Notion's month, a view tab like table, board and list: a head wi
 
 ### Gallery view — `.nk-gallery`
 
-The fifth database view: the rows as cards with a picture on top, in a grid that fills the row – Notion's gallery, for a course catalog or a reading list. A card is the board's `.nk-card` with `.card-title` and `.card-meta`; a `.nk-cover` as its first child runs to the card's edges in 2:1, a picture inside cropped to fill – without one the cover gradient shows. `.small` and `.large` set the card size, columns from 180px and 340px instead of 260px; `.fit` shows a picture whole, for logos. A `.nk-new-row` at the end becomes the add card. Clicking a card is your script, as with a row of the table.
+The fifth database view: the rows as cards with a picture on top, in a grid that fills the row – Notion's gallery, for a course catalog or a reading list. A card is the board's `.nk-card` with `.card-title` and `.card-meta`; a `.nk-cover` as its first child runs to the card's edges in 2:1, a picture inside cropped to fill – without one the cover gradient shows. `.small` and `.large` set the card size, columns from 180px and 340px instead of 260px; `.fit` shows a picture whole, for logos. A `.nk-new-row` at the end becomes the add card. Clicking a card is your script, as with a row of the table. A card to open in a new tab or to copy the address of is a link, ``, in a `.card-item` that carries `role="listitem"` – the link keeps its own role – and the card fills it.
 
 ```html
 <div class="nk-gallery" role="list">
   <div class="nk-card" role="listitem" tabindex="0"><div class="nk-cover"><img src="covers/aurora.svg" alt=""></div><div class="card-title">🚀 Roadmap</div><div class="card-meta"><span class="nk-tag green">Done</span><span>📅 12.05.2026</span></div></div>
   <div class="nk-card" role="listitem" tabindex="0"><div class="nk-cover"><img src="covers/dunes.svg" alt=""></div><div class="card-title">🎨 Design system</div><div class="card-meta"><span class="nk-tag blue">In progress</span><span>📅 20.05.2026</span></div></div>
-  <div class="nk-card" role="listitem" tabindex="0"><div class="nk-cover"></div><div class="card-title">📣 Launch</div><div class="card-meta"><span class="nk-tag yellow">Planned</span><span>📅 02.06.2026</span></div></div>
+  <div class="card-item" role="listitem"><a class="nk-card" href="#nk-gallery"><div class="nk-cover"></div><div class="card-title">📣 Launch</div><div class="card-meta"><span class="nk-tag yellow">Planned</span><span>📅 02.06.2026</span></div></a></div>
   <div class="nk-new-row" role="button" tabindex="0">＋ New page</div>
 </div>
 ```
 
-- **Classes:** `.nk-gallery`, `.small`, `.large`, `.fit`
+- **Classes:** `.nk-gallery`, `.small`, `.large`, `.fit`, `.card-item`
 - **On a small screen:** The grid drops columns by itself – one card per row on a phone, no breakpoint involved.
 
 ## Forms & settings (PRD 5.6)
@@ -1455,7 +1455,7 @@ A dashed frame with icon, title and one explanatory line, then the way out of th
 
 ### Steps — `.nk-steps`
 
-Steps through a short flow – connecting an account, setting up a model – calm and vertical: a numbered circle per step joined by a hairline, done steps on the green tag with a check, the current one ringed in the accent and marked `aria-current="step"`, the rest quiet. `.st-desc` adds a line under a step. The states go per step, in any order: a step that was skipped is `.skipped` – a dashed ring around a dash – while a later one is `.done`. The label as a `<button class="st-label">` makes a step one to jump to. `.horizontal` sets the steps in one row above a wizard, joined by lines. Not a Notion block; in Notion's idiom it is a numbered list with checks.
+Steps through a short flow – connecting an account, setting up a model – calm and vertical: a numbered circle per step joined by a hairline, done steps on the green tag with a check, the current one ringed in the accent and marked `aria-current="step"`, the rest quiet. `.st-desc` adds a line under a step. The states go per step, in any order: a step that was skipped is `.skipped` – a dashed ring around a dash – while a later one is `.done`. The label as a `<button class="st-label">` makes a step one to jump to; as an `` one to open in a new tab or to copy the address of, looking the same. `.horizontal` sets the steps in one row above a wizard, joined by lines. Not a Notion block; in Notion's idiom it is a numbered list with checks.
 
 ```html
 <ol class="nk-steps" aria-label="Connect your own model">
@@ -1464,7 +1464,7 @@ Steps through a short flow – connecting an account, setting up a model – cal
   <li class="nk-step"><span class="st-mark">3</span><span>Test the connection</span></li>
 </ol>
 <ol class="nk-steps horizontal" aria-label="Connect your own model">
-  <li class="nk-step done"><span class="st-mark">✓</span><button type="button" class="st-label">Choose a provider</button></li>
+  <li class="nk-step done"><span class="st-mark">✓</span><a class="st-label" href="#nk-steps">Choose a provider</a></li>
   <li class="nk-step skipped"><span class="st-mark">–</span><button type="button" class="st-label">Enter the API key<span class="st-desc">skipped</span></button></li>
   <li class="nk-step current" aria-current="step"><span class="st-mark">3</span><button type="button" class="st-label">Test the connection</button></li>
 </ol>
@@ -2364,7 +2364,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `text` `flush` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
-| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `td-text` `td-desc` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `static` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` `nk-gallery` `small` `large` `fit` |
+| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `td-text` `td-desc` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `static` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` `nk-gallery` `small` `large` `fit` `card-item` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `fit` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `nk-tooltip` `tt-key` `lines` |
@@ -2427,4 +2427,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.16.0 · MIT · Jungherz GmbH*
+*NotionKit v1.17.0 · MIT · Jungherz GmbH*
