@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.14.0
+   Jungherz GmbH – v1.15.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -886,6 +886,20 @@ a.crumb { text-decoration: none; }
 .nk-table .row-actions { display: flex; justify-content: flex-end; gap: 4px; }
 .nk-table th.actions { cursor: default; }
 .nk-table th.actions:hover { background: none; }
+/* A text cell with a tone and a second line: .td-text takes one of Notion's
+   nine text colours – an error in orange – and .td-desc sets a quiet line
+   under the value – the next run under an error, the sender under a
+   subject. The row grows with it. */
+.nk-table .td-desc { display: block; font-size: 12px; line-height: 16px; color: var(--nk-text-tertiary); }
+.nk-table .td-text.gray { color: var(--nk-color-gray); }
+.nk-table .td-text.brown { color: var(--nk-color-brown); }
+.nk-table .td-text.orange { color: var(--nk-color-orange); }
+.nk-table .td-text.yellow { color: var(--nk-color-yellow); }
+.nk-table .td-text.green { color: var(--nk-color-green); }
+.nk-table .td-text.blue { color: var(--nk-color-blue); }
+.nk-table .td-text.purple { color: var(--nk-color-purple); }
+.nk-table .td-text.pink { color: var(--nk-color-pink); }
+.nk-table .td-text.red { color: var(--nk-color-red); }
 .nk-table .person-cell { display: flex; align-items: center; gap: 6px; color: var(--nk-text-secondary); }
 .nk-table .person-cell .mini-avatar,
 .nk-table .person-cell ::slotted(.mini-avatar) {

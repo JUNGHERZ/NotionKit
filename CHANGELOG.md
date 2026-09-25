@@ -4,6 +4,13 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.15.0] – 2026-09-25
+
+Two findings from Auxdesk's jobs and messages after the move to the table view: text that needs a tone and a second line, and sorting – the part of it that lives in NotionKit Elements. Additive.
+
+### Added
+- **Table text with a tone and a second line: `.td-text` and `.td-desc`.** `.td-text` gives a cell's value one of Notion's nine text colours – `.orange` for an error – and `.td-desc` sets a quiet line under it, 12px in the tertiary colour: the next run under an error, the sender under a subject. The row grows with it. The docs example shows a line under a title and an overdue date in red.
+
 ## [1.14.0] – 2026-09-25
 
 The gallery view, the fifth database view – LearnHub's wish for its course catalog, where tiles with a 64px cover band left the course pictures hard to make out. Additive.

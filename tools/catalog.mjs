@@ -472,11 +472,11 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'wrap', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'num', 'row-actions', 'actions', 'nk-new-row'],
+  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'wrap', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'num', 'row-actions', 'actions', 'td-text', 'td-desc', 'nk-new-row'],
   title: { en: 'Table view', de: 'Tabellen-Ansicht' },
   desc: {
-    en: '36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is <code>white-space: nowrap</code> so columns keep their shape; <code>.wrap</code> on the table or on a cell lets text break, like Notion\'s “wrap column”. <code>.num</code> on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. <code>.row-actions</code> in a cell sets buttons for the row at its right edge – “Retry”, “Discard” – and <code>th.actions</code> is a header that sorts nothing. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
-    de: '36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.num</code> an einer Zelle setzt eine Zahl rechtsbündig in gleich breiten Ziffern, wie Notion eine Zahl-Eigenschaft setzt; der Kopf bleibt links. <code>.row-actions</code> in einer Zelle setzt Knöpfe für die Zeile an ihren rechten Rand – „Erneut“, „Verwerfen“ –, und <code>th.actions</code> ist ein Kopf, der nichts sortiert. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
+    en: '36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is <code>white-space: nowrap</code> so columns keep their shape; <code>.wrap</code> on the table or on a cell lets text break, like Notion\'s “wrap column”. <code>.num</code> on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. <code>.row-actions</code> in a cell sets buttons for the row at its right edge – “Retry”, “Discard” – and <code>th.actions</code> is a header that sorts nothing. <code>.td-text</code> gives a value one of Notion\'s nine text colours – <code>.orange</code> for an error – and <code>.td-desc</code> a quiet second line under it; the row grows with it. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
+    de: '36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.num</code> an einer Zelle setzt eine Zahl rechtsbündig in gleich breiten Ziffern, wie Notion eine Zahl-Eigenschaft setzt; der Kopf bleibt links. <code>.row-actions</code> in einer Zelle setzt Knöpfe für die Zeile an ihren rechten Rand – „Erneut“, „Verwerfen“ –, und <code>th.actions</code> ist ein Kopf, der nichts sortiert. <code>.td-text</code> gibt einem Wert eine von Notions neun Textfarben – <code>.orange</code> für einen Fehler – und <code>.td-desc</code> eine leise zweite Zeile darunter; die Zeile wächst mit. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
   },
   mobile: {
     en: 'This is the key one: <code>nk-table-wrap</code> scrolls horizontally so the table never forces the page wider. Always wrap the table.',
@@ -489,7 +489,7 @@ export const CATALOG = [
     <th><span class="th-icon">📊</span>${W.progress}</th><th><span class="th-icon">#</span>${W.effort}</th><th class="actions"></th>
   </tr></thead>
   <tbody>
-    <tr><td><span class="row-title">🚀 ${W.roadmap}</span></td><td><span class="nk-tag green">${W.done}</span></td>
+    <tr><td><span class="row-title">🚀 ${W.roadmap}</span><span class="td-desc">${W.tableDesc}</span></td><td><span class="nk-tag green">${W.done}</span></td>
         <td><span class="person-cell"><span class="nk-avatar small purple">SL</span>Sara</span></td>
         <td class="date-cell">12.05.2026</td>
         <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">${W.effort1}</td>
@@ -501,7 +501,7 @@ export const CATALOG = [
         <td><span class="row-actions"><button class="nk-btn secondary small">${W.rowOpen}</button><button class="nk-btn danger small">${W.rowArchive}</button></span></td></tr>
     <tr><td><span class="row-title">📣 ${W.launch}</span></td><td><span class="nk-tag yellow">${W.planned}</span></td>
         <td><span class="person-cell"><span class="nk-avatar small orange">MK</span>Mia</span></td>
-        <td class="date-cell">02.06.2026</td>
+        <td class="date-cell"><span class="td-text red">02.06.2026</span></td>
         <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">${W.effort3}</td>
         <td><span class="row-actions"><button class="nk-btn secondary small">${W.rowOpen}</button><button class="nk-btn danger small">${W.rowArchive}</button></span></td></tr>
   </tbody>
