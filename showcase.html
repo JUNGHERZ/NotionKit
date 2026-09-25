@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.11.1</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.12.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html">Docs</a>
@@ -385,6 +385,7 @@
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In progress</span></dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>Owner</dt><dd class="p-value"><span class="nk-avatar small purple">AL</span>Ada Lovelace</dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Due</dt><dd class="p-value">2 June 2026</dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">✉️</span>Address</dt><dd class="p-value text">support+design@notionkit.example.com · <span class="nk-tag green">Verified</span></dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">🏷️</span>Tags</dt><dd class="p-value"><span class="nk-tag purple">Design system</span><span class="nk-tag">CSS</span></dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Progress</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
 </dl></div>
@@ -530,21 +531,24 @@
   <thead><tr>
     <th><span class="th-icon">📄</span>Name</th><th><span class="th-icon">◉</span>Status</th>
     <th><span class="th-icon">👤</span>Owner</th><th><span class="th-icon">📅</span>Due</th>
-    <th><span class="th-icon">📊</span>Progress</th><th><span class="th-icon">#</span>Effort (h)</th>
+    <th><span class="th-icon">📊</span>Progress</th><th><span class="th-icon">#</span>Effort (h)</th><th class="actions"></th>
   </tr></thead>
   <tbody>
     <tr><td><span class="row-title">🚀 Roadmap</span></td><td><span class="nk-tag green">Done</span></td>
         <td><span class="person-cell"><span class="nk-avatar small purple">SL</span>Sara</span></td>
         <td class="date-cell">12.05.2026</td>
-        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">6.0</td></tr>
+        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">6.0</td>
+        <td><span class="row-actions"><button class="nk-btn secondary small">Open</button><button class="nk-btn danger small">Archive</button></span></td></tr>
     <tr><td><span class="row-title">🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
         <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
-        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">12.5</td></tr>
+        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">12.5</td>
+        <td><span class="row-actions"><button class="nk-btn secondary small">Open</button><button class="nk-btn danger small">Archive</button></span></td></tr>
     <tr><td><span class="row-title">📣 Launch</span></td><td><span class="nk-tag yellow">Planned</span></td>
         <td><span class="person-cell"><span class="nk-avatar small orange">MK</span>Mia</span></td>
         <td class="date-cell">02.06.2026</td>
-        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">3.25</td></tr>
+        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">3.25</td>
+        <td><span class="row-actions"><button class="nk-btn secondary small">Open</button><button class="nk-btn danger small">Archive</button></span></td></tr>
   </tbody>
 </table>
 <div class="nk-new-row">＋ New page</div></div></div>
@@ -1021,7 +1025,7 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
     <p>Yesterday</p>
   </a>
   <div class="nk-panel">
-    <h3>Weekly review</h3>
+    <div class="p-head"><h3>Weekly review</h3><span class="p-end"><span class="nk-tag blue">In progress</span></span></div>
     <p>Three pages changed, one comment is waiting for an answer.</p>
     <div style="display:flex;align-items:center"><span class="nk-progress wide"><i style="width:60%"></i></span><span class="nk-progress-label">60 %</span></div>
   </div>
@@ -1146,6 +1150,11 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
   <li class="nk-step done"><span class="st-mark">✓</span><span>Choose a provider<span class="st-desc">Anthropic</span></span></li>
   <li class="nk-step current" aria-current="step"><span class="st-mark">2</span><span>Enter the API key</span></li>
   <li class="nk-step"><span class="st-mark">3</span><span>Test the connection</span></li>
+</ol>
+<ol class="nk-steps horizontal" aria-label="Connect your own model">
+  <li class="nk-step done"><span class="st-mark">✓</span><button type="button" class="st-label">Choose a provider</button></li>
+  <li class="nk-step skipped"><span class="st-mark">–</span><button type="button" class="st-label">Enter the API key<span class="st-desc">skipped</span></button></li>
+  <li class="nk-step current" aria-current="step"><span class="st-mark">3</span><button type="button" class="st-label">Test the connection</button></li>
 </ol></div>
         
         

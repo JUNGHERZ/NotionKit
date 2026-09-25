@@ -259,8 +259,8 @@ export const CATALOG = [
   id: 'nk-page', group: 'page', classes: ['nk-page-scroll', 'nk-page', 'nk-page-icon', 'nk-page-title', 'nk-page-meta', 'covered', 'full', 'small'],
   title: { en: 'Page column & page options', de: 'Seitenspalte & Seitenoptionen' },
   desc: {
-    en: 'The document column: <code>max-width: 760px</code> with auto margins, never a fixed width. After a cover (<code>.nk-cover + .nk-page</code>, or <code>.nk-page.covered</code>) the icon pulls itself up over it with a negative margin and the page has no top padding; without one the page keeps 24px top padding and the icon sits inside it, fully visible. The title is <code>contenteditable</code>-ready. Notion\'s two page options are classes on the page: <code>full</code> lifts the 760px cap so the column fills the window, <code>small</code> sets the document text from 16px to 14px, and headings, lead, prose and editor follow because they are sized in em. Title, properties, tables and controls keep their size. In Notion these are options of the single page, in its ⋯ menu, not app settings.',
-    de: 'Die Dokumentspalte: <code>max-width: 760px</code> mit Auto-Rändern, nie eine feste Breite. Nach einem Cover (<code>.nk-cover + .nk-page</code> oder <code>.nk-page.covered</code>) zieht sich das Icon per negativem Rand darüber und die Seite hat kein oberes Padding; ohne Cover behält die Seite 24px oberes Padding und das Icon sitzt darin, ganz sichtbar. Der Titel ist <code>contenteditable</code>-fähig. Notions zwei Seitenoptionen sind Klassen an der Seite: <code>full</code> hebt die 760px-Grenze auf, die Spalte füllt das Fenster, <code>small</code> setzt den Dokumenttext von 16px auf 14px, und Überschriften, Lead, Prosa und Editor ziehen mit, weil sie in em bemessen sind. Titel, Eigenschaften, Tabellen und Bedienelemente behalten ihre Größe. In Notion sind das Optionen der einzelnen Seite, in ihrem ⋯-Menü, keine App-Einstellungen.',
+    en: 'The document column: <code>max-width: 760px</code> with auto margins, never a fixed width. After a cover (<code>.nk-cover + .nk-page</code>, or <code>.nk-page.covered</code>) the icon pulls itself up over it with a negative margin and the page has no top padding; without one the page keeps 24px top padding and the icon sits inside it, fully visible. The title is <code>contenteditable</code>-ready. Notion\'s two page options are classes on the page: <code>full</code> lifts the 760px cap so the column fills the window, <code>small</code> sets the document text from 16px to 14px, and headings, lead, prose and editor follow because they are sized in em. Title, properties, tables and controls keep their size. In Notion these are options of the single page, in its ⋯ menu, not app settings. The token <code>--nk-page-full-max</code> caps <code>full</code> – <code>none</code> by default; <code>1080px</code> on <code>:root</code> gives a dashboard of tables room without 1600px lines.',
+    de: 'Die Dokumentspalte: <code>max-width: 760px</code> mit Auto-Rändern, nie eine feste Breite. Nach einem Cover (<code>.nk-cover + .nk-page</code> oder <code>.nk-page.covered</code>) zieht sich das Icon per negativem Rand darüber und die Seite hat kein oberes Padding; ohne Cover behält die Seite 24px oberes Padding und das Icon sitzt darin, ganz sichtbar. Der Titel ist <code>contenteditable</code>-fähig. Notions zwei Seitenoptionen sind Klassen an der Seite: <code>full</code> hebt die 760px-Grenze auf, die Spalte füllt das Fenster, <code>small</code> setzt den Dokumenttext von 16px auf 14px, und Überschriften, Lead, Prosa und Editor ziehen mit, weil sie in em bemessen sind. Titel, Eigenschaften, Tabellen und Bedienelemente behalten ihre Größe. In Notion sind das Optionen der einzelnen Seite, in ihrem ⋯-Menü, keine App-Einstellungen. Das Token <code>--nk-page-full-max</code> begrenzt <code>full</code> – standardmäßig <code>none</code>; <code>1080px</code> auf <code>:root</code> gibt einem Dashboard aus Tabellen Platz ohne 1600px lange Zeilen.',
   },
   mobile: { en: 'Side padding drops from 64px to 24px below 860px. The 760px cap simply never binds, so <code>full</code> changes nothing there; <code>small</code> still does.', de: 'Der Seitenabstand fällt unter 860px von 64px auf 24px. Die 760px-Grenze greift dort schlicht nicht, <code>full</code> ändert dort also nichts; <code>small</code> schon.' },
   frame: 320,
@@ -275,17 +275,18 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-props', group: 'page', classes: ['nk-props', 'nk-prop', 'p-name', 'p-icon', 'p-value'],
+  id: 'nk-props', group: 'page', classes: ['nk-props', 'nk-prop', 'p-name', 'p-icon', 'p-value', 'text', 'flush'],
   title: { en: 'Page properties', de: 'Seiteneigenschaften' },
   desc: {
-    en: 'The properties under the title of a database page – the pattern Notion is known for. One <code>.nk-prop</code> per row: the name with its type icon in a 160px column, the value beside it, both 34px tall with the hover wash, as each half opens its own editor in Notion. Values are ordinary markup: tags, an avatar with a name, a date, a <code>.nk-progress.wide</code>. It replaces <code>.nk-page-meta</code> on a page that is a row. Written as <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> it is a description list for assistive technology as well; plain <code>&lt;div&gt;</code>s work the same.',
-    de: 'Die Eigenschaften unter dem Titel einer Datenbankseite – das Muster, für das Notion bekannt ist. Ein <code>.nk-prop</code> pro Zeile: der Name mit seinem Typ-Icon in einer 160px-Spalte, daneben der Wert, beide 34px hoch mit Hover-Hauch, weil in Notion jede Hälfte ihren eigenen Editor öffnet. Werte sind gewöhnliches Markup: Tags, ein Avatar mit Namen, ein Datum, ein <code>.nk-progress.wide</code>. Es ersetzt <code>.nk-page-meta</code> auf einer Seite, die eine Zeile ist. Als <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> und <code>&lt;dd&gt;</code> geschrieben ist es auch für assistive Technik eine Beschreibungsliste; schlichte <code>&lt;div&gt;</code>s funktionieren genauso.',
+    en: 'The properties under the title of a database page – the pattern Notion is known for. One <code>.nk-prop</code> per row: the name with its type icon in a 160px column, the value beside it, both 34px tall with the hover wash, as each half opens its own editor in Notion. Values are ordinary markup: tags, an avatar with a name, a date, a <code>.nk-progress.wide</code>. It replaces <code>.nk-page-meta</code> on a page that is a row. Written as <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> it is a description list for assistive technology as well; plain <code>&lt;div&gt;</code>s work the same. A value that is text – a sentence, an address, a model name with a tag – takes <code>.text</code> and flows as text instead of setting its parts one under the other. The value keeps at least 220px: in a column narrower than 380px, a side panel say, it moves under its name. <code>.flush</code> drops the outer margin, for a list inside a panel or a flex column with a gap of its own.',
+    de: 'Die Eigenschaften unter dem Titel einer Datenbankseite – das Muster, für das Notion bekannt ist. Ein <code>.nk-prop</code> pro Zeile: der Name mit seinem Typ-Icon in einer 160px-Spalte, daneben der Wert, beide 34px hoch mit Hover-Hauch, weil in Notion jede Hälfte ihren eigenen Editor öffnet. Werte sind gewöhnliches Markup: Tags, ein Avatar mit Namen, ein Datum, ein <code>.nk-progress.wide</code>. Es ersetzt <code>.nk-page-meta</code> auf einer Seite, die eine Zeile ist. Als <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> und <code>&lt;dd&gt;</code> geschrieben ist es auch für assistive Technik eine Beschreibungsliste; schlichte <code>&lt;div&gt;</code>s funktionieren genauso. Ein Wert, der Text ist – ein Satz, eine Adresse, ein Modellname mit Etikett –, bekommt <code>.text</code> und fließt als Text, statt seine Teile untereinander zu setzen. Der Wert behält mindestens 220px: In einer Spalte unter 380px, etwa einer Seitenleiste, rutscht er unter seinen Namen. <code>.flush</code> nimmt den Außenabstand weg, für eine Liste in einem Panel oder einer Flex-Spalte mit eigenem Abstand.',
   },
   mobile: { en: 'Below 860px each property stacks: the name above its value, both flush left, so the value gets the whole width.', de: 'Unter 860px stapelt sich jede Eigenschaft: der Name über seinem Wert, beide linksbündig, damit der Wert die ganze Breite bekommt.' },
   html: W => `<dl class="nk-props" style="max-width:520px">
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>${W.status}</dt><dd class="p-value"><span class="nk-tag blue">${W.inProgress}</span></dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>${W.owner}</dt><dd class="p-value"><span class="nk-avatar small purple">AL</span>${W.author}</dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>${W.due}</dt><dd class="p-value">${W.dueDate}</dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">✉️</span>${W.propAddress}</dt><dd class="p-value text">support+design@notionkit.example.com · <span class="nk-tag green">${W.propVerified}</span></dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">🏷️</span>${W.tags}</dt><dd class="p-value"><span class="nk-tag purple">${W.designSystem}</span><span class="nk-tag">CSS</span></dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>${W.progress}</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
 </dl>`,
@@ -471,11 +472,11 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'wrap', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'num', 'nk-new-row'],
+  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'wrap', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'num', 'row-actions', 'actions', 'nk-new-row'],
   title: { en: 'Table view', de: 'Tabellen-Ansicht' },
   desc: {
-    en: '36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is <code>white-space: nowrap</code> so columns keep their shape; <code>.wrap</code> on the table or on a cell lets text break, like Notion\'s “wrap column”. <code>.num</code> on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
-    de: '36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.num</code> an einer Zelle setzt eine Zahl rechtsbündig in gleich breiten Ziffern, wie Notion eine Zahl-Eigenschaft setzt; der Kopf bleibt links. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
+    en: '36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is <code>white-space: nowrap</code> so columns keep their shape; <code>.wrap</code> on the table or on a cell lets text break, like Notion\'s “wrap column”. <code>.num</code> on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. <code>.row-actions</code> in a cell sets buttons for the row at its right edge – “Retry”, “Discard” – and <code>th.actions</code> is a header that sorts nothing. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
+    de: '36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.num</code> an einer Zelle setzt eine Zahl rechtsbündig in gleich breiten Ziffern, wie Notion eine Zahl-Eigenschaft setzt; der Kopf bleibt links. <code>.row-actions</code> in einer Zelle setzt Knöpfe für die Zeile an ihren rechten Rand – „Erneut“, „Verwerfen“ –, und <code>th.actions</code> ist ein Kopf, der nichts sortiert. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
   },
   mobile: {
     en: 'This is the key one: <code>nk-table-wrap</code> scrolls horizontally so the table never forces the page wider. Always wrap the table.',
@@ -485,21 +486,24 @@ export const CATALOG = [
   <thead><tr>
     <th><span class="th-icon">📄</span>${W.name}</th><th><span class="th-icon">◉</span>${W.status}</th>
     <th><span class="th-icon">👤</span>${W.owner}</th><th><span class="th-icon">📅</span>${W.due}</th>
-    <th><span class="th-icon">📊</span>${W.progress}</th><th><span class="th-icon">#</span>${W.effort}</th>
+    <th><span class="th-icon">📊</span>${W.progress}</th><th><span class="th-icon">#</span>${W.effort}</th><th class="actions"></th>
   </tr></thead>
   <tbody>
     <tr><td><span class="row-title">🚀 ${W.roadmap}</span></td><td><span class="nk-tag green">${W.done}</span></td>
         <td><span class="person-cell"><span class="nk-avatar small purple">SL</span>Sara</span></td>
         <td class="date-cell">12.05.2026</td>
-        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">${W.effort1}</td></tr>
+        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">${W.effort1}</td>
+        <td><span class="row-actions"><button class="nk-btn secondary small">${W.rowOpen}</button><button class="nk-btn danger small">${W.rowArchive}</button></span></td></tr>
     <tr><td><span class="row-title">🎨 ${W.designSystem}</span></td><td><span class="nk-tag blue">${W.inProgress}</span></td>
         <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
-        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">${W.effort2}</td></tr>
+        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">${W.effort2}</td>
+        <td><span class="row-actions"><button class="nk-btn secondary small">${W.rowOpen}</button><button class="nk-btn danger small">${W.rowArchive}</button></span></td></tr>
     <tr><td><span class="row-title">📣 ${W.launch}</span></td><td><span class="nk-tag yellow">${W.planned}</span></td>
         <td><span class="person-cell"><span class="nk-avatar small orange">MK</span>Mia</span></td>
         <td class="date-cell">02.06.2026</td>
-        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">${W.effort3}</td></tr>
+        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">${W.effort3}</td>
+        <td><span class="row-actions"><button class="nk-btn secondary small">${W.rowOpen}</button><button class="nk-btn danger small">${W.rowArchive}</button></span></td></tr>
   </tbody>
 </table>
 <div class="nk-new-row">${W.newPage}</div></div>`,
@@ -1051,11 +1055,11 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
 </div>`,
 },
 {
-  id: 'nk-panel', group: 'gallery', classes: ['nk-panels', 'nk-panel'],
+  id: 'nk-panel', group: 'gallery', classes: ['nk-panels', 'nk-panel', 'p-head', 'p-end', 'flush'],
   title: { en: 'Panels', de: 'Panels' },
   desc: {
-    en: 'A neutral surface for content that belongs together – the cards on Notion\'s Home, the boxes in its settings. Not <code>.nk-card</code>, which is the board card. <code>.nk-panels</code> sets several in a grid of columns at least 200px wide that share the row. Inside, an <code>&lt;h3&gt;</code> is the title and a <code>&lt;p&gt;</code> the quiet text; a <code>.nk-cover</code> as first child runs to the panel\'s edges, and a <code>.nk-page-icon</code> after it overlaps the cover – a page tile, as on Home under “Recently visited”. As an <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> the panel answers the pointer.',
-    de: 'Eine neutrale Fläche für Inhalt, der zusammengehört – die Karten auf Notions Startseite, die Kästen in seinen Einstellungen. Nicht <code>.nk-card</code>, das ist die Board-Karte. <code>.nk-panels</code> setzt mehrere in ein Raster mit Spalten von mindestens 200px, die sich die Zeile teilen. Darin ist ein <code>&lt;h3&gt;</code> der Titel und ein <code>&lt;p&gt;</code> der ruhige Text; ein <code>.nk-cover</code> als erstes Kind läuft bis an die Ränder, ein <code>.nk-page-icon</code> danach überlappt das Cover – eine Seitenkachel wie auf der Startseite unter „Zuletzt besucht“. Als <code>&lt;a&gt;</code> oder <code>&lt;button&gt;</code> reagiert das Panel auf den Zeiger.',
+    en: 'A neutral surface for content that belongs together – the cards on Notion\'s Home, the boxes in its settings. Not <code>.nk-card</code>, which is the board card. <code>.nk-panels</code> sets several in a grid of columns at least 200px wide that share the row. Inside, an <code>&lt;h3&gt;</code> is the title and a <code>&lt;p&gt;</code> the quiet text; a <code>.nk-cover</code> as first child runs to the panel\'s edges, and a <code>.nk-page-icon</code> after it overlaps the cover – a page tile, as on Home under “Recently visited”. As an <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> the panel answers the pointer. <code>.p-head</code> holds the title with something at its right edge in <code>.p-end</code> – a state as a tag, a button – as Notion\'s settings boxes show a connection; where both do not fit, the end moves under the title. <code>.nk-panels.flush</code> drops the grid\'s outer margin.',
+    de: 'Eine neutrale Fläche für Inhalt, der zusammengehört – die Karten auf Notions Startseite, die Kästen in seinen Einstellungen. Nicht <code>.nk-card</code>, das ist die Board-Karte. <code>.nk-panels</code> setzt mehrere in ein Raster mit Spalten von mindestens 200px, die sich die Zeile teilen. Darin ist ein <code>&lt;h3&gt;</code> der Titel und ein <code>&lt;p&gt;</code> der ruhige Text; ein <code>.nk-cover</code> als erstes Kind läuft bis an die Ränder, ein <code>.nk-page-icon</code> danach überlappt das Cover – eine Seitenkachel wie auf der Startseite unter „Zuletzt besucht“. Als <code>&lt;a&gt;</code> oder <code>&lt;button&gt;</code> reagiert das Panel auf den Zeiger. <code>.p-head</code> hält den Titel mit etwas an seinem rechten Rand in <code>.p-end</code> – einen Zustand als Tag, einen Button –, wie Notions Einstellungskästen eine Verbindung zeigen; passt beides nicht nebeneinander, rutscht das Ende unter den Titel. <code>.nk-panels.flush</code> nimmt dem Raster den Außenabstand.',
   },
   mobile: { en: 'The grid falls to one column as soon as two 200px columns no longer fit – no breakpoint involved.', de: 'Das Raster fällt auf eine Spalte, sobald zwei 200px-Spalten nicht mehr passen – ganz ohne Breakpoint.' },
   html: W => `<div class="nk-panels">
@@ -1072,20 +1076,20 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
     <p>${W.yesterday}</p>
   </a>
   <div class="nk-panel">
-    <h3>${W.weeklyReview}</h3>
+    <div class="p-head"><h3>${W.weeklyReview}</h3><span class="p-end"><span class="nk-tag blue">${W.inProgress}</span></span></div>
     <p>${W.weeklyReviewText}</p>
     <div style="display:flex;align-items:center"><span class="nk-progress wide"><i style="width:60%"></i></span><span class="nk-progress-label">60 %</span></div>
   </div>
 </div>`,
 },
 {
-  id: 'nk-tabs', group: 'gallery', classes: ['nk-tabs', 'nk-tab', 'active', 'nk-tab-panel'],
+  id: 'nk-tabs', group: 'gallery', classes: ['nk-tabs', 'nk-tab', 'active', 'nk-tab-panel', 'scroll'],
   title: { en: 'Tabs', de: 'Reiter' },
   desc: {
-    en: 'In-page tabs, visually the quieter sibling of the database view tabs. Show and hide the panels yourself; the library only styles them.',
-    de: 'Reiter innerhalb der Seite, optisch das ruhigere Geschwister der Datenbank-Reiter. Das Ein- und Ausblenden der Panels übernimmst du; die Library stylt nur.',
+    en: 'In-page tabs, visually the quieter sibling of the database view tabs. Show and hide the panels yourself; the library only styles them. <code>.scroll</code> keeps many tabs in one row that scrolls sideways, scrollbar hidden, and looks the same – keep the active tab in view yourself, with <code>scrollIntoView({ inline: \'nearest\', block: \'nearest\' })</code>.',
+    de: 'Reiter innerhalb der Seite, optisch das ruhigere Geschwister der Datenbank-Reiter. Das Ein- und Ausblenden der Panels übernimmst du; die Library stylt nur. <code>.scroll</code> hält viele Reiter in einer Zeile, die seitlich scrollt, ohne sichtbare Scrollleiste, und gleich aussieht – den aktiven Reiter hältst du selbst im Blick, mit <code>scrollIntoView({ inline: \'nearest\', block: \'nearest\' })</code>.',
   },
-  mobile: { en: 'Add <code>overflow-x: auto</code> to <code>nk-tabs</code> when the strip gets long.', de: 'Bei langer Leiste <code>overflow-x: auto</code> an <code>nk-tabs</code> geben.' },
+  mobile: { en: 'A strip longer than the screen takes <code>.scroll</code>; without it the tabs run out of the page.', de: 'Eine Leiste, die länger ist als der Bildschirm, bekommt <code>.scroll</code>; ohne laufen die Reiter aus der Seite.' },
   html: W => `<div>
   <div class="nk-tabs"><div class="nk-tab active">📝 ${W.notes}</div><div class="nk-tab">✅ ${W.tasks}</div><div class="nk-tab">📎 ${W.files}</div></div>
   <div class="nk-tab-panel">${W.tabPanelBody}</div>
@@ -1230,17 +1234,22 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
 </div>`,
 },
 {
-  id: 'nk-steps', group: 'gallery', classes: ['nk-steps', 'nk-step', 'st-mark', 'st-desc', 'done', 'current'],
+  id: 'nk-steps', group: 'gallery', classes: ['nk-steps', 'nk-step', 'st-mark', 'st-desc', 'done', 'current', 'skipped', 'st-label', 'horizontal'],
   title: { en: 'Steps', de: 'Schritte' },
   desc: {
-    en: 'Steps through a short flow – connecting an account, setting up a model – calm and vertical: a numbered circle per step joined by a hairline, done steps on the green tag with a check, the current one ringed in the accent and marked <code>aria-current="step"</code>, the rest quiet. <code>.st-desc</code> adds a line under a step. Not a Notion block; in Notion\'s idiom it is a numbered list with checks.',
-    de: 'Schritte durch einen kurzen Ablauf – ein Konto verbinden, ein Modell einrichten –, ruhig und vertikal: ein nummerierter Kreis pro Schritt, verbunden durch eine Haarlinie, erledigte Schritte mit Haken auf dem grünen Tag, der aktuelle im Akzent umrandet und mit <code>aria-current="step"</code> markiert, der Rest leise. <code>.st-desc</code> ergänzt eine Zeile unter einem Schritt. Kein Notion-Block; in Notions Sprache ist es eine nummerierte Liste mit Haken.',
+    en: 'Steps through a short flow – connecting an account, setting up a model – calm and vertical: a numbered circle per step joined by a hairline, done steps on the green tag with a check, the current one ringed in the accent and marked <code>aria-current="step"</code>, the rest quiet. <code>.st-desc</code> adds a line under a step. The states go per step, in any order: a step that was skipped is <code>.skipped</code> – a dashed ring around a dash – while a later one is <code>.done</code>. The label as a <code>&lt;button class="st-label"&gt;</code> makes a step one to jump to. <code>.horizontal</code> sets the steps in one row above a wizard, joined by lines. Not a Notion block; in Notion\'s idiom it is a numbered list with checks.',
+    de: 'Schritte durch einen kurzen Ablauf – ein Konto verbinden, ein Modell einrichten –, ruhig und vertikal: ein nummerierter Kreis pro Schritt, verbunden durch eine Haarlinie, erledigte Schritte mit Haken auf dem grünen Tag, der aktuelle im Akzent umrandet und mit <code>aria-current="step"</code> markiert, der Rest leise. <code>.st-desc</code> ergänzt eine Zeile unter einem Schritt. Die Zustände gelten je Schritt, in beliebiger Folge: Ein übersprungener Schritt ist <code>.skipped</code> – ein gestrichelter Ring um einen Strich –, während ein späterer <code>.done</code> ist. Das Label als <code>&lt;button class="st-label"&gt;</code> macht einen Schritt anspringbar. <code>.horizontal</code> setzt die Schritte in eine Zeile über einem Assistenten, verbunden durch Linien. Kein Notion-Block; in Notions Sprache ist es eine nummerierte Liste mit Haken.',
   },
-  mobile: { en: 'Unchanged: vertical, so it never runs out of width.', de: 'Unverändert: vertikal, die Breite geht also nie aus.' },
+  mobile: { en: 'Vertical steps stay as they are – they never run out of width. <code>.horizontal</code> keeps its row below 860px with every mark but only the current step\'s label.', de: 'Vertikale Schritte bleiben, wie sie sind – ihnen geht die Breite nie aus. <code>.horizontal</code> behält unter 860px seine Zeile, mit jeder Marke, aber nur dem Label des aktuellen Schritts.' },
   html: W => `<ol class="nk-steps" aria-label="${W.stepsLabel}">
   <li class="nk-step done"><span class="st-mark">✓</span><span>${W.stepProvider}<span class="st-desc">${W.stepProviderDesc}</span></span></li>
   <li class="nk-step current" aria-current="step"><span class="st-mark">2</span><span>${W.stepKey}</span></li>
   <li class="nk-step"><span class="st-mark">3</span><span>${W.stepTest}</span></li>
+</ol>
+<ol class="nk-steps horizontal" aria-label="${W.stepsLabel}">
+  <li class="nk-step done"><span class="st-mark">✓</span><button type="button" class="st-label">${W.stepProvider}</button></li>
+  <li class="nk-step skipped"><span class="st-mark">–</span><button type="button" class="st-label">${W.stepKey}<span class="st-desc">${W.stepSkipped}</span></button></li>
+  <li class="nk-step current" aria-current="step"><span class="st-mark">3</span><button type="button" class="st-label">${W.stepTest}</button></li>
 </ol>`,
 },
 // ============================================================ 5.10 COLLAB & AI

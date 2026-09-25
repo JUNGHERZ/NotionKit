@@ -4,6 +4,23 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.12.0] – 2026-09-25
+
+Auxdesk moved from 1.5.1 to 1.11 and sent back eight findings; this release answers all of them. Panels carry a tag or a button beside their title, property lists and panel grids can drop the margin meant for a page, text values flow as text, a value moves under its name in a narrow column, steps take their state one by one and can run in a row, tabs scroll, a full page can have a cap, and a table row can carry buttons. Additive but for property values in columns narrower than 380px, see Changed.
+
+### Added
+- **Panel head: `.p-head` and `.p-end`.** The title of a `.nk-panel` with something at its right edge – a state as a tag, a button – as Notion's settings boxes show whether a connection stands. Where both do not fit, the end moves under the title.
+- **`.flush` on `.nk-props` and `.nk-panels`** drops the outer margin – for a list inside a panel or a cell, a grid inside a flex column with a gap of its own, where the margin meant for the flow under a title only adds to their spacing.
+- **`.p-value.text`**: a property value that is text – a sentence, an address, a model name with a tag – flows and wraps as text instead of setting its parts one under the other. It stays centred in the 34px row.
+- **Steps: `.skipped`, `.st-label` and `.horizontal`.** The states go per step, in any order: a wizard that lets a step be skipped marks it `.skipped` – a dashed ring around a dash – while a later one is `.done`. The label as a `<button class="st-label">` makes a step one to jump to. `.nk-steps.horizontal` sets the steps in one row above a wizard, joined by a line that takes the room between them; below 860px it keeps every mark but only the current step's label.
+- **`.nk-tabs.scroll`**: many tabs in one row that scrolls sideways, scrollbar hidden, instead of running out of the page. The line under the row moves into it as an inset shadow, so the scroller does not clip the active tab's underline – a strip that fits looks the same as without.
+- **Token `--nk-page-full-max`** (`none`): the cap of a `.nk-page.full` column. A dashboard of tables may want more than 760px but no 1600px lines – `1080px` on `:root`.
+- **Row actions in a table: `.row-actions`** sets buttons for a row – “Retry”, “Discard” – at the right edge of their cell; `th.actions` is a header that sorts nothing and takes no hover.
+- The token table describes `--nk-peek-width` and `--nk-page-full-max`; the first had no description since 1.10.0.
+
+### Changed
+- **A property value keeps at least 220px.** In a column narrower than 380px – a side panel, a third of the page – the value moves under its name instead of shrinking beside the 160px name column until an address breaks into syllables. Wider columns lay out as before; below 860px the rows stack as before.
+
 ## [1.11.1] – 2026-09-24
 
 ### Fixed

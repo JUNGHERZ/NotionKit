@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.11.1) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.12.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -135,7 +135,8 @@ All visual values are custom properties. `:root` holds the light theme, `[data-t
 | `--nk-scrim` | `rgba(15,15,15,0.6)` | — (inherits) | Modal backdrop |
 | `--nk-scrim-soft` | `rgba(15,15,15,0.5)` | — (inherits) | Command palette backdrop, one step lighter |
 | `--nk-sidebar-width` | `260px` | — (inherits) | Sidebar width, also its min-width (plus the left safe-area inset, if any) |
-| `--nk-peek-width` | `560px` | — (inherits) |  |
+| `--nk-peek-width` | `560px` | — (inherits) | Width of the side peek; .pk-resize sets it on :root while dragging |
+| `--nk-page-full-max` | `none` | — (inherits) | Cap of a .nk-page.full column – none: the whole window, 1080px for a dashboard without 1600px lines |
 | `--nk-tab-bar-height` | `58px` | — (inherits) | Mobile tab bar height without the safe-area inset (the inset replaces the 6px bottom padding); the spacer uses the same value |
 | `--nk-radius` | `6px` | — (inherits) | Control radius. Cards and modals use 8–12px directly |
 | `--nk-font` | `ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif` | — (inherits) | System font stack |
@@ -376,7 +377,7 @@ Children indent under a guide line. Add `.collapsed` to fold them away and `.ope
 
 ### Page column & page options — `.nk-page`
 
-The document column: `max-width: 760px` with auto margins, never a fixed width. After a cover (`.nk-cover + .nk-page`, or `.nk-page.covered`) the icon pulls itself up over it with a negative margin and the page has no top padding; without one the page keeps 24px top padding and the icon sits inside it, fully visible. The title is `contenteditable`-ready. Notion's two page options are classes on the page: `full` lifts the 760px cap so the column fills the window, `small` sets the document text from 16px to 14px, and headings, lead, prose and editor follow because they are sized in em. Title, properties, tables and controls keep their size. In Notion these are options of the single page, in its ⋯ menu, not app settings.
+The document column: `max-width: 760px` with auto margins, never a fixed width. After a cover (`.nk-cover + .nk-page`, or `.nk-page.covered`) the icon pulls itself up over it with a negative margin and the page has no top padding; without one the page keeps 24px top padding and the icon sits inside it, fully visible. The title is `contenteditable`-ready. Notion's two page options are classes on the page: `full` lifts the 760px cap so the column fills the window, `small` sets the document text from 16px to 14px, and headings, lead, prose and editor follow because they are sized in em. Title, properties, tables and controls keep their size. In Notion these are options of the single page, in its ⋯ menu, not app settings. The token `--nk-page-full-max` caps `full` – `none` by default; `1080px` on `:root` gives a dashboard of tables room without 1600px lines.
 
 ```html
 <div class="nk-page-scroll">
@@ -395,19 +396,20 @@ The document column: `max-width: 760px` with auto margins, never a fixed width. 
 
 ### Page properties — `.nk-props`
 
-The properties under the title of a database page – the pattern Notion is known for. One `.nk-prop` per row: the name with its type icon in a 160px column, the value beside it, both 34px tall with the hover wash, as each half opens its own editor in Notion. Values are ordinary markup: tags, an avatar with a name, a date, a `.nk-progress.wide`. It replaces `.nk-page-meta` on a page that is a row. Written as `<dl>`, `<dt>` and `<dd>` it is a description list for assistive technology as well; plain `<div>`s work the same.
+The properties under the title of a database page – the pattern Notion is known for. One `.nk-prop` per row: the name with its type icon in a 160px column, the value beside it, both 34px tall with the hover wash, as each half opens its own editor in Notion. Values are ordinary markup: tags, an avatar with a name, a date, a `.nk-progress.wide`. It replaces `.nk-page-meta` on a page that is a row. Written as `<dl>`, `<dt>` and `<dd>` it is a description list for assistive technology as well; plain `<div>`s work the same. A value that is text – a sentence, an address, a model name with a tag – takes `.text` and flows as text instead of setting its parts one under the other. The value keeps at least 220px: in a column narrower than 380px, a side panel say, it moves under its name. `.flush` drops the outer margin, for a list inside a panel or a flex column with a gap of its own.
 
 ```html
 <dl class="nk-props">
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">◉</span>Status</dt><dd class="p-value"><span class="nk-tag blue">In progress</span></dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>Owner</dt><dd class="p-value"><span class="nk-avatar small purple">AL</span>Ada Lovelace</dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Due</dt><dd class="p-value">2 June 2026</dd></div>
+  <div class="nk-prop"><dt class="p-name"><span class="p-icon">✉️</span>Address</dt><dd class="p-value text">support+design@notionkit.example.com · <span class="nk-tag green">Verified</span></dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">🏷️</span>Tags</dt><dd class="p-value"><span class="nk-tag purple">Design system</span><span class="nk-tag">CSS</span></dd></div>
   <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Progress</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
 </dl>
 ```
 
-- **Classes:** `.nk-props`, `.nk-prop`, `.p-name`, `.p-icon`, `.p-value`
+- **Classes:** `.nk-props`, `.nk-prop`, `.p-name`, `.p-icon`, `.p-value`, `.text`, `.flush`
 - **On a small screen:** Below 860px each property stacks: the name above its value, both flush left, so the value gets the whole width.
 
 ### Cover — `.nk-cover`
@@ -602,34 +604,37 @@ The database header as Notion lays it out: view tabs on the left, the view's too
 
 ### Table view — `.nk-table`
 
-36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is `white-space: nowrap` so columns keep their shape; `.wrap` on the table or on a cell lets text break, like Notion's “wrap column”. `.num` on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. `.nk-new-row` is the add affordance at the bottom (inside `.nk-table` the short form `.new-row` still works).
+36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is `white-space: nowrap` so columns keep their shape; `.wrap` on the table or on a cell lets text break, like Notion's “wrap column”. `.num` on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. `.row-actions` in a cell sets buttons for the row at its right edge – “Retry”, “Discard” – and `th.actions` is a header that sorts nothing. `.nk-new-row` is the add affordance at the bottom (inside `.nk-table` the short form `.new-row` still works).
 
 ```html
 <div class="nk-table-wrap"><table class="nk-table">
   <thead><tr>
     <th><span class="th-icon">📄</span>Name</th><th><span class="th-icon">◉</span>Status</th>
     <th><span class="th-icon">👤</span>Owner</th><th><span class="th-icon">📅</span>Due</th>
-    <th><span class="th-icon">📊</span>Progress</th><th><span class="th-icon">#</span>Effort (h)</th>
+    <th><span class="th-icon">📊</span>Progress</th><th><span class="th-icon">#</span>Effort (h)</th><th class="actions"></th>
   </tr></thead>
   <tbody>
     <tr><td><span class="row-title">🚀 Roadmap</span></td><td><span class="nk-tag green">Done</span></td>
         <td><span class="person-cell"><span class="nk-avatar small purple">SL</span>Sara</span></td>
         <td class="date-cell">12.05.2026</td>
-        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">6.0</td></tr>
+        <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">6.0</td>
+        <td><span class="row-actions"><button class="nk-btn secondary small">Open</button><button class="nk-btn danger small">Archive</button></span></td></tr>
     <tr><td><span class="row-title">🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
         <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
-        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">12.5</td></tr>
+        <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">12.5</td>
+        <td><span class="row-actions"><button class="nk-btn secondary small">Open</button><button class="nk-btn danger small">Archive</button></span></td></tr>
     <tr><td><span class="row-title">📣 Launch</span></td><td><span class="nk-tag yellow">Planned</span></td>
         <td><span class="person-cell"><span class="nk-avatar small orange">MK</span>Mia</span></td>
         <td class="date-cell">02.06.2026</td>
-        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">3.25</td></tr>
+        <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">3.25</td>
+        <td><span class="row-actions"><button class="nk-btn secondary small">Open</button><button class="nk-btn danger small">Archive</button></span></td></tr>
   </tbody>
 </table>
 <div class="nk-new-row">＋ New page</div></div>
 ```
 
-- **Classes:** `.nk-table-wrap`, `.nk-table`, `.wrap`, `.th-icon`, `.row-title`, `.date-cell`, `.person-cell`, `.num`, `.nk-new-row`
+- **Classes:** `.nk-table-wrap`, `.nk-table`, `.wrap`, `.th-icon`, `.row-title`, `.date-cell`, `.person-cell`, `.num`, `.row-actions`, `.actions`, `.nk-new-row`
 - **On a small screen:** This is the key one: `nk-table-wrap` scrolls horizontally so the table never forces the page wider. Always wrap the table.
 
 ### Tags — `.nk-tag`
@@ -1242,7 +1247,7 @@ A fluid `repeat(auto-fit, minmax(min(280px, 100%), 1fr))` grid. There is no brea
 
 ### Panels — `.nk-panel`
 
-A neutral surface for content that belongs together – the cards on Notion's Home, the boxes in its settings. Not `.nk-card`, which is the board card. `.nk-panels` sets several in a grid of columns at least 200px wide that share the row. Inside, an `<h3>` is the title and a `<p>` the quiet text; a `.nk-cover` as first child runs to the panel's edges, and a `.nk-page-icon` after it overlaps the cover – a page tile, as on Home under “Recently visited”. As an `<a>` or `<button>` the panel answers the pointer.
+A neutral surface for content that belongs together – the cards on Notion's Home, the boxes in its settings. Not `.nk-card`, which is the board card. `.nk-panels` sets several in a grid of columns at least 200px wide that share the row. Inside, an `<h3>` is the title and a `<p>` the quiet text; a `.nk-cover` as first child runs to the panel's edges, and a `.nk-page-icon` after it overlaps the cover – a page tile, as on Home under “Recently visited”. As an `<a>` or `<button>` the panel answers the pointer. `.p-head` holds the title with something at its right edge in `.p-end` – a state as a tag, a button – as Notion's settings boxes show a connection; where both do not fit, the end moves under the title. `.nk-panels.flush` drops the grid's outer margin.
 
 ```html
 <div class="nk-panels">
@@ -1259,19 +1264,19 @@ A neutral surface for content that belongs together – the cards on Notion's Ho
     <p>Yesterday</p>
   </a>
   <div class="nk-panel">
-    <h3>Weekly review</h3>
+    <div class="p-head"><h3>Weekly review</h3><span class="p-end"><span class="nk-tag blue">In progress</span></span></div>
     <p>Three pages changed, one comment is waiting for an answer.</p>
     <div><span class="nk-progress wide"><i style="width:60%"></i></span><span class="nk-progress-label">60 %</span></div>
   </div>
 </div>
 ```
 
-- **Classes:** `.nk-panels`, `.nk-panel`
+- **Classes:** `.nk-panels`, `.nk-panel`, `.p-head`, `.p-end`, `.flush`
 - **On a small screen:** The grid falls to one column as soon as two 200px columns no longer fit – no breakpoint involved.
 
 ### Tabs — `.nk-tabs`
 
-In-page tabs, visually the quieter sibling of the database view tabs. Show and hide the panels yourself; the library only styles them.
+In-page tabs, visually the quieter sibling of the database view tabs. Show and hide the panels yourself; the library only styles them. `.scroll` keeps many tabs in one row that scrolls sideways, scrollbar hidden, and looks the same – keep the active tab in view yourself, with `scrollIntoView({ inline: 'nearest', block: 'nearest' })`.
 
 ```html
 <div>
@@ -1280,8 +1285,8 @@ In-page tabs, visually the quieter sibling of the database view tabs. Show and h
 </div>
 ```
 
-- **Classes:** `.nk-tabs`, `.nk-tab`, `.active`, `.nk-tab-panel`
-- **On a small screen:** Add `overflow-x: auto` to `nk-tabs` when the strip gets long.
+- **Classes:** `.nk-tabs`, `.nk-tab`, `.active`, `.nk-tab-panel`, `.scroll`
+- **On a small screen:** A strip longer than the screen takes `.scroll`; without it the tabs run out of the page.
 
 ### Template button — `.nk-template-btn`
 
@@ -1432,7 +1437,7 @@ A dashed frame with icon, title and one explanatory line, then the way out of th
 
 ### Steps — `.nk-steps`
 
-Steps through a short flow – connecting an account, setting up a model – calm and vertical: a numbered circle per step joined by a hairline, done steps on the green tag with a check, the current one ringed in the accent and marked `aria-current="step"`, the rest quiet. `.st-desc` adds a line under a step. Not a Notion block; in Notion's idiom it is a numbered list with checks.
+Steps through a short flow – connecting an account, setting up a model – calm and vertical: a numbered circle per step joined by a hairline, done steps on the green tag with a check, the current one ringed in the accent and marked `aria-current="step"`, the rest quiet. `.st-desc` adds a line under a step. The states go per step, in any order: a step that was skipped is `.skipped` – a dashed ring around a dash – while a later one is `.done`. The label as a `<button class="st-label">` makes a step one to jump to. `.horizontal` sets the steps in one row above a wizard, joined by lines. Not a Notion block; in Notion's idiom it is a numbered list with checks.
 
 ```html
 <ol class="nk-steps" aria-label="Connect your own model">
@@ -1440,10 +1445,15 @@ Steps through a short flow – connecting an account, setting up a model – cal
   <li class="nk-step current" aria-current="step"><span class="st-mark">2</span><span>Enter the API key</span></li>
   <li class="nk-step"><span class="st-mark">3</span><span>Test the connection</span></li>
 </ol>
+<ol class="nk-steps horizontal" aria-label="Connect your own model">
+  <li class="nk-step done"><span class="st-mark">✓</span><button type="button" class="st-label">Choose a provider</button></li>
+  <li class="nk-step skipped"><span class="st-mark">–</span><button type="button" class="st-label">Enter the API key<span class="st-desc">skipped</span></button></li>
+  <li class="nk-step current" aria-current="step"><span class="st-mark">3</span><button type="button" class="st-label">Test the connection</button></li>
+</ol>
 ```
 
-- **Classes:** `.nk-steps`, `.nk-step`, `.st-mark`, `.st-desc`, `.done`, `.current`
-- **On a small screen:** Unchanged: vertical, so it never runs out of width.
+- **Classes:** `.nk-steps`, `.nk-step`, `.st-mark`, `.st-desc`, `.done`, `.current`, `.skipped`, `.st-label`, `.horizontal`
+- **On a small screen:** Vertical steps stay as they are – they never run out of width. `.horizontal` keeps its row below 860px with every mark but only the current step's label.
 
 ## Collaboration & AI (PRD 5.10)
 
@@ -2333,13 +2343,13 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 |---|---|
 | App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-head` `nk-sidebar-collapse` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-sidebar-backdrop` `nk-sidebar-toggle` `open` `collapsed` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-topbar-meta` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
-| Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `nk-cover` `nk-heading` `lead` |
+| Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `text` `flush` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
-| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` |
+| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `fit` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `nk-tooltip` `tt-key` `lines` |
-| Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-panels` `nk-panel` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `scroll` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-avatar` `small` `large` `xlarge` `square` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` `nk-steps` `nk-step` `st-mark` `st-desc` `done` `current` |
+| Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-panels` `nk-panel` `p-head` `p-end` `flush` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `scroll` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-avatar` `small` `large` `xlarge` `square` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` `nk-steps` `nk-step` `st-mark` `st-desc` `done` `current` `skipped` `st-label` `horizontal` |
 | Collaboration & AI | `nk-comments` `nk-comment` `c-head` `c-body` `nk-comment-input` `nk-ai-thread` `nk-ai-msg` `user` `bubble` `a-name` `a-body` `nk-ai-actions` `nk-ai-input-row` `nk-ai-send` |
 | Editor adapter | `nk-block-host` `nk-block-handle` `nk-block-actions` `nk-drop-target` `nk-slash-menu` `nk-slash-menu-label` `nk-slash-item` `selected` `nk-bubble-menu` |
 
@@ -2398,4 +2408,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.11.1 · MIT · Jungherz GmbH*
+*NotionKit v1.12.0 · MIT · Jungherz GmbH*

@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.11.1-2383e2?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.12.0-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
   <img src="https://img.shields.io/badge/components-~140-448361?style=flat-square" alt="Components">
-  <img src="https://img.shields.io/badge/gzip-13.9%20KB-d9730d?style=flat-square" alt="Size">
+  <img src="https://img.shields.io/badge/gzip-14.2%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.11.1-9065b0?style=flat-square" alt="Changelog"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.12.0-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
   <a href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit/"><img src="https://img.shields.io/badge/CDN-jsDelivr-blue?style=flat-square" alt="jsDelivr"></a>
 </p>
@@ -61,7 +61,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 - 🧩 **Shadow DOM ready** – ships a constructable stylesheet split into tokens and components, plus `::slotted()` twins, so web components adopt it without breaking branding
 - ✍️ **Editor adapter** – no editor of its own; a themed adapter layer for TipTap, BlockNote and Novel inside `.nk-block-host`
 - 🤖 **AI-ready** – ships with [`SKILL.md`](SKILL.md), a structured reference for LLMs and coding agents, including eight complete app skeletons
-- 🪶 **Lightweight** – 118 KB raw / 77 KB minified / 13.9 KB gzipped, no dependencies. The budget is 18 KB gzipped – up to 1.9.0 it was 14 KB, what a new connection delivers in its first round trip; CI keeps to it
+- 🪶 **Lightweight** – 122 KB raw / 78 KB minified / 14.2 KB gzipped, no dependencies. The budget is 18 KB gzipped – up to 1.9.0 it was 14 KB, what a new connection delivers in its first round trip; CI keeps to it
 - 🎯 **Prefixed naming** – `nk-*` classes, `--nk-*` tokens, no unprefixed global rules
 
 ---
@@ -77,7 +77,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 Pin a version for production:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.11.1/notionkit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.12.0/notionkit.min.css">
 ```
 
 ### npm / yarn / pnpm
@@ -179,8 +179,8 @@ About 140 component classes across eleven groups. Every one of them is documente
 | Class | Description |
 |---|---|
 | `nk-page-scroll`, `nk-cover`, `nk-page`, `nk-page-icon`, `nk-page-title`, `nk-page-meta` | Document shell: 760px column with auto margins; an `<img>` in the cover is cropped to fill it |
-| `nk-page` (`full`, `small`) | Notion's page options: full width, small text (14px) – per page |
-| `nk-props`, `nk-prop` (`p-name`, `p-icon`, `p-value`) | Page properties under the title, name beside value |
+| `nk-page` (`full`, `small`) | Notion's page options: full width – capped by `--nk-page-full-max` if you like – and small text (14px), per page |
+| `nk-props` (`flush`), `nk-prop` (`p-name`, `p-icon`, `p-value`, `text`) | Page properties under the title, name beside value – under it in a column narrower than 380px |
 | `nk-heading`, `p.lead` | Section heading, intro paragraph |
 | `nk-callout` (`c-icon`) | Tinted block with icon |
 | `nk-bookmark` (`bm-text`, `bm-title`, `bm-desc`, `bm-url`, `bm-favicon`, `bm-cover`) | Link block: title, description, address, preview image |
@@ -197,7 +197,7 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-database`, `nk-db-tabs`, `nk-db-tab` (`active`, `badge`, `add`) | View tabs with counts |
 | `nk-db-toolbar` (`tools`), `nk-db-tool` (`active`) | Tabs left, Filter / Sort / search / New right |
 | `nk-filter-row`, `nk-filter-pill` (`active`, `add`, `fp-remove`) | The filters in effect as pills |
-| `nk-table-wrap`, `nk-table` (`th-icon`, `row-title`, `date-cell`, `person-cell`, `num`), `nk-new-row` | Horizontally scrolling table with add row and right-aligned numbers |
+| `nk-table-wrap`, `nk-table` (`th-icon`, `row-title`, `date-cell`, `person-cell`, `num`, `row-actions`, `th.actions`), `nk-new-row` | Horizontally scrolling table with add row, right-aligned numbers and buttons per row |
 | `nk-list`, `nk-list-item` (`l-icon`, `l-title`, `l-meta`) | List view: one line per row |
 | `nk-tag` (nine colours) | Notion's select options, tuned per theme |
 | `nk-progress` (`wide`), `nk-progress-label` | Progress bar in a cell or across its row |
@@ -231,9 +231,9 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-emoji-search`, `nk-emoji-grid`, `nk-emoji-cats` | Emoji picker |
 | `nk-cmdk-backdrop` (`open`), `nk-cmdk`, `nk-cmdk-input-row`, `nk-cmdk-list`, `nk-cmdk-group`, `nk-cmdk-item` (`selected`), `nk-cmdk-empty`, `nk-cmdk-footer` | Command palette |
 | `nk-toast` (`show`) | Toast |
-| `nk-gallery-grid`, `nk-g-item`, `nk-tabs`, `nk-tab`, `nk-tab-panel`, `nk-template-btn` | Gallery grid, tabs, template buttons |
-| `nk-panels`, `nk-panel` | Neutral surfaces in a grid; with cover and page icon a page tile |
-| `nk-steps`, `nk-step` (`st-mark`, `st-desc`, `done`, `current`) | Calm vertical steps through a short flow |
+| `nk-gallery-grid`, `nk-g-item`, `nk-tabs` (`scroll`), `nk-tab`, `nk-tab-panel`, `nk-template-btn` | Gallery grid, tabs – many in a row that scrolls – template buttons |
+| `nk-panels` (`flush`), `nk-panel` (`p-head`, `p-end`) | Neutral surfaces in a grid; with cover and page icon a page tile, a tag or button beside the title |
+| `nk-steps` (`horizontal`), `nk-step` (`st-mark`, `st-label`, `st-desc`, `done`, `skipped`, `current`) | Calm steps through a short flow, vertical or in a row, states in any order |
 | `nk-avatar` (`small`, `large`, `xlarge`, `square`, nine colours) | Initials, emoji or photo in a circle |
 | `nk-stats`, `nk-stat` (`up`, `down`), `nk-synced`, `nk-segmented` (`scroll`, `wrap`), `nk-banner` (`info`, `success`, `warning`), `nk-avatar-group`, `nk-skeleton`, `nk-empty` | Productivity blocks |
 | `nk-comments`, `nk-comment`, `nk-comment-input` | Comment thread |
