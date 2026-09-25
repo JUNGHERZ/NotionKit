@@ -21,6 +21,9 @@ test('a toast with .t-action and .t-close keeps its height; only a shown toast l
     return { plain: h('plain'), action: h('t'), weight: a.fontWeight, xSize: [Math.round(x.width), Math.round(x.height)], xRight: Math.round(t.right - x.right) };
   });
   expect(m).toEqual({ plain: m.action, action: m.action, weight: '500', xSize: [24, 24], xRight: 8 });
+  // A short line, as Linux fonts give one (16px): the buttons stay within it.
+  await page.evaluate(() => { for (const id of ['plain', 't']) document.getElementById(id).style.lineHeight = '16px'; });
+  expect(await page.evaluate(() => ['plain', 't'].map(id => Math.round(document.getElementById(id).getBoundingClientRect().height)))).toEqual([32, 32]);
   // The toast's own colours: the action is text on a faint wash of the toast's text colour.
   expect(await page.evaluate(() => { const t = getComputedStyle(document.getElementById('t')), a = getComputedStyle(document.getElementById('a')); return [a.color === t.color, a.backgroundColor !== 'rgba(0, 0, 0, 0)']; })).toEqual([true, true]);
 });

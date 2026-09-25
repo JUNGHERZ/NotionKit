@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.19.0
+   Jungherz GmbH – v1.19.1
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -1669,7 +1669,9 @@ a.nk-btn { text-decoration: none; }
    quiet button in the toast's own colours, .t-close the × that dismisses a
    toast that stays until one of them is used. Only a shown toast takes the
    pointer; a slotted action meets the page's button reset, so its margin and
-   padding take !important there. */
+   padding take !important there. Negative margins keep both within the
+   text's line, however short a system font makes it: the toast keeps its
+   height. */
 .nk-toast .t-action,
 .nk-toast ::slotted([slot="action"]) {
   flex: none; margin: -2px 0 -2px 4px; padding: 2px 8px; border: 0; border-radius: 5px;
@@ -1681,7 +1683,7 @@ a.nk-btn { text-decoration: none; }
 .nk-toast ::slotted([slot="action"]:hover) { background: color-mix(in srgb, var(--nk-bg) 26%, transparent); }
 .nk-toast .t-close {
   flex: none; display: inline-flex; align-items: center; justify-content: center;
-  width: 24px; height: 24px; margin: -3px -8px -3px -2px; padding: 0; border: 0; border-radius: 5px;
+  width: 24px; height: 24px; margin: -6px -8px -6px -2px; padding: 0; border: 0; border-radius: 5px;
   background: none; color: inherit; opacity: .7; cursor: pointer;
 }
 .nk-toast .t-close:hover { opacity: 1; background: color-mix(in srgb, var(--nk-bg) 16%, transparent); }

@@ -4,6 +4,11 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.19.1] – 2026-09-25
+
+### Fixed
+- **A toast with an × keeps its height where fonts make the line short.** The × is 24px tall and stood 3px into the toast's padding on each side – within the 23px line of macOS fonts, but 2px over the 16px line Linux fonts give, so the toast grew from 32px to 34px there. Its margins now keep it within any line; the action button already fit.
+
 ## [1.19.0] – 2026-09-25
 
 Auxdesk's wish for a toast with a button. The rest of this release – Escape for the top layer only, the focus back into shadow roots, a long menu that opens at its top, a toast that hides by itself again – lives in NotionKit Elements 1.19.0.
