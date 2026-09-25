@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.18.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.19.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Docs</a>
@@ -1859,13 +1859,15 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
       </article>
       <article class="doc-entry" id="nk-toast">
         <h3>Toast <code>.nk-toast</code></h3>
-        <p class="doc-desc">Fixed to the bottom centre, inverted (text colour as background). It sits off-screen until <code>.show</code> is added, then slides up. <code>pointer-events: none</code> keeps it from stealing clicks.</p>
-        <div class="doc-preview"><div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>Settings saved</span></div></div>
+        <p class="doc-desc">Fixed to the bottom centre, inverted (text colour as background). It sits off-screen until <code>.show</code> is added, then slides up. <code>pointer-events: none</code> keeps it from stealing clicks. With an action it is Notion's “Moved to trash · Undo”: a <code>.t-action</code> button in the toast's own colours and a <code>.t-close</code> × – the only parts that take the pointer, and only while the toast shows. Keep such a toast until one of them is used; the timing is your script.</p>
+        <div class="doc-preview"><div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>Settings saved</span></div>
+<div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto;margin-top:12px">🗑️ <span>Moved to trash</span><button class="t-action" type="button">Undo</button><button class="t-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div></div>
         
         
-        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-toast show" <span class="attr">style=</span>"position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto"<span class="tag">&gt;</span>✓ <span class="tag">&lt;span</span><span class="tag">&gt;</span>Settings saved<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-toast show" <span class="attr">style=</span>"position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto"<span class="tag">&gt;</span>✓ <span class="tag">&lt;span</span><span class="tag">&gt;</span>Settings saved<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-toast show" <span class="attr">style=</span>"position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto;margin-top:12px"<span class="tag">&gt;</span>🗑️ <span class="tag">&lt;span</span><span class="tag">&gt;</span>Moved to trash<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"t-action" <span class="attr">type=</span>"button"<span class="tag">&gt;</span>Undo<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"t-close" <span class="attr">type=</span>"button" <span class="attr">aria-label=</span>"Close"<span class="tag">&gt;</span><span class="tag">&lt;svg</span> <span class="attr">viewBox=</span>"0 0 24 24" <span class="attr">aria-hidden=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;path</span> <span class="attr">d=</span>"M18 6 6 18M6 6l12 12"<span class="tag">/&gt;</span><span class="tag">&lt;/svg</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>On a small screen:</b><span>Centred by <code>translateX(-50%)</code>, so it stays centred at any width.</span></div>
-        <div class="doc-classes"><code>.nk-toast</code><code>.show</code></div>
+        <div class="doc-classes"><code>.nk-toast</code><code>.show</code><code>.t-action</code><code>.t-close</code></div>
       </article>
       <article class="doc-entry" id="nk-tooltip">
         <h3>Tooltip <code>.nk-tooltip</code></h3>

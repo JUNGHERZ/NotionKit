@@ -1516,7 +1516,7 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape" && dialog.open) { e.stopPropagation(); closeDialog(); } }, true);
   const trashDialog = document.getElementById("trashDialog");
   const viewDialog = document.getElementById("viewDialog"), viewName = document.getElementById("viewName"), viewLayout = document.getElementById("viewLayout");
-  pageMenu.querySelector(".nk-menu-item.danger").addEventListener("click", () => openDialog(trashDialog, () => showToast("Moved to trash"), pageMenuBtn));
+  pageMenu.querySelector(".nk-menu-item.danger").addEventListener("click", () => openDialog(trashDialog, () => showToast("Moved to trash", UNDO), pageMenuBtn));
   document.getElementById("addView").addEventListener("click", () => {
     viewName.value = "";
     openDialog(viewDialog, () => showToast(`View “${viewName.value || "Untitled"}” created as ${viewLayout.value.toLowerCase()}`));
@@ -1631,7 +1631,7 @@
     if (h === "#date") pageDue.click();
     if (h === "#calendar") document.querySelector('.nk-db-tab[data-view="calendar"]').click();
     if (h === "#gallery") document.querySelector('.nk-db-tab[data-view="gallery"]').click();
-    if (h === "#dialog") openDialog(trashDialog, () => showToast("Moved to trash"), pageMenuBtn);
+    if (h === "#dialog") openDialog(trashDialog, () => showToast("Moved to trash", UNDO), pageMenuBtn);
     if (h === "#settings") modal.classList.add("open");
   }
   requestAnimationFrame(openFromHash);
@@ -1653,12 +1653,22 @@
 
   /* ============ Toast ============ */
   let toastTimer;
-  function showToast(msg) {
+  // With an action the toast stays until it is used or closed, as in Notion.
+  const UNDO = { label: "Undo", run: () => showToast("Restored") };
+  function showToast(msg, action) {
     const toast = document.getElementById("toast");
     document.getElementById("toastMsg").textContent = msg;
-    toast.classList.add("show");
+    toast.querySelectorAll(".t-action, .t-close").forEach(b => b.remove());
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    if (action) {
+      const take = Object.assign(document.createElement("button"), { type: "button", className: "t-action", textContent: action.label });
+      const close = Object.assign(document.createElement("button"), { type: "button", className: "t-close", innerHTML: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>' });
+      close.setAttribute("aria-label", "Close");
+      take.addEventListener("click", () => { toast.classList.remove("show"); action.run(); });
+      close.addEventListener("click", () => toast.classList.remove("show"));
+      toast.append(take, close);
+    } else toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    toast.classList.add("show");
   }
 
   /* ============ Theme sync when embedded in the landing page ============ */

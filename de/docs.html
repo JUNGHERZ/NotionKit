@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.18.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.19.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html" class="current">Doku</a>
@@ -1859,13 +1859,15 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
       </article>
       <article class="doc-entry" id="nk-toast">
         <h3>Toast <code>.nk-toast</code></h3>
-        <p class="doc-desc">Unten mittig fixiert, invertiert (Textfarbe als Hintergrund). Er sitzt außerhalb des Bildes, bis <code>.show</code> ergänzt wird, und fährt dann hoch. <code>pointer-events: none</code> verhindert, dass er Klicks abfängt.</p>
-        <div class="doc-preview"><div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>Einstellungen gespeichert</span></div></div>
+        <p class="doc-desc">Unten mittig fixiert, invertiert (Textfarbe als Hintergrund). Er sitzt außerhalb des Bildes, bis <code>.show</code> ergänzt wird, und fährt dann hoch. <code>pointer-events: none</code> verhindert, dass er Klicks abfängt. Mit einer Aktion ist er Notions „In den Papierkorb verschoben · Rückgängig“: ein <code>.t-action</code>-Button in den eigenen Farben des Toasts und ein <code>.t-close</code>-× – die einzigen Teile, die den Zeiger nehmen, und nur, solange der Toast steht. So einen Toast stehen lassen, bis einer davon benutzt wird; das Timing ist dein Skript.</p>
+        <div class="doc-preview"><div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>Einstellungen gespeichert</span></div>
+<div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto;margin-top:12px">🗑️ <span>In den Papierkorb verschoben</span><button class="t-action" type="button">Rückgängig</button><button class="t-close" type="button" aria-label="Schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div></div>
         
         
-        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-toast show" <span class="attr">style=</span>"position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto"<span class="tag">&gt;</span>✓ <span class="tag">&lt;span</span><span class="tag">&gt;</span>Einstellungen gespeichert<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
+        <div class="nk-code"><span class="lang">html</span><span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-toast show" <span class="attr">style=</span>"position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto"<span class="tag">&gt;</span>✓ <span class="tag">&lt;span</span><span class="tag">&gt;</span>Einstellungen gespeichert<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class=</span>"nk-toast show" <span class="attr">style=</span>"position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto;margin-top:12px"<span class="tag">&gt;</span>🗑️ <span class="tag">&lt;span</span><span class="tag">&gt;</span>In den Papierkorb verschoben<span class="tag">&lt;/span</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"t-action" <span class="attr">type=</span>"button"<span class="tag">&gt;</span>Rückgängig<span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;button</span> <span class="attr">class=</span>"t-close" <span class="attr">type=</span>"button" <span class="attr">aria-label=</span>"Schließen"<span class="tag">&gt;</span><span class="tag">&lt;svg</span> <span class="attr">viewBox=</span>"0 0 24 24" <span class="attr">aria-hidden=</span>"true"<span class="tag">&gt;</span><span class="tag">&lt;path</span> <span class="attr">d=</span>"M18 6 6 18M6 6l12 12"<span class="tag">/&gt;</span><span class="tag">&lt;/svg</span><span class="tag">&gt;</span><span class="tag">&lt;/button</span><span class="tag">&gt;</span><span class="tag">&lt;/div</span><span class="tag">&gt;</span></div>
         <div class="doc-meta"><b>Auf kleinem Schirm:</b><span>Per <code>translateX(-50%)</code> zentriert und bleibt es in jeder Breite.</span></div>
-        <div class="doc-classes"><code>.nk-toast</code><code>.show</code></div>
+        <div class="doc-classes"><code>.nk-toast</code><code>.show</code><code>.t-action</code><code>.t-close</code></div>
       </article>
       <article class="doc-entry" id="nk-tooltip">
         <h3>Tooltip <code>.nk-tooltip</code></h3>

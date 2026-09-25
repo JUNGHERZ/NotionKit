@@ -254,6 +254,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; \`.novel-editor\`
 | Wrapping a slotted icon (\`<span slot="icon"><svg/></span>\`) | \`::slotted()\` only matches the assigned node – pass the icon itself |
 | A progress bar and its label in a panel or another flex column, the label under the bar | \`<span class="nk-progress-row">\` around both: the label beside the bar, a wide bar fills the rest |
 | \`copy-label="⧉"\`-style glyphs to save room in a copy field on a phone | An \`<svg>\` beside the word (\`<span>\`) in the \`.cf-btn\`, the word as \`aria-label\`: icons show on a phone and with \`.icons\` |
+| A banner for "New version · Reload" or a toast with a link for Undo | \`<button class="t-action">\` and \`<button class="t-close" aria-label="Close">\` in the \`.nk-toast\`; keep it shown until one is used |
 
 ---
 

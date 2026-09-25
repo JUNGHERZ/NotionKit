@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.18.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.19.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -1224,13 +1224,14 @@ A question or a short form – “Move to trash?”, the name of a new view, the
 
 ### Toast — `.nk-toast`
 
-Fixed to the bottom centre, inverted (text colour as background). It sits off-screen until `.show` is added, then slides up. `pointer-events: none` keeps it from stealing clicks.
+Fixed to the bottom centre, inverted (text colour as background). It sits off-screen until `.show` is added, then slides up. `pointer-events: none` keeps it from stealing clicks. With an action it is Notion's “Moved to trash · Undo”: a `.t-action` button in the toast's own colours and a `.t-close` × – the only parts that take the pointer, and only while the toast shows. Keep such a toast until one of them is used; the timing is your script.
 
 ```html
 <div class="nk-toast show">✓ <span>Settings saved</span></div>
+<div class="nk-toast show">🗑️ <span>Moved to trash</span><button class="t-action" type="button">Undo</button><button class="t-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
 ```
 
-- **Classes:** `.nk-toast`, `.show`
+- **Classes:** `.nk-toast`, `.show`, `.t-action`, `.t-close`
 - **On a small screen:** Centred by `translateX(-50%)`, so it stays centred at any width.
 
 ### Tooltip — `.nk-tooltip`
@@ -2357,6 +2358,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Wrapping a slotted icon (`<span slot="icon"><svg/></span>`) | `::slotted()` only matches the assigned node – pass the icon itself |
 | A progress bar and its label in a panel or another flex column, the label under the bar | `<span class="nk-progress-row">` around both: the label beside the bar, a wide bar fills the rest |
 | `copy-label="⧉"`-style glyphs to save room in a copy field on a phone | An `<svg>` beside the word (`<span>`) in the `.cf-btn`, the word as `aria-label`: icons show on a phone and with `.icons` |
+| A banner for "New version · Reload" or a toast with a link for Undo | `<button class="t-action">` and `<button class="t-close" aria-label="Close">` in the `.nk-toast`; keep it shown until one is used |
 
 ---
 
@@ -2371,7 +2373,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `td-text` `td-desc` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-progress-row` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `static` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` `nk-gallery` `small` `large` `fit` `card-item` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `icons` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `fit` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
-| Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `nk-tooltip` `tt-key` `lines` |
+| Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `t-action` `t-close` `nk-tooltip` `tt-key` `lines` |
 | Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-panels` `nk-panel` `p-head` `p-end` `flush` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `scroll` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-avatar` `small` `large` `xlarge` `square` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` `nk-steps` `nk-step` `st-mark` `st-desc` `done` `current` `skipped` `st-label` `horizontal` |
 | Collaboration & AI | `nk-comments` `nk-comment` `c-head` `c-body` `nk-comment-input` `nk-ai-thread` `nk-ai-msg` `user` `bubble` `a-name` `a-body` `nk-ai-actions` `nk-ai-input-row` `nk-ai-send` |
 | Editor adapter | `nk-block-host` `nk-block-handle` `nk-block-actions` `nk-drop-target` `nk-slash-menu` `nk-slash-menu-label` `nk-slash-item` `selected` `nk-bubble-menu` |
@@ -2431,4 +2433,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.18.0 · MIT · Jungherz GmbH*
+*NotionKit v1.19.0 · MIT · Jungherz GmbH*

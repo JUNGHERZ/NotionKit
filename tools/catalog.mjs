@@ -1032,14 +1032,15 @@ app.classList.toggle('peek-inset', open);                     // the page moves 
 &lt;/div&gt;</pre>`,
 },
 {
-  id: 'nk-toast', group: 'overlay', classes: ['nk-toast', 'show'],
+  id: 'nk-toast', group: 'overlay', classes: ['nk-toast', 'show', 't-action', 't-close'],
   title: { en: 'Toast', de: 'Toast' },
   desc: {
-    en: 'Fixed to the bottom centre, inverted (text colour as background). It sits off-screen until <code>.show</code> is added, then slides up. <code>pointer-events: none</code> keeps it from stealing clicks.',
-    de: 'Unten mittig fixiert, invertiert (Textfarbe als Hintergrund). Er sitzt außerhalb des Bildes, bis <code>.show</code> ergänzt wird, und fährt dann hoch. <code>pointer-events: none</code> verhindert, dass er Klicks abfängt.',
+    en: 'Fixed to the bottom centre, inverted (text colour as background). It sits off-screen until <code>.show</code> is added, then slides up. <code>pointer-events: none</code> keeps it from stealing clicks. With an action it is Notion\'s “Moved to trash · Undo”: a <code>.t-action</code> button in the toast\'s own colours and a <code>.t-close</code> × – the only parts that take the pointer, and only while the toast shows. Keep such a toast until one of them is used; the timing is your script.',
+    de: 'Unten mittig fixiert, invertiert (Textfarbe als Hintergrund). Er sitzt außerhalb des Bildes, bis <code>.show</code> ergänzt wird, und fährt dann hoch. <code>pointer-events: none</code> verhindert, dass er Klicks abfängt. Mit einer Aktion ist er Notions „In den Papierkorb verschoben · Rückgängig“: ein <code>.t-action</code>-Button in den eigenen Farben des Toasts und ein <code>.t-close</code>-× – die einzigen Teile, die den Zeiger nehmen, und nur, solange der Toast steht. So einen Toast stehen lassen, bis einer davon benutzt wird; das Timing ist dein Skript.',
   },
   mobile: { en: 'Centred by <code>translateX(-50%)</code>, so it stays centred at any width.', de: 'Per <code>translateX(-50%)</code> zentriert und bleibt es in jeder Breite.' },
-  html: W => `<div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>${W.toastMsg}</span></div>`,
+  html: W => `<div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto">✓ <span>${W.toastMsg}</span></div>
+<div class="nk-toast show" style="position:relative;bottom:auto;left:auto;transform:none;display:inline-flex;z-index:auto;margin-top:12px">🗑️ <span>${W.trashed}</span><button class="t-action" type="button">${W.undo}</button><button class="t-close" type="button" aria-label="${W.close}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>`,
 }
 ,
 // ============================================================ 5.9 GALLERY

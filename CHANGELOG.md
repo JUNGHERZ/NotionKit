@@ -4,6 +4,13 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.19.0] – 2026-09-25
+
+Auxdesk's wish for a toast with a button. The rest of this release – Escape for the top layer only, the focus back into shadow roots, a long menu that opens at its top, a toast that hides by itself again – lives in NotionKit Elements 1.19.0.
+
+### Added
+- **A toast with an action: `.t-action` and `.t-close`.** Notion's "Moved to trash · Undo": `.t-action` is a quiet button in the toast's own colours – text on a faint wash of it – and `.t-close` the × that dismisses a toast that stays until one of them is used. They are the only parts of a toast that take the pointer, and only while it shows; the toast keeps its height. A slotted action takes the same look, its margin and padding with `!important` against the page's button reset (Auxdesk's wish 24, which showed "A new version of Auxdesk · Reload" as a banner). The demo's trash toast offers Undo, which says "Restored".
+
 ## [1.18.0] – 2026-09-25
 
 What LearnHub and Auxdesk found after their move to 1.17.0: a bar and its label in a panel, stacked properties on a phone and room in the copy field. The tab bar's "More" lives in NotionKit Elements 1.18.0.
