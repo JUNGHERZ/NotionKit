@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.17.0
+   Jungherz GmbH – v1.18.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -955,6 +955,13 @@ a.crumb { text-decoration: none; }
    max-height keeps it a bar. */
 .nk-progress.wide { width: 100%; flex: 1 1 60px; max-height: 6px; }
 .nk-progress-label { font-size: 12px; color: var(--nk-text-tertiary); margin-left: 7px; white-space: nowrap; }
+/* A bar and its label as one row: in a flex column – a panel – the two would
+   stand one under the other. The label sits beside the bar, on its middle;
+   a wide row fills its line like the wide bar, and max-height keeps it from
+   growing in a column the way the bar's 60px basis once did.
+   <nk-progress label> renders one. */
+.nk-progress-row { display: inline-flex; align-items: center; max-width: 100%; vertical-align: middle; }
+.nk-progress-row:has(> .nk-progress.wide) { display: flex; flex: 1 1 60px; width: 100%; max-height: max-content; }
 
 /* List view: one line per row – icon, title, a few properties on the right –
    as a Notion database shows it under "List". Hairlines between rows and
@@ -1160,6 +1167,16 @@ a.crumb { text-decoration: none; }
 }
 .nk-copy-field .cf-btn:hover { background: var(--nk-bg-hover); color: var(--nk-text); }
 .nk-copy-field .cf-btn.copied { color: var(--nk-color-green); }
+/* Icons instead of words: a .cf-btn may carry an <svg> beside its word in a
+   <span> – two overlapping squares for Copy, an eye for Show, a check for
+   the moment after. On a phone, and anywhere with `.icons`, the icon stands
+   in for the word, as in Notion, and a masked key keeps a dozen characters
+   more; give the button the word as aria-label. A button without an icon
+   keeps its word. */
+.nk-copy-field .cf-btn > svg { display: none; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.nk-copy-field.icons .cf-btn:has(> svg) { display: inline-flex; align-items: center; justify-content: center; width: 28px; padding: 0; }
+.nk-copy-field.icons .cf-btn > svg { display: block; }
+.nk-copy-field.icons .cf-btn:has(> svg) > span { display: none; }
 
 /* Date picker, Notion's month sheet: a title with the month and the ‹ ›
    buttons, the weekdays, six rows of days. The chosen day takes the accent,
@@ -2280,9 +2297,15 @@ a.nk-btn { text-decoration: none; }
   .nk-input, .nk-select, .nk-textarea, .nk-slider { max-width: 100%; }
   /* Properties stack: the name above its value, both flush left, so a
      value gets the whole width instead of what 160px leave of a phone. */
-  .nk-prop { flex-direction: column; align-items: stretch; }
+  /* Single-line: a wrapping column takes the width of its widest value – a
+     copy field's whole address – instead of its card's. */
+  .nk-prop { flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
   .nk-prop .p-name { flex: none; min-height: 26px; }
   .nk-prop .p-value { flex: none; min-height: 30px; padding: 3px 6px 7px; }
+  /* A copy field's actions become icons where a button carries one. */
+  .nk-copy-field .cf-btn:has(> svg) { display: inline-flex; align-items: center; justify-content: center; width: 28px; padding: 0; }
+  .nk-copy-field .cf-btn > svg { display: block; }
+  .nk-copy-field .cf-btn:has(> svg) > span { display: none; }
   /* A horizontal wizard keeps its row: every mark, but only the current
      step's label. */
   .nk-steps.horizontal .nk-step:not(.current) > :not(.st-mark) { display: none; }

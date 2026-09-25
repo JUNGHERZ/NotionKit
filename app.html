@@ -101,7 +101,7 @@
           <div class="nk-prop"><dt class="p-name"><span class="p-icon">👤</span>Owner</dt><dd class="p-value"><span class="nk-avatar small">MK</span>Marcel Karas</dd></div>
           <div class="nk-prop"><dt class="p-name"><span class="p-icon">📅</span>Due</dt><dd class="p-value" id="pageDue" data-date="2026-06-02">2 June 2026</dd></div>
           <div class="nk-prop"><dt class="p-name"><span class="p-icon">🏷️</span>Tags</dt><dd class="p-value"><span class="nk-tag purple">Design system</span><span class="nk-tag">CSS</span></dd></div>
-          <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Progress</dt><dd class="p-value"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></dd></div>
+          <div class="nk-prop"><dt class="p-name"><span class="p-icon">▰</span>Progress</dt><dd class="p-value"><span class="nk-progress-row"><span class="nk-progress wide"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></span></dd></div>
         </dl>
 
         <p class="lead">A calm UI framework in the Notion idiom – as web components, without a build step. This page is the living preview: sidebar, page tree, callouts, todos, toggles and database views in one shell.</p>
@@ -635,7 +635,7 @@
         </div>
         <div class="nk-field">
           <div><div class="f-label">Public address</div><div class="f-desc">Visitors reach the shared pages here.</div></div>
-          <div class="f-control"><div class="nk-copy-field"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn" data-copy>Copy</button></div></div>
+          <div class="f-control"><div class="nk-copy-field"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn" data-copy aria-label="Copy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 9V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4"/><rect x="9" y="9" width="12" height="12" rx="2"/></svg><span>Copy</span></button></div></div>
         </div>
         <div class="nk-field">
           <div><div class="f-label">Public home page</div><div class="f-desc">Visitors may view shared pages without signing in.</div></div>
@@ -1434,7 +1434,7 @@
     set("status", `<span class="nk-tag ${p.tag}">${p.status}</span>`);
     set("owner", p.owner !== "—" ? '<span class="nk-avatar small">MK</span>Marcel' : "—");
     set("due", p.due);
-    set("progress", `<span class="nk-progress wide"><i style="width:${p.progress}%"></i></span><span class="nk-progress-label">${p.progress} %</span>`);
+    set("progress", `<span class="nk-progress-row"><span class="nk-progress wide"><i style="width:${p.progress}%"></i></span><span class="nk-progress-label">${p.progress} %</span></span>`);
     set("effort", p.effort.toLocaleString("en", { minimumFractionDigits: 1 }));
     const [text, points] = PEEK_NOTES[i];
     document.getElementById("peekNotes").innerHTML = `<p>${text}</p><ul>${points.map(x => `<li>${x}</li>`).join("")}</ul>`;
@@ -1604,13 +1604,15 @@
   });
 
   /* ============ Copy field ============ */
+  // The icon stands in for the word on a phone; the word stays the button's name.
+  const COPY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 9V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4"/><rect x="9" y="9" width="12" height="12" rx="2"/></svg><span>Copy</span>', COPIED = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Copied</span>';
   document.querySelectorAll(".nk-copy-field [data-copy]").forEach(btn => btn.addEventListener("click", async () => {
     const value = btn.closest(".nk-copy-field").querySelector(".cf-value");
     try {
       await navigator.clipboard.writeText(value.textContent);
-      btn.textContent = "Copied"; btn.classList.add("copied");
+      btn.innerHTML = COPIED; btn.setAttribute("aria-label", "Copied"); btn.classList.add("copied");
       showToast("Address copied");
-      setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 1500);
+      setTimeout(() => { btn.innerHTML = COPY; btn.setAttribute("aria-label", "Copy"); btn.classList.remove("copied"); }, 1500);
     } catch {
       getSelection().selectAllChildren(value);
       showToast("Select the address and copy it with ⌘C");

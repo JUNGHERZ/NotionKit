@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.17.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.18.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -660,15 +660,16 @@ The select option as Notion draws it: 20px tall, 3px corners, the cell's 14px, n
 
 ### Progress bar — `.nk-progress`
 
-A 6px rail whose fill is an `<i>` with a percentage width. Track and fill use Notion's blue tint and mid-tone, so a re-theme carries them along. 110px wide in a cell; `wide` fills its row – a property value, a panel, a course overview – and in a flex row the label keeps its place beside it; in a flex column it stays a 6px bar.
+A 6px rail whose fill is an `<i>` with a percentage width. Track and fill use Notion's blue tint and mid-tone, so a re-theme carries them along. 110px wide in a cell; `wide` fills its row – a property value, a panel, a course overview – and in a flex row the label keeps its place beside it; in a flex column it stays a 6px bar. `.nk-progress-row` holds a bar and its label as one row – in a flex column, a panel, the two would otherwise stand one under the other: the label sits beside the bar, on its middle, and a wide bar fills the rest.
 
 ```html
 <span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
 <span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span>
 <div><span class="nk-progress wide"><i style="width:80%"></i></span><span class="nk-progress-label">80 %</span></div>
+<div class="nk-panel"><h3>Progress</h3><span class="nk-progress-row"><span class="nk-progress wide"><i style="width:40%"></i></span><span class="nk-progress-label">40 %</span></span></div>
 ```
 
-- **Classes:** `.nk-progress`, `.nk-progress-label`, `.wide`
+- **Classes:** `.nk-progress`, `.nk-progress-label`, `.wide`, `.nk-progress-row`
 - **On a small screen:** The 110px bar stays legible in a table cell; `wide` follows its container.
 
 ### Board view — `.nk-board`
@@ -766,11 +767,12 @@ One shared shape for all three: filled with `--nk-bg-input` inside a hairline, 3
 
 ### Copy field — `.nk-copy-field`
 
-A value to take along – a link to share, an address, a key – in a field of its own, as tall as an input, with its actions inside on the right. `.cf-value` holds the text on one line with an ellipsis, and a click selects it whole; `.cf-btn`s are the quiet actions – Copy and, for a secret, Show. `.copied` on a button is the moment after, in green; the copying is your script. `mono` for addresses, keys and code, `wrap` lets a long value break with the actions on its first line, `wide` fills the row. Like an input it keeps at least 210px, except inside a panel.
+A value to take along – a link to share, an address, a key – in a field of its own, as tall as an input, with its actions inside on the right. `.cf-value` holds the text on one line with an ellipsis, and a click selects it whole; `.cf-btn`s are the quiet actions – Copy and, for a secret, Show. `.copied` on a button is the moment after, in green; the copying is your script. `mono` for addresses, keys and code, `wrap` lets a long value break with the actions on its first line, `wide` fills the row. Like an input it keeps at least 210px, except inside a panel. A button may carry an `<svg>` beside its word in a `<span>` – two overlapping squares for Copy, an eye for Show, a check for the moment after – and the word as `aria-label`: on a phone, and anywhere with `icons`, the icon stands in for the word, as in Notion, and a masked key keeps a dozen characters more.
 
 ```html
 <div class="nk-copy-field"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn">Copy</button></div>
 <div class="nk-copy-field mono"><span class="cf-value">ntn_••••••••••••••••••••</span><button class="cf-btn">Show</button><button class="cf-btn copied">✓ Copied</button></div>
+<div class="nk-copy-field mono icons"><span class="cf-value">ntn_••••••••••••••••••••</span><button class="cf-btn" aria-label="Show"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span>Show</span></button><button class="cf-btn" aria-label="Copy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 9V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4"/><rect x="9" y="9" width="12" height="12" rx="2"/></svg><span>Copy</span></button><button class="cf-btn copied" aria-label="Copied"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Copied</span></button></div>
 ```
 
 ```html
@@ -781,8 +783,8 @@ jsbtn.addEventListener('click', async () => {
 });
 ```
 
-- **Classes:** `.nk-copy-field`, `.cf-value`, `.cf-btn`, `.copied`, `.mono`, `.wrap`, `.wide`
-- **On a small screen:** Keeps to its column: the value is cut, never the actions.
+- **Classes:** `.nk-copy-field`, `.cf-value`, `.cf-btn`, `.copied`, `.mono`, `.wrap`, `.wide`, `.icons`
+- **On a small screen:** Keeps to its column: the value is cut, never the actions. Buttons that carry an icon show it instead of their word.
 
 ### Date picker — `.nk-calendar`
 
@@ -2353,6 +2355,8 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | `<a class="nk-btn">` losing its look | Works – `a.nk-btn` resets the underline; keep `.primary`/`.secondary` |
 | Tree items 28px tall on a touch device | Raise `min-height` on `.nk-tree-item` in a touch drawer; the class does not force it |
 | Wrapping a slotted icon (`<span slot="icon"><svg/></span>`) | `::slotted()` only matches the assigned node – pass the icon itself |
+| A progress bar and its label in a panel or another flex column, the label under the bar | `<span class="nk-progress-row">` around both: the label beside the bar, a wide bar fills the rest |
+| `copy-label="⧉"`-style glyphs to save room in a copy field on a phone | An `<svg>` beside the word (`<span>`) in the `.cf-btn`, the word as `aria-label`: icons show on a phone and with `.icons` |
 
 ---
 
@@ -2364,8 +2368,8 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `text` `flush` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
-| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `td-text` `td-desc` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `static` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` `nk-gallery` `small` `large` `fit` `card-item` |
-| Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `fit` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
+| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `td-text` `td-desc` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-progress-row` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `static` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` `nk-gallery` `small` `large` `fit` `card-item` |
+| Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `icons` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `fit` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `nk-tooltip` `tt-key` `lines` |
 | Gallery & productivity | `nk-gallery-grid` `nk-g-item` `nk-panels` `nk-panel` `p-head` `p-end` `flush` `nk-tabs` `nk-tab` `active` `nk-tab-panel` `scroll` `nk-template-btn` `nk-stats` `nk-stat` `s-label` `s-value` `s-delta` `up` `down` `nk-synced` `synced-badge` `nk-segmented` `wrap` `nk-banner` `info` `success` `warning` `danger` `b-action` `nk-avatar-group` `mini-avatar` `more` `nk-avatar` `small` `large` `xlarge` `square` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-skeleton` `nk-empty` `e-icon` `e-title` `e-desc` `e-actions` `nk-steps` `nk-step` `st-mark` `st-desc` `done` `current` `skipped` `st-label` `horizontal` |
@@ -2427,4 +2431,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.17.0 · MIT · Jungherz GmbH*
+*NotionKit v1.18.0 · MIT · Jungherz GmbH*

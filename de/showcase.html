@@ -180,7 +180,7 @@
 <body class="nk-body">
 
 <nav class="site-nav">
-  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.17.0</span></a>
+  <a class="site-brand" href="index.html"><span class="mark">N</span>NotionKit <span class="site-version">v1.18.0</span></a>
   <div class="site-nav-links">
     <a href="index.html">Start</a>
     <a href="docs.html">Doku</a>
@@ -573,7 +573,8 @@
         <h3>Fortschrittsbalken <code>.nk-progress</code></h3>
         <div class="doc-preview"><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span><br><br>
 <span class="nk-progress"><i style="width:20%"></i></span><span class="nk-progress-label">20 %</span>
-<div style="display:flex;align-items:center;max-width:360px;margin-top:14px"><span class="nk-progress wide"><i style="width:80%"></i></span><span class="nk-progress-label">80 %</span></div></div>
+<div style="display:flex;align-items:center;max-width:360px;margin-top:14px"><span class="nk-progress wide"><i style="width:80%"></i></span><span class="nk-progress-label">80 %</span></div>
+<div class="nk-panel" style="max-width:360px;margin-top:14px"><h3>Fortschritt</h3><span class="nk-progress-row"><span class="nk-progress wide"><i style="width:40%"></i></span><span class="nk-progress-label">40 %</span></span></div></div>
         
         
       </article>
@@ -650,7 +651,8 @@
       <article class="doc-entry" id="s-nk-copy-field">
         <h3>Kopierfeld <code>.nk-copy-field</code></h3>
         <div class="doc-preview"><div class="nk-copy-field" style="max-width:340px"><span class="cf-value">https://monahilft.notionkit.app</span><button class="cf-btn">Kopieren</button></div>
-<div class="nk-copy-field mono" style="max-width:340px;margin-top:10px"><span class="cf-value">ntn_••••••••••••••••••••</span><button class="cf-btn">Zeigen</button><button class="cf-btn copied">✓ Kopiert</button></div></div>
+<div class="nk-copy-field mono" style="max-width:340px;margin-top:10px"><span class="cf-value">ntn_••••••••••••••••••••</span><button class="cf-btn">Zeigen</button><button class="cf-btn copied">✓ Kopiert</button></div>
+<div class="nk-copy-field mono icons" style="max-width:340px;margin-top:10px"><span class="cf-value">ntn_••••••••••••••••••••</span><button class="cf-btn" aria-label="Zeigen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span>Zeigen</span></button><button class="cf-btn" aria-label="Kopieren"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 9V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4"/><rect x="9" y="9" width="12" height="12" rx="2"/></svg><span>Kopieren</span></button><button class="cf-btn copied" aria-label="Kopiert"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Kopiert</span></button></div></div>
         <pre class="nk-code"><span class="lang">js</span>btn.addEventListener('click', async () =&gt; {
   await navigator.clipboard.writeText(field.querySelector('.cf-value').textContent);
   btn.classList.add('copied');   // kurz grün

@@ -252,6 +252,8 @@ Novel is ProseMirror-based, so the TipTap rules already apply; \`.novel-editor\`
 | \`<a class="nk-btn">\` losing its look | Works – \`a.nk-btn\` resets the underline; keep \`.primary\`/\`.secondary\` |
 | Tree items 28px tall on a touch device | Raise \`min-height\` on \`.nk-tree-item\` in a touch drawer; the class does not force it |
 | Wrapping a slotted icon (\`<span slot="icon"><svg/></span>\`) | \`::slotted()\` only matches the assigned node – pass the icon itself |
+| A progress bar and its label in a panel or another flex column, the label under the bar | \`<span class="nk-progress-row">\` around both: the label beside the bar, a wide bar fills the rest |
+| \`copy-label="⧉"\`-style glyphs to save room in a copy field on a phone | An \`<svg>\` beside the word (\`<span>\`) in the \`.cf-btn\`, the word as \`aria-label\`: icons show on a phone and with \`.icons\` |
 
 ---
 

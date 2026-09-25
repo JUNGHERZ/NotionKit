@@ -4,6 +4,17 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.18.0] – 2026-09-25
+
+What LearnHub and Auxdesk found after their move to 1.17.0: a bar and its label in a panel, stacked properties on a phone and room in the copy field. The tab bar's "More" lives in NotionKit Elements 1.18.0.
+
+### Added
+- **`.nk-progress-row`: a bar and its label as one row.** In a flex column – a panel – the two stood one under the other. In the row the label sits beside the bar, on its middle; a wide bar fills the rest, grows beside its label in a flex row as before and stays as tall as its label however tall the panel is. `<nk-progress label>` renders one (LearnHub's finding 17). In a property value the label now stands 7px from the bar, as in a table cell, instead of 13px; the demo's progress property and side peek use the row.
+- **Icons instead of words in the copy field.** A `.cf-btn` may carry an `<svg>` beside its word in a `<span>` – two overlapping squares for Copy, an eye for Show, a check for the moment after – with the word as `aria-label`. On a phone, and anywhere with `.icons`, the icon stands in for the word, as in Notion, and a masked key keeps a dozen characters more (Auxdesk's wish 27). A button without an icon keeps its word. The demo's public address shows it on a phone.
+
+### Fixed
+- **Stacked properties keep to their card on a phone.** Below 860px `.nk-prop` stacks with `flex-direction: column` but kept the `flex-wrap: wrap` of the desktop rule, and a wrapping column takes the width of its widest value – a copy field's whole address, 745px in a 308px card on Auxdesk's Notion settings – instead of its card's. The phone rule is single-line now, and the copy field cuts its value as meant (Auxdesk's finding 26).
+
 ## [1.17.0] – 2026-09-25
 
 The rest of LearnHub's consolidated list: a step and a gallery card as links, to open in a new tab or to copy the address of. The German texts of the elements and the link contract live in NotionKit Elements 1.17.0. Additive.
