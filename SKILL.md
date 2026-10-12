@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.19.1) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.20.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -256,7 +256,7 @@ Sits at the very top of the sidebar. The avatar gradient is mixed from `--nk-dec
 
 ### Topbar — `.nk-topbar`
 
-A 44px-high row holding the breadcrumb on the left and actions on the right. `nk-topbar-actions` pushes itself right with `margin-left:auto`, so you never need a spacer. Passive text among the actions – "Edited 2 min ago" – is `nk-topbar-meta`.
+A 44px-high row holding the breadcrumb on the left and actions on the right. `nk-topbar-actions` pushes itself right with `margin-left:auto`, so you never need a spacer. Passive text among the actions – "Edited 2 min ago" – is `nk-topbar-meta`. `nk-theme-glyph` wraps the appearance glyph of a theme button: one emoji for a fixed theme, with `auto` sun and moon diagonally for the mode that follows the system.
 
 ```html
 <header class="nk-topbar">
@@ -269,12 +269,13 @@ A 44px-high row holding the breadcrumb on the left and actions on the right. `nk
     <button class="nk-topbar-btn nk-share-btn">Share</button>
     <button class="nk-topbar-btn">⭐</button>
     <button class="nk-topbar-btn nk-theme-toggle">🌙</button>
+    <button class="nk-topbar-btn nk-theme-toggle" title="Appearance: automatic"><span class="nk-theme-glyph auto"><span>☀️</span><span>🌙</span></span></button>
     <button class="nk-topbar-btn">⋯</button>
   </div>
 </header>
 ```
 
-- **Classes:** `.nk-topbar`, `.nk-topbar-actions`, `.nk-topbar-btn`, `.nk-topbar-meta`, `.nk-share-btn`, `.nk-theme-toggle`
+- **Classes:** `.nk-topbar`, `.nk-topbar-actions`, `.nk-topbar-btn`, `.nk-topbar-meta`, `.nk-share-btn`, `.nk-theme-toggle`, `.nk-theme-glyph`
 - **On a small screen:** Below 860px the topbar keeps the page and its actions, as Notion's mobile app does: only the last crumb stays and ends in an ellipsis, `nk-topbar-meta` hides.
 
 ### Tab bar (mobile) — `.nk-tab-bar`
@@ -2366,7 +2367,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 
 | Group | Classes |
 |---|---|
-| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-head` `nk-sidebar-collapse` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-sidebar-backdrop` `nk-sidebar-toggle` `open` `collapsed` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-topbar-meta` `nk-share-btn` `nk-theme-toggle` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
+| App shell & layout | `nk-app` `nk-sidebar` `nk-sidebar-head` `nk-sidebar-collapse` `nk-sidebar-scroll` `nk-sidebar-footer` `nk-main` `nk-sidebar-backdrop` `nk-sidebar-toggle` `open` `collapsed` `nk-workspace` `avatar` `chev` `nk-topbar` `nk-topbar-actions` `nk-topbar-btn` `nk-topbar-meta` `nk-share-btn` `nk-theme-toggle` `nk-theme-glyph` `nk-tab-bar` `nk-tab-bar-item` `nk-tab-bar-spacer` `icon` `label` `active` `always` `fixed` `floating` `nk-breadcrumb` `crumb` `sep` `current` `nk-section-label` `plus` |
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `text` `flush` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
@@ -2433,4 +2434,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.19.1 · MIT · Jungherz GmbH*
+*NotionKit v1.20.0 · MIT · Jungherz GmbH*

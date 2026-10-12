@@ -135,11 +135,11 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-topbar', group: 'shell', classes: ['nk-topbar', 'nk-topbar-actions', 'nk-topbar-btn', 'nk-topbar-meta', 'nk-share-btn', 'nk-theme-toggle'],
+  id: 'nk-topbar', group: 'shell', classes: ['nk-topbar', 'nk-topbar-actions', 'nk-topbar-btn', 'nk-topbar-meta', 'nk-share-btn', 'nk-theme-toggle', 'nk-theme-glyph'],
   title: { en: 'Topbar', de: 'Topbar' },
   desc: {
-    en: 'A 44px-high row holding the breadcrumb on the left and actions on the right. <code>nk-topbar-actions</code> pushes itself right with <code>margin-left:auto</code>, so you never need a spacer. Passive text among the actions – "Edited 2 min ago" – is <code>nk-topbar-meta</code>.',
-    de: 'Eine 44px hohe Zeile: links der Breadcrumb, rechts die Aktionen. <code>nk-topbar-actions</code> schiebt sich per <code>margin-left:auto</code> nach rechts – ein Platzhalter ist nie nötig. Reiner Text zwischen den Aktionen – „Bearbeitet vor 2 Min.“ – ist <code>nk-topbar-meta</code>.',
+    en: 'A 44px-high row holding the breadcrumb on the left and actions on the right. <code>nk-topbar-actions</code> pushes itself right with <code>margin-left:auto</code>, so you never need a spacer. Passive text among the actions – "Edited 2 min ago" – is <code>nk-topbar-meta</code>. <code>nk-theme-glyph</code> wraps the appearance glyph of a theme button: one emoji for a fixed theme, with <code>auto</code> sun and moon diagonally for the mode that follows the system.',
+    de: 'Eine 44px hohe Zeile: links der Breadcrumb, rechts die Aktionen. <code>nk-topbar-actions</code> schiebt sich per <code>margin-left:auto</code> nach rechts – ein Platzhalter ist nie nötig. Reiner Text zwischen den Aktionen – „Bearbeitet vor 2 Min.“ – ist <code>nk-topbar-meta</code>. <code>nk-theme-glyph</code> umschließt die Glyphe eines Theme-Knopfs: ein Emoji für ein festes Theme, mit <code>auto</code> Sonne und Mond diagonal für den Modus, der dem System folgt.',
   },
   mobile: { en: 'Below 860px the topbar keeps the page and its actions, as Notion\'s mobile app does: only the last crumb stays and ends in an ellipsis, <code>nk-topbar-meta</code> hides.', de: 'Unter 860px bleiben die Seite und ihre Aktionen, wie in Notions Mobil-App: Nur der letzte Crumb bleibt und endet mit Auslassungspunkten, <code>nk-topbar-meta</code> wird ausgeblendet.' },
   html: W => `<header class="nk-topbar" style="border:1px solid var(--nk-border);border-radius:var(--nk-radius)">
@@ -152,6 +152,7 @@ export const CATALOG = [
     <button class="nk-topbar-btn nk-share-btn">${W.share}</button>
     <button class="nk-topbar-btn">⭐</button>
     <button class="nk-topbar-btn nk-theme-toggle">🌙</button>
+    <button class="nk-topbar-btn nk-theme-toggle" title="Appearance: automatic"><span class="nk-theme-glyph auto"><span>☀️</span><span>🌙</span></span></button>
     <button class="nk-topbar-btn">⋯</button>
   </div>
 </header>`,

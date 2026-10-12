@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.19.1-2383e2?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.20.0-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
   <img src="https://img.shields.io/badge/components-~140-448361?style=flat-square" alt="Components">
   <img src="https://img.shields.io/badge/gzip-15.1%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.19.1-9065b0?style=flat-square" alt="Changelog"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.20.0-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
   <a href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit/"><img src="https://img.shields.io/badge/CDN-jsDelivr-blue?style=flat-square" alt="jsDelivr"></a>
 </p>
@@ -77,7 +77,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 Pin a version for production:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.19.1/notionkit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.20.0/notionkit.min.css">
 ```
 
 ### npm / yarn / pnpm
@@ -167,7 +167,7 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-sidebar` (`open`), `nk-sidebar-backdrop`, `nk-sidebar-toggle` | On phones the sidebar as a drawer behind the ☰, sliding in, CSS only |
 | `nk-sidebar-head`, `nk-sidebar-collapse`, `nk-sidebar` / `nk-sidebar-toggle` (`collapsed`) | On the desktop Notion's « collapses the sidebar, the ☰ brings it back |
 | `nk-workspace`, `nk-sidebar-scroll`, `nk-sidebar-footer` | Workspace switcher, scrolling tree area, pinned footer |
-| `nk-topbar`, `nk-topbar-actions`, `nk-topbar-btn`, `nk-share-btn`, `nk-theme-toggle` | 45px top bar with actions |
+| `nk-topbar`, `nk-topbar-actions`, `nk-topbar-btn`, `nk-share-btn`, `nk-theme-toggle`, `nk-theme-glyph` (`auto`) | 45px top bar with actions, appearance glyph |
 | `nk-breadcrumb` (`crumb`, `sep`, `current`) | Page trail |
 | `nk-tab-bar`, `nk-tab-bar-item` (`icon`, `label`, `active`, `always`, `fixed`, `floating`), `nk-tab-bar-spacer` | Bottom tab bar for phones and installed PWAs, visible below 860px |
 | `nk-section-label` | Small uppercase caption between sidebar groups |

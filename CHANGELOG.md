@@ -4,6 +4,21 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.20.0] – 2026-10-12
+
+### Added
+- **`.nk-theme-glyph`** – the appearance glyph of a theme button. Around one
+  emoji it is a plain inline box; with `.auto` it places sun and moon
+  diagonally in a 20px square, the sign for "follows the system". For a
+  toggle with three states, where the glyph shows the mode rather than the
+  next theme. Requested by Mailverse (NotionKit-Elements#2); NotionKit
+  Elements 1.20.0 renders it from `<nk-theme-toggle modes="auto light dark">`.
+
+### Changed
+- `.nk-theme-toggle` centres its content (`inline-flex`), so a glyph sits in
+  the middle of the button whatever its own box is – an emoji on its baseline
+  and the two-part auto glyph alike.
+
 ## [1.19.1] – 2026-09-25
 
 ### Fixed
