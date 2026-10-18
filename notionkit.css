@@ -1,6 +1,6 @@
 /* ============================================================
    NOTIONKIT COMPONENT LIBRARY
-   Jungherz GmbH – v1.20.0
+   Jungherz GmbH – v1.21.0
 
    A pure CSS component library for calm, document-centric
    workspace interfaces. No build step, no JavaScript, no
@@ -904,6 +904,17 @@ a.crumb { text-decoration: none; }
 .nk-table .row-actions { display: flex; justify-content: flex-end; gap: 4px; }
 .nk-table th.actions { cursor: default; }
 .nk-table th.actions:hover { background: none; }
+/* The header of a selection column holds a checkbox instead of a name –
+   empty, a dash for some rows, a check for all – and sorts nothing. It is as
+   narrow as its box. */
+.nk-table th.select-all { width: 1px; cursor: default; }
+.nk-table th.select-all:hover { background: none; }
+/* A checkbox in a table – a checkbox column, a selection column's header –
+   is one line tall with the box in its middle: the row keeps its 36px (the
+   form padding grew it to 39.5px), the box stands beside the first line of a
+   wrapping row and over the cells' boxes in the header. */
+.nk-table .nk-check { padding: 0; min-height: 1lh; align-items: center; }
+.nk-table .nk-check input { margin-top: 0; }
 /* A text cell with a tone and a second line: .td-text takes one of Notion's
    nine text colours – an error in orange – and .td-desc sets a quiet line
    under the value – the next run under an error, the sender under a
@@ -1317,6 +1328,15 @@ a.nk-btn { text-decoration: none; }
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
 }
 .nk-check input[type="radio"]:checked::after { content: "●"; font-size: 7px; }
+/* Mixed – some of a group chosen, the header of a selection column over a
+   partly chosen table: the accent box with a bar. indeterminate is a
+   property only, set by script (<nk-check indeterminate> does). Checkboxes
+   only: a radio group without a choice matches :indeterminate as well. */
+.nk-check input[type="checkbox"]:indeterminate { background: var(--nk-accent); border-color: var(--nk-accent); }
+.nk-check input[type="checkbox"]:indeterminate::after {
+  content: ""; display: block; position: absolute; inset: 50% 2.5px auto;
+  height: 2px; margin-top: -1px; border-radius: 1px; background: var(--nk-on-accent);
+}
 .nk-check input:disabled { opacity: .5; cursor: not-allowed; }
 .nk-check input:disabled + * { opacity: .6; }
 

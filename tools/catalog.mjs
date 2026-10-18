@@ -473,11 +473,11 @@ export const CATALOG = [
 </div>`,
 },
 {
-  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'wrap', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'num', 'row-actions', 'actions', 'td-text', 'td-desc', 'nk-new-row'],
+  id: 'nk-table', group: 'database', classes: ['nk-table-wrap', 'nk-table', 'wrap', 'th-icon', 'row-title', 'date-cell', 'person-cell', 'num', 'row-actions', 'actions', 'select-all', 'td-text', 'td-desc', 'nk-new-row'],
   title: { en: 'Table view', de: 'Tabellen-Ansicht' },
   desc: {
-    en: '36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is <code>white-space: nowrap</code> so columns keep their shape; <code>.wrap</code> on the table or on a cell lets text break, like Notion\'s “wrap column”. <code>.num</code> on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. <code>.row-actions</code> in a cell sets buttons for the row at its right edge – “Retry”, “Discard” – and <code>th.actions</code> is a header that sorts nothing. <code>.td-text</code> gives a value one of Notion\'s nine text colours – <code>.orange</code> for an error – and <code>.td-desc</code> a quiet second line under it; the row grows with it. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
-    de: '36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.num</code> an einer Zelle setzt eine Zahl rechtsbündig in gleich breiten Ziffern, wie Notion eine Zahl-Eigenschaft setzt; der Kopf bleibt links. <code>.row-actions</code> in einer Zelle setzt Knöpfe für die Zeile an ihren rechten Rand – „Erneut“, „Verwerfen“ –, und <code>th.actions</code> ist ein Kopf, der nichts sortiert. <code>.td-text</code> gibt einem Wert eine von Notions neun Textfarben – <code>.orange</code> für einen Fehler – und <code>.td-desc</code> eine leise zweite Zeile darunter; die Zeile wächst mit. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
+    en: '36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. A selection column has <code>th.select-all</code> for a header: a checkbox instead of a name – empty, a dash for some rows, a check for all – that sorts nothing; the dash is <code>indeterminate</code>, set by script. Every cell is <code>white-space: nowrap</code> so columns keep their shape; <code>.wrap</code> on the table or on a cell lets text break, like Notion\'s “wrap column”. <code>.num</code> on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. <code>.row-actions</code> in a cell sets buttons for the row at its right edge – “Retry”, “Discard” – and <code>th.actions</code> is a header that sorts nothing. <code>.td-text</code> gives a value one of Notion\'s nine text colours – <code>.orange</code> for an error – and <code>.td-desc</code> a quiet second line under it; the row grows with it. <code>.nk-new-row</code> is the add affordance at the bottom (inside <code>.nk-table</code> the short form <code>.new-row</code> still works).',
+    de: '36px-Zeilen bei 14px, Haarlinien zwischen Zeilen und Spalten, Kopfzellen ruhig und klickbar – an einer echten Notion-Tabelle gemessen. Eine Auswahlspalte hat <code>th.select-all</code> als Kopf: eine Checkbox statt eines Namens – leer, ein Strich für einige Zeilen, ein Haken für alle –, die nichts sortiert; der Strich ist <code>indeterminate</code>, per Skript gesetzt. Jede Zelle ist <code>white-space: nowrap</code>, damit Spalten ihre Form behalten; <code>.wrap</code> auf der Tabelle oder einer Zelle lässt Text umbrechen, wie Notions „Spalte umbrechen“. <code>.num</code> an einer Zelle setzt eine Zahl rechtsbündig in gleich breiten Ziffern, wie Notion eine Zahl-Eigenschaft setzt; der Kopf bleibt links. <code>.row-actions</code> in einer Zelle setzt Knöpfe für die Zeile an ihren rechten Rand – „Erneut“, „Verwerfen“ –, und <code>th.actions</code> ist ein Kopf, der nichts sortiert. <code>.td-text</code> gibt einem Wert eine von Notions neun Textfarben – <code>.orange</code> für einen Fehler – und <code>.td-desc</code> eine leise zweite Zeile darunter; die Zeile wächst mit. <code>.nk-new-row</code> ist die Hinzufügen-Zeile unten (innerhalb von <code>.nk-table</code> funktioniert die Kurzform <code>.new-row</code> weiter).',
   },
   mobile: {
     en: 'This is the key one: <code>nk-table-wrap</code> scrolls horizontally so the table never forces the page wider. Always wrap the table.',
@@ -485,29 +485,30 @@ export const CATALOG = [
   },
   html: W => `<div class="nk-table-wrap"><table class="nk-table">
   <thead><tr>
-    <th><span class="th-icon">📄</span>${W.name}</th><th><span class="th-icon">◉</span>${W.status}</th>
+    <th class="select-all"><label class="nk-check"><input type="checkbox" aria-label="${W.selectAll}"></label></th><th><span class="th-icon">📄</span>${W.name}</th><th><span class="th-icon">◉</span>${W.status}</th>
     <th><span class="th-icon">👤</span>${W.owner}</th><th><span class="th-icon">📅</span>${W.due}</th>
     <th><span class="th-icon">📊</span>${W.progress}</th><th><span class="th-icon">#</span>${W.effort}</th><th class="actions"></th>
   </tr></thead>
   <tbody>
-    <tr><td><span class="row-title">🚀 ${W.roadmap}</span><span class="td-desc">${W.tableDesc}</span></td><td><span class="nk-tag green">${W.done}</span></td>
+    <tr><td><label class="nk-check"><input type="checkbox" checked></label></td><td><span class="row-title">🚀 ${W.roadmap}</span><span class="td-desc">${W.tableDesc}</span></td><td><span class="nk-tag green">${W.done}</span></td>
         <td><span class="person-cell"><span class="nk-avatar small purple">SL</span>Sara</span></td>
         <td class="date-cell">12.05.2026</td>
         <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">${W.effort1}</td>
         <td><span class="row-actions"><button class="nk-btn secondary small">${W.rowOpen}</button><button class="nk-btn danger small">${W.rowArchive}</button></span></td></tr>
-    <tr><td><span class="row-title">🎨 ${W.designSystem}</span></td><td><span class="nk-tag blue">${W.inProgress}</span></td>
+    <tr><td><label class="nk-check"><input type="checkbox"></label></td><td><span class="row-title">🎨 ${W.designSystem}</span></td><td><span class="nk-tag blue">${W.inProgress}</span></td>
         <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
         <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">${W.effort2}</td>
         <td><span class="row-actions"><button class="nk-btn secondary small">${W.rowOpen}</button><button class="nk-btn danger small">${W.rowArchive}</button></span></td></tr>
-    <tr><td><span class="row-title">📣 ${W.launch}</span></td><td><span class="nk-tag yellow">${W.planned}</span></td>
+    <tr><td><label class="nk-check"><input type="checkbox" checked></label></td><td><span class="row-title">📣 ${W.launch}</span></td><td><span class="nk-tag yellow">${W.planned}</span></td>
         <td><span class="person-cell"><span class="nk-avatar small orange">MK</span>Mia</span></td>
         <td class="date-cell"><span class="td-text red">02.06.2026</span></td>
         <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">${W.effort3}</td>
         <td><span class="row-actions"><button class="nk-btn secondary small">${W.rowOpen}</button><button class="nk-btn danger small">${W.rowArchive}</button></span></td></tr>
   </tbody>
 </table>
-<div class="nk-new-row">${W.newPage}</div></div>`,
+<div class="nk-new-row">${W.newPage}</div></div>
+<script>document.currentScript.previousElementSibling.querySelector('th.select-all input').indeterminate = true</script>`,
 },
 {
   id: 'nk-tag', group: 'database', classes: ['nk-tag', 'gray', 'brown', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'red'],
@@ -692,12 +693,13 @@ export const CATALOG = [
   id: 'nk-check', group: 'forms', classes: ['nk-check'],
   title: { en: 'Checkbox & radio', de: 'Checkbox & Radio' },
   desc: {
-    en: 'The same 16px box for both; the radio variant is detected by <code>[type="radio"]</code> and becomes a circle with a dot. Marks are <code>::after</code> content, not images. A label that wraps keeps the box beside its first line, as Notion does.',
-    de: 'Dieselbe 16px-Box für beides; die Radio-Variante wird über <code>[type="radio"]</code> erkannt und wird zum Kreis mit Punkt. Die Marken sind <code>::after</code>-Inhalte, keine Bilder. Bricht ein Label um, bleibt die Box neben seiner ersten Zeile, wie in Notion.',
+    en: 'The same 16px box for both; the radio variant is detected by <code>[type="radio"]</code> and becomes a circle with a dot. Marks are <code>::after</code> content, not images; a checkbox that is <code>indeterminate</code> – a property only, set by script – shows a dash, for a group partly chosen. A label that wraps keeps the box beside its first line, as Notion does.',
+    de: 'Dieselbe 16px-Box für beides; die Radio-Variante wird über <code>[type="radio"]</code> erkannt und wird zum Kreis mit Punkt. Die Marken sind <code>::after</code>-Inhalte, keine Bilder; eine Checkbox, die <code>indeterminate</code> ist – nur eine Eigenschaft, per Skript gesetzt –, zeigt einen Strich, für eine teilweise gewählte Gruppe. Bricht ein Label um, bleibt die Box neben seiner ersten Zeile, wie in Notion.',
   },
   mobile: { en: 'The label wraps the input, so the whole row is the tap target.', de: 'Das Label umschließt das Input, die ganze Zeile ist also die Trefferfläche.' },
   html: W => `<div style="display:flex;gap:32px;flex-wrap:wrap">
   <div>
+    <label class="nk-check"><input type="checkbox">${W.all}</label><script>document.currentScript.previousElementSibling.querySelector('input').indeterminate = true</script>
     <label class="nk-check"><input type="checkbox" checked>${W.option1}</label>
     <label class="nk-check"><input type="checkbox">${W.option2}</label>
   </div>

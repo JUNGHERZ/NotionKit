@@ -1,6 +1,6 @@
 ---
 name: notionkit-css
-description: NotionKit is a pure CSS component library (v1.20.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
+description: NotionKit is a pure CSS component library (v1.21.0) in the Notion idiom – app shell, page tree, document, database views, forms, settings, overlays, collaboration and AI surfaces. ~100 components, light & dark mode, design tokens, no JavaScript. Use this reference whenever generating HTML that uses NotionKit classes to get structure, nesting, modifiers, state classes and tokens right.
 ---
 
 # NotionKit CSS – AI Component Reference
@@ -607,27 +607,27 @@ The database header as Notion lays it out: view tabs on the left, the view's too
 
 ### Table view — `.nk-table`
 
-36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. Every cell is `white-space: nowrap` so columns keep their shape; `.wrap` on the table or on a cell lets text break, like Notion's “wrap column”. `.num` on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. `.row-actions` in a cell sets buttons for the row at its right edge – “Retry”, “Discard” – and `th.actions` is a header that sorts nothing. `.td-text` gives a value one of Notion's nine text colours – `.orange` for an error – and `.td-desc` a quiet second line under it; the row grows with it. `.nk-new-row` is the add affordance at the bottom (inside `.nk-table` the short form `.new-row` still works).
+36px rows at 14px, hairlines between rows and columns, header cells quiet and clickable — measured on a live Notion table. A selection column has `th.select-all` for a header: a checkbox instead of a name – empty, a dash for some rows, a check for all – that sorts nothing; the dash is `indeterminate`, set by script. Every cell is `white-space: nowrap` so columns keep their shape; `.wrap` on the table or on a cell lets text break, like Notion's “wrap column”. `.num` on a cell sets a number right-aligned in figures of equal width, as Notion does with a number property; the header stays left. `.row-actions` in a cell sets buttons for the row at its right edge – “Retry”, “Discard” – and `th.actions` is a header that sorts nothing. `.td-text` gives a value one of Notion's nine text colours – `.orange` for an error – and `.td-desc` a quiet second line under it; the row grows with it. `.nk-new-row` is the add affordance at the bottom (inside `.nk-table` the short form `.new-row` still works).
 
 ```html
 <div class="nk-table-wrap"><table class="nk-table">
   <thead><tr>
-    <th><span class="th-icon">📄</span>Name</th><th><span class="th-icon">◉</span>Status</th>
+    <th class="select-all"><label class="nk-check"><input type="checkbox" aria-label="Select all"></label></th><th><span class="th-icon">📄</span>Name</th><th><span class="th-icon">◉</span>Status</th>
     <th><span class="th-icon">👤</span>Owner</th><th><span class="th-icon">📅</span>Due</th>
     <th><span class="th-icon">📊</span>Progress</th><th><span class="th-icon">#</span>Effort (h)</th><th class="actions"></th>
   </tr></thead>
   <tbody>
-    <tr><td><span class="row-title">🚀 Roadmap</span><span class="td-desc">Three open questions</span></td><td><span class="nk-tag green">Done</span></td>
+    <tr><td><label class="nk-check"><input type="checkbox" checked></label></td><td><span class="row-title">🚀 Roadmap</span><span class="td-desc">Three open questions</span></td><td><span class="nk-tag green">Done</span></td>
         <td><span class="person-cell"><span class="nk-avatar small purple">SL</span>Sara</span></td>
         <td class="date-cell">12.05.2026</td>
         <td><span class="nk-progress"><i style="width:100%"></i></span><span class="nk-progress-label">100 %</span></td><td class="num">6.0</td>
         <td><span class="row-actions"><button class="nk-btn secondary small">Open</button><button class="nk-btn danger small">Archive</button></span></td></tr>
-    <tr><td><span class="row-title">🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
+    <tr><td><label class="nk-check"><input type="checkbox"></label></td><td><span class="row-title">🎨 Design system</span></td><td><span class="nk-tag blue">In progress</span></td>
         <td><span class="person-cell"><span class="nk-avatar small blue">TW</span>Tom</span></td>
         <td class="date-cell">20.05.2026</td>
         <td><span class="nk-progress"><i style="width:65%"></i></span><span class="nk-progress-label">65 %</span></td><td class="num">12.5</td>
         <td><span class="row-actions"><button class="nk-btn secondary small">Open</button><button class="nk-btn danger small">Archive</button></span></td></tr>
-    <tr><td><span class="row-title">📣 Launch</span></td><td><span class="nk-tag yellow">Planned</span></td>
+    <tr><td><label class="nk-check"><input type="checkbox" checked></label></td><td><span class="row-title">📣 Launch</span></td><td><span class="nk-tag yellow">Planned</span></td>
         <td><span class="person-cell"><span class="nk-avatar small orange">MK</span>Mia</span></td>
         <td class="date-cell"><span class="td-text red">02.06.2026</span></td>
         <td><span class="nk-progress"><i style="width:10%"></i></span><span class="nk-progress-label">10 %</span></td><td class="num">3.25</td>
@@ -635,9 +635,10 @@ The database header as Notion lays it out: view tabs on the left, the view's too
   </tbody>
 </table>
 <div class="nk-new-row">＋ New page</div></div>
+<script>document.currentScript.previousElementSibling.querySelector('th.select-all input').indeterminate = true</script>
 ```
 
-- **Classes:** `.nk-table-wrap`, `.nk-table`, `.wrap`, `.th-icon`, `.row-title`, `.date-cell`, `.person-cell`, `.num`, `.row-actions`, `.actions`, `.td-text`, `.td-desc`, `.nk-new-row`
+- **Classes:** `.nk-table-wrap`, `.nk-table`, `.wrap`, `.th-icon`, `.row-title`, `.date-cell`, `.person-cell`, `.num`, `.row-actions`, `.actions`, `.select-all`, `.td-text`, `.td-desc`, `.nk-new-row`
 - **On a small screen:** This is the key one: `nk-table-wrap` scrolls horizontally so the table never forces the page wider. Always wrap the table.
 
 ### Tags — `.nk-tag`
@@ -868,11 +869,12 @@ Works two ways: as an `<input type="checkbox">` via `:checked`, or as a `<button
 
 ### Checkbox & radio — `.nk-check`
 
-The same 16px box for both; the radio variant is detected by `[type="radio"]` and becomes a circle with a dot. Marks are `::after` content, not images. A label that wraps keeps the box beside its first line, as Notion does.
+The same 16px box for both; the radio variant is detected by `[type="radio"]` and becomes a circle with a dot. Marks are `::after` content, not images; a checkbox that is `indeterminate` – a property only, set by script – shows a dash, for a group partly chosen. A label that wraps keeps the box beside its first line, as Notion does.
 
 ```html
 <div>
   <div>
+    <label class="nk-check"><input type="checkbox">All</label><script>document.currentScript.previousElementSibling.querySelector('input').indeterminate = true</script>
     <label class="nk-check"><input type="checkbox" checked>Light</label>
     <label class="nk-check"><input type="checkbox">Dark</label>
   </div>
@@ -1599,6 +1601,7 @@ NotionKit ships states, not behaviour. Add and remove these yourself; there is n
 | `scroll` | `nk-segmented` | Scrolls the segments horizontally with the scrollbar hidden, capped at the parent width. |
 | `wrap` | `nk-segmented`, `nk-table`, `nk-table td` | Lets the segments wrap onto further rows; on a table or a cell, lets cell text break instead of staying on one line. |
 | `fixed` | `nk-tab-bar` | Pins the tab bar to the viewport bottom; a following .nk-tab-bar-spacer keeps its height in the flow. |
+| `:indeterminate` | `nk-check input[type=checkbox]` | Mixed: some of a group chosen – the box fills with the accent and shows a dash. A property only, set by script; a radio group without a choice keeps its empty circles. |
 | `covered` | `nk-page` | The page follows a cover: no top padding, the icon overlaps the cover’s bottom edge. Class markup gets this from .nk-cover + .nk-page; <nk-page cover> sets the class. |
 | `full` | `nk-page` | Page option “Full width”: lifts the 760px cap, the column fills the window. Per page, as in Notion’s ⋯ menu. |
 | `small` | `nk-page`, `nk-avatar`, `nk-btn` | Page option “Small text”: document text 14px instead of 16px; heading, lead, prose and editor follow. On an avatar 20px, on a button 24px. |
@@ -2371,7 +2374,7 @@ Novel is ProseMirror-based, so the TipTap rules already apply; `.novel-editor` /
 | Navigation / page tree | `nk-tree-item` `icon` `label` `actions` `active` `compact` `nk-tree-children` `collapsed` `nk-toggle-arrow` `open` `nk-kbd-hint` `nk-kbd` |
 | Page shell & document | `nk-page-scroll` `nk-page` `nk-page-icon` `nk-page-title` `nk-page-meta` `covered` `full` `small` `nk-props` `nk-prop` `p-name` `p-icon` `p-value` `text` `flush` `nk-cover` `nk-heading` `lead` |
 | Content elements | `nk-callout` `c-icon` `nk-bookmark` `bm-text` `bm-title` `bm-desc` `bm-url` `bm-favicon` `bm-cover` `nk-todo` `nk-toggle` `toggle-body` `nk-quote` `q-cite` `nk-divider` `nk-mention` `person` `page` `date` `mini-avatar` `nk-code` `lang` `tag` `attr` `nk-inline-code` `nk-prose` |
-| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `td-text` `td-desc` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-progress-row` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `static` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` `nk-gallery` `small` `large` `fit` `card-item` |
+| Database views | `nk-database` `nk-db-tabs` `nk-db-tab` `active` `badge` `nk-db-toolbar` `tools` `nk-db-tool` `nk-filter-row` `nk-filter-pill` `add` `fp-remove` `nk-table-wrap` `nk-table` `wrap` `th-icon` `row-title` `date-cell` `person-cell` `num` `row-actions` `actions` `select-all` `td-text` `td-desc` `nk-new-row` `nk-tag` `gray` `brown` `orange` `yellow` `green` `blue` `purple` `pink` `red` `nk-progress` `nk-progress-label` `wide` `nk-progress-row` `nk-board` `nk-board-col` `nk-board-col-header` `count` `nk-card` `card-title` `card-meta` `nk-list` `nk-list-item` `l-icon` `l-title` `l-meta` `last` `static` `nk-calendar-view` `weeks` `cv-head` `cv-title` `cv-grid` `cv-wd` `cv-week` `cv-day` `out` `off` `today` `cv-num` `cv-item` `nk-gallery` `small` `large` `fit` `card-item` |
 | Forms & settings | `nk-input` `nk-textarea` `nk-select` `wide` `nk-copy-field` `cf-value` `cf-btn` `copied` `mono` `wrap` `icons` `nk-calendar` `weeks` `cal-head` `cal-title` `cal-nav` `cal-grid` `cal-wd` `cal-week` `cal-day` `out` `off` `today` `start` `end` `in-range` `cal-marks` `cal-foot` `nk-btn` `primary` `secondary` `danger` `danger-solid` `small` `nk-switch` `nk-switch-label` `aria-checked` `nk-check` `nk-slider` `nk-slider-value` `nk-field` `f-label` `f-desc` `f-control` `stacked` `compact` `nk-fields` `fit` `nk-profile-row` `big-avatar` `square` `pr-actions` `pr-remove` `nk-model-card` `selected` `m-radio` `m-name` `m-desc` `nk-danger-zone` `dz-title` `nk-member-list` `nk-member-row` `m-mail` |
 | Settings modal | `nk-modal-backdrop` `open` `nk-modal` `nk-settings-nav` `nk-settings-user` `avatar` `u-text` `name` `mail` `nk-settings-content` `nk-settings-pane` `active` |
 | Overlays & menus | `nk-pop` `nk-emoji-search` `nk-emoji-grid` `nk-emoji-cats` `nk-menu` `nk-menu-item` `m-icon` `m-shortcut` `danger` `nk-menu-sep` `nk-menu-label` `floating` `sheet` `open` `nk-cmdk-backdrop` `nk-cmdk` `nk-cmdk-input-row` `nk-cmdk-list` `nk-cmdk-group` `nk-cmdk-item` `selected` `nk-cmdk-empty` `nk-cmdk-footer` `nk-sheet-backdrop` `nk-sheet` `sh-grabber` `sh-title` `nk-peek-backdrop` `nk-peek` `pk-resize` `pk-bar` `pk-body` `active` `peek-inset` `nk-dialog-backdrop` `nk-dialog` `wide` `dl-title` `dl-body` `dl-actions` `nk-toast` `show` `t-action` `t-close` `nk-tooltip` `tt-key` `lines` |
@@ -2434,4 +2437,4 @@ The web-component layer on top of this CSS ships as `@jungherz-de/notionkit-elem
 
 Load `theme-override.css` after the library and uncomment what you need. It ships three example themes (Forest, Slate, Sunset), a high-contrast block that lifts every measured pair to ≥ 4.5:1, and blank templates for metrics and typography.
 
-*NotionKit v1.20.0 · MIT · Jungherz GmbH*
+*NotionKit v1.21.0 · MIT · Jungherz GmbH*

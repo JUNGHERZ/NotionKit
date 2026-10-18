@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.20.0-2383e2?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.21.0-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
   <img src="https://img.shields.io/badge/components-~140-448361?style=flat-square" alt="Components">
   <img src="https://img.shields.io/badge/gzip-15.1%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.20.0-9065b0?style=flat-square" alt="Changelog"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.21.0-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
   <a href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit/"><img src="https://img.shields.io/badge/CDN-jsDelivr-blue?style=flat-square" alt="jsDelivr"></a>
 </p>
@@ -77,7 +77,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 Pin a version for production:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.20.0/notionkit.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jungherz-de/notionkit@1.21.0/notionkit.min.css">
 ```
 
 ### npm / yarn / pnpm
@@ -197,7 +197,7 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-database`, `nk-db-tabs`, `nk-db-tab` (`active`, `badge`, `add`) | View tabs with counts |
 | `nk-db-toolbar` (`tools`), `nk-db-tool` (`active`) | Tabs left, Filter / Sort / search / New right |
 | `nk-filter-row`, `nk-filter-pill` (`active`, `add`, `fp-remove`) | The filters in effect as pills |
-| `nk-table-wrap`, `nk-table` (`th-icon`, `row-title`, `date-cell`, `person-cell`, `num`, `row-actions`, `th.actions`, `td-text`, `td-desc`), `nk-new-row` | Horizontally scrolling table with add row, right-aligned numbers, buttons per row and text with a tone and a second line |
+| `nk-table-wrap`, `nk-table` (`th-icon`, `row-title`, `date-cell`, `person-cell`, `num`, `row-actions`, `th.actions`, `th.select-all`, `td-text`, `td-desc`), `nk-new-row` | Horizontally scrolling table with add row, right-aligned numbers, buttons per row and text with a tone and a second line |
 | `nk-list`, `nk-list-item` (`l-icon`, `l-title`, `l-meta`) | List view: one line per row |
 | `nk-tag` (nine colours) | Notion's select options, tuned per theme |
 | `nk-progress` (`wide`), `nk-progress-label` | Progress bar in a cell or across its row |
@@ -211,7 +211,7 @@ About 140 component classes across eleven groups. Every one of them is documente
 | `nk-input`, `nk-textarea`, `nk-select` (`wide`) | Text controls with a token-derived focus ring |
 | `nk-btn` (`primary`, `secondary`, `danger`, `danger-solid`, `small`) | Buttons |
 | `nk-switch`, `nk-switch-label` (`aria-checked` / `:checked`) | iOS-style switch |
-| `nk-check` | Checkbox and radio |
+| `nk-check` (`:indeterminate` shows a dash) | Checkbox and radio |
 | `nk-slider`, `nk-slider-value` | Native range input |
 | `nk-field` (`f-label`, `f-desc`, `f-control`, `stacked`, `compact`), `nk-fields` | Settings row, stacked field, field grid |
 | `nk-profile-row` (`big-avatar`, `square`, `pr-actions`, `pr-remove`) | Avatar or workspace icon with its actions; an `<img>` in it is a chosen picture |

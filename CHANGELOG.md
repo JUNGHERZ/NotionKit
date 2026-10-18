@@ -4,6 +4,31 @@ All notable changes to NotionKit are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.21.0] – 2026-10-18
+
+### Added
+- **A checkbox that is `indeterminate` shows a dash.** `.nk-check input`
+  draws its own box (`appearance: none`) and styled `:checked` only, so the
+  mixed state – which `<nk-check indeterminate>` has always supported – looked
+  empty. Now the box fills with the accent and shows a bar. Checkboxes only:
+  a radio group without a choice matches `:indeterminate` as well and keeps
+  its empty circles. The state is a property, set by script; the docs
+  example does it in one line.
+- **`.nk-table th.select-all`** – the header of a selection column: a
+  checkbox instead of a name – empty, a dash for some rows, a check for all –
+  that sorts nothing (no pointer, no hover), as narrow as its box, its box
+  above the cells' boxes. Requested by Mailverse
+  (NotionKit-Elements#4); NotionKit Elements 1.21.0 renders it from a
+  checkbox column with `selectAll`.
+- State reference: `:indeterminate`.
+
+### Fixed
+- **A checkbox column grew its rows to 39.5px.** The form padding of
+  `.nk-check` and the first-line offset of its box added up inside a table
+  cell. In a table the checkbox is now one line tall with the box in its
+  middle: rows keep their 36px, the box stands beside the first line of a
+  wrapping row and, in a selection column, under the header's box.
+
 ## [1.20.0] – 2026-10-12
 
 ### Added
