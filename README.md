@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/version-1.21.0-2383e2?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/CSS-only-37352f?style=flat-square" alt="CSS only">
   <img src="https://img.shields.io/badge/components-~140-448361?style=flat-square" alt="Components">
-  <img src="https://img.shields.io/badge/gzip-15.1%20KB-d9730d?style=flat-square" alt="Size">
+  <img src="https://img.shields.io/badge/gzip-15.3%20KB-d9730d?style=flat-square" alt="Size">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="License">
   <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/changelog-v1.21.0-9065b0?style=flat-square" alt="Changelog"></a>
   <a href="https://www.npmjs.com/package/@jungherz-de/notionkit"><img src="https://img.shields.io/npm/v/@jungherz-de/notionkit?style=flat-square&color=cb3837&label=npm" alt="npm"></a>
@@ -61,7 +61,7 @@ NotionKit is the **CSS foundation** of a three-layer family: [NotionKit Elements
 - 🧩 **Shadow DOM ready** – ships a constructable stylesheet split into tokens and components, plus `::slotted()` twins, so web components adopt it without breaking branding
 - ✍️ **Editor adapter** – no editor of its own; a themed adapter layer for TipTap, BlockNote and Novel inside `.nk-block-host`
 - 🤖 **AI-ready** – ships with [`SKILL.md`](SKILL.md), a structured reference for LLMs and coding agents, including eight complete app skeletons
-- 🪶 **Lightweight** – 131 KB raw / 83 KB minified / 15.1 KB gzipped, no dependencies. The budget is 18 KB gzipped – up to 1.9.0 it was 14 KB, what a new connection delivers in its first round trip; CI keeps to it
+- 🪶 **Lightweight** – 133 KB raw / 84 KB minified / 15.3 KB gzipped, no dependencies. The budget is 18 KB gzipped – up to 1.9.0 it was 14 KB, what a new connection delivers in its first round trip; CI keeps to it
 - 🎯 **Prefixed naming** – `nk-*` classes, `--nk-*` tokens, no unprefixed global rules
 
 ---
